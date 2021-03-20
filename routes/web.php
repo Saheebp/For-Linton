@@ -24,6 +24,16 @@ Route::get('/', 'HomeController@home')->name('landing');
 Route::get('about', 'HomeController@about')->name('about');
 Route::get('terms', 'HomeController@terms')->name('terms');
 Route::get('shop', 'HomeController@shop')->name('shop');
+Route::get('contact', 'HomeController@contact')->name('contact');
+Route::get('wishlist', 'HomeController@wishlist')->name('wishlist');
+Route::get('account', 'HomeController@account')->name('account');
+Route::get('checkout', 'HomeController@checkout')->name('checkout');
+Route::get('cart', 'HomeController@cart')->name('cart');
+Route::get('track', 'HomeController@track')->name('track');
+Route::get('faqs', 'HomeController@faqs')->name('faqs');
+Route::get('locations', 'HomeController@locations')->name('locations');
+
+Route::get('product/detail/{id}', 'HomeController@detail')->name('product.detail');
 
 Route::get('customer/history', ['middleware' => 'auth', 'uses' => 'CustomerController@history'])->name('account.history');
 
@@ -50,7 +60,7 @@ Auth::routes();
 
 Route::middleware('auth')->group(function() {
     
-    Route::get('/home', 'HomeController@dashboard')->name('home');
+    Route::get('/home', 'HomeController@dashboard')->name('admin.home');
 
     Route::post('admin/bookings/select/vehicles', 'AdminBookingController@selectVehicle')->name('admin.booking.vehicles');
     Route::get('admin/bookings/details/{trip_id}/{noofseats}', 'AdminBookingController@collectDetails')->name('admin.booking.details');

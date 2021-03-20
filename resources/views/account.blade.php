@@ -1,127 +1,216 @@
 @extends(('layouts/frontend'))
 
-@section('booking')
-<section class="contact-area section-padding-100-0 position-relative" id="book" style="margin:150px 0 100px 0px;">
-    <div class="container">
-        <div class="row align-items-center justify-content-between">
-
-            <div class="col-12">
-                <!-- Section Heading -->
-                <div class="section-heading">
-                    <h3 class="mb-3">Your Account</h3>
-                    <h5>{{ Auth::user()->name }}</h5>
-                    <h5>{{ Auth::user()->email }}</h5>
-                    <h6>{{ Auth::user()->phone }}</h6>
-                    <h6>{{ Auth::user()->nok_name }}</h6>
-                    <h6>{{ Auth::user()->nok_phone }}</h6>
-                </div>
-            
-                <!-- Contact Form Area -->
-                <div class="contact-form-area mb-100">
-                    @if($referralstatus == 'true')
-                        <tag class="border border-dark p-2"> REFVTS{{ Auth::user()->id }}</tag>
-                        
-                        <br><br>
-                        Share Referral code to:
-                        <br>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//valgee.com/bookings/shared/referral/REFVTS{{ Auth::user()->id }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Facebook"><img width="30px;" src="{{asset('frontend/img/app-img/ifacebook.png')}}" alt=""></a>
-                        <a href="https://api.whatsapp.com/send?text=Hi%0A%0ABook%20for%20your%20next%20trip%20from%20ABUJA%20TO%20JOS%20on%20valgee.com%20using%20the%20code%20below%0A%0AREFVTS{{ Auth::user()->id }}%0A%0Ait%20qualifies%20me%20for%20a%20free%20ride%20on%20Valgee%20Transport%20Services%0A%0AYou%20get%20your%20referral%20code%20after%20your%20first%20successful%20booking%20www.valgee.com" data-action="share/whatsapp/share" onClick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on whatsapp"><img width="30px;" src="{{asset('frontend/img/app-img/iwhatsapp.png')}}" alt=""></a>
-                        <a href="https://twitter.com/intent/tweet?text=Hi%0A%0ABook%20for%20your%20next%20trip%20from%20ABUJA%20TO%20JOS%20on%20valgee.com%20using%20the%20code%20below%0A%0AREFVTS{{ Auth::user()->id }}%0A%0Ait%20qualifies%20me%20for%20a%20free%20ride%20on%20Valgee%20Transport%20Services%0A%0AYou%20get%20your%20referral%20code%20after%20your%20first%20successful%20booking%20www.valgee.com%0A%0A" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"><img width="30px;" src="{{asset('frontend/img/app-img/itwitter.png')}}" alt=""></a>
-                        <a href="https://pinterest.com/pin/create/button/?url=https%3A//valgee.com/frontend/img/app-img/valgee8.jpeg&media=Valgee%20Transport%20Services&description=Use%20this%20code%3A%20REFVTS{{ Auth::user()->id }}%20to%20book%20for%20your%20trip%20from%20ABUJA%20TO%20JOS%20and%20get%20me%20a%20free%20ride,%20you%20can%20do%20the%20same%20for%20yourself%20by%20visiting%20valgee.com,%20you%20get%20you%20referral%20code%20after%20your%20first%20successful%20booking" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Pintrest"><img width="30px;" src="{{asset('frontend/img/app-img/ipinterest.png')}}" alt=""></a>
-                        <br><br>
-                        <a style="font-size:16px;" data-toggle="modal" data-target="#HowItWorks"><tag class="text-success text-underline">Click here</tag> and Read on how this works</a>
-                    @endif
-                    <p class="text-danger" style="margin-bottom:0px;">You have {{ Auth::user()->referral_count ?? '0' }} referrals and a wallet balance of &#8358;{{ Auth::user()->wallet->sum('amount') ?? '0' }}</p>
-                    
-                    <h5 class="mt-5">Booking History</h5>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="table-responsive"> 
-                                <table class="table table-bordered">
-                                    
-                                    <tr>
-                                        <td style="width:12%; padding:10px;"><b>Route </b></td>
-                                        <td style="width:13%; padding:10px;"><b>Boking Date </b></td>
-                                        <td style="width:20%; padding:10px;"><b>Name </b></td>
-                                        <td style="width:5%; padding:10px;"><b>Reference </b></td>
-                                        <td style="width:5%; padding:10px;"><b>Amount </b></td>
-                                        <td style="width:5%; padding:10px;"><b>Status </b></td>
-                                        <td style="width:5%; padding:10px;" class="text-center"><b>Action </b></td>
-                                    </tr>
-                                    @foreach(Auth::user()->booking as $booking)
-                                    <tr>
-                                        <td style="padding:5px;">{{ $booking->trip->route->origin }} - {{ $booking->trip->route->destination }} : {{ date('h:i A', strtotime($booking->time)) }}</td>
-                                        <td style="padding:5px;">{{ date('d/m/Y', strtotime($booking->created_at)) }}, {{ date('h:i A', strtotime($booking->created_at)) }}</td>
-                                        <td style="padding:5px;">{{ $booking->name }}</td>
-                                        <td style="padding:5px;">{{ $booking->ref_no }}</td>
-                                        <td style="padding:5px;">&#8358;{{ number_format(floatval($booking->trip->amount), 2) }}</td>
-                                        <td style="padding:5px;" class="text-{{ $booking->status->style }}">{{ $booking->status->name }}</td>
-                                        <td style="padding:5px;" class="text-center"> 
-                                            @if( $booking->status_id == '0')
-                                            <form action="{{ route('client.booking.pay') }}" method="post">
-                                                @csrf
-                                                    <input type="hidden" name="booking_id" value="{{ $booking->id }}" >
-                                                    <button type="submit" class="btn btn-sm btn-success mt-1 ">Pay for Trip</button>
-                                                </form>
-                                            @else
-                                            <button type="submit" class="btn btn-sm btn-warning mt-1 ">Rate</button>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <b>Travel Notes:</b> <br>it’s a travel experience. we aim to help you create the most comfortable journey. 
+@section('content')
+    <!-- BREADCRUMB AREA START -->
+    <div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ltn__breadcrumb-inner text-center">
+                        <h1 class="ltn__page-title">My Account</h1>
+                        <div class="ltn__breadcrumb-list">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li>My Account</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-</section>
+    <!-- BREADCRUMB AREA END -->
 
+    <!-- WISHLIST AREA START -->
+    <div class="liton__wishlist-area pb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- PRODUCT TAB AREA START -->
+                    <div class="ltn__product-tab-area">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="ltn__tab-menu-list mb-50">
+                                        <div class="nav">
+                                            <a class="active show" data-toggle="tab" href="#liton_tab_1_1">Dashboard <i class="fas fa-home"></i></a>
+                                            <a data-toggle="tab" href="#liton_tab_1_2">Orders <i class="fas fa-file-alt"></i></a>
+                                            <a data-toggle="tab" href="#liton_tab_1_3">Downloads <i class="fas fa-arrow-down"></i></a>
+                                            <a data-toggle="tab" href="#liton_tab_1_4">address <i class="fas fa-map-marker-alt"></i></a>
+                                            <a data-toggle="tab" href="#liton_tab_1_5">Account Details <i class="fas fa-user"></i></a>
+                                            <a href="product.detail"
+                                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                                Logout <i class="fas fa-sign-out-alt"></i>
+                                            </a>
 
-<!-- Modal -->
-<div id="HowItWorks" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-body">
-        <p>
-            <h5>How the referral Code works!</h5>
-            <p>
-            Thank you for helping to grow the VALGEE family. The referral program encourages people to use the App and earn by referring your friends and family.
-            </p>
-            <p>
-            Everyone with a VALGEE account has a personal referral code that you can share with friends interested in traveling with VALGEE. 
-            An account and wallet are automatically created for you once you successfully make your first payment on www.valgee.com. You'll receive rewards into your wallet when a new customer uses your referral code and successfully pays for their first trip.
-            </p>
-            <p>
-            You are only eligible for one referral reward per individual. If your referral has already paid for a trip before, you may not be eligible for a reward.
-            </p>
-
-            <h6>Ways to find and share your invite code:</h6>
-            <p>
-            1. Login to your valgee account<br>
-            2. Copy or share the referral code available on your profile to your family and friends
-            </p>
-            <h6 class="text-danger">Please note that only first time users can use a referral code for booking</h6>
-            <p>For more terms and conditions <a href="{{ route('terms') }}" class="text-success text-underline">Click here</a>
-                    
-        </p>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active show" id="liton_tab_1_1">
+                                            <div class="ltn__myaccount-tab-content-inner">
+                                                <p>Hello <strong>UserName</strong> (not <strong>UserName</strong>? <small><a href="login-register.html">Log out</a></small> )</p>
+                                                <p>From your account dashboard you can view your <span>recent orders</span>, manage your <span>shipping and billing addresses</span>, and <span>edit your password and account details</span>.</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="liton_tab_1_2">
+                                            <div class="ltn__myaccount-tab-content-inner">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Order</th>
+                                                                <th>Date</th>
+                                                                <th>Status</th>
+                                                                <th>Total</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>Jun 22, 2019</td>
+                                                                <td>Pending</td>
+                                                                <td>$3000</td>
+                                                                <td><a href="cart.html">View</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>2</td>
+                                                                <td>Nov 22, 2019</td>
+                                                                <td>Approved</td>
+                                                                <td>$200</td>
+                                                                <td><a href="cart.html">View</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>3</td>
+                                                                <td>Jan 12, 2020</td>
+                                                                <td>On Hold</td>
+                                                                <td>$990</td>
+                                                                <td><a href="cart.html">View</a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="liton_tab_1_3">
+                                            <div class="ltn__myaccount-tab-content-inner">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Product</th>
+                                                                <th>Date</th>
+                                                                <th>Expire</th>
+                                                                <th>Download</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Carsafe - Car Service PSD Template</td>
+                                                                <td>Nov 22, 2020</td>
+                                                                <td>Yes</td>
+                                                                <td><a href="#"><i class="far fa-arrow-to-bottom mr-1"></i> Download File</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Carsafe - Car Service HTML Template</td>
+                                                                <td>Nov 10, 2020</td>
+                                                                <td>Yes</td>
+                                                                <td><a href="#"><i class="far fa-arrow-to-bottom mr-1"></i> Download File</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Carsafe - Car Service WordPress Theme</td>
+                                                                <td>Nov 12, 2020</td>
+                                                                <td>Yes</td>
+                                                                <td><a href="#"><i class="far fa-arrow-to-bottom mr-1"></i> Download File</a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="liton_tab_1_4">
+                                            <div class="ltn__myaccount-tab-content-inner">
+                                                <p>The following addresses will be used on the checkout page by default.</p>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-12 learts-mb-30">
+                                                        <h4>Billing Address <small><a href="#">edit</a></small></h4>
+                                                        <address>
+                                                            <p><strong>Alex Tuntuni</strong></p>
+                                                            <p>1355 Market St, Suite 900 <br>
+                                                                San Francisco, CA 94103</p>
+                                                            <p>Mobile: (123) 456-7890</p>
+                                                        </address>
+                                                    </div>
+                                                    <div class="col-md-6 col-12 learts-mb-30">
+                                                        <h4>Shipping Address <small><a href="#">edit</a></small></h4>
+                                                        <address>
+                                                            <p><strong>Alex Tuntuni</strong></p>
+                                                            <p>1355 Market St, Suite 900 <br>
+                                                                San Francisco, CA 94103</p>
+                                                            <p>Mobile: (123) 456-7890</p>
+                                                        </address>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="liton_tab_1_5">
+                                            <div class="ltn__myaccount-tab-content-inner mb-50">
+                                                <p>The following addresses will be used on the checkout page by default.</p>
+                                                <div class="ltn__form-box">
+                                                    <form action="#">
+                                                        <div class="row mb-50">
+                                                            <div class="col-md-6">
+                                                                <label>First name:</label>
+                                                                <input type="text" name="ltn__name">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Last name:</label>
+                                                                <input type="text" name="ltn__lastname">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Display Name:</label>
+                                                                <input type="text" name="ltn__lastname" placeholder="Ethan">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Display Email:</label>
+                                                                <input type="email" name="ltn__lastname" placeholder="example@example.com">
+                                                            </div>
+                                                        </div>
+                                                        <fieldset>
+                                                            <legend>Password change</legend>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <label>Current password (leave blank to leave unchanged):</label>
+                                                                    <input type="password" name="ltn__name">
+                                                                    <label>New password (leave blank to leave unchanged):</label>
+                                                                    <input type="password" name="ltn__lastname">
+                                                                    <label>Confirm new password:</label>
+                                                                    <input type="password" name="ltn__lastname">
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                        <div class="btn-wrapper">
+                                                            <button type="submit" class="btn theme-btn-1 btn-effect-1 text-uppercase">Save Changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PRODUCT TAB AREA END -->
+                </div>
+            </div>
+        </div>
     </div>
-
-  </div>
-</div>
-@stop
+    <!-- WISHLIST AREA START -->
+@endsection

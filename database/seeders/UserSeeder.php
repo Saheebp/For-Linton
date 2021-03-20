@@ -20,7 +20,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
-            'phone' => '00000000001'
+            'phone' => '00000000001',
+            'is_admin' => 'true'
         ]);
         $super->assignRole('Super');
 
@@ -30,7 +31,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
-            'phone' => '00000000002'
+            'phone' => '00000000002',
+            'is_admin' => 'true'
         ]);
         $director->assignRole('Director');
 
@@ -40,7 +42,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
-            'phone' => '00000000003'
+            'phone' => '00000000003',
+            'is_admin' => 'true'
         ]);
         $admin->assignRole('Admin');
 
@@ -50,7 +53,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'status_id' => 11, 
             'address' => '',
-            'phone' => '00000000004'
+            'phone' => '00000000004',
+            'is_admin' => 'true'
         ]);
         $agent->assignRole('Agent');
 
@@ -60,7 +64,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'phone' =>'00000000005',
             'address' => 'Zaramaganda rayfield rd',
-            'status_id' => 7
+            'status_id' => 7,
+            'is_admin' => 'false'
         ]);
         $customer->assignRole('Customer');
     }

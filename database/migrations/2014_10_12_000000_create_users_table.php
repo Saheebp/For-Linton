@@ -26,12 +26,14 @@ class CreateUsersTable extends Migration
 
             $table->string('profile_update_status')->default(0);
 
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('status_id')->default(1);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
 
             $table->string('phone')->default(null);
             $table->string('address')->default(null);
             $table->string('avatar')->nullable()->default(null);
+
+            $table->string('is_admin')->nullable()->default("false");
         });
     }
 

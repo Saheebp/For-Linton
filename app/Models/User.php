@@ -23,6 +23,7 @@ class User extends Authenticatable
         'avatar', 
         'status_id', 
         'profile_update_status',
+        'is_admin',
     ];
 
     protected $hidden = [

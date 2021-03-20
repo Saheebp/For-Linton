@@ -1,462 +1,321 @@
 @extends(('layouts/frontend'))
 
 @section('content')
-
-<!-- ##### Hero Area Start ##### -->
-<section class="hero-area section-padding-100-0 position-relative" style="margin-top:0px"  style="margin:150px 0 100px 0px;">
-    <div class="hero-post-slides owl-carousel">
-
-        <!-- Single Hero Post -->
-        <div class="single-hero-post bg-overlay">
-            <!-- Post Image -->
-            <div class="slide-img bg-img" style="background-image: url({{asset('frontend/img/app-img/1.jpg')}});"></div>
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <div class="col-12">
-                        <!-- Post Content -->
-                        <div class="hero-slides-content text-center">
-                            <h2>NEED A CAR HIRE SERVICE?</h2>
-                            <p>We consider it vital that you want the perfect vehicle so we always make sure you have a wide range of vehicles tailored to meet your needs.</p>
-                            <p>Intra & Inter State Car Hire Services.</p>
-                            <div class="welcome-btn-group">
-                                <a href="#contact" class="btn alazea-btn mr-30">GET STARTED</a>
-                                <a href="#contact" class="btn alazea-btn active">CONTACT US</a>
-                            </div>
+    <!-- BREADCRUMB AREA START -->
+    <div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ltn__breadcrumb-inner text-center">
+                        <h1 class="ltn__page-title">About Us</h1>
+                        <div class="ltn__breadcrumb-list">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li>About Us</li>
+                            </ul>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Single Hero Post -->
-        <div class="single-hero-post bg-overlay">
-            <!-- Post Image -->
-            <div class="slide-img bg-img" style="background-image: url({{asset('frontend/img/app-img/5.jpg')}});"></div>
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <div class="col-12">
-                        <!-- Post Content -->
-                        <div class="hero-slides-content text-center">
-                            <h2>BOOK YOUR TRIPS ONLINE</h2>
-                            <p>Our Online platform allows you select, shedule and pay for trips with ease.</p>
-                            <p>Intra & Inter State Car Hire Services.</p>
-                            <div class="welcome-btn-group">
-                                <a href="{{ route('landing')}}" class="btn alazea-btn mr-30">GET STARTED</a>
-                                <a href="#contact" class="btn alazea-btn active">CONTACT US</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Single Hero Post --> 
-        <!-- <div class="single-hero-post bg-overlay">
-            
-            <div class="slide-img bg-img" style="background-image: url({{asset('frontend/img/app-img/2.')}});"></div>
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <div class="col-12">
-                        
-                        <div class="hero-slides-content text-center">
-                            <h2>NEED A CAR HIRE SERVICE?</h2>
-                            <p>We consider it vital that you want the perfect vehicle so we always make sure you have a wide range of vehicles tailored to meet your needs.</p>
-                            <p>Intra & Inter State Car Hire Services.</p>
-                            <div class="welcome-btn-group">
-                                <a href="#" class="btn alazea-btn mr-30">GET STARTED</a>
-                                <a href="#contact" class="btn alazea-btn active">CONTACT US</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-    </div>
-</section>
-<!-- ##### Hero Area End ##### -->
-
-<section class="about-us-area section-padding-100-0" id="about">
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-12 col-lg-5">
-                <!-- Section Heading -->
-                <div class="section-heading">
-                    <h2 class="mb-3">ABOUT US</h2>
-                    <p>Valgee Transport Services (VTS) commenced car hire service on the 4th of June 2017. We are Strategically located in the urban area of Plateau State called Jos to meet the increasing the demand for charter services within the city and for trips to and from Jos.</p>
-                </div>
-                <p>We offer a unique service of transportation for those visiting Jos where safety, comfort, affordability and excellent customer service are our core values.
-                    We understand the need to travel in style, comfort and safety at all times.  We are committed to maintaining the highest standards when it comes to car hire service with our professionally trained drivers. Whatever your plans are, our reliable vehicles are ready to give you a smooth road experience.</p>
-
-            </div>
-
-            <div class="col-12 col-lg-6">
-                <div class="alazea-benefits-area">
-                    <div class="row">
-                        <!-- Single Benefits Area -->
-                        <div class="col-12">
-                            <div class="single-benefits-area">
-                                <h5>Vision</h5>
-                                <p>To be the most innovative and preferred transport service organisation in Nigeria and beyond</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Benefits Area -->
-                        <div class="col-12">
-                            <div class="single-benefits-area">
-                                <h5>Mission</h5> 
-                                <p>To deliver matchless transport service in Nigeria and beyond; through sustained innovation and continuous improvement of internal operations, leveraging on the state-of- the- art equipment and technology globally available thereby guaranteeing delight for all our stake holders
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Single Benefits Area -->
-                        <div class="col-12">
-                            <div class="single-benefits-area">
-                                <h5>Our Values</h5>
-                                <p>Innovation, Mutuality, Excellence, Integrity</p>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- BREADCRUMB AREA END -->
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="border-line"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ##### Service Area Start ##### -->
-<section class="our-services-area bg-gray section-padding-100-0" id="services">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <!-- Section Heading -->
-                <div class="section-heading text-center">
-                    <h2>OUR SERVICES</h2>
-                    <p>We provide the perfect service for you.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-between">
-            <div class="col-12 col-lg-6">
-                <div class="alazea-service-area mb-100">
-
-                    <!-- Single Service Area -->
-                    <div class="single-service-area d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
-                        <!-- Icon -->
-                        <div class="service-icon mr-30">
-                            <img src="{{asset('frontend/img/app-img/user.png')}}" alt="">
-                        </div>
-                        <!-- Content -->
-                        <div class="service-content">
-                            <h5>Hired Service</h5>
-                            <p>With VALGEE TRANSPORT SERVICES, hiring a car is not just about taking you from one place to another; it’s a travel experience. we aim to help you create the most comfortable journey and unforgettable memories. Car hire service should never be a challenge, and with our affordable price and track record of great service and quality, we aim to make you a satisfied and happy customer. With years of experience in the car hire industry, we know exactly what is needed if you want to a car that makes your trip swift and effortless.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-                <div class="alazea-service-area mb-100">
-                    <!-- Single Service Area -->
-                    <div class="single-service-area d-flex align-items-center wow fadeInUp" data-wow-delay="300ms">
-                        <!-- Icon -->
-                        <div class="service-icon mr-30">
-                            <img src="{{asset('frontend/img/app-img/users.png')}}" alt="">
-                        </div>
-                        <!-- Content -->
-                        <div class="service-content">
-                            <h5>Shared Service</h5>
-                            <p>With regular, reliable, scheduled and comfortable travel experience, there's never been a better time to travel with VTS. We have perfected the mini- bus travel experience to allow for relaxation and fun among friends and family. Our team of chauffeurs has the experience to get you where you need to be, while you enjoy your ride. We know the hassle of booking for a trip with scheduled time let us do the work! We are happy to work with you to find the perfect vehicle for you and your group on the dates that you need.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ##### Service Area End ##### -->
-
-<!-- ##### Portfolio Area Start ##### -->
-<section class="alazea-portfolio-area section-padding-100-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <!-- Section Heading -->
-                <div class="section-heading text-center">
-                    <h2>VALGEE TRANSPORT SERVICES</h2>
-                    <p>We devote all our experience and effort to customer satisfaction</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-        <!-- <div class="row">
-            <div class="col-12">
-                <div class="alazea-portfolio-filter">
-                    <div class="portfolio-filter">
-                        <button class="btn active" data-filter="*">All</button>
-                        <button class="btn" data-filter=".design">Coffee Design</button>
-                        <button class="btn" data-filter=".garden">Garden</button>
-                        <button class="btn" data-filter=".home-design">Home Design</button>
-                        <button class="btn" data-filter=".office-design">Office Design</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <div class="row alazea-portfolio">
-
-            <!-- Single Portfolio Area -->
-            <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp" data-wow-delay="200ms">
-            <!-- <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item design office-design wow fadeInUp" data-wow-delay="100ms"> -->
-                <!-- Portfolio Thumbnail -->
-                <div class="portfolio-thumbnail bg-img" style="background-image: url({{asset('frontend/img/app-img/8.jpg')}});"></div>
-                <!-- Portfolio Hover Text -->
-                <div class="portfolio-hover-overlay">
-                    <a href="{{asset('frontend/img/app-img/8.jpg')}}" class="portfolio-img d-flex align-items-center justify-content-center" title="Comfort">
-                        <div class="port-hover-text">
-                            <h3>We offer Comfort</h3>
-                            <h5>- Valgee</h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Single Portfolio Area -->
-            <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp" data-wow-delay="200ms">
-            <!-- <div class="col-12 col-lg-6 single_portfolio_item home-design wow fadeInUp" data-wow-delay="300ms"> -->
-                <!-- Portfolio Thumbnail -->
-                <div class="portfolio-thumbnail bg-img" style="background-image: url({{asset('frontend/img/app-img/1.jpg')}});"></div>
-                <!-- Portfolio Hover Text -->
-                <div class="portfolio-hover-overlay">
-                    <a href="{{asset('frontend/img/app-img/1.jpg')}}" class="portfolio-img d-flex align-items-center justify-content-center" title="Safety">
-                        <div class="port-hover-text">
-                            <h3>We are Safe</h3>
-                            <h5>- Valgee</h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Single Portfolio Area -->
-            <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp" data-wow-delay="200ms">
-                <!-- <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item design office-design wow fadeInUp" data-wow-delay="100ms"> -->
-                    <!-- Portfolio Thumbnail -->
-                    <div class="portfolio-thumbnail bg-img" style="background-image: url({{asset('frontend/img/app-img/8.jpg')}});"></div>
-                    <!-- Portfolio Hover Text -->
-                    <div class="portfolio-hover-overlay">
-                        <a href="{{asset('frontend/img/app-img/8.jpg')}}" class="portfolio-img d-flex align-items-center justify-content-center" title="Trained & Certified Drivers">
-                            <div class="port-hover-text">
-                                <h3>Well Trained Drivers</h3>
-                                <h5>- Valgee</h5>
+    <!-- FEATURE AREA START ( Feature - 3) -->
+    <div class="ltn__feature-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ltn__feature-item-box-wrap ltn__feature-item-box-wrap-2 ltn__border section-bg-6">
+                        <div class="ltn__feature-item ltn__feature-item-8">
+                            <div class="ltn__feature-icon">
+                                <img src="{{ asset('frontend/img/icons/svg/8-trolley.svg') }}" alt="#">
                             </div>
+                            <div class="ltn__feature-info">
+                                <h4>Free shipping</h4>
+                                <p>On all orders over $49.00</p>
+                            </div>
+                        </div>
+                        <div class="ltn__feature-item ltn__feature-item-8">
+                            <div class="ltn__feature-icon">
+                                <img src="{{ asset('frontend/img/icons/svg/9-money.svg') }}" alt="#">
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h4>15 days returns</h4>
+                                <p>Moneyback guarantee</p>
+                            </div>
+                        </div>
+                        <div class="ltn__feature-item ltn__feature-item-8">
+                            <div class="ltn__feature-icon">
+                                <img src="{{ asset('frontend/img/icons/svg/10-credit-card.svg') }}" alt="#">
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h4>Secure checkout</h4>
+                                <p>Protected by Paypal</p>
+                            </div>
+                        </div>
+                        <div class="ltn__feature-item ltn__feature-item-8">
+                            <div class="ltn__feature-icon">
+                                <img src="{{ asset('frontend/img/icons/svg/11-gift-card.svg') }}" alt="#">
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h4>Offer & gift here</h4>
+                                <p>On all orders over</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FEATURE AREA END -->
+
+    <!-- ABOUT US AREA START -->
+    <div class="ltn__about-us-area pt-90 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 align-self-center">
+                    <div class="about-us-info-wrap">
+                        <h2 class="mb-30 font-weight-6">Fiama - Powerful Theme for Shop</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nost exercit ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ABOUT US AREA END -->
+
+    <!-- VIDEO AREA START -->
+    <div class="ltn__video-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ltn__video-bg-img ltn__video-popup-height-5 section-bg-3--- bg-image pt-170 pb-150" data-bg="{{ asset('frontend/img/bg/1.jpg') }}" id="ltnr_video">
+                        <a class="ltn__video-icon-1" href="https://www.youtube.com/embed/J6oDTn_ENto?autoplay=1&showinfo=0" data-rel="lightcase:myCollection">
+                            <i class="icon-control-play"></i>
                         </a>
+                        <br>
+                        <div class="ltn__video-info d-none">
+                            <h1 class="white-color">APPS AWESOME VIDEO</h1>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Single Portfolio Area -->
-            <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp" data-wow-delay="200ms">
-            <!-- <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item design home-design wow fadeInUp" data-wow-delay="100ms"> -->
-                <!-- Portfolio Thumbnail -->
-                <div class="portfolio-thumbnail bg-img" style="background-image: url({{asset('frontend/img/app-img/6.jpg')}});"></div>
-                <!-- Portfolio Hover Text -->
-                <div class="portfolio-hover-overlay">
-                    <a href="{{asset('frontend/img/app-img/6.jpg')}}" class="portfolio-img d-flex align-items-center justify-content-center" title="Excellent Customer service">
-                        <div class="port-hover-text">
-                            <h3>Excellent customer service</h3>
-                            <h5>- Valgee</h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Single Portfolio Area -->
-            <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp" data-wow-delay="200ms">
-            <!-- <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item garden wow fadeInUp" data-wow-delay="200ms"> -->
-
-                <!-- Portfolio Thumbnail -->
-                <div class="portfolio-thumbnail bg-img" style="background-image: url({{asset('frontend/img/app-img/5.jpg')}});"></div>
-                <!-- Portfolio Hover Text -->
-                <div class="portfolio-hover-overlay">
-                    <a href="{{asset('frontend/img/app-img/5.jpg')}}" class="portfolio-img d-flex align-items-center justify-content-center" title="Affordability">
-                        <div class="port-hover-text">
-                            <h3>We are affordable</h3>
-                            <h5>- Valgee</h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Single Portfolio Area -->
-            <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp" data-wow-delay="200ms">
-            <!-- <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item garden design wow fadeInUp" data-wow-delay="300ms"> -->
-                <!-- Portfolio Thumbnail -->
-                <div class="portfolio-thumbnail bg-img" style="background-image: url({{asset('frontend/img/app-img/4.jpg')}});"></div>
-                <!-- Portfolio Hover Text -->
-                <div class="portfolio-hover-overlay">
-                    <a href="{{asset('frontend/img/app-img/valgee7.jpeg')}}" class="portfolio-img d-flex align-items-center justify-content-center" title="Style & Class">
-                        <div class="port-hover-text">
-                            <h3>Travel in Style</h3>
-                            <h5>- Valgee</h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Single Portfolio Area -->
-            <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp" data-wow-delay="200ms">
-            <!-- <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item garden office-design wow fadeInUp" data-wow-delay="400ms"> -->
-                <!-- Portfolio Thumbnail -->
-                <div class="portfolio-thumbnail bg-img" style="background-image: url({{asset('frontend/img/app-img/3.jpg')}});"></div>
-                <!-- Portfolio Hover Text -->
-                <div class="portfolio-hover-overlay">
-                    <a href="{{asset('frontend/img/app-img/valgee6.jpeg')}}" class="portfolio-img d-flex align-items-center justify-content-center" title="Professionalism">
-                        <div class="port-hover-text">
-                            <h3>We are Professional</h3>
-                            <h5>- Valgee</h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Single Portfolio Area -->
-            <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp" data-wow-delay="200ms">
-            <!-- <div class="col-12 col-sm-6 col-lg-3 single_portfolio_item garden wow fadeInUp" data-wow-delay="200ms"> -->
-                <!-- Portfolio Thumbnail -->
-                <div class="portfolio-thumbnail bg-img" style="background-image: url({{asset('frontend/img/app-img/2.jpg')}});"></div>
-                <!-- Portfolio Hover Text -->
-                <div class="portfolio-hover-overlay">
-                    <a href="{{asset('frontend/img/app-img/valgee5.jpeg')}}" class="portfolio-img d-flex align-items-center justify-content-center" title="Committment">
-                        <div class="port-hover-text">
-                            <h3>Committment</h3>
-                            <h5>- Valgee</h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-<!-- ##### Portfolio Area End ##### -->
-
-<!-- ##### Subscribe Area Start ##### -->
-<section class="subscribe-newsletter-area bg-gray" style="background-image: url();">
-        
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="border-line"></div>
             </div>
         </div>
     </div>
+    <!-- VIDEO AREA END -->
 
-    <div class="container">
-        <div class="row align-items-center justify-content-between">
-            <div class="col-12 col-lg-5">
-                <!-- Section Heading -->
-                <div class="section-heading mb-0">
-                    <h2>Join the Newsletter</h2>
-                    <p>Subscribe to our newsletter and get notified about news and benefits</p>
-                </div>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="subscribe-form">
-                    <form action="#" method="get">
-                        <input type="email" name="subscribe-email" id="subscribeEmail" placeholder="Enter your email">
-                        <button type="submit" class="btn alazea-btn">SUBSCRIBE</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Subscribe Side Thumbnail -->
-    <div class="subscribe-side-thumb wow fadeInUp" data-wow-delay="500ms">
-        <img class="first-img" src="#" alt="">
-    </div>
-</section>
-<!-- ##### Subscribe Area End ##### -->
-
-<!-- ##### Contact Area Start ##### -->
-<section class="contact-area section-padding-100-0" id="contact">
-    <div class="container">
-        <div class="row align-items-center justify-content-between">
-            <div class="col-12 col-lg-5">
-                <!-- Section Heading -->
-                <div class="section-heading">
-                    <h2>GET IN TOUCH</h2>
-                    <p>Send us a message, we will call back later</p>
-                </div>
-                <!-- Contact Form Area -->
-                <div class="contact-form-area mb-100">
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                            {{ session('error') }}
+    <!-- TESTIMONIAL AREA START -->
+    <div class="testimonial-area pt-95 pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-area text-center">
+                        <h1 class="section-title section-title-border">client says</h1>
                     </div>
-                @endif
-                @if (session('success'))
-                    <div class="alert alert-success">
-                            {{ session('success') }}
-                    </div>
-                @endif
-                    <form action="{{ route('messages.store')}}" method="POST">
-                    @csrf
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="contact-name" name="firstname" placeholder="First Name">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="contact-name" name="lastname" placeholder="Last Name">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-7">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="contact-email" name="email" placeholder="Your Email">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-5">
-                                <div class="form-group">
-                                    <input type="tel" class="form-control" id="contact-phone" name="phone" placeholder="Your Phone">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <textarea class="form-control" name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn alazea-btn mt-15">Send Message</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
-
-            <div class="col-12 col-lg-6">
-                <!-- Google Maps -->
-                <div class="map-area mb-100">  
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d17709.214090124267!2d8.86637344267927!3d9.901062292504605!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x105373a9380c969b%3A0x47ad0f1e4d2366bc!2sGarden%20Chinese%20and%20Continental%20Restaurant!5e0!3m2!1sen!2sng!4v1589461070809!5m2!1sen!2sng" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-md-12  col-sm-12 col-xs-12">
+                    <!-- Testimonial Wrap -->
+                    <div class="ltn__testimonial-7-wrap text-center">
+                        <div class="ltn__testimonial-7-image-slider">
+                            <div class="testimonial-image">
+                                <img src="{{ asset('frontend/img/team/1.jpg') }}" alt="Images of Testimonial"/>
+                            </div>
+                            <div class="testimonial-image">
+                                <img src="{{ asset('frontend/img/team/2.jpg') }}" alt="Images of Testimonial"/>
+                            </div>
+                            <div class="testimonial-image">
+                                <img src="{{ asset('frontend/img/team/3.jpg') }}" alt="Images of Testimonial"/>
+                            </div>
+                            <div class="testimonial-image">
+                                <img src="{{ asset('frontend/img/team/4.jpg') }}" alt="Images of Testimonial"/>
+                            </div>
+                        </div>
+                        <!--End Testimonial Wrap -->
+                        <!--Start Testimonial Text Slider -->
+                        <div class="ltn__testimonial-7-text-slider slick-arrow-1">
+                            <div class="testimonial-info">
+                                <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comm consequat.</p>
+                                <h5>Kelian Anderson</h5>
+                                <h6>Our Client</h6>
+                            </div>
+                            <div class="testimonial-info">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comm consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <h5>Kelian Anderson</h5>
+                                <h6>Our Client</h6>
+                            </div>
+                            <div class="testimonial-info">
+                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comm consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <h5>Kelian Anderson</h5>
+                                <h6>Our Client</h6>
+                            </div>
+                            <div class="testimonial-info">
+                                <p>voluptate velit esse cillum dolore eu fugiat nulla pariatur Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comm consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse .</p>
+                                <h5>Kelian Anderson</h5>
+                                <h6>Our Client</h6>
+                            </div>
+                        </div>
+                        <!--End Testimonial Text Slider -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<!-- ##### Contact Area End ##### -->
+    <!-- TESTIMONIAL AREA END -->
 
-@stop
+    <!-- BANNER AREA START -->
+    <div class="ltn__banner-area ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ltn__banner-item">
+                        <div class="ltn__banner-img">
+                            <a href="shop.html"><img src="{{ asset('frontend/img/banner/10.jpg') }}" alt="Banner Image"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BANNER AREA END -->
+
+    <!-- BLOG AREA START (blog-3) -->
+    <div class="ltn__blog-area  pt-60 pb-30">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-area text-center">
+                        <h1 class="section-title section-title-border">latest news</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row  ltn__blog-slider-one-active slick-arrow-1">
+                <!-- Blog Item -->
+                <div class="col-lg-12">
+                    <div class="ltn__blog-item">
+                        <div class="ltn__blog-img">
+                            <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/1.jpg') }}" alt="#"></a>
+                        </div>
+                        <div class="ltn__blog-brief">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-author d-none">
+                                        <a href="#">by: Admin</a>
+                                    </li>
+                                    <li>
+                                        <span> Nov 18, 2020</span>
+                                    </li>
+                                    <li class="ltn__blog-comment">
+                                        <a href="#"><i class="icon-speech"></i> 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h3 class="ltn__blog-title blog-title-line"><a href="blog-details.html">Lorem ipsum dolor sit amet con adipisicing elit sed </a></h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog Item -->
+                <div class="col-lg-12">
+                    <div class="ltn__blog-item">
+                        <div class="ltn__blog-img">
+                            <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/2.jpg') }}" alt="#"></a>
+                        </div>
+                        <div class="ltn__blog-brief">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-author d-none">
+                                        <a href="#">by: Admin</a>
+                                    </li>
+                                    <li>
+                                        <span> Nov 18, 2020</span>
+                                    </li>
+                                    <li class="ltn__blog-comment">
+                                        <a href="#"><i class="icon-speech"></i> 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h3 class="ltn__blog-title blog-title-line"><a href="blog-details.html">Lorem ipsum dolor sit amet con adipisicing elit sed </a></h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog Item -->
+                <div class="col-lg-12">
+                    <div class="ltn__blog-item">
+                        <div class="ltn__blog-img">
+                            <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/3.jpg') }}" alt="#"></a>
+                        </div>
+                        <div class="ltn__blog-brief">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-author d-none">
+                                        <a href="#">by: Admin</a>
+                                    </li>
+                                    <li>
+                                        <span> Nov 18, 2020</span>
+                                    </li>
+                                    <li class="ltn__blog-comment">
+                                        <a href="#"><i class="icon-speech"></i> 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h3 class="ltn__blog-title blog-title-line"><a href="blog-details.html">Lorem ipsum dolor sit amet con adipisicing elit sed </a></h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog Item -->
+                <div class="col-lg-12">
+                    <div class="ltn__blog-item">
+                        <div class="ltn__blog-img">
+                            <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/4.jpg') }}" alt="#"></a>
+                        </div>
+                        <div class="ltn__blog-brief">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-author d-none">
+                                        <a href="#">by: Admin</a>
+                                    </li>
+                                    <li>
+                                        <span> Nov 18, 2020</span>
+                                    </li>
+                                    <li class="ltn__blog-comment">
+                                        <a href="#"><i class="icon-speech"></i> 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h3 class="ltn__blog-title blog-title-line"><a href="blog-details.html">Lorem ipsum dolor sit amet con adipisicing elit sed </a></h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog Item -->
+                <div class="col-lg-12">
+                    <div class="ltn__blog-item">
+                        <div class="ltn__blog-img">
+                            <a href="blog-details.html"><img src="{{ asset('frontend/img/blog/5.jpg') }}" alt="#"></a>
+                        </div>
+                        <div class="ltn__blog-brief">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-author d-none">
+                                        <a href="#">by: Admin</a>
+                                    </li>
+                                    <li>
+                                        <span> Nov 18, 2020</span>
+                                    </li>
+                                    <li class="ltn__blog-comment">
+                                        <a href="#"><i class="icon-speech"></i> 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h3 class="ltn__blog-title blog-title-line"><a href="blog-details.html">Lorem ipsum dolor sit amet con adipisicing elit sed </a></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+        </div>
+    </div>
+    <!-- BLOG AREA END -->
+@endsection
