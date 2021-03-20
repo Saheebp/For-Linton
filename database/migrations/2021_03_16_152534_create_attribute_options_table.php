@@ -19,6 +19,7 @@ class CreateAttributeOptionsTable extends Migration
 
             $table->string('name');
             $table->string('description')->nullable()->default(null);
+            $table->string('value')->nullable()->default(null);
 
             $table->unsignedBigInteger('attribute_id')->nullable()->default(null);
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('restrict');
