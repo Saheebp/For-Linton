@@ -23,6 +23,9 @@ class CreateTicketsTable extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+
+            $table->unsignedBigInteger('status_id')->default(1);
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
         });
     }
 

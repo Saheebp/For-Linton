@@ -10,7 +10,7 @@
                         <h1 class="ltn__page-title">Checkout</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="{{ route('home') }}">Home</a></li>
                                 <li>Checkout</li>
                             </ul>
                         </div>
@@ -213,27 +213,27 @@
                             <tbody>
                                 <tr>
                                     <td>Brake Conversion Kit <strong>× 2</strong></td>
-                                    <td>$298.00</td>
+                                    <td>&#8358;298.00</td>
                                 </tr>
                                 <tr>
                                     <td>OE Replica Wheels <strong>× 2</strong></td>
-                                    <td>$170.00</td>
+                                    <td>&#8358;170.00</td>
                                 </tr>
                                 <tr>
                                     <td>Wheel Bearing Retainer <strong>× 2</strong></td>
-                                    <td>$150.00</td>
+                                    <td>&#8358;150.00</td>
                                 </tr>
                                 <tr>
                                     <td>Shipping and Handing</td>
-                                    <td>$15.00</td>
+                                    <td>&#8358;15.00</td>
                                 </tr>
                                 <tr>
                                     <td>Vat</td>
-                                    <td>$00.00</td>
+                                    <td>&#8358;00.00</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Order Total</strong></td>
-                                    <td><strong>$633.00</strong></td>
+                                    <td><strong>&#8358;633.00</strong></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -93,7 +93,7 @@
                 <div class="row">
                     <div class="col logo-column">
                         <div class="site-logo">
-                            <a href="index.html"><img src="img/logo.png" alt="Logo"></a>
+                            <a href="{{ route('home') }}"><img src="img/logo.png" alt="Logo"></a>
                         </div>
                     </div>
                     <div class="col header-menu-column">
@@ -101,7 +101,7 @@
                             <nav>
                                 <div class="ltn__main-menu">
                                     <ul>
-                                        <li class="menu-icon"><a href="index.html">Home</a></li>
+                                        <li class="menu-icon"><a href="{{ route('home') }}">Home</a></li>
                                         <li><a href="shop.html">Buy a Product</a></li>
                                         <li><a href="contact.html">Talk to Us</a></li>
                                         <li><a href="about.html">About Us</a></li>
@@ -303,7 +303,7 @@
         <div class="ltn__utilize-menu-inner ltn__scrollbar">
             <div class="ltn__utilize-menu-head">
                 <div class="site-logo">
-                    <a href="index.html"><img src="img/logo.png" alt="Logo"></a>
+                    <a href="{{ route('home') }}"><img src="img/logo.png" alt="Logo"></a>
                 </div>
                 <button class="ltn__utilize-close">×</button>
             </div>
@@ -315,7 +315,7 @@
             </div>
             <div class="ltn__utilize-menu">
                 <ul>
-                    <li class="menu-icon"><a href="index.html">Home</a></li>
+                    <li class="menu-icon"><a href="{{ route('home') }}">Home</a></li>
                     <li><a href="shop.html">Buy a Product</a></li>
                     <li><a href="contact.html">Talk to Us</a></li>
                     <li><a href="about.html">About Us</a></li>

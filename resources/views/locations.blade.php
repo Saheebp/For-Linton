@@ -12,7 +12,7 @@
                         <h1 class="ltn__page-title">Google Map Locations</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="{{ route('home') }}">Home</a></li>
                                 <li>Google Map Locations</li>
                             </ul>
                         </div>

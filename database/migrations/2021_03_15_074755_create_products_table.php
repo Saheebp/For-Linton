@@ -34,6 +34,9 @@ class CreateProductsTable extends Migration
             
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
+
+            $table->unsignedBigInteger('option_id');
+            $table->foreign('option_id')->references('id')->on('attribute_options')->onDelete('restrict');
             
         });
     }

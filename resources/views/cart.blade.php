@@ -10,7 +10,7 @@
                         <h1 class="ltn__page-title">Cart</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="{{ route('home') }}">Home</a></li>
                                 <li>Cart</li>
                             </ul>
                         </div>
@@ -46,13 +46,13 @@
                                         <td class="cart-product-info">
                                             <h4><a href="{{ route('product.detail',  [1]) }}">Brake Conversion Kit</a></h4>
                                         </td>
-                                        <td class="cart-product-price">$149.00</td>
+                                        <td class="cart-product-price">&#8358;149.00</td>
                                         <td class="cart-product-quantity">
                                             <div class="cart-plus-minus">
                                                 <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
                                             </div>
                                         </td>
-                                        <td class="cart-product-subtotal">$298.00</td>
+                                        <td class="cart-product-subtotal">&#8358;298.00</td>
                                     </tr>
                                     <tr>
                                         <td class="cart-product-remove">x</td>
@@ -62,13 +62,13 @@
                                         <td class="cart-product-info">
                                             <h4><a href="{{ route('product.detail',  [1]) }}">OE Replica Wheels</a></h4>
                                         </td>
-                                        <td class="cart-product-price">$85.00</td>
+                                        <td class="cart-product-price">&#8358;85.00</td>
                                         <td class="cart-product-quantity">
                                             <div class="cart-plus-minus">
                                                 <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
                                             </div>
                                         </td>
-                                        <td class="cart-product-subtotal">$170.00</td>
+                                        <td class="cart-product-subtotal">&#8358;170.00</td>
                                     </tr>
                                     <tr>
                                         <td class="cart-product-remove">x</td>
@@ -78,13 +78,13 @@
                                         <td class="cart-product-info">
                                             <h4><a href="{{ route('product.detail',  [1]) }}">Wheel Bearing Retainer</a></h4>
                                         </td>
-                                        <td class="cart-product-price">$75.00</td>
+                                        <td class="cart-product-price">&#8358;75.00</td>
                                         <td class="cart-product-quantity">
                                             <div class="cart-plus-minus">
                                                 <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
                                             </div>
                                         </td>
-                                        <td class="cart-product-subtotal">$150.00</td>
+                                        <td class="cart-product-subtotal">&#8358;150.00</td>
                                     </tr>
                                     <tr class="cart-coupon-row">
                                         <td colspan="6">
@@ -106,19 +106,19 @@
                                 <tbody>
                                     <tr>
                                         <td>Cart Subtotal</td>
-                                        <td>$618.00</td>
+                                        <td>&#8358;618.00</td>
                                     </tr>
                                     <tr>
                                         <td>Shipping and Handing</td>
-                                        <td>$15.00</td>
+                                        <td>&#8358;15.00</td>
                                     </tr>
                                     <tr>
                                         <td>Vat</td>
-                                        <td>$00.00</td>
+                                        <td>&#8358;00.00</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Order Total</strong></td>
-                                        <td><strong>$633.00</strong></td>
+                                        <td><strong>&#8358;633.00</strong></td>
                                     </tr>
                                 </tbody>
                             </table>

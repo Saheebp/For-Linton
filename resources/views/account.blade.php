@@ -10,7 +10,7 @@
                         <h1 class="ltn__page-title">My Account</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="{{ route('home') }}">Home</a></li>
                                 <li>My Account</li>
                             </ul>
                         </div>
@@ -76,21 +76,21 @@
                                                                 <td>1</td>
                                                                 <td>Jun 22, 2019</td>
                                                                 <td>Pending</td>
-                                                                <td>$3000</td>
+                                                                <td>&#8358;3000</td>
                                                                 <td><a href="cart.html">View</a></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>2</td>
                                                                 <td>Nov 22, 2019</td>
                                                                 <td>Approved</td>
-                                                                <td>$200</td>
+                                                                <td>&#8358;200</td>
                                                                 <td><a href="cart.html">View</a></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>3</td>
                                                                 <td>Jan 12, 2020</td>
                                                                 <td>On Hold</td>
-                                                                <td>$990</td>
+                                                                <td>&#8358;990</td>
                                                                 <td><a href="cart.html">View</a></td>
                                                             </tr>
                                                         </tbody>

@@ -10,7 +10,7 @@
                         <h1 class="ltn__page-title">About Us</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="{{ route('home') }}">Home</a></li>
                                 <li>About Us</li>
                             </ul>
                         </div>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="ltn__feature-info">
                                 <h4>Free shipping</h4>
-                                <p>On all orders over $49.00</p>
+                                <p>On all orders over &#8358;49.00</p>
                             </div>
                         </div>
                         <div class="ltn__feature-item ltn__feature-item-8">
@@ -92,7 +92,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ltn__video-bg-img ltn__video-popup-height-5 section-bg-3--- bg-image pt-170 pb-150" data-bg="{{ asset('frontend/img/bg/1.jpg') }}" id="ltnr_video">
-                        <a class="ltn__video-icon-1" href="https://www.youtube.com/embed/J6oDTn_ENto?autoplay=1&showinfo=0" data-rel="lightcase:myCollection">
+                        <a class="ltn__video-icon-1" href="https://www.youtube.com/embed/znALGF6aMj8" data-rel="lightcase:myCollection">
                             <i class="icon-control-play"></i>
                         </a>
                         <br>

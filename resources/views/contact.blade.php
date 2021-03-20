@@ -10,7 +10,7 @@
                         <h1 class="ltn__page-title">Contact Us</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="{{ route('home') }}">Home</a></li>
                                 <li>Contact Us</li>
                             </ul>
                         </div>

@@ -24,7 +24,7 @@ $(document).ready(function () {
             $('button[type="submit"]').html("CONTINUE")
                 .removeClass("btn-primary")
                 .addClass("btn-success").on("click",function(){
-                window.location.href = 'index.html';
+                window.location.href = '{{ route('home') }}';
             });
 
             //show avatar

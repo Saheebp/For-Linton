@@ -26,6 +26,7 @@ class Product extends Model
         
         'category_id',
         'brand_id',
+        'option_id',
     ];
 
     public function category() {
@@ -38,5 +39,9 @@ class Product extends Model
 
     public function orderItem() {
         return $this->hasOne(OrderItem::class);
+    }
+    
+    public function option() {
+        return $this->hasMany(AttributeOption::class);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComplaintsTable extends Migration
+class CreateNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,21 @@ class CreateComplaintsTable extends Migration
      */
     public function up()
     {
-        Schema::create('complaints', function (Blueprint $table) {
-            
-            $table->timestamps();
+        Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->timestamps();
 
-            $table->string('name');
-            $table->string('email');
-            $table->string('message');
+            $table->string('title');
+            $table->string('body1')->nullable()->default(null);
+            $table->string('body2')->nullable()->default(null);
+            $table->string('body3')->nullable()->default(null);
             
+            $table->string('image1')->nullable()->default(null);
+            $table->string('image2')->nullable()->default(null);
+            $table->string('image3')->nullable()->default(null);
+
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-
-            $table->unsignedBigInteger('status_id')->default(1);
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
         });
     }
 
@@ -37,6 +38,6 @@ class CreateComplaintsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('complaints');
+        Schema::dropIfExists('news');
     }
 }
