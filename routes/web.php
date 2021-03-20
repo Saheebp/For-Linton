@@ -60,7 +60,7 @@ Auth::routes();
 
 Route::middleware('auth')->group(function() {
     
-    Route::get('/home', 'HomeController@dashboard')->name('admin.home');
+    Route::get('/admin/home', 'HomeController@dashboard')->name('admin.home');
 
     Route::post('admin/bookings/select/vehicles', 'AdminBookingController@selectVehicle')->name('admin.booking.vehicles');
     Route::get('admin/bookings/details/{trip_id}/{noofseats}', 'AdminBookingController@collectDetails')->name('admin.booking.details');
