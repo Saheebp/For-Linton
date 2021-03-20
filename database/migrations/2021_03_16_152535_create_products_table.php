@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->softDeletes();
             
             $table->string('name');
-            $table->string('description');
-            $table->string('rating');
+            $table->string('description')->nullable()->default(null);
+            $table->string('rating')->nullable()->default(null);
             $table->string('image1')->nullable()->default(null);
             $table->string('image2')->nullable()->default(null);
             $table->string('quantity');
@@ -29,13 +29,13 @@ class CreateProductsTable extends Migration
             $table->string('orders_count')->default(0);
             $table->boolean('visibility')->default(true);
 
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->nullable()->default(null);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
             
-            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('brand_id')->nullable()->default(null);
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
 
-            $table->unsignedBigInteger('option_id');
+            $table->unsignedBigInteger('option_id')->nullable()->default(null);
             $table->foreign('option_id')->references('id')->on('attribute_options')->onDelete('restrict');
             
         });

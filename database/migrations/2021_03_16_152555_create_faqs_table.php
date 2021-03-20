@@ -17,8 +17,8 @@ class CreateFaqsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
 
-            $table->string('question');
-            $table->string('answer');
+            $table->string('question')->nullable()->default(null);
+            $table->string('answer')->nullable()->default(null);
         });
     }
 

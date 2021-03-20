@@ -19,8 +19,8 @@ class CreateComplaintsTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('name');
-            $table->string('email');
-            $table->string('message');
+            $table->string('email')->nullable()->default(null);
+            $table->string('message')->nullable()->default(null);
             
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');

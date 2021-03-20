@@ -17,17 +17,17 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
 
-            $table->string('delivery_method');
-            $table->string('delivery_cost');
-            $table->string('comment');
+            $table->string('delivery_method')->nullable()->default(null);
+            $table->string('delivery_cost')->nullable()->default(null);
+            $table->string('comment')->nullable()->default(null);
             
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
 
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('status_id')->nullable()->default(null);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
 
-            $table->unsignedBigInteger('payment_id');
+            $table->unsignedBigInteger('payment_id')->nullable()->default(null);
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('restrict');
         });
     }
