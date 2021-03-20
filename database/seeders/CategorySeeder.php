@@ -28,6 +28,14 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Grains',
                 'description'  => 'All Grains'
+            ],
+            [
+                'name' => 'Spices',
+                'description'  => 'All Spices'
+            ],
+            [
+                'name' => 'Tubers',
+                'description'  => 'All Tubers'
             ]
         ];
 

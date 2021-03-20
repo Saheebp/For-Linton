@@ -6,8 +6,11 @@ use View;
 use App\Notifications\ContactUs;
 use Notification;
 
-use App\User;
-use App\Product;
+use App\Models\User;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Attribute;
+use App\Models\AttributeOption;
 
 use Carbon\Carbon;
 
@@ -34,7 +37,7 @@ class HomeController extends Controller
         return view('admin.dashboard', [
             'customers' => $customers,
             'products' => $products
-            ]);
+        ]);
     }
 
     public function index()
@@ -59,7 +62,15 @@ class HomeController extends Controller
 
     public function shop()
     {
-        return view('shop');   
+        $categories = Category::all();
+        $attributes = Attribute::all();
+        $options = AttributeOption::all();
+
+        return view('shop', [
+            'categories' => $categories,
+            'attributes' => $attributes,
+            'options' => $options
+        ]);
     }
 
     public function contact()

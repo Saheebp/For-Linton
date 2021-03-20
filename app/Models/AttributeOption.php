@@ -11,7 +11,9 @@ class AttributeOption extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'attribute_id',
+        'value'
     ];
     
     public function products() {

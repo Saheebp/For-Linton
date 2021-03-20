@@ -615,60 +615,28 @@
                         <div class="widget ltn__menu-widget">
                             <h4 class="ltn__widget-title">categories</h4>
                             <ul>
-                                <li><a href="#">Clothing</a></li>
-                                <li><a href="#">Bags</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">Jewelry</a></li>
-                                <li><a href="#">Accessories</a></li>
-                                <li><a href="#">Food / Drink Store</a></li>
-                                <li><a href="#">Gift Store</a></li>
-                                <li><a href="#">Accessories</a></li>
-                                <li><a href="#">Watch</a></li>
-                                <li><a href="#">Uncategorized</a></li>
-                                <li><a href="#">Other</a></li>
+                                @foreach ($categories as $category )
+                                <li><a href="#">{{ $category->name }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
-                        <!-- Color Widget -->
-                        <div class="widget ltn__color-widget">
-                            <h4 class="ltn__widget-title">Color</h4>
-                            <ul>
-                                <li class="theme"><a href="#"></a></li>
-                                <li class="green-2"><a href="#"></a></li>
-                                <li class="blue-2"><a href="#"></a></li>
-                                <li class="white"><a href="#"></a></li>
-                                <li class="red"><a href="#"></a></li>
-                                <li class="yellow"><a href="#"></a></li>
 
-                                <!-- <li class="black"><a href="#"></a></li>
-                                <li class="silver"><a href="#"></a></li>
-                                <li class="gray"><a href="#"></a></li>
-                                <li class="maroon"><a href="#"></a></li>
-                                <li class="olive"><a href="#"></a></li>
-                                <li class="lime"><a href="#"></a></li>
-                                <li class="aqua"><a href="#"></a></li>
-                                <li class="teal"><a href="#"></a></li>
-                                <li class="blue"><a href="#"></a></li>
-                                <li class="navy"><a href="#"></a></li>
-                                <li class="fuchsia"><a href="#"></a></li>
-                                <li class="purple"><a href="#"></a></li>
-                                <li class="pink"><a href="#"></a></li>
-                                <li class="nude"><a href="#"></a></li>
-                                <li class="orange"><a href="#"></a></li> -->
-                            </ul>
-                        </div>
-                        <!-- Size Widget -->
-                        <div class="widget ltn__size-widget">
-                            <h4 class="ltn__widget-title">Size</h4>
+                        <!-- Color Widget -->
+                        @foreach ($attributes as $attribute )
+                        <div class="widget ltn__menu-widget">
+                            <h4 class="ltn__widget-title">{{ $attribute->name }}</h4>
                             <ul>
-                                <li><a href="#">S</a></li>
-                                <li><a href="#">M</a></li>
-                                <li><a href="#">L</a></li>
-                                <li><a href="#">XL</a></li>
-                                <li><a href="#">XXL</a></li>
+                            @foreach ($attribute->options as $option )
+                                <li class=""><a href="#">{{ $option->name }} </a></li>
+                            @endforeach
                             </ul>
                         </div>
+                        @endforeach
+                        
+                       
+
                         <!-- Tagcloud Widget -->
-                        <div class="widget ltn__tagcloud-widget">
+                        <!-- <div class="widget ltn__tagcloud-widget">
                             <h4 class="ltn__widget-title">Tags</h4>
                             <ul>
                                 <li><a href="#">Popular</a></li>
@@ -686,7 +654,7 @@
                                 <li><a href="#">Oil Change</a></li>
                                 <li><a href="#">Body Color</a></li>
                             </ul>
-                        </div>
+                        </div> -->
                         <!-- Top Rated Product Widget -->
                         <div class="widget ltn__top-rated-product-widget d-none">
                             <h4 class="ltn__widget-title ltn__widget-title-border---">Top Rated Product</h4>
