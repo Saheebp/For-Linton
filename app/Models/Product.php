@@ -27,6 +27,7 @@ class Product extends Model
         'category_id',
         'brand_id',
         'option_id',
+        'status_id',
     ];
 
     public function category() {
@@ -43,5 +44,9 @@ class Product extends Model
     
     public function option() {
         return $this->hasMany(AttributeOption::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
     }
 }

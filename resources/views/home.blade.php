@@ -23,7 +23,7 @@
                                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
                                                             </div>
                                                             <div class="btn-wrapper animated">
-                                                                <a href="service.html" class="theme-btn-1 btn btn-round">Shop Now</a>
+                                                                <a href="{{ route('shop') }}" class="theme-btn-1 btn btn-round">Shop Now</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -54,7 +54,7 @@
                                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
                                                             </div>
                                                             <div class="btn-wrapper animated">
-                                                                <a href="service.html" class="theme-btn-1 btn btn-round">Shop Now</a>
+                                                                <a href="{{ route('shop') }}" class="theme-btn-1 btn btn-round">Shop Now</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -84,28 +84,28 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="ltn__banner-item">
                         <div class="ltn__banner-img">
-                            <a href="shop.html"><img src="{{ asset('frontend/img/banner/4.jpg') }}" alt="Banner Image"></a>
+                            <a href="{{ route('shop') }}"><img src="{{ asset('frontend/img/banner/4.jpg') }}" alt="Banner Image"></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="ltn__banner-item">
                         <div class="ltn__banner-img">
-                            <a href="shop.html"><img src="{{ asset('frontend/img/banner/2.jpg') }}" alt="Banner Image"></a>
+                            <a href="{{ route('shop') }}"><img src="{{ asset('frontend/img/banner/2.jpg') }}" alt="Banner Image"></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="ltn__banner-item">
                         <div class="ltn__banner-img">
-                            <a href="shop.html"><img src="{{ asset('frontend/img/banner/5.jpg') }}" alt="Banner Image"></a>
+                            <a href="{{ route('shop') }}"><img src="{{ asset('frontend/img/banner/5.jpg') }}" alt="Banner Image"></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="ltn__banner-item">
                         <div class="ltn__banner-img">
-                            <a href="shop.html"><img src="{{ asset('frontend/img/banner/3.jpg') }}" alt="Banner Image"></a>
+                            <a href="{{ route('shop') }}"><img src="{{ asset('frontend/img/banner/3.jpg') }}" alt="Banner Image"></a>
                         </div>
                     </div>
                 </div>

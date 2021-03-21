@@ -121,7 +121,7 @@
                                     <tr>
                                         <th style="width:10%; padding:5px;">Email</th>
                                         <th style="width:10%; padding:5px;">Phone</th>
-                                        <th style="width:10%; padding:5px;">Bookings</th>
+                                        <th style="width:10%; padding:5px;">Orders</th>
                                         <th style="width:12%; padding:5px;">Registered on</th>
                                         <th style="width:5%; padding:5px;">Status</th>
                                         <th style="width:5%; padding:5px;" colspan="2">Action</th>
@@ -133,7 +133,7 @@
                                     <tr>
                                         <td>{{ $customer->email }}</td>
                                         <td>{{ $customer->phone }}</td>
-                                        <td>{{ $customer->booking_count }} bookings</td>
+                                        <td>{{ $customer->booking_count }} orders</td>
                                         <td>{{ date('d M Y, h:i A', strtotime($customer->created_at)) }}</td>
                                         <td><span class="badge badge-{{$customer->status->style }}"> {{ $customer->status->name }}</span></td>
                                         <td>
@@ -162,7 +162,7 @@
                                         <th style="width:5%; padding:5px;">Position</th>
                                         <th style="width:10%; padding:5px;">Email</th>
                                         <th style="width:10%; padding:5px;">Phone</th>
-                                        <th style="width:10%; padding:5px;">Bookings</th>
+                                        <th style="width:10%; padding:5px;">Orders</th>
                                         <th style="width:10%; padding:5px;">Total Spent</th>
                                         <th style="width:12%; padding:5px;">Registered on</th>
                                         <th style="width:5%; padding:5px;" colspan="2">Action</th>
@@ -175,8 +175,8 @@
                                         <td>{{ $i++."."}}</td>
                                         <td>{{ $customer->email }}</td>
                                         <td>{{ $customer->phone }}</td>
-                                        <td>{{ $customer->booking_count }} bookings</td>
-                                        <td>&#8358;{{ number_format(floatval($customer->payment->sum('amount')), 2) }}</td>
+                                        <td>{{ $customer->order_count }} orders</td>
+                                        <td>&#8358;{{ $customer->payments ?? number_format(floatval($customer->payment->sum('amount') ), 2) }}</td>
                                         <td>{{ date('d M Y, h:i A', strtotime($customer->created_at)) }}</td>
                                         <td>
                                             <a class="btn btn-success btn-sm text-white" href="{{ route('customer.show', $customer->id) }}">View Records</a>

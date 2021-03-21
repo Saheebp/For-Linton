@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Accounts
+    News
     @parent
 @stop
 
@@ -28,7 +28,7 @@
                 <div class="col-lg-6">
                     <h4 class="nav_top_align skin_txt">
                         <i class="fa fa-money"></i>
-                        Accounts
+                        News
                     </h4>
                 </div>
                 <div class="col-lg-6">
@@ -36,8 +36,11 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}">
                                 <i class="fa ti-file" data-pack="default" data-tags=""></i>
-                                Expenses 
+                                Dashboard
                             </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="#">Payments</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -45,6 +48,7 @@
             </div>
         </div>
     </header>
+
 
     <div class="outer">
         <div class="inner bg-light lter bg-container">
@@ -80,36 +84,29 @@
                                         <!-- <h5>Glow Buttons</h5> -->
                                         <div class="row">
                                             
-                                            <div class="col-lg-4 col-sm-12 m-t-15 text-right">
-                                                <form method="POST" action="{{ route('payment.datefilter') }}">
+                                            <div class="col-lg-5 col-12 text-right">
+                                                <form method="POST" action="{{ route('news.filter') }}">
                                                 @csrf
                                                     <div class="form-group row">
                                                         <div class="col-md-10">
                                                             <div class="input-group mb-3">
                                                                 <input class="form-control col-12" type="date" name="date" placeholder="search by ref no, ">
-                                                                <div class="input-group-append"><button class="btn btn-outline-success" type="submit">Filter by Payment Date</button></div>
+                                                                <div class="input-group-append"><button class="btn btn-outline-success" type="submit">Filter by Date</button></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
-                                            
-                                            <div class="col-lg-4 col-sm-12 m-t-15 text-right">
-                                                <div class="input-group-append">
-                                                    <a class="btn btn-outline-success" href="{{ route('accounts.payments',['Paid']) }}">All Paid</a>
-                                                    <a class="btn btn-outline-warning" href="{{ route('accounts.payments',['Pending']) }}">All Pending</a>
-                                                    <a class="btn btn-outline-primary" href="#">Add Expense</a>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-lg-4 col-sm-12 m-t-15 text-right">
-                                                <form method="POST" action="{{ route('payment.search') }}">
+
+                                            <div class="col-lg-6 col-12 text-right">
+                                                <form method="POST" action="{{ route('news.search') }}">
                                                 @csrf
                                                     <div class="form-group row">
                                                         <div class="col-md-10">
                                                             <div class="input-group mb-3">
                                                                 <input class="form-control col-12" type="text" name="data">
-                                                                <div class="input-group-append"><button class="btn btn-outline-success" type="submit">Search</button></div>
+                                                                <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
                                                                 <div class="input-group-append"><a class="btn btn-outline-dark" href="{{ route('payments.index') }}">Reset</a></div>
                                                             </div>
                                                         </div>
@@ -127,44 +124,69 @@
 
                     <div class="card">
                         <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> All Expenditure {{ isset($title) ? $title:'' }}
+                            <i class="fa fa-table"></i> All News {{ isset($title) ? $title:'' }}
                         </div>
-                        
                         <div class="card-body m-t-35">
-                            <div class="table-responsive">
-                                <table id="example1" class="table table-striped table-bordered bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                        <th>Category</th>
-                                        <th>Description</th>
-                                        <th>Name</th>
-                                        <th>Amount</th>
-                                        <th>Disbursal</th>
-                                        <th>Method</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($expenses as $expense)
-                                        <tr>
-                                            <td><span class="badge badge-{{$expense->status->style }}">{{ $expense->status->name }}</span></td>
-                                            <td>{{ date('d M Y, h:i A', strtotime($expense->created_at)) }}</td>
-                                            <td>{{ $expense->category->name }}</td>
-                                            <td>{{ $expense->description }}</td>
-                                            <td><a href="#">{{ $expense->user->name }}</a></td>
-                                            <td>{{ date('d M Y, h:i A', strtotime($expense->disburse_date)) }}</td>
-                                            <td>&#8358;{{ number_format(floatval($expense->amount), 2) }}</td>
-                                            <td>{{ $expense->disbuse_status }}</td>
-                                            <td>{{ $expense->payment_mode }}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table id="example1" class="table table-striped table-bordered bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width:5%;">Status</th>
+                                    <th style="width:2%;">ID</th>
+                                    <th style="width:2%;">Creator</th>
+                                    <th style="width:15%;">Title</th>
+                                    <th style="width:15%;">Date</th>
+                                    <th style="width:15%;">Category</th>
+                                    <th style="width:30%;">Preview</th>
+                                    <th style="width:25%;">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                
+                                @foreach($news as $item)
+                                <tr>
+                                    <td><tag class="badge badge-{{ $item->status->style }}"> {{ $item->status->name }}</tag></td>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->user->firstname." ".$item->user->lastname }}</td>
+                                    <td>{{ $item->title }}</td>
+                                    <td>{{ date('d M Y, h:i A', strtotime($item->created_at)) }}</td>
+                                    <td>{{ $item->category }}</td>
+                                    <td>{{ $item->body }}</td>
+                                    <td>{{ $payment->type }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-secondary text-white" data-toggle="modal" data-target="#modalDetails{{$news->id}}">Card</a>
+                                        <div class="modal fade" id="modalDetails{{$news->id}}" role="dialog" aria-labelledby="modalLabelprimary">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-primary">
+                                                        <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">TITLE</h4>
+                                                    </div>
+                                                    
+                                                    <div class="modal-body">
+                                                        <p class="p-2">
+                                                            <table width="100%">
+                                                                <tr>
+                                                                    <td><b>{{$news->title}}</b></td>
+                                                                </tr>
+                                                            </table>
+                                                        </p>
+                                                    </div> 
+
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-sm btn-primary" data-dismiss="modal">Close</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                               </tbody>
+                                
+                            </table>
                         </div>
 
-                        <div style="text-align: right; width:100%;">{{ $expenses->links() }}</div>
+                        <div style="text-align: right; width:100%;">{{ $news->links() }}</div>
                     </div>
                 </div>
 

@@ -37,6 +37,9 @@ class CreateProductsTable extends Migration
 
             $table->unsignedBigInteger('option_id')->nullable()->default(null);
             $table->foreign('option_id')->references('id')->on('attribute_options')->onDelete('restrict');
+
+            $table->unsignedBigInteger('status_id')->default(1);
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
             
         });
     }

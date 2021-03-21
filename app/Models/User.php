@@ -24,6 +24,7 @@ class User extends Authenticatable
         'status_id', 
         'profile_update_status',
         'is_admin',
+        'order_count',
     ];
 
     protected $hidden = [
@@ -39,7 +40,15 @@ class User extends Authenticatable
         return $this->hasMany(Complaint::class);
     }
 
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
+
     public function orders() {
         return $this->hasMany(Order::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
     }
 }

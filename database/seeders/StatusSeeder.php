@@ -53,11 +53,15 @@ class StatusSeeder extends Seeder
                 'style' => 'success'
             ],
             [
-                'name' => 'Deactivated',//10
+                'name' => 'Unavailable',//10
                 'style' => 'warning'
             ],
             [
-                'name' => 'Admin',//11
+                'name' => 'Available',//11
+                'style' => 'success'
+            ],
+            [
+                'name' => 'Admin',//12
                 'style' => 'success'
             ],
 

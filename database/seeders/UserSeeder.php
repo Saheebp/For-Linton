@@ -21,9 +21,10 @@ class UserSeeder extends Seeder
             'status_id' => 11,  
             'address' => '',
             'phone' => '00000000001',
-            'is_admin' => 'true'
+            'is_admin' => 'true',
+            'order_count' => 0
         ]);
-        $super->assignRole('Super');
+        $super->assignRole('SuperUser');
 
         $director = User::create([
             'name' => 'Director',
@@ -32,9 +33,22 @@ class UserSeeder extends Seeder
             'status_id' => 11,  
             'address' => '',
             'phone' => '00000000002',
-            'is_admin' => 'true'
+            'is_admin' => 'true',
+            'order_count' => 0
         ]);
         $director->assignRole('Director');
+
+        $admin = User::create([
+            'name' => 'Manager',
+            'email' => 'manager@jsag.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11,  
+            'address' => '',
+            'phone' => '00000000003',
+            'is_admin' => 'true',
+            'order_count' => 0
+        ]);
+        $admin->assignRole('Manager');
 
         $admin = User::create([
             'name' => 'Admin',
@@ -43,9 +57,22 @@ class UserSeeder extends Seeder
             'status_id' => 11,  
             'address' => '',
             'phone' => '00000000003',
-            'is_admin' => 'true'
+            'is_admin' => 'true',
+            'order_count' => 0
         ]);
         $admin->assignRole('Admin');
+
+        $agent = User::create([
+            'name' => 'Account',
+            'email' => 'account@jsag.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11, 
+            'address' => '',
+            'phone' => '00000000004',
+            'is_admin' => 'true',
+            'order_count' => 0
+        ]);
+        $agent->assignRole('Account');
 
         $agent = User::create([
             'name' => 'Agent',
@@ -54,7 +81,8 @@ class UserSeeder extends Seeder
             'status_id' => 11, 
             'address' => '',
             'phone' => '00000000004',
-            'is_admin' => 'true'
+            'is_admin' => 'true',
+            'order_count' => 0
         ]);
         $agent->assignRole('Agent');
 
@@ -65,7 +93,8 @@ class UserSeeder extends Seeder
             'phone' =>'00000000005',
             'address' => 'Zaramaganda rayfield rd',
             'status_id' => 7,
-            'is_admin' => 'false'
+            'is_admin' => 'false',
+            'order_count' => 0
         ]);
         $customer->assignRole('Customer');
     }

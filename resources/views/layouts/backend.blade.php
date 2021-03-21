@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        TMS | 
+        SHOPR | 
         @section('title')
         @show
     </title>
@@ -51,7 +51,7 @@
         <nav class="navbar navbar-static-top">
             <div class="container-fluid m-0">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <h4><img src="{{ asset('admin/img/logo1.ico') }}" class="admin_img" alt="logo"> TMS ADMIN</h4>
+                    <h4><img src="{{ asset('admin/img/logo1.ico') }}" class="admin_img" alt="logo"> SHOPR ADMIN</h4>
                 </a>
                 <div class="menu mr-sm-auto">
                     <span class="toggle-left" id="menu-toggle">
@@ -355,7 +355,7 @@
                             </button>
                             <div class="dropdown-menu admire_admin">
                                 <a class="dropdown-item title" href="#">
-                                    VTS Admin</a>
+                                    SHOPR Admin</a>
                                 <!-- <a class="dropdown-item" href="edit_user.html"><i class="fa fa-cogs"></i>
                                     Account Settings</a>
                                 <a class="dropdown-item" href="#">
@@ -418,17 +418,17 @@
                         </a>
                     </li>
 
-                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
+                    @role('SuperUser|Director|Admin|Manager|Account|Agent')
                     <li class="">
-                        <a href="{{ route('bookings.index') }}">
+                        <a href="{{ route('orders.index') }}">
                             <i class="fa fa-book"></i>
-                            <span class="link-title menu_hide">&nbsp; Bookings</span>
+                            <span class="link-title menu_hide">&nbsp; Orders</span>
                         </a>
                     </li>
                     @endrole
                     
 
-                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
+                    @role('SuperUser|Director|Admin|Manager|Account|Agent')
                     <li class="">
                         <a href="{{ route('customers.index') }}">
                             <i class="fa fa-users"></i>
@@ -437,43 +437,13 @@
                         </a>
                     </li>
                     @endrole
-                    
+
 
                     @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="">
-                        <a href="{{ route('trips.index') }}">
+                        <a href="{{ route('products.index') }}">
                             <i class="fa fa-map-marker"></i>
-                            <span class="link-title menu_hide">&nbsp; Trips</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
-                        </a>
-                    </li>
-                    @endrole
-                    
-                    @role('SuperUser|Director|Admin')
-                    <li class="">
-                        <a href="{{ route('vehicles.index') }}">
-                            <i class="fa fa-bus"></i>
-                            <span class="link-title menu_hide">&nbsp; Vehicles</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
-                        </a>
-                    </li>
-                    @endrole
-
-                    @role('SuperUser|Director|Admin')
-                    <li class="">
-                        <a href="{{ route('drivers.index') }}">
-                            <i class="fa fa-users"></i>
-                            <span class="link-title menu_hide">&nbsp; Drivers</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
-                        </a>
-                    </li>
-                    @endrole
-                    
-                    @role('SuperUser|Director')
-                    <li class="">
-                        <a href="{{ route('routes.index') }}">
-                            <i class="fa fa-road"></i>
-                            <span class="link-title menu_hide">&nbsp; Routes</span>
+                            <span class="link-title menu_hide">&nbsp; Products</span>
                             <!-- <span class="fa arrow menu_hide"></span> -->
                         </a>
                     </li>
@@ -488,10 +458,31 @@
                         </a>
                     </li>
                     @endrole
+                    
+
+                    @role('SuperUser|Director|Admin')
+                    <li class="">
+                        <a href="{{ route('news.index') }}">
+                            <i class="fa fa-bus"></i>
+                            <span class="link-title menu_hide">&nbsp; News</span>
+                            <!-- <span class="fa arrow menu_hide"></span> -->
+                        </a>
+                    </li>
+                    @endrole
+
+                    @role('SuperUser|Director|Admin')
+                    <li class="">
+                        <a href="{{ route('tickets.index') }}">
+                            <i class="fa fa-bus"></i>
+                            <span class="link-title menu_hide">&nbsp; Tickets</span>
+                            <!-- <span class="fa arrow menu_hide"></span> -->
+                        </a>
+                    </li>
+                    @endrole
 
                     @role('SuperUser|Director|Admin|Account')
                     <li class="dropdown_menu">
-                        <a href="{{ route('home') }}">
+                        <a href="{{ route('admin.home') }}">
                             <i class="fa fa-bank"></i>
                             <span class="link-title menu_hide">&nbsp; Accounts</span>
                             <span class="fa arrow menu_hide"></span>
@@ -521,7 +512,7 @@
 
                     @role('SuperUser')
                     <li class="dropdown_menu">
-                        <a href="{{ route('home') }}">
+                        <a href="{{ route('logs.index') }}">
                             <i class="fa fa-history"></i>
                             <span class="link-title menu_hide">&nbsp; Logs</span>
                             <span class="fa arrow menu_hide"></span>
@@ -534,7 +525,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('log.errors') }}">
+                                <a href="{{ route('logs.errors') }}">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Error Logs
                                 </a>
@@ -545,20 +536,20 @@
 
                     @role('SuperUser')
                     <li class="dropdown_menu">
-                        <a href="{{ route('home') }}">
+                        <a href="{{ route('admin.home') }}">
                             <i class="fa fa-shield"></i>
                             <span class="link-title menu_hide">&nbsp; Permissions</span>
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
                             <li>
-                                <a href="{{ route('home') }}">
+                                <a href="{{ route('admin.home') }}">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Permissions
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('home') }}">
+                                <a href="{{ route('admin.home') }}">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Roles
                                 </a>
@@ -569,14 +560,14 @@
 
                     @role('SuperUser|Director|Admin')
                     <li class="dropdown_menu">
-                        <a href="{{ route('home') }}">
+                        <a href="{{ route('admin.home') }}">
                             <i class="fa fa-file"></i>
                             <span class="link-title menu_hide">&nbsp; Reports</span>
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="{{ route('admin.home') }}">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Accounting
                                 </a>
@@ -587,7 +578,7 @@
 
                     @role('SuperUser|Director')
                     <li class="dropdown_menu">
-                        <a href="{{ route('home') }}">
+                        <a href="{{ route('admin.home') }}">
                             <i class="fa fa-users"></i>
                             <span class="link-title menu_hide">&nbsp; Users</span>
                             <span class="fa arrow menu_hide"></span>
@@ -600,7 +591,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('home') }}">
+                                <a href="{{ route('admin.home') }}">
                                     <i class="fa fa-angle-right"></i>
                                     &nbsp; Permissions
                                 </a>
@@ -611,7 +602,7 @@
 
                     @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="">
-                        <a href="#">
+                        <a href="{{ route('admin.home') }}">
                             <i class="fa fa-bar-chart"></i>
                             <span class="link-title menu_hide">&nbsp; Staff Reviews & Ratings</span>
                             <!-- <span class="fa arrow menu_hide"></span> -->
@@ -631,7 +622,7 @@
 
                     @role('SuperUser')
                     <li class="dropdown_menu">
-                        <a href="{{ route('home') }}">
+                        <a href="{{ route('admin.home') }}">
                             <i class="fa fa-cog"></i>
                             <span class="link-title menu_hide">&nbsp; Billing</span>
                             <span class="fa arrow menu_hide"></span>

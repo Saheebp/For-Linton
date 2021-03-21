@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Setting;
+use App\Models\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
@@ -26,6 +27,27 @@ class SettingSeeder extends Seeder
             'instagram_url' => 'www.instagram.com/jsag',
             'twitter_url' => 'www.twitter.com/jsag',
             'youtube_url' => 'www.youtube.com/jsag',
+        ]);
+
+        Config::create([
+            'name' => 'Referral Status',
+            'category' => 'referral',
+            'tag' => 'refstatus',
+            'value' => 'false'
+        ]);
+
+        Config::create([
+            'name' => 'Time Before Cancellation',
+            'category' => 'order',
+            'tag' => 'tbcancel',
+            'value' => '15'
+        ]);
+
+        Config::create([
+            'name' => 'Allow Wallet Payment',
+            'category' => 'payment',
+            'tag' => 'walletpay',
+            'value' => 'true'
         ]);
     }
 }

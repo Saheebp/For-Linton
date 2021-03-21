@@ -13,7 +13,6 @@ use App\Models\Attribute;
 use App\Models\AttributeOption;
 
 use Carbon\Carbon;
-
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

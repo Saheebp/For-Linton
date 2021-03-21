@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Payments
+    Tickets
     @parent
 @stop
 
@@ -28,7 +28,7 @@
                 <div class="col-lg-6">
                     <h4 class="nav_top_align skin_txt">
                         <i class="fa fa-money"></i>
-                        Payments
+                        Tickets
                     </h4>
                 </div>
                 <div class="col-lg-6">
@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">Payments</a>
+                            <a href="#">Tickets</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -48,9 +48,11 @@
             </div>
         </div>
     </header>
-    
+
     <div class="outer">
         <div class="inner bg-container">
+
+
             <!--top section widgets-->
             <div class="row widget_countup">
                 <div class="col-12 col-sm-6 col-xl-3">
@@ -72,8 +74,8 @@
                         <div class="">
                             <div class="bg-success text-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Completed Payments</div>
+                                    <div id="widget_countup12">{{ 2 }}</div>
+                                    <div>Open Tickets</div>
                                 </div>
                             </div>
                         </div>
@@ -99,8 +101,8 @@
                         <div class="">
                             <div class="bg-warning text-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup22">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Pending Payments</div>
+                                    <div id="widget_countup22">{{ 3 }}</div>
+                                    <div>In Progress</div>
                                 </div>
                             </div>
                         </div>
@@ -127,8 +129,8 @@
                         <div class="">
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Completed Payments</div>
+                                    <div id="widget_countup12">{{ 4 }}</div>
+                                    <div>Closed Tickets</div>
                                 </div>
                             </div>
                         </div>
@@ -155,8 +157,8 @@
                         <div class="">
                             <div class="bg-primary text-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Completed Payments</div>
+                                    <div id="widget_countup12">{{ 9 }}</div>
+                                    <div>Awaitng Reply</div>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +168,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="outer">
         <div class="inner bg-light lter bg-container">
             <div class="row">
@@ -201,8 +203,8 @@
                                         <!-- <h5>Glow Buttons</h5> -->
                                         <div class="row">
                                             
-                                            <div class="col-lg-5 col-sm-12 m-t-15 text-right">
-                                                <form method="POST" action="{{ route('payments.filter') }}">
+                                            <div class="col-lg-5 col-12 text-right">
+                                                <form method="POST" action="{{ route('tickets.filter') }}">
                                                 @csrf
                                                     <div class="form-group row">
                                                         <div class="col-md-10">
@@ -214,12 +216,9 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            
-                                            <div class="col-lg-1 col-sm-12 text-right">
-                                            </div>
 
-                                            <div class="col-lg-6 col-sm-12 text-right">
-                                                <form method="POST" action="{{ route('payments.search') }}">
+                                            <div class="col-lg-6 col-12 text-right">
+                                                <form method="POST" action="{{ route('tickets.search') }}">
                                                 @csrf
                                                     <div class="form-group row">
                                                         <div class="col-md-10">
@@ -243,50 +242,80 @@
 
                     <div class="card">
                         <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> All Payments {{ isset($title) ? $title:'' }}
+                            <i class="fa fa-table"></i> All Tickets {{ isset($title) ? $title:'' }}
                         </div>
                         <div class="card-body m-t-35">
-                            <div class="table-responsive">
-                                <table id="example1" class="table table-striped table-bordered bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Status</th>
-                                        <th>ID</th>
-                                        <th style="width:7%;">Ref No</th>
-                                        <th style="width:18%;">Trans Date</th>
-                                        <th style="width:18%;">Updated</th>
-                                        <th style="width:30%;">Name</th>
-                                        <th>Amount</th>
-                                        <th>Purpose</th>
-                                        <th>Type</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($payments as $payment)
-                                        <tr>
-                                            <td><span class="badge badge-{{$payment->status->style }}">{{ $payment->status->name }}</span></td>
-                                            <td>{{ $payment->id }}</td>
-                                            <td>{{ $payment->ref_no }}</td>
-                                            <td>{{ date('d M Y, h:i A', strtotime($payment->created_at)) }}</td>
-                                            <td>{{ date('d M Y, h:i A', strtotime($payment->updated_at)) }}</td>
-                                            <td><a href="{{ route('customer.show', $payment->user_id) }}">{{ $payment->user->name }}</a></td>
-                                            <td>&#8358;{{ number_format(floatval($payment->amount), 2) }}</td>
-                                            <td>{{ $payment->purpose }}</td>
-                                            <td>{{ $payment->type }}</td>
-                                            <td>
-                                            @if($payment->user_id != 'NULL')
-                                                <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('customers.show', $payment->user_id) }}">View Profile</a>
-                                            @endif    
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table id="example1" class="table table-striped table-bordered bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width:5%;">Status</th>
+                                    <th style="width:2%;">ID</th>
+                                    <th style="width:15%;">Trans Date</th>
+                                    <th style="width:30%;">Subject</th>
+                                    <th style="width:50%;">Preview</th>
+                                    <th style="width:8%;">Type</th>
+                                    <th style="width:5%;">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                
+                                @foreach($tickets as $ticket)
+                                <tr>
+                                    <td><tag class="badge badge-{{ $ticket->status->style }}"> {{ $ticket->status->name }}</tag></td>
+                                    <td>{{ $ticket->id }}</td>
+                                    <td>{{ date('d M Y, h:i A', strtotime($ticket->created_at)) }}</td>
+                                    <td>{{ $ticket->subject }}</td>
+                                    <td>{{ $ticket->preview }}</td>
+                                    <td>{{ $ticket->type }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-secondary text-white" data-toggle="modal" data-target="#modalManage{{$ticket->id}}">Manage</a>
+                                            <div class="modal fade" id="modalManage{{$ticket->id}}" role="dialog" aria-labelledby="modalLabelprimary">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-primary">
+                                                        <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Card Payment</h4>
+                                                    </div>
+                                                    
+                                                    <div class="modal-body">
+                                                        <p class="p-2">
+                                                            <table width="100%">
+                                                                <tr>
+                                                                    <td><b>Ticket No:</b></td>
+                                                                    <td>{{ $ticket->id }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Date:</b></td>
+                                                                    <td>{{ date('d M Y, h:i A', strtotime($ticket->created_at)) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Purpose:</b></td>
+                                                                    <td>{{ $ticket->purpose }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Status:</b></td>
+                                                                    <td><span class="badge badge-{{ $ticket->status->style }}">{{ $ticket->status->name }}</span></td>
+                                                                </tr>
+                                                            </table>
+                                                        </p>
+                                                    </div> 
+
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-sm btn-primary" data-dismiss="modal">Close</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                @endforeach
+                               </tbody>
+                                
+                            </table>
                         </div>
 
-                        <div style="text-align: right; width:100%;">{{ $payments->links() }}</div>
+                        <div style="text-align: right; width:100%;">{{ $tickets->links() }}</div>
                     </div>
                 </div>
 

@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6 m-t-5">
                                     <div class="card-header bg-white">
-                                        <i class="fa fa-table"></i> Bookings Config
+                                        <i class="fa fa-table"></i> Product Config
                                     </div>
                                     
                                     <div class="table-responsive">
@@ -93,7 +93,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($booking as $item)
+                                            @foreach($product as $product)
                                             <tr>
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->value }}</span></td>
@@ -142,7 +142,7 @@
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
                                                                 </div>
-                                                                <form class="form-horizontal" action="{{ route('admin.booking.vehicles') }}" method="POST">
+                                                                <form class="form-horizontal" action="#" method="POST">
                                                                 @csrf
                                                             
                                                                 <div class="modal-body">
@@ -157,9 +157,7 @@
                                                                             <div class="input-group">
                                                                             <select class="form-control" name="route">
                                                                                 <option value="">Select Route</option>
-                                                                                @foreach($trips as $trip)
-                                                                                <option value="{{ $trip->route->id }}">{{ $trip->route->origin }} to {{ $trip->route->destination }}</option>
-                                                                                @endforeach
+                                                                                
                                                                             </select>
                                                                             </div>
                                                                         </div>

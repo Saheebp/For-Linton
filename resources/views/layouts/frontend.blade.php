@@ -562,7 +562,7 @@
                                             <i class="icon-phone"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p><a href="tel:+0123-456789">+234 817 368 8091</a></p>
+                                            <p><a href="tel:+234 817 368 8091">+234 817 368 8091</a></p>
                                         </div>
                                     </li>
                                     <li>

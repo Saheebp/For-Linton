@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payment;
+//models
+use App\Models\Setting;
+use App\Models\Config;
+
 use Illuminate\Http\Request;
 
-class PaymentController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +17,20 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::orderBy('created_at', 'desc')->paginate(10);
+        $billing = Config::where('category','billing')->get();
+        $customer = Config::where('category','customer')->get();
+        $order = Config::where('category','order')->get();
+        $referral = Config::where('category','referral')->get();
+        $payment = Config::where('category','payment')->get();
+        $product = Config::where('category','product')->get();
 
-        return view('admin.payments.index', [
-            'payments' => $payments
+        return view('admin.settings.index', [
+            'product' => $product,
+            'customer' => $customer,
+            'billing' => $billing,
+            'referral' => $referral,
+            'payment' => $payment,
+            'order' => $order
         ]);
     }
 

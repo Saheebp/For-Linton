@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->default(null);
             $table->string('address')->default(null);
             $table->string('avatar')->nullable()->default(null);
+            $table->string('order_count')->nullable()->default(null);
 
             $table->string('is_admin')->nullable()->default("false");
         });

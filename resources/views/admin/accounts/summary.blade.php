@@ -94,7 +94,7 @@
                                             </div>
 
                                             <div class="col-6 m-t-15 text-right">
-                                                <form method="POST" action="{{ route('accounts.datefilter') }}">
+                                                <form method="POST" action="{{ route('accounts.filter') }}">
                                                 @csrf
                                                     <div class="form-group row">
                                                         <div class="col-md-10">
