@@ -50,7 +50,7 @@
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5">
-                                        <i class="fa fa-users text-primary"></i>
+                                        <i class="fa fa-users text-dark"></i>
                                     </div>
                                     <div id="widget_countup12">{{ $customers ?? "" }}</div>
                                     <div>New Customers</div>
@@ -86,11 +86,11 @@
                         <div class="">
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div class="float-right m-t-5 text-success">
-                                        <i class="fa fa-bus"></i>
+                                    <div class="float-right m-t-5 text-primary">
+                                        <i class="fa fa-shopping-cart"></i>
                                     </div>
                                     <div id="widget_countup22">{{ $bookings ?? ""}}</div>
-                                    <div>Bookings</div>
+                                    <div>Orders in Progress</div>
 
                                 </div>
 
@@ -125,10 +125,10 @@
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5 text-warning">
-                                        <i class="fa fa-map-marker"></i>
+                                        <i class="fa fa-shopping-cart"></i>
                                     </div>
                                     <div id="widget_countup32">{{ $trips ?? "" }}</div>
-                                    <div>Active Trips</div>
+                                    <div>Awaiting response</div>
                                 </div>
 
                                 <div class="row">
@@ -161,12 +161,12 @@
                         <div class="">
                             <div class="bg-white section_border b_r_5">
                                 <div class="p-t-l-r-15">
-                                    <div class="float-right m-t-5 text-danger">
-                                        <i class="fa fa-road"></i>
+                                    <div class="float-right m-t-5 text-success">
+                                        <i class="fa fa-shopping-cart"></i>
                                     </div>
 
                                     <div id="widget_countup42">{{ $routes ?? ""}}</div>
-                                    <div>Active Routes</div>
+                                    <div>Completed Orders</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">

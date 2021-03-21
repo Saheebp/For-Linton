@@ -50,7 +50,7 @@
         <!-- .navbar -->
         <nav class="navbar navbar-static-top">
             <div class="container-fluid m-0">
-                <a class="navbar-brand" href="{{ route('home') }}">
+                <a class="navbar-brand" href="{{ route('admin.home') }}">
                     <h4><img src="{{ asset('admin/img/logo1.ico') }}" class="admin_img" alt="logo"> SHOPR ADMIN</h4>
                 </a>
                 <div class="menu mr-sm-auto">

@@ -52,8 +52,7 @@
 
     <div class="outer">
         <div class="inner bg-container">
-            <!--top section widgets-->
-            <div class="row widget_countup">
+        <div class="row widget_countup">
                 <div class="col-12 col-sm-6 col-xl-3">
                     <div id="top_widget1">
                         <!-- <div class="front">
@@ -69,13 +68,22 @@
                                 <div class="previous_font">Yearly Users stats</div>
                             </div>
                         </div> -->
-                        
                         <div class="">
-                            <div class="bg-success text-white b_r_5 section_border">
+                            <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Completed Payments</div>
+                                    <div class="float-right m-t-5">
+                                        <i class="fa fa-users text-dark"></i>
+                                    </div>
+                                    <div id="widget_countup12">{{ $customers ?? "" }}</div>
+                                    <div>Available Products</div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <span id="visitsspark-chart" class="spark_line"></span>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -98,10 +106,20 @@
                         </div> -->
 
                         <div class="">
-                            <div class="bg-warning text-white b_r_5 section_border">
+                            <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup22">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Pending Payments</div>
+                                    <div class="float-right m-t-5 text-primary">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+                                    <div id="widget_countup22">{{ $bookings ?? ""}}</div>
+                                    <div>Deactivated Products</div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <span id="salesspark-chart" class="spark_line"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,8 +146,17 @@
                         <div class="">
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Completed Payments</div>
+                                    <div class="float-right m-t-5 text-warning">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+                                    <div id="widget_countup32">{{ $trips ?? "" }}</div>
+                                    <div>Out of Stock</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <span id="mousespeed" class="spark_line"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -154,10 +181,19 @@
                         </div> -->
 
                         <div class="">
-                            <div class="bg-primary text-white b_r_5 section_border">
+                            <div class="bg-white section_border b_r_5">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Completed Payments</div>
+                                    <div class="float-right m-t-5 text-success">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+
+                                    <div id="widget_countup42">{{ $routes ?? ""}}</div>
+                                    <div>Completed Orders</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <span id="rating" class="spark_line"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -202,24 +238,162 @@
                                         <!-- <h5>Glow Buttons</h5> -->
                                         <div class="row">
                                             
-                                            <div class="col-lg-6 col-sm-12 m-t-1 text-right">
-                                            </div>
+                                            <div class="col-12 m-t-15">
+                                                @role('SuperUser|Director|Admin')
+                                                <button class="btn btn-sm btn-raised m-t-2 btn-success adv_cust_mod_btn"
+                                                        data-toggle="modal" data-target="#createProduct">Create New Product
+                                                </button>
 
-                                            <div class="col-lg-6 col-sm-12 m-t-1 text-right">
-                                                <form method="POST" action="{{ route('products.search') }}">
-                                                @csrf
+                                                <button class="btn btn-sm btn-raised m-t-2 btn-primary adv_cust_mod_btn"
+                                                        data-toggle="modal" data-target="#createTrip">Create New Category
+                                                </button>
 
-                                                    <input class="form-control col-12" type="hidden" name="filtertype" value="search">
-                                                    
-                                                    <div class="form-group row">
-                                                        <div class="col-md-10">
-                                                            <div class="input-group mb-3">
-                                                                <input class="form-control col-12" type="text" name="data">
-                                                                <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
+                                                <button class="btn btn-sm btn-raised m-t-2 btn-dark adv_cust_mod_btn"
+                                                        data-toggle="modal" data-target="#createTrip">Create New Brand
+                                                </button>
+                                                @endrole
+
+                                                
+
+                                                <div class="modal fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Create A New Product</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
                                                             </div>
+                                                            <form class="form-horizontal" action="#" method="POST">
+                                                                @csrf
+                                                                <fieldset>
+                                                                <div class="modal-body">
+                                                                    
+                                                                    <!-- Name input-->
+                                                                    <div class="form-group row m-t-25">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="date" class="col-form-label">
+                                                                                Product Name
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-calendar"></i>
+                                                                            </span>
+                                                                                <input type="text" class="form-control" id="name" placeholder="" name="name">
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+
+                                                                    <div class="form-group row m-t-25">
+                                                                        <div class="col-lg-6">
+                                                                            <label for="date" class="col-form-label">
+                                                                                Quantity
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-calendar"></i>
+                                                                            </span>
+                                                                                <input type="text" class="form-control" id="name" placeholder="" name="name">
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                        <div class="col-lg-6">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Category
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <input type="text" class="form-control" id="name" placeholder="" name="name">
+                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Brand
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <input type="text" class="form-control" id="name" placeholder="" name="name">
+                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Price
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <input type="text" class="form-control" id="name" placeholder="" name="name">
+                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Description
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <textarea type="time" name="time" id="subject1" class="form-control" placeholder="Subject"></textarea>
+                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group row m-t-25">
+                                                                        <div class="col-lg-4">
+                                                                            <label for="date" class="col-form-label">
+                                                                                Image 1
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-image"></i>
+                                                                            </span>
+                                                                                <input type="file" class="form-control" id="name" placeholder="" name="image1">
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                        <div class="col-lg-4">
+                                                                            <label for="date" class="col-form-label">
+                                                                                Image 2
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-image"></i>
+                                                                            </span>
+                                                                                <input type="file" class="form-control" id="name" placeholder="" name="image1">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-4">
+                                                                            <label for="date" class="col-form-label">
+                                                                                Image 3
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-image"></i>
+                                                                            </span>
+                                                                                <input type="file" class="form-control" id="name" placeholder="" name="image1">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-12">
+                                                                            <button class="btn btn-responsive layout_btn_prevent btn-primary">Save & Create</button>
+                                                                            <button class="btn  btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                </fieldset>
+                                                            </form>
                                                         </div>
                                                     </div>
-                                                </form>
+                                                </div>
+
                                             </div>
                                             
                                         </div>
@@ -234,7 +408,31 @@
                         <div class="card-header bg-white">
                             <i class="fa fa-table"></i> All Products {{ isset($title) ? $title:'' }}
                         </div>
+
                         <div class="card-body m-t-35">
+                            
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12 m-t-1 text-right">
+                                </div>
+
+                                <div class="col-lg-6 col-sm-12 m-t-1 text-right">
+                                    <form method="POST" action="{{ route('products.search') }}">
+                                    @csrf
+
+                                        <input class="form-control col-12" type="hidden" name="filtertype" value="search">
+                                        
+                                        <div class="form-group row">
+                                            <div class="col-md-10">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control col-12" type="text" name="data">
+                                                    <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered bordered">
                                     <thead>

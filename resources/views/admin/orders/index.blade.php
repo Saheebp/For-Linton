@@ -52,8 +52,7 @@
 
     <div class="outer">
         <div class="inner bg-container">
-            <!--top section widgets-->
-            <div class="row widget_countup">
+        <div class="row widget_countup">
                 <div class="col-12 col-sm-6 col-xl-3">
                     <div id="top_widget1">
                         <!-- <div class="front">
@@ -69,13 +68,22 @@
                                 <div class="previous_font">Yearly Users stats</div>
                             </div>
                         </div> -->
-                        
                         <div class="">
-                            <div class="bg-success text-white b_r_5 section_border">
+                            <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Completed Payments</div>
+                                    <div class="float-right m-t-5">
+                                        <i class="fa fa-users text-dark"></i>
+                                    </div>
+                                    <div id="widget_countup12">{{ $customers ?? "" }}</div>
+                                    <div>New Customers</div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <span id="visitsspark-chart" class="spark_line"></span>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -98,10 +106,20 @@
                         </div> -->
 
                         <div class="">
-                            <div class="bg-warning text-white b_r_5 section_border">
+                            <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup22">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Pending Payments</div>
+                                    <div class="float-right m-t-5 text-primary">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+                                    <div id="widget_countup22">{{ $bookings ?? ""}}</div>
+                                    <div>Orders in Progress</div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <span id="salesspark-chart" class="spark_line"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,8 +146,17 @@
                         <div class="">
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Completed Payments</div>
+                                    <div class="float-right m-t-5 text-warning">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+                                    <div id="widget_countup32">{{ $trips ?? "" }}</div>
+                                    <div>Awaiting response</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <span id="mousespeed" class="spark_line"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -154,10 +181,19 @@
                         </div> -->
 
                         <div class="">
-                            <div class="bg-primary text-white b_r_5 section_border">
+                            <div class="bg-white section_border b_r_5">
                                 <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">&#8358;{{ number_format(floatval(0), 2) }}</div>
-                                    <div>Completed Payments</div>
+                                    <div class="float-right m-t-5 text-success">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+
+                                    <div id="widget_countup42">{{ $routes ?? ""}}</div>
+                                    <div>Completed Orders</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <span id="rating" class="spark_line"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
