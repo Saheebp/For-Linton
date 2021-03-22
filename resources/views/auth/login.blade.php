@@ -1,79 +1,127 @@
-@extends(('layouts/frontend'))
 
-@section('content')
-    <!-- BREADCRUMB AREA START -->
-    <div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ltn__breadcrumb-inner text-center">
-                        <h1 class="ltn__page-title">Account</h1>
-                        <div class="ltn__breadcrumb-list">
-                            <ul>
-                                <li><a href="{{ route('home') }}">Home</a></li>
-                                <li>Login</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" href="{{ asset('admin/img/logo.ico') }}"/>
+    <!--Global styles -->
+    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/components.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/custom.css') }}" />
+    <!--End of Global styles -->
+    <!--Plugin styles-->
+    <link type="text/css" rel="stylesheet" href="{{ asset('admin/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('admin/vendors/wow/css/animate.css') }}"/>
+    <!--End of Plugin styles-->
+    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/pages/login1.css') }}"/>
+</head>
+<body>
+<!-- <div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+z-index: 999999">
+        <img src="{{ asset('admin/img/loader.gif') }}" style=" width: 40px;" alt="loading...">
     </div>
-    <!-- BREADCRUMB AREA END -->
-
-    <!-- LOGIN AREA START -->
-    <div class="ltn__login-area pb-85">
-        <div class="container">
+</div> -->
+<div class="container wow fadeInDown" data-wow-delay="0.5s" data-wow-duration="2s">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 login_top_bottom">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title-area text-center">
-                        <h1>Sign In <br>To  Your Account</h1>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br>
-                             Sit aliquid,  Non distinctio vel iste.</p>
+                <div class="col-lg-5  col-md-8  col-sm-12 mx-auto">
+                    <div class="login_logo login_border_radius1">
+                        <h3 class="text-center p-3">
+                            <span class="text-white">LOGIN</span>
+                        </h3>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="account-login-inner">
-
-                        <form method="POST" action="{{ route('login') }}" class="ltn__form-box contact-form-box">
+                    <div class="bg-white login_content login_border_radius">
+                        <form action="{{ route('login') }}" id="login_validator" method="post" class="login_validator">
                         @csrf
-                            <input type="text" name="email" placeholder="Email*">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            
-                            <input type="password" name="password" placeholder="Password*">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                            <div class="btn-wrapper mt-0">
-                                <button class="theme-btn-1 btn btn-block" type="submit">SIGN IN</button>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label"> E-mail</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon input_email"><i
+                                            class="fa fa-envelope text-primary"></i></span>
+                                    <input type="text" class="form-control  form-control-md" id="email" name="email" placeholder="E-mail">
+                                </div>
                             </div>
-                            <div class="go-to-btn mt-20">
-                                <a href="{{ route('password.request') }}"><small>FORGOTTEN YOUR PASSWORD?</small></a>
+                            <!--</h3>-->
+                            <div class="form-group">
+                                <label for="password" class="col-form-label">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon addon_password"><i
+                                            class="fa fa-lock text-primary"></i></span>
+                                    <input type="password" class="form-control form-control-md" id="password"   name="password" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <input type="submit" value="Log In" class="btn btn-primary btn-block login_button">
+                                    </div>
+                                </div>
                             </div>
                         </form>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="account-create text-center pt-50">
-                        <h4>DON'T HAVE AN ACCOUNT?</h4>
-                        <p>Add items to your wishlistget personalised recommendations <br>
-                            check out more quickly track your orders register</p>
-                        <div class="btn-wrapper">
-                            <a href="{{ route('login') }}" class="theme-btn-1 btn black-btn">CREATE ACCOUNT</a>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input form-control">
+                                        <span class="custom-control-indicator"></span>
+                                        <a class="custom-control-description">Keep me logged in</a>
+                                    </label>
+                                </div>
+                                <div class="col-6 text-right forgot_pwd">
+                                    <a href="forgot_password1.html" class="custom-control-description forgottxt_clr">Forgot password?</a>
+                                </div>
+                            </div>
                         </div>
+                        <!-- <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 m-t-10">
+                                    <div class="icon-white btn-facebook icon_padding loginpage_border">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        <span class="text-white icon_padding text-center question_mark">Log In With Facebook</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 pull-lg-right m-t-10">
+                                    <div class="icon-white btn-google icon_padding loginpage_border">
+                                        <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                        <span class="text-white icon_padding question_mark">Log In With Google+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Don't you have an Account? </label>
+                            <a href='register1.html' class="text-primary"><b>Sign Up</b></a>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- LOGIN AREA END -->
-@endsection
+</div>
+<!-- global js -->
+<script type="text/javascript" src="{{ asset('admin/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admin/js/popper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admin/js/bootstrap.min.js') }}"></script>
+<!-- end of global js-->
+<!--Plugin js-->
+<script type="text/javascript" src="{{ asset('admin/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admin/vendors/wow/js/wow.min.js') }}"></script>
+<!--End of plugin js-->
+<script type="text/javascript" src="{{ asset('admin/js/pages/login1.js') }}"></script>
+</body>
+
+</html>

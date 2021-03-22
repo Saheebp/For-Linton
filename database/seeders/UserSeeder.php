@@ -86,16 +86,16 @@ class UserSeeder extends Seeder
         ]);
         $agent->assignRole('Agent');
 
-        $customer = User::create([
-            'name' => 'Nnamdi Ibe',
-            'email' => 'endee09@gmail.com',
-            'password' => Hash::make('12345678'),
-            'phone' =>'00000000005',
-            'address' => 'Zaramaganda rayfield rd',
-            'status_id' => 7,
-            'is_admin' => 'false',
-            'order_count' => 0
-        ]);
-        $customer->assignRole('Customer');
+        // $customer = User::create([
+        //     'name' => 'Nnamdi Ibe',
+        //     'email' => 'endee09@gmail.com',
+        //     'password' => Hash::make('12345678'),
+        //     'phone' =>'00000000005',
+        //     'address' => 'Zaramaganda rayfield rd',
+        //     'status_id' => 7,
+        //     'is_admin' => 'false',
+        //     'order_count' => 0
+        // ]);
+        // $customer->assignRole('Customer');
     }
 }

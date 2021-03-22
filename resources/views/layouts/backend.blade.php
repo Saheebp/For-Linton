@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        SHOPR | 
+        STARKS | 
         @section('title')
         @show
     </title>
@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="{{ asset('admin/img/logo1.ico') }}"/>
 
     <!--global styles-->
-    <link type="text/css" rel="stylesheet" href="{{asset('admin/css/components.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('admin/css/components.css') }}" />
     <link type="text/css" rel="stylesheet" href="{{asset('admin/css/custom.css')}}" />
     <!-- end of global styles-->
 
@@ -27,7 +27,7 @@
 
 <body class="body fixedNav_position fixedMenu_left">
 
-<!-- <div class="preloader" style=" position: fixed;
+<div class="preloader" style=" position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -44,21 +44,21 @@
             z-index: 999999">
         <img src="{{ asset('admin/img/loader.gif') }}" style=" width: 40px;" alt="loading...">
     </div>
-</div> -->
+</div>
 <div id="wrap">
     <div id="top" class="fixed">
         <!-- .navbar -->
         <nav class="navbar navbar-static-top">
             <div class="container-fluid m-0">
                 <a class="navbar-brand" href="{{ route('admin.home') }}">
-                    <h4><img src="{{ asset('admin/img/logo1.ico') }}" class="admin_img" alt="logo"> SHOPR ADMIN</h4>
+                    <h4><img src="{{ asset('admin/img/logo1.ico') }}" class="admin_img" alt="logo"> STARKS ADMIN</h4>
                 </a>
                 <div class="menu mr-sm-auto">
                     <span class="toggle-left" id="menu-toggle">
                         <i class="fa fa-bars"></i>
                     </span>
                 </div>
-                <!-- <div class="top_search_box d-none d-md-flex">
+                <div class="top_search_box d-none d-md-flex">
                     <form class="header_input_search">
                         <input type="text" placeholder="Search" name="search">
                         <button type="submit">
@@ -66,9 +66,9 @@
                         </button>
                         <div class="overlay"></div>
                     </form>
-                </div> -->
+                </div>
                 <div class="topnav dropdown-menu-right">
-                    <!-- <div class="btn-group small_device_search" data-toggle="modal"
+                    <div class="btn-group small_device_search" data-toggle="modal"
                          data-target="#search_modal">
                         <i class="fa fa-search text-primary"></i>
                     </div>
@@ -345,7 +345,7 @@
                                     class="fa fa-sliders" aria-hidden="true"></i>
                             </a>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="btn-group">
                         <div class="user-settings no-bg">
                             <button type="button" class="btn btn-default no-bg micheal_btn" data-toggle="dropdown">
@@ -355,8 +355,8 @@
                             </button>
                             <div class="dropdown-menu admire_admin">
                                 <a class="dropdown-item title" href="#">
-                                    SHOPR Admin</a>
-                                <!-- <a class="dropdown-item" href="edit_user.html"><i class="fa fa-cogs"></i>
+                                    STARKS Admin</a>
+                                <a class="dropdown-item" href="edit_user.html"><i class="fa fa-cogs"></i>
                                     Account Settings</a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fa fa-user"></i>
@@ -366,7 +366,7 @@
                                     Inbox</a>
 
                                 <a class="dropdown-item" href="lockscreen.html"><i class="fa fa-lock"></i>
-                                    Lock Screen</a> -->
+                                    Lock Screen</a>
                                 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
@@ -418,30 +418,10 @@
                         </a>
                     </li>
 
-                    @role('SuperUser|Director|Admin|Manager|Account|Agent')
-                    <li class="">
-                        <a href="{{ route('orders.index') }}">
-                            <i class="fa fa-book"></i>
-                            <span class="link-title menu_hide">&nbsp; Orders</span>
-                        </a>
-                    </li>
-                    @endrole
-                    
-
-                    @role('SuperUser|Director|Admin|Manager|Account|Agent')
-                    <li class="">
-                        <a href="{{ route('customers.index') }}">
-                            <i class="fa fa-users"></i>
-                            <span class="link-title menu_hide">&nbsp; Customers</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
-                        </a>
-                    </li>
-                    @endrole
-
 
                     @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="">
-                        <a href="{{ route('products.index') }}">
+                        <a href="#">
                             <i class="fa fa-map-marker"></i>
                             <span class="link-title menu_hide">&nbsp; Products</span>
                             <!-- <span class="fa arrow menu_hide"></span> -->
@@ -459,16 +439,6 @@
                     </li>
                     @endrole
                     
-
-                    @role('SuperUser|Director|Admin')
-                    <li class="">
-                        <a href="{{ route('news.index') }}">
-                            <i class="fa fa-bus"></i>
-                            <span class="link-title menu_hide">&nbsp; News</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
-                        </a>
-                    </li>
-                    @endrole
 
                     @role('SuperUser|Director|Admin')
                     <li class="">

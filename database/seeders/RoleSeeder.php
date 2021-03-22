@@ -153,15 +153,15 @@ class RoleSeeder extends Seeder
 
         
         //Customer
-        $level4 = Role::create([
-            'name' => 'Customer'
-        ]);
-        $permissions = [
-            'manage account',
-            'buy item',
-            'member dashboard'
-        ];
-        $level4->syncPermissions($permissions);
+        // $level4 = Role::create([
+        //     'name' => 'Customer'
+        // ]);
+        // $permissions = [
+        //     'manage account',
+        //     'buy item',
+        //     'member dashboard'
+        // ];
+        // $level4->syncPermissions($permissions);
 
     }
 }

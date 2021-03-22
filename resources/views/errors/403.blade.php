@@ -1,43 +1,64 @@
-@extends(('layouts/frontend'))
-
-@section('content')
-<!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ltn__breadcrumb-inner text-center">
-                        <h1 class="ltn__page-title">403</h1>
-                        <div class="ltn__breadcrumb-list">
-                            <ul>
-                                <li><a href="{{ route('home') }}">Home</a></li>
-                                <li>403</li>
-                            </ul>
-                        </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lockscreen | Admire</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" href="{{ asset('admin/img/logo1.ico') }}"/>
+    <!-- Global styles -->
+    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/components.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/custom.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/pages/login1.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('admin/vendors/wow/css/animate.css') }}"/>
+    <!--End of global styles-->
+    <link rel="stylesheet" href="{{ asset('admin/css/pages/lockscreen.css') }}"/>
+</head>
+<body>
+<!-- <div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+z-index: 999999">
+        <img src="{{ asset('admin/img/loader.gif') }}" style=" width: 40px;" alt="loading...">
+    </div>
+</div> -->
+<div>
+    <div class="login-container  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+        <div class="row">
+            
+        <div class="col-lg-12 login_border_radius lockscreen_content">
+                <div class="form-box">
+                    <div class="form">
+                        <p class="form-control-static">403</p>
+                        <p class="form-control-static">Page Not Found</p>
+                        <!-- <input type="password" name="user" class="form-control" placeholder="Password"> -->
+                        <a class="btn btn-primary btn-block login" id="" href="{{ route('admin.home') }}">Continue to Home</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- BREADCRUMB AREA END -->
+</div>
+<!-- global js -->
+<script type="text/javascript" src="{{ asset('admin/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admin/js/popper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admin/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admin/vendors/wow/js/wow.min.js') }}"></script>
+<!-- end of global js-->
+<!-- page level js-->
+<script type="text/javascript" src="{{ asset('admin/js/pages/lockscreen.js') }}"></script>
+<script>
+    new WOW().init();
+</script>
+</body>
 
-    <!-- 404 area start -->
-    <div class="ltn__404-area ltn__404-area-1 mb-120">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="error-404-inner text-center">
-                        <h1 class="error-404-title">403</h1>
-                        <h2>Page Not Found!</h2>
-                        <!-- <h3>Oops! Looks like something going rong</h3> -->
-                        <p>Oops! The page you are looking for does not exist. It might have been moved or deleted.</p>
-                        <div class="btn-wrapper">
-                            <a href="{{ route('home') }}" class="btn btn-transparent"><i class="fas fa-long-arrow-alt-left"></i> BACK TO HOME</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 404 area end -->
-@endsection
+</html>
