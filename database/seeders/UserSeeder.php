@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         $super = User::create([
             'name' => 'Super User',
-            'email' => 'super@jsag.com',
+            'email' => 'super@spm.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
 
         $director = User::create([
             'name' => 'Director',
-            'email' => 'director@jsag.com',
+            'email' => 'director@spm.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
 
         $admin = User::create([
             'name' => 'Manager',
-            'email' => 'manager@jsag.com',
+            'email' => 'manager@spm.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
 
         $admin = User::create([
             'name' => 'Admin',
-            'email' => 'admin@jsag.com',
+            'email' => 'admin@spm.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -64,7 +64,7 @@ class UserSeeder extends Seeder
 
         $agent = User::create([
             'name' => 'Account',
-            'email' => 'account@jsag.com',
+            'email' => 'account@spm.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11, 
             'address' => '',
@@ -76,7 +76,7 @@ class UserSeeder extends Seeder
 
         $agent = User::create([
             'name' => 'Agent',
-            'email' => 'agent@jsag.com',
+            'email' => 'agent@spm.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11, 
             'address' => '',

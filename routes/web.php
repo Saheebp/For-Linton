@@ -27,6 +27,10 @@ Route::middleware('auth')->group(function() {
             Route::get('/', 'UserController@index')->name('index');
             Route::post('/search', 'UserController@search')->name('search');
             Route::get('/delete/{user}', 'UserController@delete')->name('destroy');
+            Route::post('/update/password', 'UserController@passwordupdate')->name('passwordupdate');
+            Route::post('/update/bio', 'UserController@bioupdate')->name('bioupdate');
+            Route::post('/update/code', 'UserController@codeupdate')->name('codeupdate');
+            Route::post('/update/role', 'UserController@roleupdate')->name('roleupdate');
         });
     });
     
@@ -58,6 +62,29 @@ Route::middleware('auth')->group(function() {
         });
     });
 
+    //projects
+    Route::resource('projects', 'ProjectController');
+    Route::name('projects.')->group(function() {
+        Route::prefix('projects')->group(function() {
+            Route::get('/', 'ProjectController@index')->name('index');
+            Route::post('filter', 'ProjectController@filter')->name('filter');
+            Route::post('search', 'ProjectController@search')->name('search');
+            Route::post('upload/resource', 'ProjectController@uploadResource')->name('upload');
+        });
+    });
+
+    //projects
+    Route::resource('tasks', 'TaskController');
+    Route::name('tasks.')->group(function() {
+        Route::prefix('tasks')->group(function() {
+            Route::get('/', 'TaskController@index')->name('index');
+            Route::post('filter', 'TaskController@filter')->name('filter');
+            Route::post('search', 'TaskController@search')->name('search');
+            Route::post('createsubtask', 'TaskController@createSubTask')->name('createsubtask');
+            Route::post('upload/resource', 'TaskController@uploadResource')->name('upload');
+        });
+    });
+    
     //payments
     Route::resource('payments', 'PaymentController');
     Route::name('payments.')->group(function() {

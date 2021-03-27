@@ -32,7 +32,7 @@ z-index: 999999">
     </div>
 </div> -->
 <div>
-    <div class="login-container  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="login-container wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
         <div class="row">
             
         <div class="col-lg-12 login_border_radius lockscreen_content">

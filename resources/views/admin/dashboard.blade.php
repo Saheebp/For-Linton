@@ -102,7 +102,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-12 col-sm-6 col-xl-3 media_max_1199">
@@ -139,7 +138,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-12 col-sm-6 col-xl-3 media_max_1199">
@@ -176,7 +174,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 

@@ -17,33 +17,50 @@ class StatusSeeder extends Seeder
     {
         $statuses = [
             [
-                'name' => 'Paid', //1
+                'name' => 'Paid',
                 'style' => 'success'
             ],
             [
-                'name' => 'Pending',//2
+                'name' => 'Unpaid',
+                'style' => 'dark'
+            ],
+            [
+                'name' => 'Declined',
+                'style' => 'secondary'
+            ],
+
+
+
+            [
+                'name' => 'New',
+                'style' => 'primary'
+            ],
+            [
+                'name' => 'In Progress',
+                'style' => 'success'
+            ],
+            [
+                'name' => 'Pending',
                 'style' => 'warning'
-            ],
-            [
-                'name' => 'Cancelled',//3
-                'style' => 'danger'
-            ],
-            [
-                'name' => 'In Progress',//4
-                'style' => 'success'
-            ],
-            [
-                'name' => 'Queried',//5
-                'style' => 'danger'
             ],
             [
                 'name' => 'Completed',//6
                 'style' => 'success'
             ],
             [
-                'name' => 'New',//7
-                'style' => 'success'
+                'name' => 'Cancelled',//3
+                'style' => 'danger'
             ],
+            [
+                'name' => 'Overdue',
+                'style' => 'danger'
+            ],
+            [
+                'name' => 'Queried',//5
+                'style' => 'danger'
+            ],
+            
+            
             [
                 'name' => 'Gold',//8
                 'style' => 'success'
@@ -53,17 +70,13 @@ class StatusSeeder extends Seeder
                 'style' => 'success'
             ],
             [
-                'name' => 'Unavailable',//10
+                'name' => 'Unavailable',
                 'style' => 'warning'
             ],
             [
-                'name' => 'Available',//11
+                'name' => 'Available',
                 'style' => 'success'
-            ],
-            [
-                'name' => 'Admin',//12
-                'style' => 'success'
-            ],
+            ]
 
         ];
 

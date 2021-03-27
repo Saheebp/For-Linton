@@ -19,12 +19,7 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             RoleSeeder::class,
             SettingSeeder::class,
-            BrandSeeder::class,
-            CategorySeeder::class,
-            ProductSeeder::class,
             UserSeeder::class,
-            AttributeSeeder::class,
-            AttributeOptionSeeder::class,
         ]);
     }
 }

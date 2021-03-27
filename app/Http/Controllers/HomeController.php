@@ -30,12 +30,12 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        $customers = User::role('Customer')->whereDate('created_at', Carbon::now())->get()->count();
-        $products = Product::all()->count();
+        // $customers = User::role('Customer')->whereDate('created_at', Carbon::now())->get()->count();
+        // $products = Product::all()->count();
         
         return view('admin.dashboard', [
-            'customers' => $customers,
-            'products' => $products
+            'customers' => 0,
+            'products' => 0
         ]);
     }
 

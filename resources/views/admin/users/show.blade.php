@@ -29,7 +29,7 @@
                 <div class="col-lg-6">
                     <h4 class="nav_top_align skin_txt">
                         <i class="fa fa-road"></i>
-                        Trips
+                        Users
                     </h4>
                 </div>
                 <div class="col-lg-6">
@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#"> Trips </a>
+                            <a href="#"> Users </a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>

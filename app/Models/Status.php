@@ -18,11 +18,21 @@ class Status extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function order() {
+    public function project() {
+        return $this->hasOne(Payment::class);
+    }
+    
+    public function task() {
+        return $this->hasOne(Order::class);
+    }
+
+    public function subtask() {
         return $this->hasOne(Order::class);
     }
 
     public function payment() {
         return $this->hasOne(Payment::class);
     }
+
+    
 }

@@ -421,9 +421,9 @@
 
                     @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="">
-                        <a href="#">
+                        <a href="{{ route('projects.index') }}">
                             <i class="fa fa-map-marker"></i>
-                            <span class="link-title menu_hide">&nbsp; Products</span>
+                            <span class="link-title menu_hide">&nbsp; Projects</span>
                             <!-- <span class="fa arrow menu_hide"></span> -->
                         </a>
                     </li>
@@ -431,19 +431,42 @@
 
                     @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="dropdown_menu">
-                        <a href="{{ route('payments.index') }}">
-                            <i class="fa fa-money"></i>
-                            <span class="link-title menu_hide">&nbsp; Payments</span>
+                        <a href="#">
+                            <i class="fa fa-history"></i>
+                            <span class="link-title menu_hide">&nbsp; Tasks</span>
                             <!-- <span class="fa arrow menu_hide"></span> -->
                         </a>
                     </li>
                     @endrole
-                    
+
+                    @role('SuperUser|Director')
+                    <li class="dropdown_menu">
+                        <a href="{{ route('admin.home') }}">
+                            <i class="fa fa-users"></i>
+                            <span class="link-title menu_hide">&nbsp; Users</span>
+                            <span class="fa arrow menu_hide"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{{ route('users.index') }}">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Manage Users
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.home') }}">
+                                    <i class="fa fa-angle-right"></i>
+                                    &nbsp; Permissions
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endrole
 
                     @role('SuperUser|Director|Admin')
                     <li class="">
                         <a href="{{ route('tickets.index') }}">
-                            <i class="fa fa-bus"></i>
+                            <i class="fa fa-history"></i>
                             <span class="link-title menu_hide">&nbsp; Tickets</span>
                             <!-- <span class="fa arrow menu_hide"></span> -->
                         </a>
@@ -477,6 +500,16 @@
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    @endrole
+
+                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
+                    <li class="">
+                        <a href="{{ route('admin.home') }}">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="link-title menu_hide">&nbsp; Reviews & Ratings</span>
+                            <!-- <span class="fa arrow menu_hide"></span> -->
+                        </a>
                     </li>
                     @endrole
 
@@ -543,40 +576,6 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    @endrole
-
-                    @role('SuperUser|Director')
-                    <li class="dropdown_menu">
-                        <a href="{{ route('admin.home') }}">
-                            <i class="fa fa-users"></i>
-                            <span class="link-title menu_hide">&nbsp; Users</span>
-                            <span class="fa arrow menu_hide"></span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="{{ route('users.index') }}">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Manage Users
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.home') }}">
-                                    <i class="fa fa-angle-right"></i>
-                                    &nbsp; Permissions
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endrole
-
-                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
-                    <li class="">
-                        <a href="{{ route('admin.home') }}">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="link-title menu_hide">&nbsp; Staff Reviews & Ratings</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
-                        </a>
                     </li>
                     @endrole
 
@@ -931,7 +930,7 @@
 <!--end of global scripts-->
 
 <!--  plugin scripts -->
-<script type="text/javascript" src="{{asset('admin/vendors/countUp/js/countUp.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('admin/vendors/countUp/js/countUp.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('admin/vendors/flip/js/jquery.flip.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('admin/js/pluginjs/jquery.sparkline.js')}}"></script>
 <script type="text/javascript" src="{{asset('admin/vendors/chartist/js/chartist.min.js')}}"></script>
