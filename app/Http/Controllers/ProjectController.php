@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Project;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,9 +18,11 @@ class ProjectController extends Controller
     public function index()
     {
         //
+        $managers = User::role('Manager')->get();
         $projects = Project::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.projects.index', [
+            'managers' => $managers,
             'projects' => $projects
         ]);
     }
@@ -55,6 +59,8 @@ class ProjectController extends Controller
                 'description' => $request->description,
                 'budget' => $request->budget,
                 'owner' => $request->owner,
+                'startdate' => $request->startdate,
+                'enddate' => $request->enddate,
                 'status_id' => $this->pending,
             ]);
 
@@ -74,7 +80,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $members = User::all();
         return view('admin.projects.show', [
+            'members' => $members,
             'project' => $project
         ]);
     }

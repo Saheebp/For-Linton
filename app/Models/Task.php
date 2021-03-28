@@ -59,4 +59,8 @@ class Task extends Model
     public function children() {
         return $this->hasMany(Task::class);
     }
+
+    public function members() {
+        return $this->hasMany(Member::class);
+    }
 }

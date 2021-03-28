@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         $super = User::create([
             'name' => 'Super User',
-            'email' => 'super@spm.com',
+            'email' => 'super@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
 
         $director = User::create([
             'name' => 'Director',
-            'email' => 'director@spm.com',
+            'email' => 'director@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -38,21 +38,45 @@ class UserSeeder extends Seeder
         ]);
         $director->assignRole('Director');
 
-        $admin = User::create([
-            'name' => 'Manager',
-            'email' => 'manager@spm.com',
+        $manager1 = User::create([
+            'name' => 'Manager1',
+            'email' => 'manager1@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
-            'phone' => '00000000003',
+            'phone' => '10000000003',
             'is_admin' => 'true',
             'order_count' => 0
         ]);
-        $admin->assignRole('Manager');
+        $manager1->assignRole('Manager');
+
+        $manager2 = User::create([
+            'name' => 'Manager2',
+            'email' => 'manager2@lintonstarksmanager.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11,  
+            'address' => '',
+            'phone' => '20000000003',
+            'is_admin' => 'true',
+            'order_count' => 0
+        ]);
+        $manager2->assignRole('Manager');
+
+        $manager3 = User::create([
+            'name' => 'Manager3',
+            'email' => 'manager3@lintonstarksmanager.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11,  
+            'address' => '',
+            'phone' => '10000000003',
+            'is_admin' => 'true',
+            'order_count' => 0
+        ]);
+        $manager3->assignRole('Manager');
 
         $admin = User::create([
             'name' => 'Admin',
-            'email' => 'admin@spm.com',
+            'email' => 'admin@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -64,7 +88,7 @@ class UserSeeder extends Seeder
 
         $agent = User::create([
             'name' => 'Account',
-            'email' => 'account@spm.com',
+            'email' => 'account@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11, 
             'address' => '',
@@ -74,17 +98,17 @@ class UserSeeder extends Seeder
         ]);
         $agent->assignRole('Account');
 
-        $agent = User::create([
-            'name' => 'Agent',
-            'email' => 'agent@spm.com',
-            'password' => Hash::make('12345678'),
-            'status_id' => 11, 
-            'address' => '',
-            'phone' => '00000000004',
-            'is_admin' => 'true',
-            'order_count' => 0
-        ]);
-        $agent->assignRole('Agent');
+        // $agent = User::create([
+        //     'name' => 'Agent',
+        //     'email' => 'agent@lintonstarksmanager.com',
+        //     'password' => Hash::make('12345678'),
+        //     'status_id' => 11, 
+        //     'address' => '',
+        //     'phone' => '00000000004',
+        //     'is_admin' => 'true',
+        //     'order_count' => 0
+        // ]);
+        // $agent->assignRole('Agent');
 
         // $customer = User::create([
         //     'name' => 'Nnamdi Ibe',

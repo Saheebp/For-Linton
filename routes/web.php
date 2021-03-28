@@ -81,7 +81,11 @@ Route::middleware('auth')->group(function() {
             Route::post('filter', 'TaskController@filter')->name('filter');
             Route::post('search', 'TaskController@search')->name('search');
             Route::post('createsubtask', 'TaskController@createSubTask')->name('createsubtask');
-            Route::post('upload/resource', 'TaskController@uploadResource')->name('upload');
+            Route::post('upload/resource/{task}', 'TaskController@uploadResource')->name('upload');
+            Route::post('member/add/{task}', 'TaskController@addMember')->name('addMember');
+
+
+            
         });
     });
     

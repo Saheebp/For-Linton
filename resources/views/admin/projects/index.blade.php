@@ -267,10 +267,24 @@
 
                                                                                     <div class="col-lg-6">
                                                                                         <label for="subject1" class="col-form-label">
+                                                                                            Manager
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <select class="form-control" name="status_id" required>
+                                                                                                <option value="">-- Select Project Manager --</option>
+                                                                                                @foreach ($managers as $manager)
+                                                                                                    <option value="{{ $manager->id }}">{{ $manager->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col-lg-6">
+                                                                                        <label for="subject1" class="col-form-label">
                                                                                             Budget
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <input type="number" id="budget" value="{{ old('budget') }}" class="form-control" min="0" name="budget">
+                                                                                            <input type="number" id="budget" value="{{ old('budget') }}" class="form-control" min="0" name="budget" required>
                                                                                         </div>
                                                                                         @error('budget')
                                                                                             <span class="text-danger">{{ $errors->first('budget') }}</span>
@@ -282,7 +296,7 @@
                                                                                             Start Date
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <input type="date" id="startdate" class="form-control" name="startdate">
+                                                                                            <input type="date" id="startdate" class="form-control" name="startdate" required>
                                                                                         </div>
                                                                                         @error('startdate')
                                                                                             <span class="text-danger">{{ $errors->first('startdate') }}</span>
@@ -294,7 +308,7 @@
                                                                                             End Date
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <input type="date" id="enddate" class="form-control" name="enddate">
+                                                                                            <input type="date" id="enddate" class="form-control" name="enddate" required>
                                                                                         </div>
                                                                                     </div>
 

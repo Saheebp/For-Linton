@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Member;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $membertasks = Member::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        dd($membertasks);
+        return view('admin.tasks.index', [
+            'membertasks' => $membertasks
+        ]);
     }
 
     /**
@@ -91,7 +96,7 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $task)
+    public function update(Request $request, Task $task)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -147,7 +152,7 @@ class TaskController extends Controller
             return back()->with('error', "Oops, Error Creating a Task");
         }        }
 
-    public function engageTask(Request $request, Project $task)
+    public function engageTask(Request $request, Task $task)
     {
         try 
         {
@@ -164,34 +169,65 @@ class TaskController extends Controller
         }
     }
 
-    public function uploadResource(Request $request, Project $task)
+
+    public function addMember(Request $request, Task $task)
     {
         try 
         {
-            $path = $request->file('avatar')->store('avatars');
-            
-            Resource::create([
-                'name' => $request->name,
-                'url' => $request->path,
-                'type' => $request->type,
-                'description' => $request->description,
-                'creator' => '',
-
-                'project_id' =>$task->project->id,
+            Member::create([
+                'project_id' => $task->project_id,
                 'task_id' => $task->id,
-                'status_id' => $request->status,
+                'user_id' => $request->member
             ]);
 
-            $task->update([
-                'executor' => $request->executor
-            ]);
-            $task->save();
-
-            return back()->with('success', 'Task Position Updated successfully.');
+            return back()->with('success', 'Team Member added successfully.');
         }
         catch (\Exception $e) 
         {
             return back()->with('error', "Oops, Error Updating Task");
+        }
+    }
+
+    public function uploadResource(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx|max:2048'
+        ]);
+
+        try 
+        {
+            $file = $request->file('file');
+            //File Name
+            $filename = $file->getClientOriginalName();
+            //File Extension
+            $fileextension = $file->getClientOriginalExtension();
+            //File Real Path
+            $filepath = $file->getRealPath();
+            //File Size
+            $filesize = $file->getSize();
+            //File Mime Type
+            $filetype = $file->getMimeType();
+            //Move Uploaded File
+            $destinationPath = 'uploads';
+            $url = $file->move($destinationPath, $file->getClientOriginalName());
+            
+            Resource::create([
+                'name' => $request->name,
+                'url' => 'uploads/'.$filename,
+                'type' => $filetype,
+                'description' => $request->description,
+                'creator' =>  auth()->user()->id,
+                'project_id' => $task->project_id,
+                'task_id' => $task->id,
+            ]);
+            
+            return back()->with('success', 'Resource added successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error adding resource to Task");
         }
     }
 

@@ -27,7 +27,7 @@
 
 <body class="body fixedNav_position fixedMenu_left">
 
-<div class="preloader" style=" position: fixed;
+<!-- <div class="preloader" style=" position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -44,7 +44,7 @@
             z-index: 999999">
         <img src="{{ asset('admin/img/loader.gif') }}" style=" width: 40px;" alt="loading...">
     </div>
-</div>
+</div> -->
 <div id="wrap">
     <div id="top" class="fixed">
         <!-- .navbar -->
@@ -422,7 +422,7 @@
                     @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="">
                         <a href="{{ route('projects.index') }}">
-                            <i class="fa fa-map-marker"></i>
+                            <i class="fa fa-tasks"></i>
                             <span class="link-title menu_hide">&nbsp; Projects</span>
                             <!-- <span class="fa arrow menu_hide"></span> -->
                         </a>
@@ -431,7 +431,7 @@
 
                     @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="dropdown_menu">
-                        <a href="#">
+                        <a href="{{ route('tasks.index') }}">
                             <i class="fa fa-history"></i>
                             <span class="link-title menu_hide">&nbsp; Tasks</span>
                             <!-- <span class="fa arrow menu_hide"></span> -->
@@ -464,13 +464,13 @@
                     @endrole
 
                     @role('SuperUser|Director|Admin')
-                    <li class="">
+                    <!-- <li class="">
                         <a href="{{ route('tickets.index') }}">
                             <i class="fa fa-history"></i>
                             <span class="link-title menu_hide">&nbsp; Tickets</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
+                            <span class="fa arrow menu_hide"></span>
                         </a>
-                    </li>
+                    </li> -->
                     @endrole
 
                     @role('SuperUser|Director|Admin|Account')

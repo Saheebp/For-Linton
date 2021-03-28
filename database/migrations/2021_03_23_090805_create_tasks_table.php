@@ -19,8 +19,8 @@ class CreateTasksTable extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->string('startdate')->nullable()->default(null);
-            $table->string('enddate')->nullable()->default(null);
+            $table->dateTime('startdate')->nullable()->default(null);
+            $table->dateTime('enddate')->nullable()->default(null);
             $table->string('description')->nullable()->default(null);
             
             $table->string('order')->nullable()->default(null);
