@@ -18,12 +18,13 @@ class CreateSubTasksTable extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->string('startdate')->nullable()->default(null);
-            $table->string('enddate')->nullable()->default(null);
+            $table->string('duedate')->nullable()->default(null);
             $table->string('description')->nullable()->default(null);
             
             $table->string('budget')->nullable()->default(null);
-            $table->unsignedBigInteger('executor')->nullable()->default(null);
+
+            $table->unsignedBigInteger('executor_id')->nullable()->default(null);
+            $table->foreign('executor_id')->references('id')->on('users')->onDelete('restrict');
 
             $table->unsignedBigInteger('task_id')->nullable()->default(null);
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('restrict');

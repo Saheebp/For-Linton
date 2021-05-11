@@ -73,7 +73,29 @@ Route::middleware('auth')->group(function() {
         });
     });
 
-    //projects
+    //inventory
+    Route::resource('inventory', 'InventoryController');
+    Route::name('inventory.')->group(function() {
+        Route::prefix('inventory')->group(function() {
+            Route::get('/', 'InventoryController@index')->name('index');
+            Route::post('filter', 'InventoryController@filter')->name('filter');
+            Route::post('search', 'InventoryController@search')->name('search');
+            Route::post('upload/resource', 'InventoryController@uploadResource')->name('upload');
+        });
+    });
+
+    //inventory
+    Route::resource('items', 'ItemController');
+    Route::name('items.')->group(function() {
+        Route::prefix('items')->group(function() {
+            Route::get('/', 'ItemController@index')->name('index');
+            Route::post('filter', 'ItemController@filter')->name('filter');
+            Route::post('search', 'ItemController@search')->name('search');
+            Route::post('upload/resource', 'ItemController@uploadResource')->name('upload');
+        });
+    });
+
+    //tasks
     Route::resource('tasks', 'TaskController');
     Route::name('tasks.')->group(function() {
         Route::prefix('tasks')->group(function() {
@@ -83,8 +105,8 @@ Route::middleware('auth')->group(function() {
             Route::post('createsubtask', 'TaskController@createSubTask')->name('createsubtask');
             Route::post('upload/resource/{task}', 'TaskController@uploadResource')->name('upload');
             Route::post('member/add/{task}', 'TaskController@addMember')->name('addMember');
-
-
+            Route::post('member/remove/', 'TaskController@removeMember')->name('removeMember');
+            Route::post('status/update/{task}', 'TaskController@updateStatus')->name('updateStatus');
             
         });
     });

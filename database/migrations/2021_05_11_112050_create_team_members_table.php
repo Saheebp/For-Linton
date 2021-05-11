@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMembersTable extends Migration
+class CreateTeamMembersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,18 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('team_members', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-
-            $table->unsignedBigInteger('project_id')->nullable()->default(null);
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');
 
             $table->unsignedBigInteger('task_id')->nullable()->default(null);
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('restrict');
 
+            $table->unsignedBigInteger('project_id')->nullable()->default(null);
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');
+
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-            
         });
     }
 
@@ -36,6 +35,6 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('team_members');
     }
 }

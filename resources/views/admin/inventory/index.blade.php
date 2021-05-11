@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Products
+    Inventory
     @parent
 @stop
 
@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">Products</a>
+                            <a href="#">Inventories</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -74,7 +74,7 @@
                                     <div class="float-right m-t-5">
                                         <i class="fa fa-users text-dark"></i>
                                     </div>
-                                    <div id="widget_countup12">{{ $customers ?? "" }}</div>
+                                    <div id="widget_countup12">{{ 0 ?? "" }}</div>
                                     <div>Available Products</div>
                                 </div>
 
@@ -111,7 +111,7 @@
                                     <div class="float-right m-t-5 text-primary">
                                         <i class="fa fa-shopping-cart"></i>
                                     </div>
-                                    <div id="widget_countup22">{{ $bookings ?? ""}}</div>
+                                    <div id="widget_countup22">{{ 0 ?? ""}}</div>
                                     <div>Deactivated Products</div>
 
                                 </div>
@@ -149,7 +149,7 @@
                                     <div class="float-right m-t-5 text-warning">
                                         <i class="fa fa-shopping-cart"></i>
                                     </div>
-                                    <div id="widget_countup32">{{ $trips ?? "" }}</div>
+                                    <div id="widget_countup32">{{ 0 ?? "" }}</div>
                                     <div>Out of Stock</div>
                                 </div>
 
@@ -187,7 +187,7 @@
                                         <i class="fa fa-shopping-cart"></i>
                                     </div>
 
-                                    <div id="widget_countup42">{{ $routes ?? ""}}</div>
+                                    <div id="widget_countup42">{{ 0 ?? ""}}</div>
                                     <div>Completed Orders</div>
                                 </div>
                                 <div class="row">
@@ -241,31 +241,21 @@
                                             <div class="col-12 m-t-15">
                                                 @role('SuperUser|Director|Admin')
                                                 <button class="btn btn-sm btn-raised m-t-2 btn-success adv_cust_mod_btn"
-                                                        data-toggle="modal" data-target="#createProduct">Create New Product
-                                                </button>
-
-                                                <button class="btn btn-sm btn-raised m-t-2 btn-primary adv_cust_mod_btn"
-                                                        data-toggle="modal" data-target="#createTrip">Create New Category
-                                                </button>
-
-                                                <button class="btn btn-sm btn-raised m-t-2 btn-dark adv_cust_mod_btn"
-                                                        data-toggle="modal" data-target="#createTrip">Create New Brand
+                                                        data-toggle="modal" data-target="#createInventory">Create New Inventory
                                                 </button>
                                                 @endrole
 
-                                                
-
-                                                <div class="modal fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                <div class="modal fade" id="createInventory" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" id="modalLabel">Create A New Product</h4>
+                                                                <h4 class="modal-title" id="modalLabel">Create A New Inventory</h4>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">×</span>
                                                                 </button>
                                                             </div>
-                                                            <form class="form-horizontal" action="#" method="POST">
+                                                            <form class="form-horizontal" action="{{ route('inventory.store') }}" method="POST">
                                                                 @csrf
                                                                 <fieldset>
                                                                 <div class="modal-body">
@@ -274,7 +264,7 @@
                                                                     <div class="form-group row m-t-25">
                                                                         <div class="col-lg-12">
                                                                             <label for="date" class="col-form-label">
-                                                                                Product Name
+                                                                                Inventory Name
                                                                             </label>
                                                                             <div class="input-group">
                                                                             <span class="input-group-addon">
@@ -287,97 +277,28 @@
                                                                     </div>
 
                                                                     <div class="form-group row m-t-25">
-                                                                        <div class="col-lg-6">
+                                                                        <div class="col-lg-12">
                                                                             <label for="date" class="col-form-label">
-                                                                                Quantity
+                                                                                Related Project
                                                                             </label>
-                                                                            <div class="input-group">
-                                                                            <span class="input-group-addon">
-                                                                                <i class="fa fa-calendar"></i>
-                                                                            </span>
-                                                                                <input type="text" class="form-control" id="name" placeholder="" name="name">
-                                                                            </div>
+                                                                            <select class="form-control mb-3" name="project" required>
+                                                                                <option value="">--Select Project--</option>
+                                                                                @foreach($projects as $project)
+                                                                                <option value="{{ $project->id }}">{{ $project->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
                                                                         </div>
                                                                         
-                                                                        <div class="col-lg-6">
-                                                                            <label for="subject1" class="col-form-label">
-                                                                                Category
-                                                                            </label>
-                                                                            <div class="input-group">
-                                                                            <input type="text" class="form-control" id="name" placeholder="" name="name">
-                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-lg-6">
-                                                                            <label for="subject1" class="col-form-label">
-                                                                                Brand
-                                                                            </label>
-                                                                            <div class="input-group">
-                                                                            <input type="text" class="form-control" id="name" placeholder="" name="name">
-                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-lg-6">
-                                                                            <label for="subject1" class="col-form-label">
-                                                                                Price
-                                                                            </label>
-                                                                            <div class="input-group">
-                                                                            <input type="text" class="form-control" id="name" placeholder="" name="name">
-                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-12">
+                                                                        <div class="col-lg-12">
                                                                             <label for="subject1" class="col-form-label">
                                                                                 Description
                                                                             </label>
                                                                             <div class="input-group">
-                                                                                <textarea type="time" name="time" id="subject1" class="form-control" placeholder="Subject"></textarea>
-                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                                                                <textarea  type="text" class="form-control" id="description" placeholder="" name="description">
+                                                                                </textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
-                                                                    <div class="form-group row m-t-25">
-                                                                        <div class="col-lg-4">
-                                                                            <label for="date" class="col-form-label">
-                                                                                Image 1
-                                                                            </label>
-                                                                            <div class="input-group">
-                                                                            <span class="input-group-addon">
-                                                                                <i class="fa fa-image"></i>
-                                                                            </span>
-                                                                                <input type="file" class="form-control" id="name" placeholder="" name="image1">
-                                                                            </div>
-                                                                        </div>
-                                                                        
-                                                                        <div class="col-lg-4">
-                                                                            <label for="date" class="col-form-label">
-                                                                                Image 2
-                                                                            </label>
-                                                                            <div class="input-group">
-                                                                            <span class="input-group-addon">
-                                                                                <i class="fa fa-image"></i>
-                                                                            </span>
-                                                                                <input type="file" class="form-control" id="name" placeholder="" name="image1">
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-lg-4">
-                                                                            <label for="date" class="col-form-label">
-                                                                                Image 3
-                                                                            </label>
-                                                                            <div class="input-group">
-                                                                            <span class="input-group-addon">
-                                                                                <i class="fa fa-image"></i>
-                                                                            </span>
-                                                                                <input type="file" class="form-control" id="name" placeholder="" name="image1">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    
                                                                 </div>
 
                                                                 <div class="modal-footer">
@@ -395,7 +316,7 @@
                                                 </div>
 
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -406,7 +327,7 @@
 
                     <div class="card">
                         <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> All Products {{ isset($title) ? $title:'' }}
+                            <i class="fa fa-table"></i> All Inventories {{ isset($title) ? $title:'' }}
                         </div>
 
                         <div class="card-body m-t-35">
@@ -416,7 +337,7 @@
                                 </div>
 
                                 <div class="col-lg-6 col-sm-12 m-t-1 text-right">
-                                    <form method="POST" action="{{ route('products.search') }}">
+                                    <form method="POST" action="{{ route('inventory.search') }}">
                                     @csrf
 
                                         <input class="form-control col-12" type="hidden" name="filtertype" value="search">
@@ -439,51 +360,41 @@
                                         <tr>
                                             <th style="width:3%;">ID</th>
                                             <th style="width:20%;">Name</th>
-                                            <th style="width:10%;">Atrributes</th>
-                                            <th style="width:10%;">Category</th>
-                                            <th style="width:5%;">Brand</th>
-                                            <th style="width:5%;">Qty</th>
-                                            <th style="width:5%;">Price</th>
+                                            <th style="width:10%;">Project</th>
+                                            <th style="width:10%;">Created</th>
                                             <th style="width:5%;">Status</th>
                                             <th style="width:5%;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($products as $product)
+                                        @foreach($inventories as $inventory)
                                         <tr>
-                                            <td>{{ $product->id }}</td>
-                                            <td>{{ $product->name }}</td>
-                                            <td>{{ $product->id }}</td>
-                                            <td>{{ $product->category->name }}</td>
-                                            <td>{{ $product->brand->name }}</td>
-                                            <td>{{ $product->quantity }}</td>
-                                            <td>&#8358;{{ $product->amount }}</td>
-                                            <td><span class="badge badge-{{ $product->status->style }}">{{ $product->status->name }}</span></td>
+                                            <td>{{ $inventory->id }}</td>
+                                            <td>{{ $inventory->name }}</td>
+                                            <td>{{ $inventory->project->name }}</td>
+                                            <td>{{ $inventory->created_at }}</td>
+                                            <td><span class="badge badge-{{ $inventory->status->style }}">{{ $inventory->status->name }}</span></td>
                                             <td>
-                                                <a class="btn btn-secondary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$product->id}}">Manage</a>&nbsp;&nbsp;
+                                                <a class="btn btn-secondary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$inventory->id}}">Manage</a>&nbsp;&nbsp;
                                                 
-                                                <div class="modal fade" id="modalDetails{{$product->id}}" role="dialog" aria-labelledby="modalLabelprimary">
+                                                <div class="modal fade" id="modalDetails{{$inventory->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header bg-primary">
-                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary"> [product ID: {{ $product->id }}]</h4>
+                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary"> [product ID: {{ $inventory->id }}]</h4>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <p class="p-2">
                                                                     <table width="100%">
                                                                         <tr>
                                                                             <td><b>Name:</b></td>
-                                                                            <td>{{ $product->name }}</td>
+                                                                            <td>{{ $inventory->name }}</td>
                                                                         </tr>
                                                                         
-                                                                        <tr>
-                                                                            <td><b>Amount:</b></td>
-                                                                            <td>&#8358;{{ $product->amount }}</td>
-                                                                        </tr>
                                                                         
                                                                         <tr>
-                                                                            <td><b>Product Status:</b></td>
-                                                                            <td><span class="text-{{ $product->status->style }}">{{ $product->status->name }}</span></td>
+                                                                            <td><b>Inventory Status:</b></td>
+                                                                            <td><span class="text-{{ $inventory->status->style }}">{{ $inventory->status->name }}</span></td>
                                                                         </tr>
                                                                     </table>
                                                                 </p>
@@ -493,7 +404,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-12">
                                                                         
-                                                                        <a class="btn btn-sm btn-warning text-white mt-1" data-toggle="modal" data-target="#modalDelete{{$product->id}}">Delete</a>&nbsp;&nbsp;
+                                                                        <a class="btn btn-sm btn-warning text-white mt-1" data-toggle="modal" data-target="#modalDelete{{ $inventory->id }}">Delete</a>&nbsp;&nbsp;
                                                                         <button class="btn btn-sm btn-white text-dark mt-1" data-dismiss="modal">Close</button>
                                                                     </div>
                                                                 </div>
@@ -502,24 +413,24 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="modal fade" id="modalDelete{{$product->id}}" role="dialog" aria-labelledby="modalLabelprimary">
+                                                <div class="modal fade" id="modalDelete{{ $inventory->id }}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header bg-primary">
-                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">{{ $product->name }}</h4>
+                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">{{ $inventory->name }}</h4>
                                                             </div>
-                                                            <form method="POST" action="{{ route('products.destroy') }}">
+                                                            <form method="POST" action="{{ route('inventory.destroy', $inventory->id ) }}">
                                                             @csrf
 
-                                                            <input value="{{ $product->id }}" name="id" hidden readonly >
+                                                            <input value="{{ $inventory->id }}" name="id" hidden readonly >
                                                             <div class="modal-body">
                                                                 <h3 class="p-5 text-center">
-                                                                    Are you sure you want to Delete this product?
+                                                                    Are you sure you want to Delete this inventory?
                                                                 </h3>
                                                             </div> 
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-sm btn-outline-dark" data-dismiss="modal">Close</button>
-                                                                <button class="btn btn-sm btn-danger" type="submit">Yes, Delete product</button>
+                                                                <button class="btn btn-sm btn-danger" type="submit">Yes, Clone & Delete inventory</button>
                                                             </div>
                                                             </form>
                                                         </div>
@@ -532,7 +443,7 @@
                                 </table>
                             </div>
                             
-                            <div style="text-align: right; width:100%;">{{ $products->links() }}</div>
+                            <div style="text-align: right; width:100%;">{{ $inventories->links() }}</div>
                         </div>
                     </div>
                 </div>

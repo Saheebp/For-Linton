@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Category;
+use App\Models\Status;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -50,6 +52,7 @@ class ProjectController extends Controller
             'description' => 'required|string|max:255',
             'budget' => 'required|string',
             'owner' => 'required|string',
+            'manager' => 'required|string',
         ]);
 
         try 
@@ -59,9 +62,10 @@ class ProjectController extends Controller
                 'description' => $request->description,
                 'budget' => $request->budget,
                 'owner' => $request->owner,
-                'startdate' => $request->startdate,
-                'enddate' => $request->enddate,
-                'status_id' => $this->pending,
+                'manager_id' => $request->manager,
+                'creator_id' => auth()->user()->id,
+                'duedate' => $request->duedate,
+                'status_id' => $this->new,
             ]);
 
             return back()->with('success', 'Project created successfully.');
@@ -81,9 +85,16 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $members = User::all();
+        $projects = Project::all();
+        $statuses = Status::all();
+        $categories = Category::all();
+
         return view('admin.projects.show', [
             'members' => $members,
-            'project' => $project
+            'project' => $project,
+            'projects' => $projects,
+            'statuses' => $statuses,
+            'categories' => $categories
         ]);
     }
 

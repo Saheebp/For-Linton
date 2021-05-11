@@ -40,11 +40,11 @@ class User extends Authenticatable
         return $this->hasMany(Payment::class);
     }
     
-    public function projects() {
+    public function manages() {
         return $this->hasMany(Project::class);
     } 
     
-    public function tasks() {
+    public function executes() {
         return $this->hasMany(Task::class);
     } 
     

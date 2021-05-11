@@ -19,13 +19,14 @@ class CreateTasksTable extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->dateTime('startdate')->nullable()->default(null);
-            $table->dateTime('enddate')->nullable()->default(null);
+            $table->dateTime('duedate')->nullable()->default(null);
             $table->string('description')->nullable()->default(null);
             
             $table->string('order')->nullable()->default(null);
             $table->string('budget')->nullable()->default(null);
-            $table->unsignedBigInteger('executor')->nullable()->default(null);
+
+            $table->unsignedBigInteger('executor_id')->nullable()->default(null);
+            $table->foreign('executor_id')->references('id')->on('users')->onDelete('restrict');
 
             $table->unsignedBigInteger('status_id')->nullable()->default(null);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');

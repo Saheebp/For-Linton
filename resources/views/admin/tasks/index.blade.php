@@ -75,7 +75,7 @@
                                 <div class="">
                                     <div class="bg-white text-success text-white b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup12">{{ 0 }}</div>
+                                            <div id="widget_countup12">{{ $tasks->where('status_id', $new)->count() ?? '' }}</div>
                                             <div>New Tasks</div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                 <div class="">
                                     <div class="bg-white text-warning b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup22">{{ 0 }}</div>
+                                            <div id="widget_countup22">{{ $tasks->where('status_id', $pending)->count() ?? '' }}</div>
                                             <div>Pending Tasks</div>
                                         </div>
                                     </div>
@@ -130,7 +130,7 @@
                                 <div class="">
                                     <div class="bg-white text-dark b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup12"> {{ 0 }}</div>
+                                            <div id="widget_countup12"> {{ $tasks->where('status_id', $completed)->count() ?? '' }}</div>
                                             <div>Completed Tasks</div>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@
                                 <div class="">
                                     <div class="bg-white text-danger b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup12"> {{ 0 }}</div>
+                                            <div id="widget_countup12"> {{ $tasks->where('status_id', $overdue)->count() ?? '' }}</div>
                                             <div>Overdue Tasks</div>
                                         </div>
                                     </div>
@@ -238,8 +238,7 @@
                                 <table id="example1" class="table table-striped table-bordered bordered">
                                     <thead>
                                     <tr>
-                                        <th>Status</th>
-                                        <th style="width:10%;">Start</th>
+                                        <th style="width:5%;">Status</th>
                                         <th style="width:10%;">Due </th>
                                         <th style="width:15%;">Title</th>
                                         <th style="width:15%;">Manager</th>
@@ -250,18 +249,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($membertasks as $membertask)
+                                        @foreach($members as $member)
                                         <tr>
-                                            <td><span class="badge badge-{{$membertask->task->status->style }}">{{ $membertask->task->status->name }}</span></td>
-                                            <td>{{ date('d M Y', strtotime($membertask->task->startdate)) }}</td>
-                                            <td>{{ date('d M Y', strtotime($membertask->task->enddate)) }}</td>
-                                            <td><a href="{{ route('tasks.show', $membertask->task->id) }}">{{ $membertask->task->name }}</a></td>
-                                            <td>{{ $membertask->task->executor->name ?? '' }}</td>
-                                            <td>{{ date('d M Y, h:i A', strtotime($membertask->task->updated_at)) }}</td>
-                                            <td>&#8358;{{ number_format(floatval($membertask->task->budget), 2) }}</td>
+                                            <td><span class="badge badge-{{$member->task->status->style }}">{{ $member->task->status->name }}</span></td>
+                                            <td>{{ date('d M Y', strtotime($member->task->duedate)) }}</td>
+                                            <td><a href="{{ route('tasks.show', $member->task->id) }}">{{ $member->task->name }}</a></td>
+                                            <td>{{ $member->task->project->manager->name ?? '' }}</td>
+                                            <td>{{ date('d M Y, h:i A', strtotime($member->task->updated_at)) }}</td>
+                                            <td>&#8358;{{ number_format(floatval($member->task->budget), 2) }}</td>
                                             <td>{{ 0 }}%</td>
                                             <td>
-                                                <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('tasks.show', $membertask->task->id) }}">Manage</a>
+                                                <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('tasks.show', $member->task->id) }}">Manage</a>
                                             </td>
                                         </tr>
                                         @endforeach

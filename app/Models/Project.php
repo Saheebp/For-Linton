@@ -15,18 +15,14 @@ class Project extends Model
         'budget', 
         'owner',
 
-        'startdate', 
-        'enddate', 
+        'duedate', 
         
-        'manager', 
-        'creator',  
+        'manager_id', 
+        'creator_id',  
         'status_id'
     ];
 
-    public function tasks() {
-        return $this->hasMany(Task::class);
-    }
-
+    
     public function manager() {
         return $this->belongsTo(User::class);
     }
@@ -38,12 +34,20 @@ class Project extends Model
     public function status() {
         return $this->belongsTo(Status::class);
     }
+    
+    public function tasks() {
+        return $this->hasMany(Task::class);
+    }
 
     public function resources() {
         return $this->hasMany(Resource::class);
     }
     
     public function members() {
-        return $this->hasMany(Member::class);
+        return $this->hasMany(TeamMember::class);
+    }
+
+    public function inventory() {
+        return $this->hasOne(Inventory::class);
     }
 }

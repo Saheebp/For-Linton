@@ -73,9 +73,9 @@
                                 </div> -->
                                 
                                 <div class="">
-                                    <div class="bg-white text-success text-white b_r_5 section_border">
+                                    <div class="bg-white text-primary text-white b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup12">{{ 0 }}</div>
+                                            <div id="widget_countup12">{{ $projects->where('status_id', $new)->count() }}</div>
                                             <div>New Projects</div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                 <div class="">
                                     <div class="bg-white text-warning b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup22">{{ 0 }}</div>
+                                            <div id="widget_countup22">{{ $projects->where('status_id', $pending)->count() }}</div>
                                             <div>Pending Projects</div>
                                         </div>
                                     </div>
@@ -130,7 +130,7 @@
                                 <div class="">
                                     <div class="bg-white text-dark b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup12"> {{ 0 }}</div>
+                                            <div id="widget_countup12"> {{ $projects->where('status_id', $completed)->count() }}</div>
                                             <div>Completed Projects</div>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@
                                 <div class="">
                                     <div class="bg-white text-danger b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup12"> {{ 0 }}</div>
+                                            <div id="widget_countup12"> {{ $projects->where('status_id', $overdue)->count() }}</div>
                                             <div>Overdue Projects</div>
                                         </div>
                                     </div>
@@ -270,7 +270,7 @@
                                                                                             Manager
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <select class="form-control" name="status_id" required>
+                                                                                            <select class="form-control" name="manager" required>
                                                                                                 <option value="">-- Select Project Manager --</option>
                                                                                                 @foreach ($managers as $manager)
                                                                                                     <option value="{{ $manager->id }}">{{ $manager->name }}</option>
@@ -292,24 +292,15 @@
                                                                                     </div>
 
                                                                                     <div class="col-lg-6">
-                                                                                        <label for="subject1" class="col-form-label">
-                                                                                            Start Date
-                                                                                        </label>
-                                                                                        <div class="input-group">
-                                                                                            <input type="date" id="startdate" class="form-control" name="startdate" required>
-                                                                                        </div>
-                                                                                        @error('startdate')
-                                                                                            <span class="text-danger">{{ $errors->first('startdate') }}</span>
-                                                                                        @enderror
-                                                                                    </div>
-
-                                                                                    <div class="col-lg-6">
                                                                                         <label End="subject1" class="col-form-label">
-                                                                                            End Date
+                                                                                            Due Date
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <input type="date" id="enddate" class="form-control" name="enddate" required>
+                                                                                            <input type="date" id="duedate" class="form-control" name="duedate" required>
                                                                                         </div>
+                                                                                        @error('duedate')
+                                                                                            <span class="text-danger">{{ $errors->first('duedate') }}</span>
+                                                                                        @enderror
                                                                                     </div>
 
                                                                                 </div>                                                                    
@@ -398,10 +389,10 @@
                                         @foreach($projects as $project)
                                         <tr>
                                             <td><span class="badge badge-{{$project->status->style }}">{{ $project->status->name }}</span></td>
-                                            <td>{{ date('d M Y', strtotime($project->startdate)) }}</td>
-                                            <td>{{ date('d M Y', strtotime($project->enddate)) }}</td>
+                                            <td>{{ date('d M Y', strtotime($project->created_at)) }}</td>
+                                            <td>{{ date('d M Y', strtotime($project->duedate)) }}</td>
                                             <td><a href="{{ route('projects.show', $project->id) }}">{{ $project->name }}</a></td>
-                                            <td>{{ $project->manager->name ?? '' }}</td>
+                                            <td>{{ $project->manager->name }}</td>
                                             <td>{{ date('d M Y, h:i A', strtotime($project->updated_at)) }}</td>
                                             <td>&#8358;{{ number_format(floatval($project->budget), 2) }}</td>
                                             <td>{{ 0 }}%</td>

@@ -15,10 +15,9 @@ class Task extends Model
         'description', 
         'budget', 
         
-        'startdate', 
-        'enddate', 
+        'duedate', 
         
-        'executor',  
+        'executor_id',  
         'project_id',
         'group_id',  
         'status_id', 
@@ -61,6 +60,6 @@ class Task extends Model
     }
 
     public function members() {
-        return $this->hasMany(Member::class);
+        return $this->hasMany(TeamMember::class);
     }
 }

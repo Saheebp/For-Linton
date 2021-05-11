@@ -15,10 +15,9 @@ class SubTask extends Model
         'description', 
         'budget', 
         
-        'startdate', 
-        'enddate', 
+        'duedate', 
         
-        'executor',  
+        'executor_id',  
         'project_id',
         'task_id',
         'group_id',  

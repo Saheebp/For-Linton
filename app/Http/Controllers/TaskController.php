@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use App\Models\Member;
+use App\Models\User;
+use App\Models\TeamMember;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 
@@ -16,10 +17,12 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $membertasks = Member::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
-        dd($membertasks);
+        $members = TeamMember::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        $tasks = Task::all();
+        
         return view('admin.tasks.index', [
-            'membertasks' => $membertasks
+            'members' => $members,
+            'tasks' => $tasks
         ]);
     }
 
@@ -54,9 +57,10 @@ class TaskController extends Controller
                 'description' => $request->description,
                 'budget' => $request->budget,
                 'project_id' => $request->project_id,
-                'status_id' => $this->pending,
-                'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,
-                'succeedby' => ($request->succeedby == null) ? null : $request->succeedby,
+                'duedate' => $request->duedate,
+                'status_id' => $this->new,
+                'preceedby' => $request->preceedby,
+                'succeedby' => $request->succeedby,
             ]);
 
             return back()->with('success', 'Task created successfully.');
@@ -75,7 +79,11 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        $members = User::all();
+        return view('admin.tasks.show', [
+            'members' => $members,
+            'task' => $task
+        ]);
     }
 
     /**
@@ -157,11 +165,28 @@ class TaskController extends Controller
         try 
         {
             $task->update([
-                'executor' => $request->executor
+                'executor_id' => $request->executor
             ]);
             $task->save();
 
             return back()->with('success', 'Task Position Updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Task");
+        }
+    }
+
+    public function updateStatus(Request $request, Task $task)
+    {
+        try 
+        {
+            $task->update([
+                'status_id' => $request->status_id
+            ]);
+            $task->save();
+
+            return back()->with('success', 'Task Status Updated successfully.');
         }
         catch (\Exception $e) 
         {
@@ -174,7 +199,7 @@ class TaskController extends Controller
     {
         try 
         {
-            Member::create([
+            TeamMember::create([
                 'project_id' => $task->project_id,
                 'task_id' => $task->id,
                 'user_id' => $request->member
@@ -185,6 +210,21 @@ class TaskController extends Controller
         catch (\Exception $e) 
         {
             return back()->with('error', "Oops, Error Updating Task");
+        }
+    }
+
+    public function removeMember(Request $request)
+    {
+        try 
+        {
+            $member = TeamMember::find($request->id);
+            $member->delete();
+
+            return back()->with('success', 'Team Member deleted successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error deleting Member");
         }
     }
 

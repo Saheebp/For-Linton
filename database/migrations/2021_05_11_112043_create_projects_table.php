@@ -18,15 +18,20 @@ class CreateProjectsTable extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->dateTime('startdate')->nullable()->default(null);
-            $table->dateTime('enddate')->nullable()->default(null);
+            $table->dateTime('duedate')->nullable()->default(null);
             $table->string('description')->nullable()->default(null);
             
             $table->string('budget')->nullable()->default(null);
             $table->string('owner')->nullable()->default(null);
             
-            $table->unsignedBigInteger('manager')->nullable()->default(null);
-            $table->unsignedBigInteger('creator')->nullable()->default(null);
+            $table->unsignedBigInteger('manager_id')->nullable()->default(null);
+            $table->foreign('manager_id')->references('id')->on('users')->onDelete('restrict');
+
+            $table->unsignedBigInteger('creator_id')->nullable()->default(null);
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
+
+            // $table->unsignedBigInteger('inventory_id')->nullable()->default(null);
+            // $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('restrict');
 
             $table->unsignedBigInteger('status_id')->nullable()->default(null);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');

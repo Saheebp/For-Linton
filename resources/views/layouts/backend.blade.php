@@ -439,6 +439,16 @@
                     </li>
                     @endrole
 
+                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
+                    <li class="dropdown_menu">
+                        <a href="{{ route('inventory.index') }}">
+                            <i class="fa fa-archive"></i>
+                            <span class="link-title menu_hide">&nbsp; Inventory</span>
+                            <!-- <span class="fa arrow menu_hide"></span> -->
+                        </a>
+                    </li>
+                    @endrole
+
                     @role('SuperUser|Director')
                     <li class="dropdown_menu">
                         <a href="{{ route('admin.home') }}">
@@ -449,13 +459,13 @@
                         <ul>
                             <li>
                                 <a href="{{ route('users.index') }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Manage Users
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('admin.home') }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Permissions
                                 </a>
                             </li>
@@ -483,19 +493,19 @@
                         <ul>
                             <li>
                                 <a href="{{ route('accounts.index') }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Summary
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('accounts.payments',['Paid']) }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Payments
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('accounts.expenditure') }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Expenditure
                                 </a>
                             </li>
@@ -523,13 +533,13 @@
                         <ul>
                             <li>
                                 <a href="{{ route('logs.index') }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Activity Logs
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('logs.errors') }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Error Logs
                                 </a>
                             </li>
@@ -547,13 +557,13 @@
                         <ul>
                             <li>
                                 <a href="{{ route('admin.home') }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Permissions
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('admin.home') }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Roles
                                 </a>
                             </li>
@@ -571,7 +581,7 @@
                         <ul>
                             <li>
                                 <a href="{{ route('admin.home') }}">
-                                    <i class="fa fa-angle-right"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Accounting
                                 </a>
                             </li>

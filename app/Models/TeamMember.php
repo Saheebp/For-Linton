@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class TeamMember extends Model
 {
     use HasFactory;
 
@@ -14,13 +14,13 @@ class Member extends Model
         'task_id',
         'user_id'
     ];
-
-    public function project() {
-        return $this->belongsTo(Project::class);
-    }
     
     public function task() {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Task::class);
+    }
+
+    public function project() {
+        return $this->belongsTo(PRojct::class);
     }
     
     public function user() {

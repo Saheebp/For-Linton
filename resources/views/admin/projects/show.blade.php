@@ -119,20 +119,96 @@
                                 </div>
                             @endrole
 
+                            @role('SuperUser|Director|Admin')
+                            <button class="btn btn-sm btn-raised m-t-2 btn-success adv_cust_mod_btn"
+                                    data-toggle="modal" data-target="#createInventory">Create New Inventory
+                            </button>
+                            @endrole
+
+                            <div class="modal fade" id="createInventory" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modalLabel">Create A New Inventory</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <form class="form-horizontal text-left" action="{{ route('inventory.store') }}" method="POST">
+                                            @csrf
+                                            <fieldset>
+                                            <div class="modal-body">
+                                                
+                                                <!-- Name input-->
+                                                <div class="form-group row m-t-25">
+                                                    <div class="col-lg-12">
+                                                        <label for="date" class="col-form-label">
+                                                            Inventory Name
+                                                        </label>
+                                                        <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                            <input type="text" class="form-control" id="name" placeholder="" name="name">
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div class="form-group row m-t-25">
+                                                    <div class="col-lg-12">
+                                                        <label for="date" class="col-form-label">
+                                                            Related Project
+                                                        </label>
+                                                        <select class="form-control mb-3" name="project" required>
+                                                            <option value="">--Select Project--</option>
+                                                            @foreach($projects as $project)
+                                                            <option value="{{ $project->id }}">{{ $project->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-12">
+                                                        <label for="subject1" class="col-form-label">
+                                                            Description
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <textarea  type="text" class="form-control" id="description" placeholder="" name="description">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-12">
+                                                        <button class="btn btn-responsive layout_btn_prevent btn-primary">Save & Create</button>
+                                                        <button class="btn  btn-secondary" data-dismiss="modal">Close me!</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="card-header bg-white">
                             <i class="fa fa-table"></i> Project Information
                         </div>
                         <div class="card-body m-t-35">
-                            <h3><tag class="text-capitalize">{{ $project->name }}</tag></h3>
+                            <h3><tag class="text-capitalize text-success">{{ $project->name ?? '' }}</tag></h3>
                             <table id="example1" class="display table table-stripped table-bordered">
                                 <tbody>
                                     <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
                                     <tr><td><b>Start Date: </b></td><td>{{ date('d M Y', strtotime($project->startdate)) }}</td></tr>
-                                    <tr><td><b>Project Status: </b></td><td><span class="badge badge-{{ $project->status->style }}">{{ $project->status->name }}</span></td></tr>
-                                    <tr><td><b>Manager: </b></td><td><span class="badge badge-{{ $project->manager->name ?? '' }}">{{ $project->status->name }}</span></td></tr>
-                                    <tr><td><b>Remaining Days: </b></td><td>{{ 67 }} days</td></tr>
+                                    <tr><td><b>Project Status: </b></td><td><span class="badge badge-{{ $project->status->style }}">{{ $project->status->name ?? '' }}</span></td></tr>
+                                    <tr><td><b>Manager: </b></td><td>{{ $project->manager->name ?? '' }}</td></tr>
+                                    <tr><td><b>Remaining Days: </b></td><td>{{ round(( strtotime($project->duedate) - strtotime($project->created_at)) / 3600 ) }} hours</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -146,17 +222,29 @@
                                         <li class="nav-item">
                                             <a class="nav-link active" href="#tab1" data-toggle="tab">Team Members</a>
                                         </li>
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="#tab2" data-toggle="tab">Project Tasks</a>
                                         </li>
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="#tab3" data-toggle="tab">Recent Activity</a>
                                         </li>
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="#tab4" data-toggle="tab">Timeline</a>
                                         </li>
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="#tab5" data-toggle="tab">Project Resources</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab6" data-toggle="tab">Budget</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab7" data-toggle="tab">Inventory</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -208,7 +296,7 @@
                                                                         @enderror
                                                                     </div>
 
-                                                                    <div class="col-lg-12">
+                                                                    <div class="col-lg-6">
                                                                         <label for="subject1" class="col-form-label">
                                                                             Budget
                                                                         </label>
@@ -217,6 +305,18 @@
                                                                         </div>
                                                                         @error('budget')
                                                                             <span class="text-danger">{{ $errors->first('budget') }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="col-lg-6">
+                                                                        <label End="subject1" class="col-form-label">
+                                                                            Due Date
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <input type="date" id="duedate" class="form-control" name="duedate" required>
+                                                                        </div>
+                                                                        @error('duedate')
+                                                                            <span class="text-danger">{{ $errors->first('duedate') }}</span>
                                                                         @enderror
                                                                     </div>
 
@@ -234,7 +334,7 @@
 
                                                                     <div class="col-6">
                                                                         <label for="subject1" class="col-form-label">
-                                                                            Preceeding Task
+                                                                            Depends on
                                                                         </label>
                                                                         <div class="input-group">
                                                                             <select class="form-control col-12" name="preceedby">
@@ -248,24 +348,6 @@
                                                                             <span class="text-danger">{{ $errors->first('preceedby') }}</span>
                                                                         @enderror
                                                                     </div>
-
-                                                                    <div class="col-6">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Succeeding Task
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <select class="form-control col-12" name="succeedby">
-                                                                                <option value=""> -- Select Task --</option>
-                                                                                @foreach($project->tasks as $task)
-                                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('succeedby')
-                                                                            <span class="text-danger">{{ $errors->first('succeedby') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
                                                                 </div>                                                                    
                                                             </div> 
                                                             <div class="modal-footer">
@@ -320,6 +402,7 @@
                                                                             <td>
                                                                                 <tag class="text-primary text-bold">Resources :</tag>
                                                                                 <p class="text-justify">
+                                                                                    @if ($task->resources->count() != 0)
                                                                                     <table id="example1" class="table">
                                                                                         <thead>
                                                                                             <tr>
@@ -358,6 +441,7 @@
                                                                                             @endforeach
                                                                                         </tbody>
                                                                                     </table>
+                                                                                    @endif
                                                                                 </p>
                                                                             </td>
                                                                         </tr>
@@ -379,7 +463,7 @@
                                                                 <p class="p-2">
                                                                     <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTask{{ $task->id }}">Update</button>
                                                                     <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#removeTask{{ $task->id }}">Remove</button>
-                                                                    <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addTaskMember{{ $task->id }}">Add Member</button>
+                                                                    <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addTaskMember{{ $task->id }}">Assign Member</button>
                                                                     <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addTaskResource{{ $task->id }}">Add Resource</button>
 
                                                                     <div class="modal fade" id="addTaskMember{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -562,6 +646,199 @@
                                                             </td>
                                                             <td style="width:20%;">
                                                                 {{ $resource->url ?? '' }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        <div class="tab-pane p-3" id="tab6">
+                                            <h4 class="card-title">Budget Analysis</h4>
+                                            <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            </p> -->
+
+                                            <table id="example1" class="table table-striped table-bordered bordered">
+                                                <tbody>
+                                                    @foreach($project->resources as $resource)
+                                                        <tr>
+                                                            <td class="text-left">
+                                                                {{ $resource->type ?? '' }}
+                                                            <td>
+                                                            <td style="width:20%;">
+                                                                {{ $resource->name ?? '' }}
+                                                            </td>
+                                                            <td style="width:20%;">
+                                                                {{ $resource->url ?? '' }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        <div class="tab-pane p-3" id="tab7">
+                                            <h4 class="card-title">Inventory</h4>
+                                            <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            </p> -->
+
+                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
+                                                data-toggle="modal" data-target="#modalItemCreate">Add New Item
+                                            </button>
+                                            
+                                            <div class="modal fade" id="modalItemCreate" role="dialog" aria-labelledby="modalLabelprimary">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        
+                                                        <div class="modal-header bg-secondary">
+                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">New Item Details</h4>
+                                                        </div>
+                                                        <form method="POST" action="{{ route('items.store') }}">
+                                                            <div class="modal-body">
+
+                                                                <input name="inventory_id" value="{{ $project->inventory->id }}" hidden readonly> 
+                                                               
+                                                                @csrf
+                                                                <div class="form-group row">
+                                                                    
+                                                                    <div class="col-12">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Item Name
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <input type="text" id="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
+                                                                        </div>
+                                                                        @error('name')
+                                                                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="col-lg-4">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Available Quantity
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <input type="number" id="available_quantity" value="{{ old('available_quantity') }}" class="form-control" min="0" name="available_quantity">
+                                                                        </div>
+                                                                        @error('available_quantity')
+                                                                            <span class="text-danger">{{ $errors->first('available_quantity') }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="col-lg-4">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Threshold Quantity
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <input type="number" id="threshold_quantity" value="{{ old('threshold_quantity') }}" class="form-control" min="0" name="threshold_quantity">
+                                                                        </div>
+                                                                        @error('threshold_quantity')
+                                                                            <span class="text-danger">{{ $errors->first('threshold_quantity') }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="col-lg-4">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Batch Number
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <input type="number" id="batch_number" value="{{ old('batch_number') }}" class="form-control" min="0" name="batch_number">
+                                                                        </div>
+                                                                        @error('batch_number')
+                                                                            <span class="text-danger">{{ $errors->first('batch_number') }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="col-12">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Description
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <textarea id="description" value="{{ old('description') }}" class="form-control" placeholder="" name="description"></textarea>
+                                                                        </div>
+                                                                        @error('description')
+                                                                            <span class="text-danger">{{ $errors->first('description') }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="col-6">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Category
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <select class="form-control col-12" name="category">
+                                                                                <option value=""> -- Select Category --</option>
+                                                                                @foreach($categories as $category)
+                                                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        @error('category')
+                                                                            <span class="text-danger">{{ $errors->first('category') }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="col-6">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                           Availability Status
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <select class="form-control col-12" name="status">
+                                                                                <option value=""> -- Select Status --</option>
+                                                                                @foreach($statuses as $status)
+                                                                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        @error('status')
+                                                                            <span class="text-danger">{{ $errors->first('status') }}</span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>                                                                    
+                                                            </div> 
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
+                                                                <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <table id="example1" class="table table-striped table-bordered bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:5%;">ID</th>
+                                                        <th style="width:40%;">Name </th>
+                                                        <th style="width:15%;">Category</th>
+                                                        <th style="width:15%;">Quantity</th>
+                                                        <th style="width:5%;">Status</th>
+                                                        <th style="width:5%;">Action</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    @foreach($project->inventory->items as $item)
+                                                        <tr>
+                                                            <td>
+                                                                {{ $item->id ?? '' }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->name}}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->category->name ?? '' }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->available_quantity ?? '' }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->status->name ?? '' }}
+                                                            </td>
+                                                            <td>
+                                                                NA
                                                             </td>
                                                         </tr>
                                                     @endforeach

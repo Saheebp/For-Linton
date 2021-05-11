@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Project
+    Task
     @parent
 @stop
 
@@ -30,7 +30,7 @@
                 <div class="col-lg-6">
                     <h4 class="nav_top_align skin_txt">
                         <i class="fa fa-road"></i>
-                        Projects
+                        Tasks
                     </h4>
                 </div>
                 <div class="col-lg-6">
@@ -42,7 +42,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#"> Project </a>
+                            <a href="#"> Task </a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -67,7 +67,6 @@
 
                     <div class="card">
                         <div class="text-right p-3">
-
                             @role('SuperUser|Director|Admin')
                                 <button class="btn btn-sm btn-secondary align-right mt-1" data-toggle="modal" data-target="#manageProject">Manage Project</button>
 
@@ -81,17 +80,16 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <form class="form-horizontal" action="{{ route('projects.update', $project)}}" method="POST">
+                                            <form class="form-horizontal" action="{{ route('tasks.updateStatus', $task)}}" method="POST">
                                             @csrf
                                             <fieldset>
                                             <div class="modal-body">
                                                 
-                                                <input type="text" name="trip_id" value="{{ $project->id }}" hidden readonly>
                                                 <div class="form-group row">
                                                     <div class="col-lg-12">
-                                                        <!-- <label for="subject1" class="col-form-label">
-                                                            Trip Status
-                                                        </label> -->
+                                                        <label for="subject1" class="col-form-label float-left">
+                                                            Task Status
+                                                        </label>
                                                         <div class="input-group">
                                                         <select class="form-control" name="status_id" required>
                                                             <option value="">-- Select Status --</option>
@@ -118,463 +116,205 @@
                                     </div>
                                 </div>
                             @endrole
-
                         </div>
 
                         <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> Project Information
+                            <i class="fa fa-table"></i> Task Information
                         </div>
+
                         <div class="card-body m-t-35">
-                            <h3><tag class="text-capitalize">{{ $project->name }}</tag></h3>
+                            <h3><tag class="text-capitalize">{{ $task->name }}</tag></h3>
                             <table id="example1" class="display table table-stripped table-bordered">
                                 <tbody>
-                                    <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
-                                    <tr><td><b>Start Date: </b></td><td>{{ date('d M Y', strtotime($project->startdate)) }}</td></tr>
-                                    <tr><td><b>Project Status: </b></td><td><span class="badge badge-{{ $project->status->style }}">{{ $project->status->name }}</span></td></tr>
-                                    <tr><td><b>Manager: </b></td><td><span class="badge badge-{{ $project->manager->name ?? '' }}">{{ $project->status->name }}</span></td></tr>
-                                    <tr><td><b>Remaining Days: </b></td><td>{{ 67 }} days</td></tr>
+                                    <!-- <tr><td><b>Task ID: </b></td><td>{{ $task->id }}</td></tr> -->
+                                    <tr><td><b>Due Date: </b></td><td>{{ date('d M Y', strtotime($task->duedate)) }}</td></tr>
+                                    <tr><td><b>Task Status: </b></td><td><span class="badge badge-{{ $task->status->style }}">{{ $task->status->name }}</span></td></tr>
+                                    <tr><td><b>Remaining Days: </b></td><td>{{ round(( strtotime($task->duedate) - strtotime($task->created_at)) / 3600 ) }} hours</td></tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col-lg">
-                            <div class="card m-t-35">
-                                <div class="card-header bg-white">
-                                    <ul class="nav nav-tabs card-header-tabs float-left">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="#tab1" data-toggle="tab">Team Members</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab2" data-toggle="tab">Project Tasks</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab3" data-toggle="tab">Recent Activity</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab4" data-toggle="tab">Timeline</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab5" data-toggle="tab">Project Resources</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card-body p-2 ">
-                                    <div class="tab-content text-justify" style="padding-top:30px;">
-                                        
-                                        <div class="tab-pane p-3 active" id="tab1">
-                                            <h4 class="card-title">Team Members</h4>
-                                            <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </p> -->
+
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card m-t-35">
+                                        <div class="card-header bg-white">
+                                            Team Members
+                                        </div>
+                                        <!-- <div class="card-body">
+                                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        </div> -->
+                                        <ul class="list-group list-group-flush">
                                             <?php $i = 1; ?>
-                                            @foreach($project->members as $member)
-                                                {{ $i }}. {{ $member->user->name  }} <a href="">Remove from Team</a> <br>
+                                            @foreach($task->members as $member)
+                                                <li class="list-group-item">{{ $i }}. {{ $member->user->name  }} 
+                                                
+                                                <a href="" class="float-right btn btn-sm btn-secondary p-0 pr-1 pl-1" data-toggle="modal" data-target="#removeMember">Remove</a></li>
+                                                <div class="modal fade" id="removeMember" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Remove</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <form class="form-horizontal" action="{{ route('tasks.removeMember')}}" method="POST">
+                                                            @csrf
+                                                            <fieldset>
+                                                            <div class="modal-body">
+                                                                
+                                                                <input hidden readonly name="member_id" value="{{ $member->id }}">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <label for="subject1" class="col-form-label float-left">
+                                                                            Are you sure you want to remove this team member? 
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <button class="btn btn-responsive layout_btn_prevent btn-primary">Submit</button>
+                                                                        <button class="btn  btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            </fieldset>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <?php $i=$i+1; ?>
                                             @endforeach
-                                        </div>
+                                        </ul>
+                                    </div>
+                                </div>
 
-                                        <div class="tab-pane p-3" id="tab2">
-                                            <h4 class="card-title m-b-3">Project Tasks & Processes</h4>
-                                            
-                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
-                                                data-toggle="modal" data-target="#modalTaskCreate">Add New Task
-                                            </button>
-                                            
-                                            <div class="modal fade" id="modalTaskCreate" role="dialog" aria-labelledby="modalLabelprimary">
+                                <div class="col-lg-4">
+                                    <div class="card m-t-35">
+                                        <div class="card-header bg-white">
+                                            Sub Tasks
+                                        </div>
+                                        <!-- <div class="card-body">
+                                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        </div> -->
+                                        <ul class="list-group list-group-flush">
+                                            <?php $i = 1; ?>
+                                            @foreach($task->subtasks as $subtask)
+                                                <li class="list-group-item">{{ $i }}. {{ $subtask->name  }} <a href="" class="float-right btn btn-sm btn-warning p-0 pr-1 pl-1">Remove</a></li>
+                                                <?php $i=$i+1; ?>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="card m-t-35">
+                                        <div class="card-header bg-white">
+                                            Recent Activity
+                                        </div>
+                                        <!-- <div class="card-body">
+                                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        </div> -->
+                                        <ul class="list-group list-group-flush">
+                                            <?php $i = 1; ?>
+                                            @foreach($task->subtasks as $subtask)
+                                                <li class="list-group-item">{{ $i }}. {{ $subtask->name  }} <a href="" class="float-right btn btn-sm btn-warning p-0 pr-1 pl-1">Remove</a></li>
+                                                <?php $i=$i+1; ?>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="card m-t-35">
+                                        <div class="card-header bg-white">
+                                            Resources
+
+                                            <a href="" class="float-right btn btn-sm btn-secondary p-0 pr-1 pl-1" data-toggle="modal" data-target="#addTaskResource">upload</a></li>
+                                            <div class="modal fade" id="addTaskResource" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
-                                                        
-                                                        <div class="modal-header bg-secondary">
-                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">New Task Details</h4>
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="modalLabel">Add Resource to Task</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
                                                         </div>
-                                                        <form method="POST" action="{{ route('tasks.store') }}">
-                                                            <div class="modal-body">
-
-                                                                <input name="project_id" value="{{ $project->id }}" hidden readonly> 
-
-                                                                @csrf
-                                                                <div class="form-group row">
-                                                                    
-                                                                    <div class="col-12">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Task Name
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <input type="text" id="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
-                                                                        </div>
-                                                                        @error('name')
-                                                                            <span class="text-danger">{{ $errors->first('name') }}</span>
-                                                                        @enderror
+                                                        <form class="form-horizontal" action="{{ route('tasks.upload', $task)}}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <fieldset>
+                                                        <div class="modal-body">
+                                                            
+                                                            <div class="form-group row">
+                                                                <div class="col-lg-12">
+                                                                    <label for="subject1" class="col-form-label">
+                                                                            Resource
+                                                                    </label>
+                                                                    <div class="input-group mb-1">
+                                                                        <input class="form-control col-12" type="file" name="file">
                                                                     </div>
-
-                                                                    <div class="col-lg-12">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Budget
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <input type="number" id="budget" value="{{ old('budget') }}" class="form-control" min="0" name="budget">
-                                                                        </div>
-                                                                        @error('budget')
-                                                                            <span class="text-danger">{{ $errors->first('budget') }}</span>
-                                                                        @enderror
+                                                                </div>
+                                                            
+                                                                <div class="col-lg-12">
+                                                                    <label for="subject1" class="col-form-label">
+                                                                        File Name
+                                                                    </label>
+                                                                    <div class="input-group mb-1">
+                                                                        <input class="form-control col-12" type="text" name="name">
                                                                     </div>
-
-                                                                    <div class="col-12">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Description
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <textarea id="description" value="{{ old('description') }}" class="form-control" placeholder="" name="description"></textarea>
-                                                                        </div>
-                                                                        @error('description')
-                                                                            <span class="text-danger">{{ $errors->first('description') }}</span>
-                                                                        @enderror
+                                                                </div>
+                                                    
+                                                                <div class="col-lg-12">
+                                                                    <label for="subject1" class="col-form-label">
+                                                                        File Description
+                                                                    </label>
+                                                                    <div class="input-group mb-1">
+                                                                        <input class="form-control col-12" type="text" name="description">
                                                                     </div>
-
-                                                                    <div class="col-6">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Preceeding Task
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <select class="form-control col-12" name="preceedby">
-                                                                                <option value=""> -- Select Task --</option>
-                                                                                @foreach($project->tasks as $task)
-                                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('preceedby')
-                                                                            <span class="text-danger">{{ $errors->first('preceedby') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-6">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Succeeding Task
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <select class="form-control col-12" name="succeedby">
-                                                                                <option value=""> -- Select Task --</option>
-                                                                                @foreach($project->tasks as $task)
-                                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('succeedby')
-                                                                            <span class="text-danger">{{ $errors->first('succeedby') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                </div>                                                                    
-                                                            </div> 
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
-                                                                <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                                </div>
                                                             </div>
+
+                                                        </div>
+
+                                                            <div class="modal-footer">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Save</button>
+                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </p> -->
-                                            
-                                            <div class="m-t-10 accordian_alignment">
-                                                <div id="accordion" role="tablist" aria-multiselectable="true">
-                                                    
-                                                @foreach($project->tasks as $task)
-                                                    <div class="card mb-2">
-                                                        <div class="card-header bg-white" role="tab" id="title-one">
-                                                            <a class="collapsed accordion-section-title" data-toggle="collapse" data-parent="#accordion" href="#card-data-one{{$task->id}}" aria-expanded="false">
-                                                                <div class="row"> 
-                                                                    <div class="col-1"> <span class="float-left p-1 badge badge-{{ $task->status->style }}">{{ $task->status->name }}</span> </div>
-                                                                    <div class="col-10"> {{ $task->order ?? ''}} {{ $task->name ?? ''}} </div>
-                                                                    <div class="col-1"> <i class="fa fa-plus float-right m-t-5"></i> </div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-
-                                                        <div id="card-data-one{{$task->id}}" class="card-collapse collapse">
-                                                            <div class="card-body m-t-20">
-
-                                                                <table class="table table-hover" style="width:100%;">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <tag class="text-primary text-bold">Description :</tag>
-                                                                                <p class="text-justify">
-                                                                                    {{ $task->description ?? ''}}
-                                                                                </p>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <tag class="text-primary text-bold">Depends on :</tag>
-                                                                                <p class="text-justify">
-                                                                                    {{ $project->tasks->where('preceedby', $task->preceedby)->first()->name ?? '' }}
-                                                                                </p>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <tag class="text-primary text-bold">Resources :</tag>
-                                                                                <p class="text-justify">
-                                                                                    <table id="example1" class="table">
-                                                                                        <thead>
-                                                                                            <tr>
-                                                                                                <th>Name</th>
-                                                                                                <th style="width:10%;">Type</th>
-                                                                                                <th style="width:60%;">Description </th>
-                                                                                                <th style="width:15%;">Url</th>
-                                                                                                <th style="width:15%;">Creator</th>
-                                                                                                <th style="width:15%;">File</th>
-                                                                                                <th style="width:5%;">Action</th>
-                                                                                            </tr>
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                                            @foreach($task->resources as $resource)
-                                                                                                <tr>
-                                                                                                    <td class="text-left">
-                                                                                                        {{ $resource->name ?? '' }}
-                                                                                                    <td>
-                                                                                                    <td style="width:20%;">
-                                                                                                        {{ $resource->type ?? '' }}
-                                                                                                    </td>
-                                                                                                    <td style="width:20%;">
-                                                                                                        {{ $resource->description ?? '' }}
-                                                                                                    </td>
-                                                                                                    <td style="width:20%;">
-                                                                                                        {{ $resource->url ?? '' }}
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <img src="{{ asset($resource->url) }}" width="20px" class="message-img avatar" alt="avatar1">
-                                                                                                    </td>
-                                                                                                    <td style="width:5%;">
-                                                                                                        <button class="btn btn-sm btn-outline-secondary">Delete</button>
-                                                                                                    </td>
-
-                                                                                                </tr>
-                                                                                            @endforeach
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </p>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>
-                                                                            <tag class="text-primary text-bold">Team :</tag>
-                                                                                <p class="text-justify">
-                                                                                    <?php $i = 1; ?>
-                                                                                    @foreach($task->members as $member)
-                                                                                        {{ $i }}. {{ $member->user->name  }} <a class="float-right text-white p-1 badge badge-danger">Remove</a><br>
-                                                                                        <?php $i=$i+1; ?>
-                                                                                    @endforeach
-                                                                                </p>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-
-                                                                <p class="p-2">
-                                                                    <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTask{{ $task->id }}">Update</button>
-                                                                    <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#removeTask{{ $task->id }}">Remove</button>
-                                                                    <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addTaskMember{{ $task->id }}">Add Member</button>
-                                                                    <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addTaskResource{{ $task->id }}">Add Resource</button>
-
-                                                                    <div class="modal fade" id="addTaskMember{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                                    aria-hidden="true">
-                                                                        <div class="modal-dialog" role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Add Member to Task</h4>
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">×</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <form class="form-horizontal" action="{{ route('tasks.addMember', $task)}}" method="POST">
-                                                                                @csrf
-                                                                                <fieldset>
-                                                                                    <div class="modal-body">
-                                                                                        
-                                                                                        <input type="text" name="task_id" value="{{ $task->id }}" hidden readonly>
-                                                                                        <div class="form-group row">
-                                                                                            <div class="col-lg-12">
-                                                                                                <label for="subject1" class="col-form-label">
-                                                                                                    Select New Team Member
-                                                                                                </label>
-                                                                                                <div class="input-group">
-                                                                                                <select class="form-control" name="member" required>
-                                                                                                    <option value="">-- Select Member --</option>
-                                                                                                    @foreach ($members as $member)                                                                                                    
-                                                                                                    <option value="{{ $member->id }}">{{ $member->name }}</option>
-                                                                                                    @endforeach
-                                                                                                </select>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="modal-footer">
-                                                                                        <div class="form-group row">
-                                                                                            <div class="col-lg-12">
-                                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Submit</button>
-                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </fieldset>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="modal fade" id="addTaskResource{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                                    aria-hidden="true">
-                                                                        <div class="modal-dialog" role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Add Resource to Task</h4>
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">×</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <form class="form-horizontal" action="{{ route('tasks.upload', $task)}}" method="POST" enctype="multipart/form-data">
-                                                                                @csrf
-                                                                                <fieldset>
-                                                                                <div class="modal-body">
-                                                                                    
-                                                                                    <div class="form-group row">
-                                                                                        <div class="col-lg-12">
-                                                                                            <div class="input-group mb-1">
-                                                                                                <input class="form-control col-12" type="file" name="file">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    
-                                                                                        <div class="col-lg-12">
-                                                                                            <label for="subject1" class="col-form-label">
-                                                                                                File Name
-                                                                                            </label>
-                                                                                            <div class="input-group mb-1">
-                                                                                                <input class="form-control col-12" type="text" name="name">
-                                                                                            </div>
-                                                                                        </div>
-                                                                            
-                                                                                        <div class="col-lg-12">
-                                                                                            <label for="subject1" class="col-form-label">
-                                                                                                File Description
-                                                                                            </label>
-                                                                                            <div class="input-group mb-1">
-                                                                                                <input class="form-control col-12" type="text" name="description">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                </div>
-
-                                                                                    <div class="modal-footer">
-                                                                                        <div class="form-group row">
-                                                                                            <div class="col-lg-12">
-                                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Save</button>
-                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </fieldset>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                                </div>
-                                            </div>
                                         </div>
-
-                                        <div class="tab-pane p-3" id="tab3">
-                                            <h4 class="card-title">Recent Activity</h4>
-                                            <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </p> -->
-
-                                        </div>
-
-                                        <div class="tab-pane p-3" id="tab4">
-                                            <h4 class="card-title">Project Time line</h4>
-                                            <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </p> -->
-                                            
-                                            <div class="table-responsive">
-                                                <table id="example1" class="table table-striped table-bordered bordered">
-                                                    <tbody>
-                                                        
-                                                        <?php $i = 2; ?>
-                                                        @foreach($project->tasks as $task)
-                                                            @if ( $i % 2 == 0 )
-                                                            <tr>
-                                                                <td class="text-right" style="width:50%;">
-                                                                    <span class="badge badge-{{$project->status->style }}">{{ $project->status->name }}</span><br>
-                                                                    {{ $task->name ?? '' }}<br>
-                                                                    {{ $task->description ?? '' }}<br>
-                                                                    {{ 0 }}%</br>
-                                                                <td>
-                                                                <td style="width:50%;">
-                                                                    &nbsp;
-                                                                </td>
-                                                            </tr>
-                                                            @else
-                                                            <tr>
-                                                                <td style="width:50%;">
-                                                                    &nbsp;
-                                                                </td>
-                                                                <td class="text-left" style="width:50%;">
-                                                                    <span class="badge badge-{{$project->status->style }}">{{ $project->status->name }}</span><br>
-                                                                    {{ $task->name ?? '' }}<br>
-                                                                    {{ $task->description ?? '' }}<br>
-                                                                    {{ 0 }}%</br>
-                                                                <td>
-                                                            </tr>
-                                                            @endif
-                                                            <?php $i=$i+1; ?>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                        <div class="tab-pane p-3" id="tab5">
-                                            <h4 class="card-title">Resources</h4>
-                                            <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </p> -->
-
-                                            <table id="example1" class="table table-striped table-bordered bordered">
-                                                <tbody>
-                                                    @foreach($project->resources as $resource)
-                                                        <tr>
-                                                            <td class="text-left">
-                                                                {{ $resource->type ?? '' }}
-                                                            <td>
-                                                            <td style="width:20%;">
-                                                                {{ $resource->name ?? '' }}
-                                                            </td>
-                                                            <td style="width:20%;">
-                                                                {{ $resource->url ?? '' }}
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-
-                                        </div>
+                                        <!-- <div class="card-body">
+                                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        </div> -->
+                                        <ul class="list-group list-group-flush">
+                                            <?php $i = 1; ?>
+                                            @foreach($task->resources as $resource)
+                                                <li class="list-group-item">{{ $i }}. {{ $task->name  }} <a href="" class="float-right btn btn-sm btn-warning p-0 pr-1 pl-1">Remove</a></li>
+                                                <?php $i=$i+1; ?>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    
                 </div>
             </div>
         </div>
