@@ -68,7 +68,7 @@
                                 <div class="previous_font">Yearly Users stats</div>
                             </div>
                         </div> -->
-                        <div class="">
+                        <!-- <div class="">
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5">
@@ -85,7 +85,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -105,7 +105,7 @@
                             </div>
                         </div> -->
 
-                        <div class="">
+                        <!-- <div class="">
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5 text-primary">
@@ -122,7 +122,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -143,14 +143,14 @@
                             </div>
                         </div> -->
 
-                        <div class="">
+                        <!-- <div class="">
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5 text-warning">
                                         <i class="fa fa-shopping-cart"></i>
                                     </div>
                                     <div id="widget_countup32">{{ 0 ?? "" }}</div>
-                                    <div>Out of Stock</div>
+                                    <div>Pending Request</div>
                                 </div>
 
                                 <div class="row">
@@ -159,7 +159,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -180,7 +180,7 @@
                             </div>
                         </div> -->
 
-                        <div class="">
+                        <!-- <div class="">
                             <div class="bg-white section_border b_r_5">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5 text-success">
@@ -196,7 +196,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
