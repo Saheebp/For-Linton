@@ -35,7 +35,31 @@ class SubTaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'budget' => 'required|string',
+        ]);
+        
+        try 
+        {
+            SubTask::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'budget' => $request->budget,
+                'task_id' => $request->task_id,
+                'status_id' => $this->pending,
+                'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,
+                'succeedby' => ($request->succeedby == null) ? null : $request->succeedby,
+            ]);
+
+            return back()->with('success', 'Task created successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            dd($e);
+            return back()->with('error', "Oops, Error Creating a Task");
+        } 
     }
 
     /**

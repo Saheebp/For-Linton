@@ -252,16 +252,170 @@
                                                                                             <span class="text-danger">{{ $errors->first('description') }}</span>
                                                                                         @enderror
                                                                                     </div>
+
+                                                                                    <div class="col-12">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Project Objective
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <textarea id="objective" value="{{ old('objective') }}" class="form-control" placeholder="" name="objective"></textarea>
+                                                                                        </div>
+                                                                                        @error('objective')
+                                                                                            <span class="text-danger">{{ $errors->first('objective') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-lg-6">
+                                                                                        <label End="subject1" class="col-form-label">
+                                                                                            Start Date
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="date" id="start" class="form-control" name="start" required>
+                                                                                        </div>
+                                                                                        @error('start')
+                                                                                            <span class="text-danger">{{ $errors->first('start') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-lg-6">
+                                                                                        <label End="subject1" class="col-form-label">
+                                                                                            End Date
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="date" id="end" class="form-control" name="end" required>
+                                                                                        </div>
+                                                                                        @error('end')
+                                                                                            <span class="text-danger">{{ $errors->first('end') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-12">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Project Nature
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="text" id="nature" value="{{ old('nature') }}" class="form-control" placeholder="" name="nature">
+                                                                                        </div>
+                                                                                        @error('nature')
+                                                                                            <span class="text-danger">{{ $errors->first('nature') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-12">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Project Type
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="text"  id="type" value="{{ old('type') }}" class="form-control" placeholder="" name="type">
+                                                                                        </div>
+                                                                                        @error('type')
+                                                                                            <span class="text-danger">{{ $errors->first('type') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-6">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Source of Funding
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="text"  id="funding_source" value="{{ old('funding_source') }}" class="form-control" placeholder="" name="funding_source">
+                                                                                        </div>
+                                                                                        @error('funding_source')
+                                                                                            <span class="text-danger">{{ $errors->first('funding_source') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-6">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Estimated Cost
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="tel"  id="budget" value="{{ old('budget') }}" class="form-control" placeholder="" name="budget">
+                                                                                        </div>
+                                                                                        @error('budget')
+                                                                                            <span class="text-danger">{{ $errors->first('budget') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-12">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Sponsor Name
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="text" id="sponsor_name" value="{{ old('sponsor_name') }}" class="form-control" placeholder="" name="sponsor_name">
+                                                                                        </div>
+                                                                                        @error('sponsor_name')
+                                                                                            <span class="text-danger">{{ $errors->first('sponsor_name') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-6">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Sponsor Email
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="email" id="sponsor_email" value="{{ old('sponsor_email') }}" class="form-control" placeholder="" name="sponsor_email">
+                                                                                        </div>
+                                                                                        @error('sponsor_email')
+                                                                                            <span class="text-danger">{{ $errors->first('sponsor_email') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-6">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Sponsor Phone
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="tel" id="sponsor_phone" value="{{ old('sponsor_phone') }}" class="form-control" placeholder="" name="sponsor_phone">
+                                                                                        </div>
+                                                                                        @error('sponsor_phone')
+                                                                                            <span class="text-danger">{{ $errors->first('sponsor_phone') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
                                                                                     
                                                                                     <div class="col-lg-6">
                                                                                         <label for="subject1" class="col-form-label">
-                                                                                            Owner
+                                                                                            State
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <input type="text" id="owner" value="{{ old('owner') }}" class="form-control"  name="owner">
+                                                                                            <select class="form-control" name="state" required>
+                                                                                                <option value="">-- Select State --</option>
+                                                                                                    <option value="Plateau">Plateau</option>
+                                                                                                    <option value="Lagos">Lagos</option>
+                                                                                                    <option value="Rivers">Rivers</option>
+                                                                                            </select>
                                                                                         </div>
-                                                                                        @error('owner')
-                                                                                            <span class="text-danger">{{ $errors->first('owner') }}</span>
+                                                                                        @error('state')
+                                                                                            <span class="text-danger">{{ $errors->first('state') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-lg-6">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            L.G.A
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <select class="form-control" name="lga" required>
+                                                                                                <option value="">-- Select L.G.A --</option>
+                                                                                                    <option value="Jos-South">Jos-South</option>
+                                                                                                    <option value="Okota">Okota</option>
+                                                                                                    <option value="Eleme">Eleme</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        @error('lga')
+                                                                                            <span class="text-danger">{{ $errors->first('lga') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+
+                                                                                    <div class="col-12">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Project Address
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="text" id="address" value="{{ old('address') }}" class="form-control" placeholder="" name="address">
+                                                                                        </div>
+                                                                                        @error('address')
+                                                                                            <span class="text-danger">{{ $errors->first('address') }}</span>
                                                                                         @enderror
                                                                                     </div>
 
@@ -279,29 +433,6 @@
                                                                                         </div>
                                                                                     </div>
 
-                                                                                    <div class="col-lg-6">
-                                                                                        <label for="subject1" class="col-form-label">
-                                                                                            Budget
-                                                                                        </label>
-                                                                                        <div class="input-group">
-                                                                                            <input type="number" id="budget" value="{{ old('budget') }}" class="form-control" min="0" name="budget" required>
-                                                                                        </div>
-                                                                                        @error('budget')
-                                                                                            <span class="text-danger">{{ $errors->first('budget') }}</span>
-                                                                                        @enderror
-                                                                                    </div>
-
-                                                                                    <div class="col-lg-6">
-                                                                                        <label End="subject1" class="col-form-label">
-                                                                                            Due Date
-                                                                                        </label>
-                                                                                        <div class="input-group">
-                                                                                            <input type="date" id="duedate" class="form-control" name="duedate" required>
-                                                                                        </div>
-                                                                                        @error('duedate')
-                                                                                            <span class="text-danger">{{ $errors->first('duedate') }}</span>
-                                                                                        @enderror
-                                                                                    </div>
 
                                                                                 </div>                                                                    
                                                                             </div> 
@@ -374,12 +505,11 @@
                                 <table id="example1" class="table table-striped table-bordered bordered">
                                     <thead>
                                     <tr>
-                                        <th>Status</th>
+                                        <th style="width:5%;">Status</th>
                                         <th style="width:10%;">Start</th>
                                         <th style="width:10%;">Due </th>
                                         <th style="width:15%;">Title</th>
                                         <th style="width:15%;">Manager</th>
-                                        <th style="width:15%;">Updated</th>
                                         <th style="width:10%;">Budget</th>
                                         <th style="width:5%;">Completion</th>
                                         <th style="width:5%;">Action</th>
@@ -389,11 +519,10 @@
                                         @foreach($projects as $project)
                                         <tr>
                                             <td><span class="badge badge-{{$project->status->style }}">{{ $project->status->name }}</span></td>
-                                            <td>{{ date('d M Y', strtotime($project->created_at)) }}</td>
-                                            <td>{{ date('d M Y', strtotime($project->duedate)) }}</td>
+                                            <td>{{ date('d M Y', strtotime($project->start)) }}</td>
+                                            <td>{{ date('d M Y', strtotime($project->end)) }}</td>
                                             <td><a href="{{ route('projects.show', $project->id) }}">{{ $project->name }}</a></td>
                                             <td>{{ $project->manager->name }}</td>
-                                            <td>{{ date('d M Y, h:i A', strtotime($project->updated_at)) }}</td>
                                             <td>&#8358;{{ number_format(floatval($project->budget), 2) }}</td>
                                             <td>{{ 0 }}%</td>
                                             <td>

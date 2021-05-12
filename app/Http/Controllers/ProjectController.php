@@ -49,24 +49,55 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'manager' => 'required|string',
+
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'budget' => 'required|string',
-            'owner' => 'required|string',
-            'manager' => 'required|string',
+            'objective' => 'required|string|max:255',
+    
+            'start' => 'required|string|max:255',
+            'end' => 'required|string|max:255',
+            
+            'nature' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'funding_source' => 'required|string|max:255',
+            'budget' => 'required|string|max:255',
+    
+            'sponsor_name' => 'required|string|max:255',
+            'sponsor_email' => 'required|string|max:255',
+            'sponsor_phone' => 'required|string|max:255',
+    
+            'state' => 'required|string|max:255',
+            'lga' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
         ]);
 
         try 
         {
             $project = Project::create([
+
                 'name' => $request->name,
                 'description' => $request->description,
+                'objective' => $request->objective,
+                'start' => $request->start,
+                'end' => $request->end,
+                
+                'nature' => $request->nature,
+                'type' => $request->type,
+                'funding_source' => $request->funding_source,
                 'budget' => $request->budget,
-                'owner' => $request->owner,
+
+                'sponsor_name' => $request->sponsor_name,
+                'sponsor_email' => $request->sponsor_email,
+                'sponsor_phone' => $request->sponsor_phone,
+
+                'state' => $request->state,
+                'lga' => $request->lga,
+                'address' => $request->address,
+                
                 'manager_id' => $request->manager,
                 'creator_id' => auth()->user()->id,
-                'duedate' => $request->duedate,
-                'status_id' => $this->new,
+                'status_id' => $this->new
             ]);
 
             Inventory::create([

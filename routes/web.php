@@ -110,6 +110,20 @@ Route::middleware('auth')->group(function() {
             
         });
     });
+
+    //Sub tasks
+    Route::resource('subtasks', 'SubTaskController');
+    Route::name('subtasks.')->group(function() {
+        Route::prefix('subtasks')->group(function() {
+            Route::get('/', 'SubTaskController@index')->name('index');
+            Route::post('filter', 'SubTaskController@filter')->name('filter');
+            Route::post('search', 'SubTaskController@search')->name('search');
+            Route::post('upload/resource/{subtask}', 'SubTaskController@uploadResource')->name('upload');
+            Route::post('member/add/{task}', 'SubTaskController@addMember')->name('addMember');
+            Route::post('member/remove/', 'SubTaskController@removeMember')->name('removeMember');
+            Route::post('status/update/{subtask}', 'SubTaskController@updateStatus')->name('updateStatus');
+        });
+    });
     
     //payments
     Route::resource('payments', 'PaymentController');

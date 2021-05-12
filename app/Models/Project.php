@@ -12,10 +12,25 @@ class Project extends Model
     protected $fillable = [
         'name', 
         'description', 
-        'budget', 
+        'objective', 
         'owner',
 
-        'duedate', 
+        'start',
+        'end',
+        
+        'nature',
+        'type',
+        'funding_source',
+        'budget', 
+        'actual_cost',
+
+        'sponsor_name',
+        'sponsor_email',
+        'sponsor_phone',
+
+        'state',
+        'lga',
+        'address',
         
         'manager_id', 
         'creator_id',  

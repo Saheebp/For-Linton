@@ -23,7 +23,8 @@ class CreateResourcesTable extends Migration
             $table->string('avatar')->nullable()->default(null);
             $table->string('description')->nullable()->default(null);
             
-            $table->unsignedBigInteger('creator')->nullable()->default(null);
+            $table->unsignedBigInteger('creator_id')->nullable()->default(null);
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
 
             $table->unsignedBigInteger('project_id')->nullable()->default(null);
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');

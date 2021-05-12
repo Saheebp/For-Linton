@@ -78,6 +78,12 @@ class StatusSeeder extends Seeder
                 'style' => 'success'
             ]
 
+            ,
+            [
+                'name' => 'Out of Funds',
+                'style' => 'danger'
+            ]
+
         ];
 
         foreach ($statuses as $status) {

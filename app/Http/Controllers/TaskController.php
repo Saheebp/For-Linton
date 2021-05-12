@@ -132,33 +132,34 @@ class TaskController extends Controller
         }
     }
 
-    public function createSubTask(Request $request, Task $task)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'budget' => 'required|string',
-        ]);
+    // public function createSubTask(Request $request, Task $task)
+    // {
+    //     $validated = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'description' => 'required|string|max:255',
+    //         'budget' => 'required|string',
+    //     ]);
         
-        try 
-        {
-            Task::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'budget' => $request->budget,
-                'project_id' => $request->project_id,
-                'parent' => $task->id,
-                'status_id' => $this->pending,
-                'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,
-                'succeedby' => ($request->succeedby == null) ? null : $request->succeedby,
-            ]);
+    //     try 
+    //     {
+    //         Task::create([
+    //             'name' => $request->name,
+    //             'description' => $request->description,
+    //             'budget' => $request->budget,
+    //             'project_id' => $request->project_id,
+    //             'parent' => $task->id,
+    //             'status_id' => $this->pending,
+    //             'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,
+    //             'succeedby' => ($request->succeedby == null) ? null : $request->succeedby,
+    //         ]);
 
-            return back()->with('success', 'Task created successfully.');
-        }
-        catch (\Exception $e) 
-        {
-            return back()->with('error', "Oops, Error Creating a Task");
-        }        }
+    //         return back()->with('success', 'Task created successfully.');
+    //     }
+    //     catch (\Exception $e) 
+    //     {
+    //         return back()->with('error', "Oops, Error Creating a Task");
+    //     }        
+    // }
 
     public function engageTask(Request $request, Task $task)
     {

@@ -7,7 +7,7 @@ use App\Notifications\ContactUs;
 use Notification;
 
 use App\Models\User;
-use App\Models\Product;
+use App\Models\Project;
 use App\Models\Category;
 use App\Models\Attribute;
 use App\Models\AttributeOption;
@@ -30,12 +30,10 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        // $customers = User::role('Customer')->whereDate('created_at', Carbon::now())->get()->count();
-        // $products = Product::all()->count();
+        $projects = Project::all();
         
         return view('admin.dashboard', [
-            'customers' => 0,
-            'products' => 0
+            'projects' => $projects
         ]);
     }
 

@@ -14,6 +14,7 @@ class Task extends Model
         'order',
         'description', 
         'budget', 
+        'actual_cost',
         
         'duedate', 
         
