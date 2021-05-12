@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Category;
+use App\Models\Inventory;
 use App\Models\Status;
 
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class ProjectController extends Controller
 
         try 
         {
-            Project::create([
+            $project = Project::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'budget' => $request->budget,
@@ -68,7 +69,14 @@ class ProjectController extends Controller
                 'status_id' => $this->new,
             ]);
 
-            return back()->with('success', 'Project created successfully.');
+            Inventory::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'project_id' => $project->id,
+                'status_id' => $this->new,
+            ]);
+
+            return back()->with('success', 'Project and Inventory created successfully.');
         }
         catch (\Exception $e) 
         {

@@ -374,69 +374,7 @@
                                             <td>{{ $inventory->project->name }}</td>
                                             <td>{{ $inventory->created_at }}</td>
                                             <td><span class="badge badge-{{ $inventory->status->style }}">{{ $inventory->status->name }}</span></td>
-                                            <td>
-                                                <a class="btn btn-secondary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$inventory->id}}">Manage</a>&nbsp;&nbsp;
-                                                
-                                                <div class="modal fade" id="modalDetails{{$inventory->id}}" role="dialog" aria-labelledby="modalLabelprimary">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header bg-primary">
-                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary"> [product ID: {{ $inventory->id }}]</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p class="p-2">
-                                                                    <table width="100%">
-                                                                        <tr>
-                                                                            <td><b>Name:</b></td>
-                                                                            <td>{{ $inventory->name }}</td>
-                                                                        </tr>
-                                                                        
-                                                                        
-                                                                        <tr>
-                                                                            <td><b>Inventory Status:</b></td>
-                                                                            <td><span class="text-{{ $inventory->status->style }}">{{ $inventory->status->name }}</span></td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </p>
-                                                            </div> 
-                                                            
-                                                            <div class="modal-footer container-fluid">
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        
-                                                                        <a class="btn btn-sm btn-warning text-white mt-1" data-toggle="modal" data-target="#modalDelete{{ $inventory->id }}">Delete</a>&nbsp;&nbsp;
-                                                                        <button class="btn btn-sm btn-white text-dark mt-1" data-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal fade" id="modalDelete{{ $inventory->id }}" role="dialog" aria-labelledby="modalLabelprimary">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header bg-primary">
-                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">{{ $inventory->name }}</h4>
-                                                            </div>
-                                                            <form method="POST" action="{{ route('inventory.destroy', $inventory->id ) }}">
-                                                            @csrf
-
-                                                            <input value="{{ $inventory->id }}" name="id" hidden readonly >
-                                                            <div class="modal-body">
-                                                                <h3 class="p-5 text-center">
-                                                                    Are you sure you want to Delete this inventory?
-                                                                </h3>
-                                                            </div> 
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-sm btn-outline-dark" data-dismiss="modal">Close</button>
-                                                                <button class="btn btn-sm btn-danger" type="submit">Yes, Clone & Delete inventory</button>
-                                                            </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
+                                            <td><a class="btn btn-secondary btn-sm text-white" href="{{ route('inventory.show', $inventory->id) }}">Manage</a></td>
                                         </tr>
                                         @endforeach
                                         </tbody>

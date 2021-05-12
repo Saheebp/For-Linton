@@ -50,10 +50,10 @@
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5">
-                                        <i class="fa fa-users text-dark"></i>
+                                        <i class="fa fa-tasks text-dark"></i>
                                     </div>
-                                    <div id="widget_countup12">{{ $customers ?? "" }}</div>
-                                    <div>New Customers</div>
+                                    <div id="widget_countup12">{{ 0 ?? "" }}</div>
+                                    <div>New Projects</div>
                                 </div>
 
                                 <div class="row">
@@ -87,10 +87,10 @@
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5 text-primary">
-                                        <i class="fa fa-shopping-cart"></i>
+                                        <i class="fa fa-tasks"></i>
                                     </div>
-                                    <div id="widget_countup22">{{ $bookings ?? ""}}</div>
-                                    <div>Orders in Progress</div>
+                                    <div id="widget_countup22">{{ 0 ?? ""}}</div>
+                                    <div>Projects in Progress</div>
 
                                 </div>
 
@@ -124,10 +124,10 @@
                             <div class="bg-white b_r_5 section_border">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5 text-warning">
-                                        <i class="fa fa-shopping-cart"></i>
+                                        <i class="fa fa-tasks"></i>
                                     </div>
-                                    <div id="widget_countup32">{{ $trips ?? "" }}</div>
-                                    <div>Awaiting response</div>
+                                    <div id="widget_countup32">{{ 0 ?? "" }}</div>
+                                    <div>Awaiting Approval</div>
                                 </div>
 
                                 <div class="row">
@@ -160,11 +160,11 @@
                             <div class="bg-white section_border b_r_5">
                                 <div class="p-t-l-r-15">
                                     <div class="float-right m-t-5 text-success">
-                                        <i class="fa fa-shopping-cart"></i>
+                                        <i class="fa fa-tasks"></i>
                                     </div>
 
-                                    <div id="widget_countup42">{{ $routes ?? ""}}</div>
-                                    <div>Completed Orders</div>
+                                    <div id="widget_countup42">{{ 0 ?? ""}}</div>
+                                    <div>Completed Projects</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">

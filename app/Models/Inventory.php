@@ -14,7 +14,8 @@ class Inventory extends Model
         'description',
         'image',
         'status_id',
-        'project_id'
+        'project_id',
+        'inventory_id'
     ];
 
     public function items(){

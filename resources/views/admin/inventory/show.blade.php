@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Project
+    Inventory
     @parent
 @stop
 
@@ -69,54 +69,8 @@
                         <div class="text-right p-3">
 
                             @role('SuperUser|Director|Admin')
-                                <button class="btn btn-sm btn-secondary align-right mt-1" data-toggle="modal" data-target="#manageProject">Manage Project</button>
+                                <!-- <button class="btn btn-sm btn-secondary align-right mt-1" data-toggle="modal" data-target="#manageProject">Manage Project</button> -->
 
-                                <div class="modal fade" id="manageProject" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="modalLabel">Update Status of Project</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <form class="form-horizontal" action="{{ route('projects.update', $project)}}" method="POST">
-                                            @csrf
-                                            <fieldset>
-                                            <div class="modal-body">
-                                                
-                                                <input type="text" name="trip_id" value="{{ $project->id }}" hidden readonly>
-                                                <div class="form-group row">
-                                                    <div class="col-lg-12">
-                                                        <!-- <label for="subject1" class="col-form-label">
-                                                            Trip Status
-                                                        </label> -->
-                                                        <div class="input-group">
-                                                        <select class="form-control" name="status_id" required>
-                                                            <option value="">-- Select Status --</option>
-                                                            <option value="{{ $pending }}">In Progress</option>
-                                                            <option value="{{ $queried }}">Queried</option>
-                                                            <option value="{{ $completed }}">Completed</option>
-                                                        </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <div class="form-group row">
-                                                    <div class="col-lg-12">
-                                                        <button class="btn btn-responsive layout_btn_prevent btn-primary">Submit</button>
-                                                        <button class="btn  btn-secondary" data-dismiss="modal">Close me!</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </fieldset>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             @endrole
                         </div>
 
@@ -124,14 +78,14 @@
                             <i class="fa fa-table"></i> Project Information
                         </div>
                         <div class="card-body m-t-35">
-                            <h3><tag class="text-capitalize text-success">{{ $project->name ?? '' }}</tag></h3>
+                            <h3><tag class="text-capitalize text-success">{{ $inventory->project->name ?? '' }}</tag></h3>
                             <table id="example1" class="display table table-stripped table-bordered">
                                 <tbody>
-                                    <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
-                                    <tr><td><b>Start Date: </b></td><td>{{ date('d M Y', strtotime($project->startdate)) }}</td></tr>
-                                    <tr><td><b>Project Status: </b></td><td><span class="badge badge-{{ $project->status->style }}">{{ $project->status->name ?? '' }}</span></td></tr>
-                                    <tr><td><b>Manager: </b></td><td>{{ $project->manager->name ?? '' }}</td></tr>
-                                    <tr><td><b>Remaining Days: </b></td><td>{{ round(( strtotime($project->duedate) - strtotime($project->created_at)) / 3600 ) }} hours</td></tr>
+                                    <!-- <tr><td><b>Project ID: </b></td><td>{{ $inventory->project->id }}</td></tr> -->
+                                    <tr><td><b>Start Date: </b></td><td>{{ date('d M Y', strtotime($inventory->project->startdate)) }}</td></tr>
+                                    <tr><td><b>Project Status: </b></td><td><span class="badge badge-{{ $inventory->project->status->style }}">{{ $inventory->project->status->name ?? '' }}</span></td></tr>
+                                    <tr><td><b>Manager: </b></td><td>{{ $inventory->project->manager->name ?? '' }}</td></tr>
+                                    <tr><td><b>Remaining Days: </b></td><td>{{ round(( strtotime($inventory->project->duedate) - strtotime($inventory->project->created_at)) / 3600 ) }} hours</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -143,31 +97,15 @@
                                 <div class="card-header bg-white">
                                     <ul class="nav nav-tabs card-header-tabs float-left">
                                         <li class="nav-item">
-                                            <a class="nav-link active" href="#tab1" data-toggle="tab">Team Members</a>
+                                            <a class="nav-link active" href="#tab1" data-toggle="tab">Inventory</a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#tab2" data-toggle="tab">Project Tasks</a>
+                                            <a class="nav-link" href="#tab2" data-toggle="tab">Requests</a>
                                         </li>
 
                                         <li class="nav-item">
                                             <a class="nav-link" href="#tab3" data-toggle="tab">Recent Activity</a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab4" data-toggle="tab">Timeline</a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab5" data-toggle="tab">Project Resources</a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab6" data-toggle="tab">Budget</a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab7" data-toggle="tab">Inventory</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -175,120 +113,61 @@
                                     <div class="tab-content text-justify" style="padding-top:30px;">
                                         
                                         <div class="tab-pane p-3 active" id="tab1">
-                                            <h4 class="card-title">Team Members</h4>
+                                            <h4 class="card-title">Items in Inventory</h4>
                                             <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
-                                            <?php $i = 1; ?>
-                                            @foreach($project->members as $member)
-                                                {{ $i }}. {{ $member->user->name  }} <a href="">Remove from Team</a> <br>
-                                                <?php $i=$i+1; ?>
-                                            @endforeach
+                                            
+                                            <table id="example1" class="table table-striped table-bordered bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:5%;">SNo</th>
+                                                        <th style="width:40%;">Name </th>
+                                                        <th style="width:15%;">Category</th>
+                                                        <th style="width:15%;">Quantity</th>
+                                                        <th style="width:5%;">Status</th>
+                                                        <th style="width:5%;">Action</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <?php $i = 1; ?>
+                                                    @foreach($inventory->items as $item)
+                                                        <tr>
+                                                            <td>
+                                                            {{ $i }}.
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->name}}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->category->name ?? '' }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->available_quantity ?? '' }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->status->name ?? '' }}
+                                                            </td>
+                                                            <td>
+                                                                NA
+                                                            </td>
+                                                        </tr>
+                                                        <?php $i=$i+1; ?>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
 
                                         <div class="tab-pane p-3" id="tab2">
-                                            <h4 class="card-title m-b-3">Project Tasks & Processes</h4>
+                                            <h4 class="card-title m-b-3">Inventory Requests</h4>
                                             
-                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
-                                                data-toggle="modal" data-target="#modalTaskCreate">Add New Task
-                                            </button>
-                                            
-                                            <div class="modal fade" id="modalTaskCreate" role="dialog" aria-labelledby="modalLabelprimary">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        
-                                                        <div class="modal-header bg-secondary">
-                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">New Task Details</h4>
-                                                        </div>
-                                                        <form method="POST" action="{{ route('tasks.store') }}">
-                                                            <div class="modal-body">
-
-                                                                <input name="project_id" value="{{ $project->id }}" hidden readonly> 
-
-                                                                @csrf
-                                                                <div class="form-group row">
-                                                                    
-                                                                    <div class="col-12">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Task Name
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <input type="text" id="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
-                                                                        </div>
-                                                                        @error('name')
-                                                                            <span class="text-danger">{{ $errors->first('name') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-lg-6">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Budget
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <input type="number" id="budget" value="{{ old('budget') }}" class="form-control" min="0" name="budget">
-                                                                        </div>
-                                                                        @error('budget')
-                                                                            <span class="text-danger">{{ $errors->first('budget') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-lg-6">
-                                                                        <label End="subject1" class="col-form-label">
-                                                                            Due Date
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <input type="date" id="duedate" class="form-control" name="duedate" required>
-                                                                        </div>
-                                                                        @error('duedate')
-                                                                            <span class="text-danger">{{ $errors->first('duedate') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-12">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Description
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <textarea id="description" value="{{ old('description') }}" class="form-control" placeholder="" name="description"></textarea>
-                                                                        </div>
-                                                                        @error('description')
-                                                                            <span class="text-danger">{{ $errors->first('description') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-6">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Depends on
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <select class="form-control col-12" name="preceedby">
-                                                                                <option value=""> -- Select Task --</option>
-                                                                                @foreach($project->tasks as $task)
-                                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('preceedby')
-                                                                            <span class="text-danger">{{ $errors->first('preceedby') }}</span>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>                                                                    
-                                                            </div> 
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
-                                                                <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
                                             
                                             <div class="m-t-10 accordian_alignment">
                                                 <div id="accordion" role="tablist" aria-multiselectable="true">
                                                     
-                                                @foreach($project->tasks as $task)
+                                                @foreach($inventory->requests as $request)
                                                     <div class="card mb-2">
                                                         <div class="card-header bg-white" role="tab" id="title-one">
                                                             <a class="collapsed accordion-section-title" data-toggle="collapse" data-parent="#accordion" href="#card-data-one{{$task->id}}" aria-expanded="false">

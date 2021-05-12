@@ -84,7 +84,14 @@ class InventoryController extends Controller
      */
     public function show(Inventory $inventory)
     {
-        //
+        $statuses = Status::all();
+        $categories = Category::all();
+
+        return view('admin.inventory.show', [
+            'inventory' => $inventory,
+            'statuses' => $statuses,
+            'categories' => $categories
+        ]);
     }
 
     /**

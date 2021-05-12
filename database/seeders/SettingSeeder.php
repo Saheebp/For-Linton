@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Setting;
 use App\Models\Config;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
@@ -49,5 +50,24 @@ class SettingSeeder extends Seeder
             'tag' => 'walletpay',
             'value' => 'true'
         ]);
+
+        $categories = [
+            [
+                'name' => 'Equipment',
+                'description' => 'Site equipment'
+            ],
+            [
+                'name' => 'Disposables',
+                'description' => 'Site disposables'
+            ]
+        ];
+
+        foreach ($categories as $item) {
+            # code...
+            Category::create([
+                'name' => $item['name'],
+                'description' => $item['description']
+            ]);
+        }
     }
 }
