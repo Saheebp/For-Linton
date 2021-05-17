@@ -132,6 +132,48 @@ class TaskController extends Controller
         }
     }
 
+    public function updateStatus(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'status' => 'required|string|max:255'
+        ]);
+
+        try 
+        {
+            $task->update([
+                'status_id' => $request->status,
+            ]);
+            $task->save();
+
+            return back()->with('success', 'Task Status updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Task Status");
+        }
+    }
+
+    public function updateCost(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'cost' => 'required|string|max:255'
+        ]);
+
+        try 
+        {
+            $task->update([
+                'actual_cost' => $request->cost,
+            ]);
+            $task->save();
+
+            return back()->with('success', 'Task Cost updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Task Cost");
+        }
+    }
+
     // public function createSubTask(Request $request, Task $task)
     // {
     //     $validated = $request->validate([
@@ -177,24 +219,6 @@ class TaskController extends Controller
             return back()->with('error', "Oops, Error Updating Task");
         }
     }
-
-    public function updateStatus(Request $request, Task $task)
-    {
-        try 
-        {
-            $task->update([
-                'status_id' => $request->status_id
-            ]);
-            $task->save();
-
-            return back()->with('success', 'Task Status Updated successfully.');
-        }
-        catch (\Exception $e) 
-        {
-            return back()->with('error', "Oops, Error Updating Task");
-        }
-    }
-
 
     public function addMember(Request $request, Task $task)
     {

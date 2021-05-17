@@ -57,11 +57,52 @@ class SubTaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error Creating a Task");
         } 
     }
 
+    public function updateStatus(Request $request, SubTask $subtask)
+    {
+        $validated = $request->validate([
+            'status' => 'required|string|max:255'
+        ]);
+
+        try 
+        {
+            $subtask->update([
+                'status_id' => $request->status,
+            ]);
+            $subtask->save();
+
+            return back()->with('success', 'Sub Task Status updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Sub Task Status");
+        }
+    }
+
+    public function updateCost(Request $request, SubTask $subtask)
+    {
+        $validated = $request->validate([
+            'cost' => 'required|string|max:255'
+        ]);
+
+        try 
+        {
+            $subtask->update([
+                'actual_cost' => $request->cost,
+            ]);
+            $subtask->save();
+
+            return back()->with('success', 'Sub Task Cost updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Sub Task Cost");
+        }
+    }
     /**
      * Display the specified resource.
      *

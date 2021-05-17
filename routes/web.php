@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function() {
             Route::get('/', 'ProjectController@index')->name('index');
             Route::post('filter', 'ProjectController@filter')->name('filter');
             Route::post('search', 'ProjectController@search')->name('search');
-            Route::post('upload/resource', 'ProjectController@uploadResource')->name('upload');
+            Route::post('upload/resource/{project}', 'ProjectController@uploadResource')->name('upload');
         });
     });
 
@@ -107,6 +107,7 @@ Route::middleware('auth')->group(function() {
             Route::post('member/add/{task}', 'TaskController@addMember')->name('addMember');
             Route::post('member/remove/', 'TaskController@removeMember')->name('removeMember');
             Route::post('status/update/{task}', 'TaskController@updateStatus')->name('updateStatus');
+            Route::post('cost/update/{task}', 'TaskController@updateCost')->name('updateCost');
             
         });
     });
@@ -122,6 +123,22 @@ Route::middleware('auth')->group(function() {
             Route::post('member/add/{task}', 'SubTaskController@addMember')->name('addMember');
             Route::post('member/remove/', 'SubTaskController@removeMember')->name('removeMember');
             Route::post('status/update/{subtask}', 'SubTaskController@updateStatus')->name('updateStatus');
+            Route::post('cost/update/{subtask}', 'SubTaskController@updateCost')->name('updateCost');
+        });
+    });
+
+    //procurement
+    Route::resource('procurement', 'ProcurementController');
+    Route::name('procurement.')->group(function() {
+        Route::prefix('procurement')->group(function() {
+            Route::get('/', 'ProcurementController@index')->name('index');
+            // Route::post('filter', 'ProcurementController@filter')->name('filter');
+            // Route::post('search', 'ProcurementController@search')->name('search');
+            // Route::post('createsubtask', 'ProcurementController@createSubTask')->name('createsubtask');
+            // Route::post('upload/resource/{task}', 'ProcurementController@uploadResource')->name('upload');
+            // Route::post('status/update/{task}', 'ProcurementController@updateStatus')->name('updateStatus');
+            // Route::post('cost/update/{task}', 'ProcurementController@updateCost')->name('updateCost');
+            
         });
     });
     

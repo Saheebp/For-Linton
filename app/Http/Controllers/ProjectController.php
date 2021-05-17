@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Project;
 use App\Models\Category;
 use App\Models\Inventory;
+use App\Models\Resource;
 use App\Models\Status;
 
 use Illuminate\Http\Request;
@@ -135,6 +136,48 @@ class ProjectController extends Controller
             'statuses' => $statuses,
             'categories' => $categories
         ]);
+    }
+
+    public function uploadResource(Request $request, Project $project)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx|max:2048'
+        ]);
+
+        try 
+        {
+            $file = $request->file('file');
+            //File Name
+            $filename = $file->getClientOriginalName();
+            //File Extension
+            $fileextension = $file->getClientOriginalExtension();
+            //File Real Path
+            $filepath = $file->getRealPath();
+            //File Size
+            $filesize = $file->getSize();
+            //File Mime Type
+            $filetype = $file->getMimeType();
+            //Move Uploaded File
+            $destinationPath = 'uploads';
+            $url = $file->move($destinationPath, $file->getClientOriginalName());
+            
+            Resource::create([
+                'name' => $request->name,
+                'url' => 'uploads/'.$filename,
+                'type' => $filetype,
+                'description' => $request->description,
+                'creator' =>  auth()->user()->id,
+                'project_id' => $project->id
+            ]);
+            
+            return back()->with('success', 'Resource added successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error adding resource to Project");
+        }
     }
 
     /**

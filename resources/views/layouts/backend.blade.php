@@ -441,6 +441,16 @@
 
                     @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="dropdown_menu">
+                        <a href="{{ route('procurement.index') }}">
+                            <i class="fa fa-download"></i>
+                            <span class="link-title menu_hide">&nbsp; Procurement</span>
+                            <!-- <span class="fa arrow menu_hide"></span> -->
+                        </a>
+                    </li>
+                    @endrole
+
+                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
+                    <li class="dropdown_menu">
                         <a href="{{ route('inventory.index') }}">
                             <i class="fa fa-archive"></i>
                             <span class="link-title menu_hide">&nbsp; Inventory</span>
