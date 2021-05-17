@@ -39,8 +39,36 @@ class ProcurementController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'subject' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'start' => 'required|string|max:255',
+            'end' => 'required|string|max:255',
+            'department' => 'required|string|max:255',
+        ]);
+        
+        try 
+        {
+            QuoteRequest::create([
+                'title' => $request->name,
+                'subject' => $request->subject,
+                'description' => $request->description,
+                'start' => $request->start,
+                'end' => $request->end,
+                'department' => $request->department,
+                'creator_id' => auth()->user()->id,
+                'department_id' => $request->department,
+                'status_id' => $this->pending
+            ]);
+
+            return back()->with('success', 'Request created successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            dd($e);
+            return back()->with('error', "Oops, Error Creating Request");
+        }
     }
 
     /**

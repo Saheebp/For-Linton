@@ -213,7 +213,7 @@
                                                             
                                                         @role('SuperUser|Director')
                                                             <button class="btn btn-raised btn-secondary adv_cust_mod_btn"
-                                                                    data-toggle="modal" data-target="#modalCreate">Create New Project
+                                                                    data-toggle="modal" data-target="#modalCreate">Create New Request
                                                             </button>
                                                             @endrole
 
@@ -294,7 +294,7 @@
                                                                                             Department
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <select class="form-control" name="manager" required>
+                                                                                            <select class="form-control" name="department" required>
                                                                                                 <option value="">-- Select Department --</option>
                                                                                                 <option value="1">Admin</option>
                                                                                             </select>
