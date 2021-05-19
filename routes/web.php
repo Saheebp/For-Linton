@@ -62,6 +62,26 @@ Route::middleware('auth')->group(function() {
         });
     });
 
+    //category
+    Route::resource('categories', 'CategoryController');
+    Route::name('categories.')->group(function() {
+        Route::prefix('categories')->group(function() {
+            Route::get('/', 'CategoryController@index')->name('index');
+            Route::post('filter', 'CategoryController@filter')->name('filter');
+            Route::post('search', 'CategoryController@search')->name('search');
+        });
+    });
+
+    //batch
+    Route::resource('batches', 'BatchController');
+    Route::name('batches.')->group(function() {
+        Route::prefix('batches')->group(function() {
+            Route::get('/', 'BatchController@index')->name('index');
+            Route::post('filter', 'BatchController@filter')->name('filter');
+            Route::post('search', 'BatchController@search')->name('search');
+        });
+    });
+
     //projects
     Route::resource('projects', 'ProjectController');
     Route::name('projects.')->group(function() {
@@ -73,10 +93,31 @@ Route::middleware('auth')->group(function() {
         });
     });
 
-    //inventory
-    Route::resource('inventory', 'InventoryController');
-    Route::name('inventory.')->group(function() {
-        Route::prefix('inventory')->group(function() {
+    //warehouse
+    Route::resource('warehouse', 'WarehouseController');
+    Route::name('warehouse.')->group(function() {
+        Route::prefix('warehouse')->group(function() {
+            Route::get('/', 'WarehouseController@index')->name('index');
+            Route::post('filter', 'WarehouseController@filter')->name('filter');
+            Route::post('search', 'WarehouseController@search')->name('search');
+            Route::post('upload/resource', 'WarehouseController@uploadResource')->name('upload');
+        });
+    });
+
+    //warehouse item
+    Route::resource('warehouseitem', 'WarehouseItemController');
+    Route::name('warehouseitem.')->group(function() {
+        Route::prefix('warehouseitem')->group(function() {
+            Route::get('/', 'WarehouseItemController@index')->name('index');
+            Route::post('filter', 'WarehouseItemController@filter')->name('filter');
+            Route::post('search', 'WarehouseItemController@search')->name('search');
+            Route::post('upload/resource', 'WarehouseItemController@uploadResource')->name('upload');
+        });
+    });
+
+    Route::resource('inventories', 'InventoryController');
+    Route::name('inventories.')->group(function() {
+        Route::prefix('inventories')->group(function() {
             Route::get('/', 'InventoryController@index')->name('index');
             Route::post('filter', 'InventoryController@filter')->name('filter');
             Route::post('search', 'InventoryController@search')->name('search');

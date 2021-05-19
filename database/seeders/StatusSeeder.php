@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Status;
+use App\Models\Designation;
+use App\Models\State;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
@@ -93,5 +95,72 @@ class StatusSeeder extends Seeder
                 'style' => $status['style']
             ]);
         }
+
+        $states = [
+            ['name' => 'Abuja'],
+            ['name' => 'Abia'],
+            ['name' => 'Adamawa'],
+            ['name' => 'Akwa Ibom'],
+            ['name' => 'Anambra'],
+            ['name' => 'Bauchi'],
+            ['name' => 'Bayelsa'],
+            ['name' => 'Benue'],
+            ['name' => 'Borno'],
+            ['name' => 'Cross River'],
+            ['name' => 'Delta'],
+            ['name' => 'Ebonyi'],
+            ['name' => 'Edo'],
+            ['name' => 'Ekiti'],
+            ['name' => 'Enugu'],
+            ['name' => 'Gombe'],
+            ['name' => 'Imo'],
+            ['name' => 'Jigawa'],
+            ['name' => 'Kaduna'],
+            ['name' => 'Kano'],
+            ['name' => 'Katsina'],
+            ['name' => 'Kebbi'],
+            ['name' => 'Kogi'],
+            ['name' => 'Kwara'],
+            ['name' => 'Lagos'],
+            ['name' => 'Nassarawa'],
+            ['name' => 'Niger'],
+            ['name' => 'Ogun'],
+            ['name' => 'Ondo'],
+            ['name' => 'Osun'],
+            ['name' => 'Oyo'],
+            ['name' => 'Plateau'],
+            ['name' => 'Rivers'],
+            ['name' => 'Sokoto'],
+            ['name' => 'Taraba'],
+            ['name' => 'Yobe'],
+            ['name' => 'Zamfara'],
+        ];
+
+        foreach ($states as $state) {
+            # code...
+            State::create([
+                'name' => $state['name']
+            ]);
+        }
+
+        
+        $designations = [
+            ['name' => 'Managing Director'],
+            ['name' => 'Chief Financial Officer'],
+            ['name' => 'Procurement Manager'],
+            ['name' => 'Procurement Officer'],
+            ['name' => 'Project Manager'],
+            ['name' => 'Project Engineer'],
+            ['name' => 'Site Manager'],
+            ['name' => 'Quantity Surveyors']
+        ];
+
+        foreach ($designations as $designation) {
+            # code...
+            Designation::create([
+                'name' => $designation['name']
+            ]);
+        }
+
     }
 }

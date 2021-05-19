@@ -451,13 +451,40 @@
 
                     @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="dropdown_menu">
-                        <a href="{{ route('inventory.index') }}">
-                            <i class="fa fa-archive"></i>
-                            <span class="link-title menu_hide">&nbsp; Inventory</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
+                        <a href="#">
+                            <i class="fa fa-users"></i>
+                            <span class="link-title menu_hide">&nbsp; Warehouse</span>
+                            <span class="fa arrow menu_hide"></span>
                         </a>
+                        <ul>
+                            <li>
+                                <a href="{{ route('warehouse.index') }}">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                    &nbsp; Items
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('categories.index') }}">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                    &nbsp; Categories
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('batches.index') }}">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                    &nbsp; Batches
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('inventories.index') }}">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                    &nbsp; Inventories
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     @endrole
+
 
                     @role('SuperUser|Director')
                     <li class="dropdown_menu">
@@ -484,76 +511,12 @@
                     @endrole
 
                     @role('SuperUser|Director|Admin')
-                    <!-- <li class="">
-                        <a href="{{ route('tickets.index') }}">
-                            <i class="fa fa-history"></i>
-                            <span class="link-title menu_hide">&nbsp; Tickets</span>
-                            <span class="fa arrow menu_hide"></span>
-                        </a>
-                    </li> -->
-                    @endrole
-
-                    @role('SuperUser|Director|Admin|Account')
-                    <li class="dropdown_menu">
-                        <a href="{{ route('admin.home') }}">
-                            <i class="fa fa-bank"></i>
-                            <span class="link-title menu_hide">&nbsp; Accounts</span>
-                            <span class="fa arrow menu_hide"></span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="{{ route('accounts.index') }}">
-                                    <i class="fa fa-spinner fa-spin"></i>
-                                    &nbsp; Summary
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('accounts.payments',['Paid']) }}">
-                                    <i class="fa fa-spinner fa-spin"></i>
-                                    &nbsp; Payments
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('accounts.expenditure') }}">
-                                    <i class="fa fa-spinner fa-spin"></i>
-                                    &nbsp; Expenditure
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endrole
-
-                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
                     <li class="">
-                        <a href="{{ route('admin.home') }}">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="link-title menu_hide">&nbsp; Reviews & Ratings</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
-                        </a>
-                    </li>
-                    @endrole
-
-                    @role('SuperUser')
-                    <li class="dropdown_menu">
                         <a href="{{ route('logs.index') }}">
                             <i class="fa fa-history"></i>
                             <span class="link-title menu_hide">&nbsp; Logs</span>
                             <span class="fa arrow menu_hide"></span>
                         </a>
-                        <ul>
-                            <li>
-                                <a href="{{ route('logs.index') }}">
-                                    <i class="fa fa-spinner fa-spin"></i>
-                                    &nbsp; Activity Logs
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('logs.errors') }}">
-                                    <i class="fa fa-spinner fa-spin"></i>
-                                    &nbsp; Error Logs
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     @endrole
 
@@ -605,16 +568,6 @@
                             <i class="fa fa-cogs"></i>
                             <span class="link-title menu_hide">&nbsp; Settings</span>
                             <!-- <span class="fa arrow menu_hide"></span> -->
-                        </a>
-                    </li>
-                    @endrole
-
-                    @role('SuperUser')
-                    <li class="dropdown_menu">
-                        <a href="{{ route('admin.home') }}">
-                            <i class="fa fa-cog"></i>
-                            <span class="link-title menu_hide">&nbsp; Billing</span>
-                            <span class="fa arrow menu_hide"></span>
                         </a>
                     </li>
                     @endrole

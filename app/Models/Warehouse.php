@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inventory extends Model
+class Warehouse extends Model
 {
     use HasFactory;
 
@@ -13,12 +13,12 @@ class Inventory extends Model
         'name',
         'description',
         'image',
+        'status_id',
         'address',
         'state',
         'lga',
-        'address',
+        'address'
 
-        'project_id',
     ];
 
     public function items(){
@@ -29,7 +29,7 @@ class Inventory extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function project() {
-        return $this->belongsTo(Project::class);
+    public function inventories(){
+        return $this->hasMany(Inventory::class);
     }
 }

@@ -367,10 +367,9 @@
                                 <div class="col-lg-6 col-sm-12 m-t-15">
                                     <table id="" class="display table table-stripped table-bordered">
                                         <tbody>
-                                            <tr><td><b>Designation: </b></td><td>{!! str_replace( array('"','[',']'), ' ', $user->roles->pluck('name')) !!}</td></tr>
+                                            <tr><td><b>Role: </b></td><td>{!! str_replace( array('"','[',']'), ' ', $user->roles->pluck('name')) !!}</td></tr>
                                             <tr><td><b>Email </b></td><td>{{ $user->email }}</td></tr>
                                             <tr><td><b>Phone </b></td><td>{{ $user->phone }}</td></tr>
-                                            <tr><td><b>Address </b></td><td>{{ $user->address }}</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -379,9 +378,11 @@
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
                                         <tr>
-                                            <tr><td><b>Next of Kin Name: </b></td><td>{{ $user->nok_name }}</td></tr>
+                                            <tr><td><b>Address </b></td><td>{{ $user->address }}</td></tr>
+                                            <tr><td><b>Designation: </b></td><td>{{ $user->designation->name ?? '' }}</td></tr>
+                                            <!-- <tr><td><b>Next of Kin Name: </b></td><td>{{ $user->nok_name }}</td></tr>
                                             <tr><td><b>Next of Kin Phone: </b></td><td>{{ $user->nok_phone }}</td></tr>
-                                            <tr><td><b>Wallet Balance </b></td><td>#&nbsp;</td></tr>
+                                            <tr><td><b>Wallet Balance </b></td><td>#&nbsp;</td></tr> -->
                                             <tr><td><b>Reg Date: </b></td><td>{{ date('D M Y, h:iA', strtotime($user->created_at)) }}</td></tr>
                                         </tbody>
                                     </table>

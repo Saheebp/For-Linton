@@ -9,6 +9,11 @@ use App\Models\Project;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Models\Activity;
+
+use Auth;
+
 class InventoryController extends Controller
 {
     /**
@@ -25,7 +30,7 @@ class InventoryController extends Controller
         $projects = Project::all();
         $inventories = Inventory::orderBy('created_at', 'desc')->paginate(10);
 
-        return view('admin.inventory.index', [
+        return view('admin.inventories.index', [
             'items' => $items,
             'categories' => $categories,
             'statuses' => $statuses,
@@ -85,12 +90,9 @@ class InventoryController extends Controller
     public function show(Inventory $inventory)
     {
         $statuses = Status::all();
-        $categories = Category::all();
-
-        return view('admin.inventory.show', [
+        
+        return view('admin.inventories.show', [
             'inventory' => $inventory,
-            'statuses' => $statuses,
-            'categories' => $categories
         ]);
     }
 

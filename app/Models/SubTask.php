@@ -51,4 +51,12 @@ class SubTask extends Model
     public function resources() {
         return $this->hasMany(Resource::class);
     }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function messages() {
+        return $this->hasMany(Message::class);
+    }
 }

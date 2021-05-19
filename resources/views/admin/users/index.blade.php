@@ -139,7 +139,7 @@
                                                                                     <input type="tel" id="phone" class="form-control" placeholder=" 08012345678" name="phone">
                                                                                 </div>
                                                                             </div>
-
+                                                                            
                                                                             <div class="col-12">
                                                                                 <label for="subject1" class="col-form-label">
                                                                                     Role
@@ -152,6 +152,23 @@
                                                                                         <option value=""> -- Select Role --</option>
                                                                                         @foreach($roles as $role)
                                                                                         <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-12">
+                                                                                <label for="subject1" class="col-form-label">
+                                                                                    Designation
+                                                                                </label>
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-addon">
+                                                                                        <i class="fa fa-home"></i>
+                                                                                    </span>
+                                                                                    <select class="form-control col-12" name="designation">
+                                                                                        <option value=""> -- Select Designation --</option>
+                                                                                        @foreach($designations as $designation)
+                                                                                        <option value="{{ $designation->id }}">{{ $designation->name }}</option>
                                                                                         @endforeach
                                                                                     </select>
                                                                                 </div>

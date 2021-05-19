@@ -63,4 +63,12 @@ class Task extends Model
     public function members() {
         return $this->hasMany(TeamMember::class);
     }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function messages() {
+        return $this->hasMany(Message::class);
+    }
 }

@@ -52,7 +52,7 @@ class TaskController extends Controller
         
         try 
         {
-            Task::create([
+            $task = Task::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'budget' => $request->budget,
@@ -62,6 +62,12 @@ class TaskController extends Controller
                 'preceedby' => $request->preceedby,
                 'succeedby' => $request->succeedby,
             ]);
+
+            activity()
+            ->performedOn($task)
+            ->causedBy(auth()->user())
+            ->withProperties(['Task' => $task->id])
+            ->log(auth()->user()->name.' Created : '.$task->name );
 
             return back()->with('success', 'Task created successfully.');
         }

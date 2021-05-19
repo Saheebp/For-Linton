@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Inventory
+    Warehouse
     @parent
 @stop
 
@@ -29,7 +29,7 @@
                 <div class="col-lg-6">
                     <h4 class="nav_top_align skin_txt">
                         <i class="fa fa-book"></i>
-                        Products
+                        General Warehouse
                     </h4>
                 </div>
                 <div class="col-lg-6">
@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">Inventories</a>
+                            <a href="#">Warehouse</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -239,23 +239,30 @@
                                         <div class="row">
                                             
                                             <div class="col-12 m-t-15">
-                                                @role('SuperUser|Director|Admin')
+                                                <!-- @role('SuperUser|Director|Admin')
                                                 <button class="btn btn-sm btn-raised m-t-2 btn-success adv_cust_mod_btn"
-                                                        data-toggle="modal" data-target="#createInventory">Create New Inventory
+                                                        data-toggle="modal" data-target="#createInventory">Create Inventory
+                                                </button>
+                                                @endrole -->
+
+                                                @role('SuperUser|Director|Admin')
+                                                <button class="btn btn-sm btn-raised m-t-2 btn-warning adv_cust_mod_btn"
+                                                        data-toggle="modal" data-target="#createItem">Add New Item
                                                 </button>
                                                 @endrole
-
-                                                <div class="modal fade" id="createInventory" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                
+                                                <div class="modal fade" id="createItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" id="modalLabel">Create A New Inventory</h4>
+                                                                <h4 class="modal-title" id="modalLabel">Create A New Item</h4>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">×</span>
                                                                 </button>
                                                             </div>
-                                                            <form class="form-horizontal" action="{{ route('inventory.store') }}" method="POST">
+
+                                                            <form class="form-horizontal" action="{{ route('warehouseitem.store') }}" method="POST">
                                                                 @csrf
                                                                 <fieldset>
                                                                 <div class="modal-body">
@@ -264,7 +271,7 @@
                                                                     <div class="form-group row m-t-25">
                                                                         <div class="col-lg-12">
                                                                             <label for="date" class="col-form-label">
-                                                                                Inventory Name
+                                                                                Product Name
                                                                             </label>
                                                                             <div class="input-group">
                                                                             <span class="input-group-addon">
@@ -277,28 +284,73 @@
                                                                     </div>
 
                                                                     <div class="form-group row m-t-25">
-                                                                        <div class="col-lg-12">
+                                                                        <div class="col-lg-6">
                                                                             <label for="date" class="col-form-label">
-                                                                                Related Project
+                                                                                Quantity
                                                                             </label>
-                                                                            <select class="form-control mb-3" name="project" required>
-                                                                                <option value="">--Select Project--</option>
-                                                                                @foreach($projects as $project)
-                                                                                <option value="{{ $project->id }}">{{ $project->name }}</option>
-                                                                                @endforeach
-                                                                            </select>
+                                                                            <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-calendar"></i>
+                                                                            </span>
+                                                                                <input type="number" class="form-control" id="name" placeholder="" name="quantity">
+                                                                            </div>
                                                                         </div>
-                                                                        
-                                                                        <div class="col-lg-12">
+
+                                                                        <div class="col-lg-6">
+                                                                            <label for="date" class="col-form-label">
+                                                                                Threshhold
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-calendar"></i>
+                                                                            </span>
+                                                                                <input type="number" class="form-control" id="name" placeholder="" name="threshold">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-group row m-t-25">
+                                                                        <div class="col-12">
                                                                             <label for="subject1" class="col-form-label">
                                                                                 Description
                                                                             </label>
                                                                             <div class="input-group">
-                                                                                <textarea  type="text" class="form-control" id="description" placeholder="" name="description">
-                                                                                </textarea>
+                                                                                <textarea type="text" name="description" id="subject1" class="form-control" placeholder="Subject"></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
+                                                                    <div class="form-group row m-t-25">
+
+                                                                        <div class="col-lg-6">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                            Category
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <select class="form-control" name="category" required>
+                                                                                    <option value="">-- Select Category --</option>
+                                                                                    @foreach ($categories as $category)
+                                                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                        
+                                                                        <div class="col-lg-6">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Batch
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <select class="form-control" name="batch" required>
+                                                                                    <option value="">-- Select Batch --</option>
+                                                                                    @foreach ($batches as $batch)
+                                                                                        <option value="{{ $batch->id }}">{{ $batch->name }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
                                                                 </div>
 
                                                                 <div class="modal-footer">
@@ -327,7 +379,7 @@
 
                     <div class="card">
                         <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> All Inventories {{ isset($title) ? $title:'' }}
+                            <i class="fa fa-table"></i> All Warehouse Items
                         </div>
 
                         <div class="card-body m-t-35">
@@ -337,7 +389,7 @@
                                 </div>
 
                                 <div class="col-lg-6 col-sm-12 m-t-1 text-right">
-                                    <form method="POST" action="{{ route('inventory.search') }}">
+                                    <form method="POST" action="{{ route('warehouse.search') }}">
                                     @csrf
 
                                         <input class="form-control col-12" type="hidden" name="filtertype" value="search">
@@ -360,28 +412,153 @@
                                         <tr>
                                             <th style="width:3%;">ID</th>
                                             <th style="width:20%;">Name</th>
-                                            <th style="width:10%;">Project</th>
-                                            <th style="width:10%;">Created</th>
+                                            <th style="width:10%;">Category</th>
+                                            <th style="width:5%;">Brand</th>
+                                            <th style="width:5%;">Quantity</th>
+                                            <th style="width:5%;">Available</th>
                                             <th style="width:5%;">Status</th>
-                                            <th style="width:5%;">Action</th>
+                                            <th style="width:20%;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($inventories as $inventory)
+                                        @foreach($items as $item)
                                         <tr>
-                                            <td>{{ $inventory->id }}</td>
-                                            <td>{{ $inventory->name }}</td>
-                                            <td>{{ $inventory->project->name }}</td>
-                                            <td>{{ $inventory->created_at }}</td>
-                                            <td><span class="badge badge-{{ $inventory->status->style }}">{{ $inventory->status->name }}</span></td>
-                                            <td><a class="btn btn-secondary btn-sm text-white" href="{{ route('inventory.show', $inventory->id) }}">Manage</a></td>
+                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->category->name }}</td>
+                                            <td>{{ $item->batch->name }}</td>
+                                            <td>{{ $item->quantity }}</td>
+                                            <td>{{ $item->available }}</td>
+                                            <td><span class="badge badge-{{ $item->status->style }}">{{ $item->status->name }}</span></td>
+                                            <td>
+                                                <a class="btn btn-secondary btn-sm text-white text-right" data-toggle="modal" data-target="#modalDetails{{$item->id}}">Manage</a>&nbsp;&nbsp;
+                                                <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateProject{{ $item->id }}">Allocate to Project</a>
+                                                
+                                                
+                                                <div class="modal fade" id="modalDetails{{$item->id}}" role="dialog" aria-labelledby="modalLabelprimary">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-primary">
+                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary"> [Item ID: {{ $item->id }}]</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p class="p-2">
+                                                                    <table width="100%">
+                                                                        <tr>
+                                                                            <td><b>Name:</b></td>
+                                                                            <td>{{ $item->name }}</td>
+                                                                        </tr>
+                                                                        
+                                                                        <tr>
+                                                                            <td><b>Available Qty:</b></td>
+                                                                            <td>&#8358;{{ $item->quantity }}</td>
+                                                                        </tr>
+                                                                        
+                                                                        <tr>
+                                                                            <td><b>Item Status:</b></td>
+                                                                            <td><span class="text-{{ $item->status->style }}">{{ $item->status->name }}</span></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </p>
+                                                            </div> 
+                                                            
+                                                            <div class="modal-footer container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        
+                                                                        <a class="btn btn-sm btn-warning text-white mt-1" data-toggle="modal" data-target="#modalDelete{{$item->id}}">Delete</a>&nbsp;&nbsp;
+                                                                        <button class="btn btn-sm btn-white text-dark mt-1" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="modalDelete{{$item->id}}" role="dialog" aria-labelledby="modalLabelprimary">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-primary">
+                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">{{ $item->name }}</h4>
+                                                            </div>
+                                                            <form method="POST" action="{{ route('warehouseitem.destroy', $item) }}">
+                                                            @csrf
+
+                                                            <input value="{{ $item->id }}" name="id" hidden readonly >
+                                                            <div class="modal-body">
+                                                                <h3 class="p-5 text-center">
+                                                                    Are you sure you want to Delete this item?
+                                                                </h3>
+                                                            </div> 
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-sm btn-outline-dark" data-dismiss="modal">Close</button>
+                                                                <button class="btn btn-sm btn-danger" type="submit">Yes, Delete product</button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="allocateProject{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Allocate {{$item->name}} to a Project</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <form class="form-horizontal" action="#" method="POST">
+                                                            @csrf
+                                                                <fieldset>
+                                                                    <div class="modal-body">
+                                                                        
+                                                                        <div class="col-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Allocate to a Project
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <select class="form-control col-12" name="designation">
+                                                                                    <option value=""> -- Select Project --</option>
+                                                                                    @foreach($projects as $project)
+                                                                                    <option value="{{ $project->id }}">{{ $project->name }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Quantity
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <input type="number" step="1" id="quantity" class="form-control" min="1" max="{{$item->available}}" name="quantity">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-12">
+                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Allocate</button>
+                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         @endforeach
                                         </tbody>
                                 </table>
                             </div>
                             
-                            <div style="text-align: right; width:100%;">{{ $inventories->links() }}</div>
+                            <div style="text-align: right; width:100%;">{{ $items->links() }}</div>
                         </div>
                     </div>
                 </div>

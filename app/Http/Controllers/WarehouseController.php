@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Models\Warehouse;
+use App\Models\WarehouseItem;
 
+use App\Models\Category;
+use App\Models\Status;
+use App\Models\Batch;
+use App\Models\Project;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Models\Activity;
 
 use Auth;
 
-class CategoryController extends Controller
+class WarehouseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +25,19 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('created_at', 'desc')->paginate(10);
+        //
+        $items = WarehouseItem::orderBy('created_at', 'desc')->paginate(10);
+        $statuses = Status::all();
+        $categories = Category::all();
+        $batches = Batch::all();
+        $projects = Project::all();
         
-        return view('admin.warehouse.categories', [
+        return view('admin.warehouse.index', [
+            'items' => $items,
             'categories' => $categories,
+            'statuses' => $statuses,
+            'batches' => $batches,
+            'projects' => $projects
         ]);
     }
 
@@ -45,34 +60,15 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255'
-        ]);
-
-        try 
-        {
-            Category::create([
-                'name' => $request->name,
-                'description' => $request->description
-            ]);
-
-            return back()->with('success', 'Category created successfully.');
-        }
-        catch (\Exception $e) 
-        {
-            //dd($e);
-            return back()->with('error', "Oops, Error Creating a Category");
-        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Warehouse $warehouse)
     {
         //
     }
@@ -80,10 +76,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Warehouse $warehouse)
     {
         //
     }
@@ -92,10 +88,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Warehouse $warehouse)
     {
         //
     }
@@ -103,10 +99,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Warehouse $warehouse)
     {
         //
     }

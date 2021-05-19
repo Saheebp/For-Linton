@@ -43,7 +43,7 @@ class SubTaskController extends Controller
         
         try 
         {
-            SubTask::create([
+            $subtask = SubTask::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'budget' => $request->budget,
@@ -52,13 +52,19 @@ class SubTaskController extends Controller
                 'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,
                 'succeedby' => ($request->succeedby == null) ? null : $request->succeedby,
             ]);
+            
+            activity()
+            ->performedOn($subtask)
+            ->causedBy(auth()->user())
+            ->withProperties(['Sub Task' => $subtask->id])
+            ->log(auth()->user()->name.' Created : '.$subtask->name );
 
-            return back()->with('success', 'Task created successfully.');
+            return back()->with('success', 'Sub Task created successfully.');
         }
         catch (\Exception $e) 
         {
             //dd($e);
-            return back()->with('error', "Oops, Error Creating a Task");
+            return back()->with('error', "Oops, Error Creating a Sub Task");
         } 
     }
 

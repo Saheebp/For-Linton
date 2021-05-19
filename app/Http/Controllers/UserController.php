@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Designation;
+
 use Illuminate\Http\Request;
 
 use Spatie\Permission\Models\Role;
@@ -23,6 +25,7 @@ class UserController extends Controller
     public function index()
     {
         //
+        $designations = Designation::all();
         $roles = Role::all();
         $users = User::where('is_admin','true')->get();
         $nonsuper = $users->reject(function ($user, $key) {
@@ -33,13 +36,15 @@ class UserController extends Controller
         {
             return view('admin.users.index', [
                 'users' => $users,
-                'roles' => $roles
+                'roles' => $roles,
+                'designations' => $designations
             ]);
         }
 
         return view('admin.users.index', [
             'users' => $nonsuper,
-            'roles' => $roles
+            'roles' => $roles,
+            'designations' => $designations
         ]);
     }
 
@@ -80,9 +85,15 @@ class UserController extends Controller
                 'nok_name' => isset($request->nok_name) ? $request->nok_name : '', 
                 'nok_phone' => isset($request->nok_phone) ? $request->nok_phone : '', 
 
+                'address' => NULL,
+                'avatar' => NULL,
+                'address' => NULL,
+                'profile_update_status' => NULL,
+
                 'is_admin' => 'true',
                 'status_id' => 1,
                 'password' => Hash::make($request->phone),
+                'designation_id' => $request->designation
             ]);
             
             $user->assignRole($role);

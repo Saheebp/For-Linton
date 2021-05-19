@@ -202,6 +202,10 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="#tab7" data-toggle="tab">Inventory</a>
                                         </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab8" data-toggle="tab">Messaging</a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="card-body p-2 ">
@@ -211,11 +215,163 @@
                                             <h4 class="card-title">Team Members</h4>
                                             <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
-                                            <?php $i = 1; ?>
-                                            @foreach($project->members as $member)
-                                                {{ $i }}. {{ $member->user->name  }} <a href="">Remove from Team</a> <br>
-                                                <?php $i=$i+1; ?>
-                                            @endforeach
+                                            <table id="example1" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:5%;">SNo</th>
+                                                        <th style="width:35%;">Name </th>
+                                                        <th style="width:20%;">Designation </th>
+                                                        <th style="width:20%;" colspan="3" class="text-right"> &nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $i = 1; ?>
+                                                    @foreach($project->members as $member)
+                                                    <tr>
+                                                        <td class="text-left">
+                                                            {{ $i }}
+                                                        </td>
+
+                                                        <td class="text-left">
+                                                            {{ $member->user->name ?? '' }}
+                                                        </td>
+
+                                                        <td class="text-left">
+                                                            {{ $member->user->designation->name ?? '' }}
+                                                        </td>
+
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#message{{ $member->id }}">Send Message</button>
+                                                            <div class="modal fade" id="message{{ $member->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                            aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title" id="modalLabel">Message {{$member->name}}</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form class="form-horizontal" action="#" method="POST">
+                                                                        @csrf
+                                                                            <fieldset>
+                                                                                <div class="modal-body">
+                                                                                    
+                                                                                    <div class="col-12">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Message
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <textarea id="message" value="{{ old('message') }}" class="form-control" placeholder="" name="message"></textarea>
+                                                                                        </div>
+                                                                                        @error('message')
+                                                                                            <span class="text-danger">{{ $errors->first('message') }}</span>
+                                                                                        @enderror
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="modal-footer">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-lg-12">
+                                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
+                                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </fieldset>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#message{{ $member->id }}">Change Role</button>
+                                                            <div class="modal fade" id="message{{ $member->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                            aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title" id="modalLabel">Update {{$member->name}}</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form class="form-horizontal" action="#" method="POST">
+                                                                        @csrf
+                                                                            <fieldset>
+                                                                                <div class="modal-body">
+                                                                                    
+                                                                                <div class="col-12">
+                                                                                    <label for="subject1" class="col-form-label">
+                                                                                        Designation
+                                                                                    </label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="fa fa-home"></i>
+                                                                                        </span>
+                                                                                        <select class="form-control col-12" name="designation">
+                                                                                            <option value=""> -- Select Designation --</option>
+                                                                                            @foreach($designations as $designation)
+                                                                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                </div>
+
+                                                                                <div class="modal-footer">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-lg-12">
+                                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
+                                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </fieldset>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#remove{{ $member->id }}">Remove</button>
+                                                            <div class="modal fade" id="remove{{ $member->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                            aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title" id="modalLabel">Remove {{$member->name}}</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form class="form-horizontal" action="#" method="POST">
+                                                                        @csrf
+                                                                            <fieldset>
+                                                                                <div class="modal-body">
+                                                                                    
+                                                                                </div>
+
+                                                                                <div class="modal-footer">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-lg-12">
+                                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Remove</button>
+                                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </fieldset>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <?php $i=$i+1; ?>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
 
                                         <div class="tab-pane p-3 active" id="tab2">
@@ -551,6 +707,20 @@
                                                                                 </p>
                                                                             </td>
                                                                         </tr>
+
+                                                                        <tr>
+                                                                            <td>
+                                                                            <tag class="text-primary text-bold">Comments :</tag>
+                                                                                <p class="text-justify">
+                                                                                    <?php $i = 1; ?>
+                                                                                    @foreach($task->comments as $comment)
+                                                                                        {{ $i }}. {{ $comment->user->name  }} <a class="float-right text-white p-1 badge badge-danger">Remove</a><br>
+                                                                                        {{ $comment->body }}
+                                                                                        <?php $i=$i+1; ?>
+                                                                                    @endforeach
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
                                                                     </tbody>
                                                                 </table>
 
@@ -560,6 +730,7 @@
                                                                     <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addTaskMember{{ $task->id }}">Assign Member</button>
                                                                     <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addTaskResource{{ $task->id }}">Add Resource</button>
                                                                     <button class="btn btn-sm btn-outline-dark float-right m-1" data-toggle="modal" data-target="#addSubTask{{ $task->id }}">Add Sub Task</button>
+                                                                    <button class="btn btn-sm btn-outline-primary float-right m-1" data-toggle="modal" data-target="#addComment{{ $task->id }}">Add Comment</button>
 
                                                                     <button class="btn btn-sm btn-outline-primary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{ $task->id }}">Change Status</button>
                                                                     <div class="modal fade" id="updateTaskStatus{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -808,6 +979,49 @@
                                                                         </div>
                                                                     </div>
 
+
+                                                                    <div class="modal fade" id="addComment{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title" id="modalLabel">Comment {{$task->name}}</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form class="form-horizontal" action="#" method="POST">
+                                                                                @csrf
+                                                                                    <fieldset>
+                                                                                        <div class="modal-body">
+                                                                                            
+                                                                                            <div class="col-12">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Message
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <textarea id="message" value="{{ old('message') }}" class="form-control" placeholder="" name="message"></textarea>
+                                                                                                </div>
+                                                                                                @error('message')
+                                                                                                    <span class="text-danger">{{ $errors->first('message') }}</span>
+                                                                                                @enderror
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="modal-footer">
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
+                                                                                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </fieldset>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -1011,7 +1225,7 @@
                                                     </div>
                                                 </div> -->
                                             </div>
-
+                                            
                                             <h4 class="card-title">Budget Allocation</h4>
 
                                             <table id="example1" class="table table-striped table-bordered bordered">
@@ -1097,129 +1311,6 @@
                                             <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
 
-                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
-                                                data-toggle="modal" data-target="#modalItemCreate">Add New Item
-                                            </button>
-                                            
-                                            <div class="modal fade" id="modalItemCreate" role="dialog" aria-labelledby="modalLabelprimary">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        
-                                                        <div class="modal-header bg-secondary">
-                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">New Item Details</h4>
-                                                        </div>
-                                                        <form method="POST" action="{{ route('items.store') }}">
-                                                        @csrf
-                                                            <div class="modal-body">
-
-                                                                <input name="inventory_id" value="{{ $project->inventory->id }}" readonly>    
-                                                                
-                                                                <div class="form-group row">
-                                                                    
-                                                                    <div class="col-12">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Item Name
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <input type="text" id="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
-                                                                        </div>
-                                                                        @error('name')
-                                                                            <span class="text-danger">{{ $errors->first('name') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-lg-4">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Available Quantity
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <input type="number" id="available_quantity" value="{{ old('available_quantity') }}" class="form-control" min="0" name="available_quantity">
-                                                                        </div>
-                                                                        @error('available_quantity')
-                                                                            <span class="text-danger">{{ $errors->first('available_quantity') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-lg-4">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Threshold Quantity
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <input type="number" id="threshold_quantity" value="{{ old('threshold_quantity') }}" class="form-control" min="0" name="threshold_quantity">
-                                                                        </div>
-                                                                        @error('threshold_quantity')
-                                                                            <span class="text-danger">{{ $errors->first('threshold_quantity') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-lg-4">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Batch Number
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <input type="number" id="batch_number" value="{{ old('batch_number') }}" class="form-control" min="0" name="batch_number">
-                                                                        </div>
-                                                                        @error('batch_number')
-                                                                            <span class="text-danger">{{ $errors->first('batch_number') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-12">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Description
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <textarea id="description" value="{{ old('description') }}" class="form-control" placeholder="" name="description"></textarea>
-                                                                        </div>
-                                                                        @error('description')
-                                                                            <span class="text-danger">{{ $errors->first('description') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-6">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Category
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <select class="form-control col-12" name="category">
-                                                                                <option value=""> -- Select Category --</option>
-                                                                                @foreach($categories as $category)
-                                                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('category')
-                                                                            <span class="text-danger">{{ $errors->first('category') }}</span>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div class="col-6">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                           Availability Status
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                            <select class="form-control col-12" name="status">
-                                                                                <option value=""> -- Select Status --</option>
-                                                                                @foreach($statuses as $status)
-                                                                                <option value="{{ $status->id }}">{{ $status->name }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('status')
-                                                                            <span class="text-danger">{{ $errors->first('status') }}</span>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>                                                                    
-                                                            </div> 
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
-                                                                <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             <table id="example1" class="table table-striped table-bordered bordered">
                                                 <thead>
                                                     <tr>
@@ -1251,7 +1342,123 @@
                                                                 {{ $item->status->name ?? '' }}
                                                             </td>
                                                             <td>
-                                                                NA
+                                                                <button class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateTask{{ $item->id }}">Allocate to Task</button>
+                                                                <div class="modal fade" id="allocateTask{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title" id="modalLabel">Allocate {{$item->name}} to Task</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">×</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <form class="form-horizontal" action="#" method="POST">
+                                                                            @csrf
+                                                                                <fieldset>
+                                                                                    <div class="modal-body">
+                                                                                        
+                                                                                    <div class="col-12">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Allocate to a task
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <span class="input-group-addon">
+                                                                                                <i class="fa fa-home"></i>
+                                                                                            </span>
+                                                                                            <select class="form-control col-12" name="designation">
+                                                                                                <option value=""> -- Select Task --</option>
+                                                                                                @foreach($project->tasks as $task)
+                                                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    </div>
+
+                                                                                    <div class="modal-footer">
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-lg-12">
+                                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Allocate</button>
+                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <button class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateSubTask{{ $item->id }}">Allocate to Sub Task</button>
+                                                                <div class="modal fade" id="allocateSubTask{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title" id="modalLabel">Allocate {{$item->name}} to Sub Task</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">×</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <form class="form-horizontal" action="#" method="POST">
+                                                                            @csrf
+                                                                                <fieldset>
+                                                                                    <div class="modal-body">
+                                                                                        
+                                                                                    <div class="col-12">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Allocate to a Sub task
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <span class="input-group-addon">
+                                                                                                <i class="fa fa-home"></i>
+                                                                                            </span>
+                                                                                            <select class="form-control col-12" name="designation">
+                                                                                                <option value=""> -- Select Sub Task --</option>
+                                                                                                @foreach($project->tasks as $task)
+                                                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    </div>
+
+                                                                                    <div class="modal-footer">
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-lg-12">
+                                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Allocate</button>
+                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        <div class="tab-pane p-3" id="tab8">
+                                            <h4 class="card-title">In Team Messaging</h4>
+                                            <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            </p> -->
+
+                                            <table id="example1" class="table table-striped">
+                                        
+                                                <tbody>
+                                                    @foreach($project->messages as $message)
+                                                        <tr>
+                                                            <td>
+                                                            {{ $messages->user->name }}:<br>
+                                                            {{ $messages->body }}<br>
+                                                            {{ $messages->created_at }}
                                                             </td>
                                                         </tr>
                                                     @endforeach

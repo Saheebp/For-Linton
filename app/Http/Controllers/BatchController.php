@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Batch;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +10,7 @@ use Spatie\Activitylog\Models\Activity;
 
 use Auth;
 
-class CategoryController extends Controller
+class BatchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('created_at', 'desc')->paginate(10);
+        $batches = Batch::orderBy('created_at', 'desc')->paginate(10);
         
-        return view('admin.warehouse.categories', [
-            'categories' => $categories,
+        return view('admin.warehouse.batches', [
+            'batches' => $batches,
         ]);
     }
 
@@ -44,35 +44,31 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255'
         ]);
 
         try 
         {
-            Category::create([
-                'name' => $request->name,
-                'description' => $request->description
+            Batch::create([
+                'name' => $request->name
             ]);
 
-            return back()->with('success', 'Category created successfully.');
+            return back()->with('success', 'Batch created successfully.');
         }
         catch (\Exception $e) 
         {
-            //dd($e);
-            return back()->with('error', "Oops, Error Creating a Category");
+            return back()->with('error', "Oops, Error Creating a Batch");
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Batch  $batch
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Batch $batch)
     {
         //
     }
@@ -80,10 +76,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Batch  $batch
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Batch $batch)
     {
         //
     }
@@ -92,10 +88,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Batch  $batch
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Batch $batch)
     {
         //
     }
@@ -103,10 +99,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Batch  $batch
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Batch $batch)
     {
         //
     }

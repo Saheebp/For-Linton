@@ -20,96 +20,135 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
-            'phone' => '00000000001',
+            'phone' => '10000000001',
             'is_admin' => 'true',
-            'order_count' => 0
+            'designation_id' => 1
         ]);
         $super->assignRole('SuperUser');
 
         $director = User::create([
-            'name' => 'Director',
-            'email' => 'director@lintonstarksmanager.com',
+            'name' => 'Panlu Manchan',
+            'email' => 'md@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
-            'phone' => '00000000002',
+            'phone' => '10000000002',
             'is_admin' => 'true',
-            'order_count' => 0
+            'designation_id' => 1
         ]);
         $director->assignRole('Director');
 
         $manager1 = User::create([
-            'name' => 'Manager1',
-            'email' => 'manager1@lintonstarksmanager.com',
+            'name' => 'Pascal Edozie',
+            'email' => 'cfo@lintonstarksmanager.com',
+            'designation_id' => 2,
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
             'phone' => '10000000003',
             'is_admin' => 'true',
-            'order_count' => 0
+            'designation_id' => 1
         ]);
-        $manager1->assignRole('Manager');
+        $manager1->assignRole('Account');
 
         $manager2 = User::create([
-            'name' => 'Manager2',
-            'email' => 'manager2@lintonstarksmanager.com',
+            'name' => 'Sowore Tolulope',
+            'email' => 'pcm@lintonstarksmanager.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11,  
+            'address' => '',
+            'phone' => '20000000001',
+            'is_admin' => 'true',
+            'designation_id' => 1
+        ]);
+        $manager2->assignRole('Admin');
+
+        $manager3 = User::create([
+            'name' => 'Dele Farhan',
+            'email' => 'po@lintonstarksmanager.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11,  
+            'address' => '',
+            'phone' => '20000000002',
+            'is_admin' => 'true',
+            'designation_id' => 1
+        ]);
+        $manager3->assignRole('Admin');
+
+        $admin = User::create([
+            'name' => 'Chima Emeka',
+            'email' => 'pm@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
             'phone' => '20000000003',
             'is_admin' => 'true',
-            'order_count' => 0
+            'designation_id' => 1
         ]);
-        $manager2->assignRole('Manager');
-
-        $manager3 = User::create([
-            'name' => 'Manager3',
-            'email' => 'manager3@lintonstarksmanager.com',
-            'password' => Hash::make('12345678'),
-            'status_id' => 11,  
-            'address' => '',
-            'phone' => '10000000003',
-            'is_admin' => 'true',
-            'order_count' => 0
-        ]);
-        $manager3->assignRole('Manager');
+        $admin->assignRole('Manager');
 
         $admin = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@lintonstarksmanager.com',
+            'name' => 'Dauda Khalid',
+            'email' => 'pm2@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
-            'phone' => '00000000003',
+            'phone' => '20000000004',
             'is_admin' => 'true',
-            'order_count' => 0
+            'designation_id' => 1
         ]);
-        $admin->assignRole('Admin');
+        $admin->assignRole('Manager');
+
+        $admin = User::create([
+            'name' => 'John Johnson',
+            'email' => 'pm3@lintonstarksmanager.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11,  
+            'address' => '',
+            'phone' => '20000000005',
+            'is_admin' => 'true',
+            'designation_id' => 1
+        ]);
+        $admin->assignRole('Manager');
 
         $agent = User::create([
-            'name' => 'Account',
-            'email' => 'account@lintonstarksmanager.com',
+            'name' => 'Ahmed Ibrahim',
+            'email' => 'pe@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11, 
             'address' => '',
-            'phone' => '00000000004',
+            'phone' => '20000000006',
             'is_admin' => 'true',
-            'order_count' => 0
+            'designation_id' => 1
         ]);
-        $agent->assignRole('Account');
+        $agent->assignRole('Manager');
 
-        // $agent = User::create([
-        //     'name' => 'Agent',
-        //     'email' => 'agent@lintonstarksmanager.com',
-        //     'password' => Hash::make('12345678'),
-        //     'status_id' => 11, 
-        //     'address' => '',
-        //     'phone' => '00000000004',
-        //     'is_admin' => 'true',
-        //     'order_count' => 0
-        // ]);
-        // $agent->assignRole('Agent');
+        $agent = User::create([
+            'name' => 'Lawal Malik',
+            'email' => 'sm@lintonstarksmanager.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11, 
+            'address' => '',
+            'phone' => '20000000007',
+            'is_admin' => 'true',
+            'designation_id' => 1
+        ]);
+        $agent->assignRole('Agent');
 
+        $agent = User::create([
+            'name' => 'Quantity Surveyors',
+            'email' => 'qs@lintonstarksmanager.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11, 
+            'address' => '',
+            'phone' => '20000000008',
+            'is_admin' => 'true',
+            'designation_id' => 1
+        ]);
+        $agent->assignRole('Agent');
+
+
+        
         // $customer = User::create([
         //     'name' => 'Nnamdi Ibe',
         //     'email' => 'endee09@gmail.com',

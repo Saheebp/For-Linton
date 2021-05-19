@@ -24,15 +24,17 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            $table->string('profile_update_status')->default(0);
-
-            $table->unsignedBigInteger('status_id')->default(1);
+            $table->string('profile_update_status')->nullable()->default(0);
+            
+            $table->unsignedBigInteger('status_id')->nullable()->default(1);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
 
-            $table->string('phone')->default(null);
-            $table->string('address')->default(null);
+            $table->unsignedBigInteger('designation_id')->nullable()->default(null);
+            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('restrict');
+
+            $table->string('phone')->nullable()->default(null);
+            $table->string('address')->nullable()->default(null);
             $table->string('avatar')->nullable()->default(null);
-            $table->string('order_count')->nullable()->default(null);
 
             $table->string('is_admin')->nullable()->default("false");
         });

@@ -380,9 +380,9 @@
                                                                                         <div class="input-group">
                                                                                             <select class="form-control" name="state" required>
                                                                                                 <option value="">-- Select State --</option>
-                                                                                                    <option value="Plateau">Plateau</option>
-                                                                                                    <option value="Lagos">Lagos</option>
-                                                                                                    <option value="Rivers">Rivers</option>
+                                                                                                @foreach ($states as $state)
+                                                                                                    <option value="{{ $state->name }}">{{ $state->name }}</option>
+                                                                                                @endforeach
                                                                                             </select>
                                                                                         </div>
                                                                                         @error('state')
@@ -395,12 +395,7 @@
                                                                                             L.G.A
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <select class="form-control" name="lga" required>
-                                                                                                <option value="">-- Select L.G.A --</option>
-                                                                                                    <option value="Jos-South">Jos-South</option>
-                                                                                                    <option value="Okota">Okota</option>
-                                                                                                    <option value="Eleme">Eleme</option>
-                                                                                            </select>
+                                                                                            <input type="text" id="lga" value="{{ old('lga') }}" class="form-control" placeholder="" name="lga">
                                                                                         </div>
                                                                                         @error('lga')
                                                                                             <span class="text-danger">{{ $errors->first('lga') }}</span>
@@ -419,7 +414,7 @@
                                                                                         @enderror
                                                                                     </div>
 
-                                                                                    <div class="col-lg-6">
+                                                                                    <div class="col-lg-12">
                                                                                         <label for="subject1" class="col-form-label">
                                                                                             Manager
                                                                                         </label>

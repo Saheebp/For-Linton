@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Inventory;
 use App\Models\Resource;
 use App\Models\Status;
+use App\Models\State;
+use App\Models\Designation;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,10 +26,12 @@ class ProjectController extends Controller
         //
         $managers = User::role('Manager')->get();
         $projects = Project::orderBy('created_at', 'desc')->paginate(10);
+        $states = State::all();
 
         return view('admin.projects.index', [
             'managers' => $managers,
-            'projects' => $projects
+            'projects' => $projects,
+            'states' => $states
         ]);
     }
 
@@ -128,13 +132,15 @@ class ProjectController extends Controller
         $projects = Project::all();
         $statuses = Status::all();
         $categories = Category::all();
+        $designations = Designation::all();
 
         return view('admin.projects.show', [
             'members' => $members,
             'project' => $project,
             'projects' => $projects,
             'statuses' => $statuses,
-            'categories' => $categories
+            'categories' => $categories,
+            'designations' => $designations
         ]);
     }
 
