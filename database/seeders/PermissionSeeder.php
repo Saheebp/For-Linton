@@ -17,27 +17,24 @@ class PermissionSeeder extends Seeder
         $permissions = [
             //admin
             'manage dashboard',
-            'manage brands',
+            'manage batch',
             'manage categories',
-            'manage tickets',
-            'manage delivery_methods',
-            'manage orders',
-            'manage products',
+            'manage warehouse',
+            'manage inventory',
+            'manage projects',
             'manage payments',
             'manage roles_permissions',
             'manage settings',
-            'manage customers',
+            'manage contractors',
             'manage staff',
-            'manage news',
             'manage logs',
             'manage reports',
-            'manage billing',
             'manage staff_reviews',
 
-            //member
+            //contractor
             'manage account',
-            'buy item',
-            'member dashboard'
+            'manage quote',
+            'contractor dashboard'
         ];
 
         foreach ($permissions as $permission)

@@ -419,7 +419,7 @@
                     </li>
 
 
-                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
+                    @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
                     <li class="">
                         <a href="{{ route('projects.index') }}">
                             <i class="fa fa-tasks"></i>
@@ -429,27 +429,40 @@
                     </li>
                     @endrole
 
-                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
-                    <li class="dropdown_menu">
+                    @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
+                    <!-- <li class="dropdown_menu">
                         <a href="{{ route('tasks.index') }}">
                             <i class="fa fa-history"></i>
                             <span class="link-title menu_hide">&nbsp; Tasks</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
                         </a>
-                    </li>
+                    </li> -->
                     @endrole
 
-                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
+                    @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
                     <li class="dropdown_menu">
-                        <a href="{{ route('procurement.index') }}">
+                        <a href="#">
                             <i class="fa fa-download"></i>
                             <span class="link-title menu_hide">&nbsp; Procurement</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
+                            <span class="fa arrow menu_hide"></span>
                         </a>
+                        <ul>
+                            <li>
+                                <a href="{{ route('requests.index') }}">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                    &nbsp; Requests for quotes
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('contractors.index') }}">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                    &nbsp; Contactors
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     @endrole
 
-                    @role('SuperUser|Director|Admin|Manager|Account|Officer')
+                    @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
                     <li class="dropdown_menu">
                         <a href="#">
                             <i class="fa fa-users"></i>
@@ -486,7 +499,7 @@
                     @endrole
 
 
-                    @role('SuperUser|Director')
+                    @role('Level 1|Level 2|Level 3')
                     <li class="dropdown_menu">
                         <a href="{{ route('admin.home') }}">
                             <i class="fa fa-users"></i>
@@ -510,7 +523,7 @@
                     </li>
                     @endrole
 
-                    @role('SuperUser|Director|Admin')
+                    @role('Level 1|Level 2|Level 3')
                     <li class="">
                         <a href="{{ route('logs.index') }}">
                             <i class="fa fa-history"></i>
@@ -520,7 +533,7 @@
                     </li>
                     @endrole
 
-                    @role('SuperUser')
+                    @role('Level 1|Level 2')
                     <li class="dropdown_menu">
                         <a href="{{ route('admin.home') }}">
                             <i class="fa fa-shield"></i>
@@ -544,7 +557,7 @@
                     </li>
                     @endrole
 
-                    @role('SuperUser|Director|Admin')
+                    @role('Level 1|Level 2|Level 3')
                     <li class="dropdown_menu">
                         <a href="{{ route('admin.home') }}">
                             <i class="fa fa-file"></i>
@@ -562,14 +575,14 @@
                     </li>
                     @endrole
 
-                    @role('SuperUser')
-                    <li class="">
+                    @role('Level 1|Level 2|Level 3')
+                    <!-- <li class="">
                         <a href="{{ route('settings.index') }}">
                             <i class="fa fa-cogs"></i>
                             <span class="link-title menu_hide">&nbsp; Settings</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
+                            <span class="fa arrow menu_hide"></span>
                         </a>
-                    </li>
+                    </li> -->
                     @endrole
                 </ul>
                 <!-- /#menu -->

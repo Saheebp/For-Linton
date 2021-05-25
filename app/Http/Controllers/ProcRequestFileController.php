@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dsignation;
+use App\Models\ProcRequestFile;
 use Illuminate\Http\Request;
 
-class DsignationController extends Controller
+class ProcRequestFileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class DsignationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dsignation  $dsignation
+     * @param  \App\Models\ProcRequestFile  $procRequestFile
      * @return \Illuminate\Http\Response
      */
-    public function show(Dsignation $dsignation)
+    public function show(ProcRequestFile $procRequestFile)
     {
         //
     }
@@ -52,10 +52,10 @@ class DsignationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dsignation  $dsignation
+     * @param  \App\Models\ProcRequestFile  $procRequestFile
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dsignation $dsignation)
+    public function edit(ProcRequestFile $procRequestFile)
     {
         //
     }
@@ -64,10 +64,10 @@ class DsignationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dsignation  $dsignation
+     * @param  \App\Models\ProcRequestFile  $procRequestFile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dsignation $dsignation)
+    public function update(Request $request, ProcRequestFile $procRequestFile)
     {
         //
     }
@@ -75,10 +75,10 @@ class DsignationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dsignation  $dsignation
+     * @param  \App\Models\ProcRequestFile  $procRequestFile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dsignation $dsignation)
+    public function destroy(ProcRequestFile $procRequestFile)
     {
         //
     }

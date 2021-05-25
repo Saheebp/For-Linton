@@ -16,7 +16,8 @@ class Task extends Model
         'budget', 
         'actual_cost',
         
-        'duedate', 
+        'start', 
+        'end', 
         
         'executor_id',  
         'project_id',

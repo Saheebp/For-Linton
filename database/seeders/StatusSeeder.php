@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Status;
 use App\Models\Designation;
+use App\Models\Department;
 use App\Models\State;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
@@ -159,6 +160,28 @@ class StatusSeeder extends Seeder
             # code...
             Designation::create([
                 'name' => $designation['name']
+            ]);
+        }
+
+        $departments = [
+            [
+                'name' => 'Admin',
+            ],
+            [
+                'name' => 'Procurement'
+            ],
+            [
+                'name' => 'Store'
+            ],
+            [
+                'name' => 'Human Resource'
+            ]
+        ];
+
+        foreach ($departments as $department) {
+            # code...
+            Department::create([
+                'name' => $department['name']
             ]);
         }
 

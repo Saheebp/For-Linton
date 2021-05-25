@@ -29,10 +29,10 @@ class UserController extends Controller
         $roles = Role::all();
         $users = User::where('is_admin','true')->get();
         $nonsuper = $users->reject(function ($user, $key) {
-            return $user->hasRole('SuperUser');
+            return $user->hasRole('Level 1');
         });
 
-        if(auth()->user()->hasRole('SuperUser'))
+        if(auth()->user()->hasRole('Level 1'))
         {
             return view('admin.users.index', [
                 'users' => $users,

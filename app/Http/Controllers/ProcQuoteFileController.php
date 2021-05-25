@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QuoteRequest;
+use App\Models\ProcQuoteFile;
 use Illuminate\Http\Request;
 
-class QuoteRequestController extends Controller
+class ProcQuoteFileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,6 @@ class QuoteRequestController extends Controller
     public function index()
     {
         //
-        $requests = QuoteRequest::orderBy('created_at', 'desc')->paginate(10);
-
-        return view('admin.procurements.index', [
-            'requests' => $requests
-        ]);
     }
 
     /**
@@ -29,8 +24,7 @@ class QuoteRequestController extends Controller
      */
     public function create()
     {
-        // return view('admin.procurement.create', [
-        // ]);
+        //
     }
 
     /**
@@ -47,10 +41,10 @@ class QuoteRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\QuoteRequest  $quoteRequest
+     * @param  \App\Models\ProcQuoteFile  $procQuoteFile
      * @return \Illuminate\Http\Response
      */
-    public function show(QuoteRequest $quoteRequest)
+    public function show(ProcQuoteFile $procQuoteFile)
     {
         //
     }
@@ -58,10 +52,10 @@ class QuoteRequestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\QuoteRequest  $quoteRequest
+     * @param  \App\Models\ProcQuoteFile  $procQuoteFile
      * @return \Illuminate\Http\Response
      */
-    public function edit(QuoteRequest $quoteRequest)
+    public function edit(ProcQuoteFile $procQuoteFile)
     {
         //
     }
@@ -70,10 +64,10 @@ class QuoteRequestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\QuoteRequest  $quoteRequest
+     * @param  \App\Models\ProcQuoteFile  $procQuoteFile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, QuoteRequest $quoteRequest)
+    public function update(Request $request, ProcQuoteFile $procQuoteFile)
     {
         //
     }
@@ -81,10 +75,10 @@ class QuoteRequestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\QuoteRequest  $quoteRequest
+     * @param  \App\Models\ProcQuoteFile  $procQuoteFile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(QuoteRequest $quoteRequest)
+    public function destroy(ProcQuoteFile $procQuoteFile)
     {
         //
     }

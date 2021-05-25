@@ -20,6 +20,7 @@ class CreateInventoryItemsTable extends Migration
             $table->string('name')->nullable(false);
 
             $table->string('quantity')->nullable()->default(null);
+            $table->string('available')->nullable()->default(null);
             $table->string('threshold')->nullable()->default(null);
             $table->string('created_by')->nullable()->default(null);
             $table->date('expiry_date')->nullable()->default(null);

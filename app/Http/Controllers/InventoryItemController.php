@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InventoryItems;
+use App\Models\InventoryItem;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +10,7 @@ use Spatie\Activitylog\Models\Activity;
 
 use Auth;
 
-class InventoryItemsController extends Controller
+class InventoryItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -63,8 +63,8 @@ class InventoryItemsController extends Controller
         {
             $item = InventoryItem::create([
                 'name' => $request->name,
-                'quantity' => $request->available_quantity, 
-                'threshold' => $request->threshold_quantity,
+                'quantity' => $request->quantity, 
+                'threshold' => $request->threshold,
                 'created_by' => Auth::user()->id,
                 'batch_id' => $request->batch,
                 'image' => $request->image,

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContractorRequest;
+use App\Models\ProcQuote;
 use Illuminate\Http\Request;
 
-class ContractorRequestController extends Controller
+class ProcQuoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ContractorRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ContractorRequest  $contractorRequest
+     * @param  \App\Models\ProcQuote  $procQuote
      * @return \Illuminate\Http\Response
      */
-    public function show(ContractorRequest $contractorRequest)
+    public function show(ProcQuote $procQuote)
     {
         //
     }
@@ -52,10 +52,10 @@ class ContractorRequestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ContractorRequest  $contractorRequest
+     * @param  \App\Models\ProcQuote  $procQuote
      * @return \Illuminate\Http\Response
      */
-    public function edit(ContractorRequest $contractorRequest)
+    public function edit(ProcQuote $procQuote)
     {
         //
     }
@@ -64,10 +64,10 @@ class ContractorRequestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ContractorRequest  $contractorRequest
+     * @param  \App\Models\ProcQuote  $procQuote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContractorRequest $contractorRequest)
+    public function update(Request $request, ProcQuote $procQuote)
     {
         //
     }
@@ -75,10 +75,10 @@ class ContractorRequestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ContractorRequest  $contractorRequest
+     * @param  \App\Models\ProcQuote  $procQuote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ContractorRequest $contractorRequest)
+    public function destroy(ProcQuote $procQuote)
     {
         //
     }

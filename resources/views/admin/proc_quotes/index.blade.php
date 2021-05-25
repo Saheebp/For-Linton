@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Procurement
+    Procurement Quotes
     @parent
 @stop
 
@@ -28,7 +28,7 @@
                 <div class="col-lg-6">
                     <h4 class="nav_top_align skin_txt">
                         <i class="fa fa-money"></i>
-                        Procurement
+                        Procurement Quotes
                     </h4>
                 </div>
 
@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">Procurement</a>
+                            <a href="#">Quotes</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -75,8 +75,8 @@
                                 <div class="">
                                     <div class="bg-white text-primary text-white b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup12">{{ $requests->where('status_id', $new)->count() }}</div>
-                                            <div>New Requests</div>
+                                            <div id="widget_countup12">{{ 0 }}</div>
+                                            <div>New Quotes</div>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                 <div class="">
                                     <div class="bg-white text-warning b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup22">{{ $requests->where('status_id', $pending)->count() }}</div>
+                                            <div id="widget_countup22">{{ 0 }}</div>
                                             <div>Pending Requests</div>
                                         </div>
                                     </div>
@@ -130,7 +130,7 @@
                                 <div class="">
                                     <div class="bg-white text-dark b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup12"> {{ $requests->where('status_id', $completed)->count() }}</div>
+                                            <div id="widget_countup12"> {{ 0 }}</div>
                                             <div>Closed Requests</div>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@
                                 <div class="">
                                     <div class="bg-white text-danger b_r_5 section_border">
                                         <div class="p-t-l-r-15">
-                                            <div id="widget_countup12"> {{ $requests->where('status_id', $overdue)->count() }}</div>
+                                            <div id="widget_countup12"> {{ 0 }}</div>
                                             <div>Overdue Requests</div>
                                         </div>
                                     </div>
@@ -392,7 +392,7 @@
                                             <td>{{ date('d M Y', strtotime($request->start)) }}</td>
                                             <td>{{ date('d M Y', strtotime($request->end)) }}</td>
                                             <td>
-                                                <a class="btn btn-dark btn-sm text-white  align-left" href="#">Manage</a>
+                                                <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('requests.show', $request->id) }}">Manage</a>
                                             </td>
                                         </tr>
                                         @endforeach

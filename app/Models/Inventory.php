@@ -22,7 +22,7 @@ class Inventory extends Model
     ];
 
     public function items(){
-        return $this->hasMany(Item::class);
+        return $this->hasMany(InventoryItem::class);
     }
     
     public function status() {

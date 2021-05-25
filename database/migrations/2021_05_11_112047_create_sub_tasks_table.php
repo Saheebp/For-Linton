@@ -18,7 +18,8 @@ class CreateSubTasksTable extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->string('duedate')->nullable()->default(null);
+            $table->dateTime('start')->nullable()->default(null);
+            $table->dateTime('end')->nullable()->default(null);
             $table->string('description')->nullable()->default(null);
             
             $table->string('budget')->nullable()->default(null);

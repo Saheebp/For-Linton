@@ -66,6 +66,7 @@ class WarehouseSeeder extends Seeder
             [
                 'name' => 'Cement',
                 'quantity' => 1000, 
+                'available' => 100, 
                 'threshold' => 100,
                 'created_by' => 1,
                 'batch_id' => 1,
@@ -77,6 +78,7 @@ class WarehouseSeeder extends Seeder
             [
                 'name' => 'Wheel Barrows',
                 'quantity' => 1000, 
+                'available' => 100, 
                 'threshold' => 100,
                 'created_by' => 1,
                 'batch_id' => 1,
@@ -88,6 +90,7 @@ class WarehouseSeeder extends Seeder
             [
                 'name' => 'Blocks',
                 'quantity' => 1000, 
+                'available' => 100, 
                 'threshold' => 100,
                 'created_by' => 1,
                 'batch_id' => 1,
@@ -99,6 +102,7 @@ class WarehouseSeeder extends Seeder
             [
                 'name' => 'Toyota Hilux Vans',
                 'quantity' => 100, 
+                'available' => 100, 
                 'threshold' => 10,
                 'created_by' => 1,
                 'batch_id' => 1,
@@ -113,6 +117,7 @@ class WarehouseSeeder extends Seeder
             WarehouseItem::create([
                 'name' => $item['name'],
                 'quantity' => $item['quantity'],
+                'available' => $item['quantity'],
                 'threshold' => $item['threshold'],
                 'created_by' => $item['created_by'],
                 'batch_id' => $item['batch_id'],

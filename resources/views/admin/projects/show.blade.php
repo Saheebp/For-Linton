@@ -124,7 +124,7 @@
                             <i class="fa fa-table"></i> Project Information
                         </div>
                         <div class="card-body m-t-35">
-                            <h3><tag class="text-capitalize text-success">{{ $project->name ?? '' }}</tag></h3>
+                            <h3><tag class="text-uppercase text-success">{{ $project->name ?? '' }}</tag></h3>
                             
                             <div class="row">
                                 <div class="col-lg-6">
@@ -132,8 +132,8 @@
                                         <tbody>
                                             <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
                                             <tr>
-                                                <td><b>Title: </b><br><tag class="text-success">{{ $project->name ?? '' }}</tag> </td>
-                                                <td><b>Budget: </b><br><tag class="text-danger">{{ $project->budget ?? '' }}</tag></td>
+                                                <td><b>Objective: </b><br><tag class="">{{ $project->objective ?? '' }}</tag> </td>
+                                                <td><b>Budget: </b><br><tag class="">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td>
                                             </tr>
                                             <tr>
                                                 <td><b>State: </b><br><span>{{ $project->state ?? '' }}</span></td>
@@ -160,7 +160,7 @@
                                             </tr>
                                             <tr>
                                                 <td><b>Remaining Days: </b><br>{{ round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 ) }} days</td>
-                                                <td><b>Remaining Days: </b><br>{{ round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 ) }} days</td>
+                                                <td><b>&nbsp; </b><br>&nbsp;</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -408,15 +408,16 @@
                                                                         @enderror
                                                                     </div>
 
+                                                                    
                                                                     <div class="col-lg-6">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Budget
+                                                                        <label End="subject1" class="col-form-label">
+                                                                            Start Date
                                                                         </label>
                                                                         <div class="input-group">
-                                                                            <input type="number" id="budget" value="{{ old('budget') }}" class="form-control" min="0" name="budget">
+                                                                            <input type="date" id="start" class="form-control" name="start" required>
                                                                         </div>
-                                                                        @error('budget')
-                                                                            <span class="text-danger">{{ $errors->first('budget') }}</span>
+                                                                        @error('start')
+                                                                            <span class="text-danger">{{ $errors->first('start') }}</span>
                                                                         @enderror
                                                                     </div>
 
@@ -458,6 +459,18 @@
                                                                         </div>
                                                                         @error('preceedby')
                                                                             <span class="text-danger">{{ $errors->first('preceedby') }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="col-lg-6">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Budget
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <input type="number" id="budget" value="{{ old('budget') }}" class="form-control" min="0" name="budget">
+                                                                        </div>
+                                                                        @error('budget')
+                                                                            <span class="text-danger">{{ $errors->first('budget') }}</span>
                                                                         @enderror
                                                                     </div>
                                                                 </div>                                                                    
@@ -565,6 +578,7 @@
                                                                                                 <th style="width:10%;">Executor</th>
                                                                                                 <th style="width:10%;">Due Date</th>
                                                                                                 <th style="width:10%;">Budget</th>
+                                                                                                <th style="width:10%;">Cost</th>
                                                                                                 <th style="width:7%;" colspan="2" class="text-center"> Update Actions</th>
                                                                                             </tr>
                                                                                         </thead>
@@ -585,6 +599,9 @@
                                                                                                     </td>
                                                                                                     <td>
                                                                                                         &#8358;{{ number_format(floatval($subtask->budget), 2) }}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        &#8358;{{ number_format(floatval($subtask->actual_cost), 2) }}
                                                                                                     </td>
                                                                                                     <td>
                                                                                                         <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateCost{{ $subtask->id }}">Cost</button>
@@ -930,10 +947,22 @@
 
                                                                                             <div class="col-lg-6">
                                                                                                 <label End="subject1" class="col-form-label">
-                                                                                                    Due Date
+                                                                                                    Start Date
                                                                                                 </label>
                                                                                                 <div class="input-group">
-                                                                                                    <input type="date" id="duedate" class="form-control" name="duedate" required>
+                                                                                                    <input type="date" id="end" class="form-control" name="start" required>
+                                                                                                </div>
+                                                                                                @error('duedate')
+                                                                                                    <span class="text-danger">{{ $errors->first('duedate') }}</span>
+                                                                                                @enderror
+                                                                                            </div>
+
+                                                                                            <div class="col-lg-6">
+                                                                                                <label End="subject1" class="col-form-label">
+                                                                                                    End Date
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <input type="date" id="end" class="form-control" name="end" required>
                                                                                                 </div>
                                                                                                 @error('duedate')
                                                                                                     <span class="text-danger">{{ $errors->first('duedate') }}</span>
@@ -1047,35 +1076,43 @@
                                                 <table id="example1" class="table table-striped table-bordered bordered">
                                                     <tbody>
                                                         
-                                                        <?php $i = 2; ?>
-                                                        @foreach($project->tasks as $task)
-                                                            @if ( $i % 2 == 0 )
+                                                        <?php 
+                                                            $i = 2; 
+                                                            // $start = DateTime::createFromFormat('m/d/Y', $project->start);
+                                                            // $end = DateTime::createFromFormat('m/d/Y', $project->end);
+
+                                                            //round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7
+
+                                                            // $start = \Carbon\Carbon::createFromFormat('Y-m-d', $project->start);
+                                                            // $end = \Carbon\Carbon::createFromFormat('Y-m-d', $project->end);
+                                                            // $interval = $start->diffInMonths($end);
+                                                            $interval = round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7);
+
+                                                            $taskcount = $project->tasks->count();
+                                                        ?>
                                                             <tr>
-                                                                <td class="text-right" style="width:50%;">
-                                                                    <span class="badge badge-{{$project->status->style }}">{{ $project->status->name }}</span><br>
-                                                                    {{ $task->name ?? '' }}<br>
-                                                                    {{ $task->description ?? '' }}<br>
-                                                                    {{ 0 }}%</br>
-                                                                <td>
-                                                                <td style="width:50%;">
-                                                                    &nbsp;
-                                                                </td>
+                                                                <th>
+                                                                    <div>Name</div>
+                                                                </th>
+                                                                @for ($i = 1; $i <= $interval; $i++ )
+                                                                <th>
+                                                                   Week {{ $i }}
+                                                                </th>
+                                                                @endfor
                                                             </tr>
-                                                            @else
+
+                                                            @foreach ($project->tasks as $task)
                                                             <tr>
-                                                                <td style="width:50%;">
-                                                                    &nbsp;
-                                                                </td>
-                                                                <td class="text-left" style="width:50%;">
-                                                                    <span class="badge badge-{{$project->status->style }}">{{ $project->status->name }}</span><br>
-                                                                    {{ $task->name ?? '' }}<br>
-                                                                    {{ $task->description ?? '' }}<br>
-                                                                    {{ 0 }}%</br>
                                                                 <td>
+                                                                    {{ $task->name }}
+                                                                </td>
+                                                                @for ($i = 1; $i <= $interval; $i++ )
+                                                                <td>
+                                                                    <div class="badge badge-success w-100">&nbsp;</div>
+                                                                </td>
+                                                                @endfor
                                                             </tr>
-                                                            @endif
-                                                            <?php $i=$i+1; ?>
-                                                        @endforeach
+                                                            @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1316,10 +1353,11 @@
                                                     <tr>
                                                         <th style="width:5%;">ID</th>
                                                         <th style="width:40%;">Name </th>
-                                                        <th style="width:15%;">Category</th>
-                                                        <th style="width:15%;">Quantity</th>
+                                                        <th style="width:10%;">Category</th>
+                                                        <th style="width:10%;">Quantity</th>
+                                                        <th style="width:10%;">Available</th>
                                                         <th style="width:5%;">Status</th>
-                                                        <th style="width:5%;">Action</th>
+                                                        <th style="width:25%;">Action</th>
                                                     </tr>
                                                 </thead>
 
@@ -1336,7 +1374,10 @@
                                                                 {{ $item->category->name ?? '' }}
                                                             </td>
                                                             <td>
-                                                                {{ $item->available_quantity ?? '' }}
+                                                                {{ $item->quantity ?? '' }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->available ?? '' }}
                                                             </td>
                                                             <td>
                                                                 {{ $item->status->name ?? '' }}

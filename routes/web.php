@@ -33,6 +33,20 @@ Route::middleware('auth')->group(function() {
             Route::post('/update/role', 'UserController@roleupdate')->name('roleupdate');
         });
     });
+
+    //contractors
+    Route::resource('contractors', 'ContractorController')->except('edit');
+    Route::name('contractors.')->group(function() {
+        Route::prefix('contractors')->group(function() {
+            Route::get('/', 'ContractorController@index')->name('index');
+            Route::post('/search', 'ContractorController@search')->name('search');
+            Route::get('/delete/{user}', 'ContractorController@delete')->name('destroy');
+            Route::post('/update/password', 'ContractorController@passwordupdate')->name('passwordupdate');
+            Route::post('/update/bio', 'ContractorController@bioupdate')->name('bioupdate');
+            // Route::post('/update/code', 'ContractorController@codeupdate')->name('codeupdate');
+            // Route::post('/update/role', 'ContractorController@roleupdate')->name('roleupdate');
+        });
+    });
     
     //logs
     Route::resource('logs', 'LogController');
@@ -112,6 +126,8 @@ Route::middleware('auth')->group(function() {
             Route::post('filter', 'WarehouseItemController@filter')->name('filter');
             Route::post('search', 'WarehouseItemController@search')->name('search');
             Route::post('upload/resource', 'WarehouseItemController@uploadResource')->name('upload');
+            Route::post('allocate/preview', 'WarehouseItemController@allocatePreview')->name('allocate.preview');
+            Route::post('allocate', 'WarehouseItemController@allocate')->name('allocate.save');
         });
     });
 
@@ -173,16 +189,39 @@ Route::middleware('auth')->group(function() {
     Route::name('procurement.')->group(function() {
         Route::prefix('procurement')->group(function() {
             Route::get('/', 'ProcurementController@index')->name('index');
-            // Route::post('filter', 'ProcurementController@filter')->name('filter');
-            // Route::post('search', 'ProcurementController@search')->name('search');
-            // Route::post('createsubtask', 'ProcurementController@createSubTask')->name('createsubtask');
-            // Route::post('upload/resource/{task}', 'ProcurementController@uploadResource')->name('upload');
-            // Route::post('status/update/{task}', 'ProcurementController@updateStatus')->name('updateStatus');
-            // Route::post('cost/update/{task}', 'ProcurementController@updateCost')->name('updateCost');
-            
         });
     });
+
+    //procurement request
+    Route::resource('requests', 'ProcRequestController');
+    Route::name('requests.')->group(function() {
+        Route::prefix('requests')->group(function() {
+            Route::get('/', 'ProcRequestController@index')->name('index');
+            Route::post('filter', 'ProcRequestController@filter')->name('filter');
+            Route::post('search', 'ProcRequestController@search')->name('search');
+            Route::post('upload/resource/{request}', 'ProcRequestController@uploadResource')->name('upload');
+            Route::post('contractor/add/{request}', 'ProcRequestController@addContractor')->name('addContractor');
+            Route::post('contractor/remove/', 'ProcRequestController@removeContractor')->name('removeContractor');
+            Route::post('status/update/{request}', 'ProcRequestController@updateStatus')->name('updateStatus');
+        });
+    });
+
+    //procurement quotes
+    Route::resource('quotes', 'ProcQuoteController');
+    Route::name('quotes.')->group(function() {
+        Route::prefix('quotes')->group(function() {
+            Route::get('/', 'ProcQuoteController@index')->name('index');
+            Route::post('filter', 'ProcQuoteController@filter')->name('filter');
+            Route::post('search', 'ProcQuoteController@search')->name('search');
+            Route::post('upload/resource/{quotes}', 'ProcQuoteController@uploadResource')->name('upload');
+            Route::post('contractor/add/{quotes}', 'ProcQuoteController@addContractor')->name('addContractor');
+            Route::post('contractor/remove/', 'ProcQuoteController@removeContractor')->name('removeContractor');
+            Route::post('status/update/{quotes}', 'ProcQuoteController@updateStatus')->name('updateStatus');
+        });
+    });
+        
     
+
     //payments
     Route::resource('payments', 'PaymentController');
     Route::name('payments.')->group(function() {

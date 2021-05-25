@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $super->assignRole('SuperUser');
+        $super->assignRole('Level 1');
 
         $director = User::create([
             'name' => 'Panlu Manchan',
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $director->assignRole('Director');
+        $director->assignRole('Level 2');
 
         $manager1 = User::create([
             'name' => 'Pascal Edozie',
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $manager1->assignRole('Account');
+        $manager1->assignRole('Level 4');
 
         $manager2 = User::create([
             'name' => 'Sowore Tolulope',
@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $manager2->assignRole('Admin');
+        $manager2->assignRole('Level 3');
 
         $manager3 = User::create([
             'name' => 'Dele Farhan',
@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $manager3->assignRole('Admin');
+        $manager3->assignRole('Level 3');
 
         $admin = User::create([
             'name' => 'Chima Emeka',
@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $admin->assignRole('Manager');
+        $admin->assignRole('Level 3');
 
         $admin = User::create([
             'name' => 'Dauda Khalid',
@@ -97,7 +97,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $admin->assignRole('Manager');
+        $admin->assignRole('Level 3');
 
         $admin = User::create([
             'name' => 'John Johnson',
@@ -109,7 +109,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $admin->assignRole('Manager');
+        $admin->assignRole('Level 3');
 
         $agent = User::create([
             'name' => 'Ahmed Ibrahim',
@@ -121,7 +121,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $agent->assignRole('Manager');
+        $agent->assignRole('Level 3');
 
         $agent = User::create([
             'name' => 'Lawal Malik',
@@ -133,7 +133,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $agent->assignRole('Agent');
+        $agent->assignRole('Level 5');
 
         $agent = User::create([
             'name' => 'Quantity Surveyors',
@@ -145,20 +145,19 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $agent->assignRole('Agent');
+        $agent->assignRole('Level 6');
 
 
         
-        // $customer = User::create([
-        //     'name' => 'Nnamdi Ibe',
-        //     'email' => 'endee09@gmail.com',
-        //     'password' => Hash::make('12345678'),
-        //     'phone' =>'00000000005',
-        //     'address' => 'Zaramaganda rayfield rd',
-        //     'status_id' => 7,
-        //     'is_admin' => 'false',
-        //     'order_count' => 0
-        // ]);
-        // $customer->assignRole('Customer');
+        $contractor = User::create([
+            'name' => 'Nnamdi Ibe',
+            'email' => 'endee09@gmail.com',
+            'password' => Hash::make('12345678'),
+            'phone' =>'00000000005',
+            'address' => 'Zaramaganda rayfield rd',
+            'status_id' => 7,
+            'is_admin' => 'false',
+        ]);
+        $contractor->assignRole('Level 7');
     }
 }

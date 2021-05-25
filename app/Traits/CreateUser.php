@@ -23,7 +23,7 @@ trait CreateUser
             'password' => Hash::make($data['phone']),
         ]);
         
-        $user->assignRole('Customer');
+        $user->assignRole('Level 7');
         return $user;
     }
 }

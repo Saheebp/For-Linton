@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
+use App\Models\Task;
 use App\Models\SubTask;
+
 use Illuminate\Http\Request;
 
 class SubTaskController extends Controller
@@ -35,10 +38,17 @@ class SubTaskController extends Controller
      */
     public function store(Request $request)
     {
+
+        //dd($request);
+        $task = Task::find($request->task_id);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'budget' => 'required|string',
+
+            // 'start' => 'required|date|after_or_equal:'.$task->start,
+            // 'end' => 'required|date|before_or_equal:'.$task->end,
         ]);
         
         try 
@@ -47,6 +57,8 @@ class SubTaskController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'budget' => $request->budget,
+                'start' => $request->start,
+                'end' => $request->end,
                 'task_id' => $request->task_id,
                 'status_id' => $this->pending,
                 'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,

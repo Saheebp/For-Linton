@@ -19,52 +19,46 @@ class RoleSeeder extends Seeder
     {
         //Super
         $role = Role::create([
-            'name' => 'SuperUser'
+            'name' => 'Level 1'
         ]);
         $permissions = [
 
             'manage dashboard',
-            'manage brands',
+            'manage batch',
             'manage categories',
-            'manage tickets',
-            'manage delivery_methods',
-            'manage orders',
-            'manage products',
+            'manage warehouse',
+            'manage inventory',
+            'manage projects',
             'manage payments',
             'manage roles_permissions',
             'manage settings',
-            'manage customers',
+            'manage contractors',
             'manage staff',
-            'manage news',
             'manage logs',
             'manage reports',
-            'manage billing',
-            'manage staff_reviews',
         ];
         $role->syncPermissions($permissions);
 
 
         //Director
         $level2 = Role::create([
-            'name' => 'Director'
+            'name' => 'Level 2'
         ]);
         $permissions = [
 
             'manage dashboard',
-            'manage brands',
+            'manage batch',
             'manage categories',
-            'manage tickets',
-            'manage delivery_methods',
-            'manage orders',
-            'manage products',
+            'manage warehouse',
+            'manage inventory',
+            'manage projects',
             'manage payments',
+            'manage roles_permissions',
             'manage settings',
-            'manage customers',
+            'manage contractors',
             'manage staff',
-            'manage news',
+            'manage logs',
             'manage reports',
-            'manage billing',
-            'manage staff_reviews',
         ];
         $level2->syncPermissions($permissions);
 
@@ -72,23 +66,22 @@ class RoleSeeder extends Seeder
 
         //Admin
         $level3 = Role::create([
-            'name' => 'Admin'
+            'name' => 'Level 3'
         ]);
         $permissions = [
             'manage dashboard',
-            'manage brands',
+            'manage batch',
             'manage categories',
-            'manage tickets',
-            'manage delivery_methods',
-            'manage orders',
-            'manage products',
+            'manage warehouse',
+            'manage inventory',
+            'manage projects',
             'manage payments',
+            'manage roles_permissions',
             'manage settings',
-            'manage customers',
+            'manage contractors',
             'manage staff',
-            'manage news',
+            'manage logs',
             'manage reports',
-            'manage staff_reviews',
         ];
         $level3->syncPermissions($permissions);
 
@@ -97,22 +90,17 @@ class RoleSeeder extends Seeder
 
         //Manager
         $level4 = Role::create([
-            'name' => 'Manager'
+            'name' => 'Level 4'
         ]);
         $permissions = [
             'manage dashboard',
-            'manage brands',
+            'manage batch',
             'manage categories',
-            'manage tickets',
-            'manage delivery_methods',
-            'manage orders',
-            'manage products',
+            'manage warehouse',
+            'manage inventory',
+            'manage projects',
             'manage payments',
-            'manage settings',
-            'manage customers',
-            'manage staff',
-            'manage news',
-            'manage staff_reviews',
+            'manage reports',
         ];
         $level4->syncPermissions($permissions);
 
@@ -120,48 +108,46 @@ class RoleSeeder extends Seeder
 
         //Account
         $level5 = Role::create([
-            'name' => 'Account'
+            'name' => 'Level 5'
         ]);
         $permissions = [
             'manage dashboard',
-            'manage tickets',
-            'manage orders',
+            'manage warehouse',
+            'manage inventory',
+            'manage projects',
             'manage payments',
-            'manage customers',
-            'manage staff',
-            'manage staff_reviews',
+            'manage reports',
         ];
         $level5->syncPermissions($permissions);
 
 
 
-        //Agent
-        $level3 = Role::create([
-            'name' => 'Agent'
+        //Officers
+        $level6 = Role::create([
+            'name' => 'Level 6'
         ]);
         $permissions = [
             'manage dashboard',
-            'manage tickets',
-            'manage orders',
+            'manage warehouse',
+            'manage inventory',
+            'manage projects',
             'manage payments',
-            'manage customers',
-            'manage staff',
-            'manage staff_reviews',
+            'manage reports',
         ];
-        $level3->syncPermissions($permissions);
+        $level6->syncPermissions($permissions);
 
 
         
-        //Customer
-        // $level4 = Role::create([
-        //     'name' => 'Customer'
-        // ]);
-        // $permissions = [
-        //     'manage account',
-        //     'buy item',
-        //     'member dashboard'
-        // ];
-        // $level4->syncPermissions($permissions);
+        //Contractor
+        $level7 = Role::create([
+            'name' => 'Level 7'
+        ]);
+        $permissions = [
+            'manage account',
+            'manage quote',
+            'contractor dashboard'
+        ];
+        $level7->syncPermissions($permissions);
 
     }
 }

@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Customers
+    Contractors
     @parent
 @stop
 
@@ -29,7 +29,7 @@
                 <div class="col-lg-6">
                     <h4 class="nav_top_align skin_txt">
                         <i class="fa fa-users"></i>
-                        Customers
+                        Contractors
                     </h4>
                 </div>
                 <div class="col-lg-6">
@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">Students</a>
+                            <a href="#">Contractors</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -90,7 +90,7 @@
                                             </div>
 
                                             <div class="col-lg-6 col-sm-12 m-t-15 text-right">
-                                                <form method="POST" action="{{ route('customers.search') }}">
+                                                <form method="POST" action="{{ route('contractors.search') }}">
                                                 @csrf
                                                     <div class="form-group row">
                                                         <div class="col-md-10">
@@ -112,16 +112,17 @@
                     </div>
                     <div class="card">
                         <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> All Customers {{ isset($title) ? $title:'' }}
+                            <i class="fa fa-table"></i> All Contractors {{ isset($title) ? $title:'' }}
                         </div>
                         <div class="card-body m-t-35">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                     <tr>
+                                        <th style="width:30%; padding:5px;">Name</th>
                                         <th style="width:10%; padding:5px;">Email</th>
                                         <th style="width:10%; padding:5px;">Phone</th>
-                                        <th style="width:10%; padding:5px;">Orders</th>
+                                        <th style="width:10%; padding:5px;">Email</th>
                                         <th style="width:12%; padding:5px;">Registered on</th>
                                         <th style="width:5%; padding:5px;">Status</th>
                                         <th style="width:5%; padding:5px;" colspan="2">Action</th>
@@ -129,66 +130,28 @@
                                     </thead>
                                     <tbody>
                                     <tag type="hidden" value="{{ $i=1 }}" >
-                                    @foreach($customers as $customer)
+                                    @foreach($contractors as $contractor)
                                     <tr>
-                                        <td>{{ $customer->email }}</td>
-                                        <td>{{ $customer->phone }}</td>
-                                        <td>{{ $customer->booking_count }} orders</td>
-                                        <td>{{ date('d M Y, h:i A', strtotime($customer->created_at)) }}</td>
-                                        <td><span class="badge badge-{{$customer->status->style }}"> {{ $customer->status->name }}</span></td>
+                                        <td>{{ $contractor->name }}</td>
+                                        <td>{{ $contractor->email }}</td>
+                                        <td>{{ $contractor->phone }}</td>
+                                        <td>{{ $contractor->email }}</td>
+                                        <td>{{ date('d M Y, h:i A', strtotime($contractor->created_at)) }}</td>
+                                        <td><span class="badge badge-{{$contractor->status->style }}"> {{ $contractor->status->name }}</span></td>
                                         <td>
-                                            <a class="btn btn-success btn-sm text-white" href="{{ route('customer.show', $customer->id) }}">View Records</a>
+                                            <a class="btn btn-success btn-sm text-white" href="{{ route('contractors.show', $contractor->id) }}">View Records</a>
                                         </td>
                                     </tr>
                                     @endforeach
                                     </tbody>
                                     
                                 </table>
-                                <div style="text-align: right; width:100%;">{{ $customers->links() }}</div>
+                                <div style="text-align: right; width:100%;">{{ $contractors->links() }}</div>
                     
                             </div>
                         </div>
                     </div>
 
-                    <div class="card mt-3">
-                        <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> Top 15 Customers
-                        </div>
-                        <div class="card-body m-t-35">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="sample_1">
-                                    <thead>
-                                    <tr>
-                                        <th style="width:5%; padding:5px;">Position</th>
-                                        <th style="width:10%; padding:5px;">Email</th>
-                                        <th style="width:10%; padding:5px;">Phone</th>
-                                        <th style="width:10%; padding:5px;">Orders</th>
-                                        <th style="width:10%; padding:5px;">Total Spent</th>
-                                        <th style="width:12%; padding:5px;">Registered on</th>
-                                        <th style="width:5%; padding:5px;" colspan="2">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tag type="hidden" value="{{ $i=1 }}" >
-                                    @foreach($topcustomers as $customer)
-                                    <tr>
-                                        <td>{{ $i++."."}}</td>
-                                        <td>{{ $customer->email }}</td>
-                                        <td>{{ $customer->phone }}</td>
-                                        <td>{{ $customer->order_count }} orders</td>
-                                        <td>&#8358;{{ $customer->payments ?? number_format(floatval($customer->payment->sum('amount') ), 2) }}</td>
-                                        <td>{{ date('d M Y, h:i A', strtotime($customer->created_at)) }}</td>
-                                        <td>
-                                            <a class="btn btn-success btn-sm text-white" href="{{ route('customer.show', $customer->id) }}">View Records</a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                    
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -413,7 +413,7 @@
                                             <th style="width:3%;">ID</th>
                                             <th style="width:20%;">Name</th>
                                             <th style="width:10%;">Category</th>
-                                            <th style="width:5%;">Brand</th>
+                                            <th style="width:5%;">Batch</th>
                                             <th style="width:5%;">Quantity</th>
                                             <th style="width:5%;">Available</th>
                                             <th style="width:5%;">Status</th>
@@ -509,17 +509,19 @@
                                                                     <span aria-hidden="true">×</span>
                                                                 </button>
                                                             </div>
-                                                            <form class="form-horizontal" action="#" method="POST">
+                                                            <form class="form-horizontal" action="{{ route('warehouseitem.allocate.preview') }}" method="POST">
                                                             @csrf
                                                                 <fieldset>
                                                                     <div class="modal-body">
                                                                         
+                                                                        <input value="{{ $item->id }}" name="item" hidden readonly>
+                                                                            
                                                                         <div class="col-12">
                                                                             <label for="subject1" class="col-form-label">
                                                                                 Allocate to a Project
                                                                             </label>
                                                                             <div class="input-group">
-                                                                                <select class="form-control col-12" name="designation">
+                                                                                <select class="form-control col-12" name="project">
                                                                                     <option value=""> -- Select Project --</option>
                                                                                     @foreach($projects as $project)
                                                                                     <option value="{{ $project->id }}">{{ $project->name }}</option>
@@ -533,7 +535,7 @@
                                                                                 Quantity
                                                                             </label>
                                                                             <div class="input-group">
-                                                                                <input type="number" step="1" id="quantity" class="form-control" min="1" max="{{$item->available}}" name="quantity">
+                                                                                <input type="number" step="1" id="quantity" class="form-control" min="1" max="{{$item->available}}" name="quantity" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>

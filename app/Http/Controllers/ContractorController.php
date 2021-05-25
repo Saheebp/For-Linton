@@ -2,8 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contractor;
+use App\Models\User;
+use App\Models\Designation;
+
 use Illuminate\Http\Request;
+
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+
+use Spatie\Activitylog\Models\Activity;
+
+use Auth;
 
 class ContractorController extends Controller
 {
@@ -15,6 +25,11 @@ class ContractorController extends Controller
     public function index()
     {
         //
+        $contractors = User::role('Level 7')->orderBy('created_at', 'desc')->paginate(20);
+        
+        return view('admin.contractors.index', [
+            'contractors' => $contractors
+        ]);
     }
 
     /**
@@ -41,10 +56,10 @@ class ContractorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Contractor  $contractor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Contractor $contractor)
+    public function show($id)
     {
         //
     }
@@ -52,10 +67,10 @@ class ContractorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Contractor  $contractor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contractor $contractor)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +79,10 @@ class ContractorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Contractor  $contractor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contractor $contractor)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +90,10 @@ class ContractorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Contractor  $contractor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contractor $contractor)
+    public function destroy($id)
     {
         //
     }

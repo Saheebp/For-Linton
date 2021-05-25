@@ -12,6 +12,7 @@ class WarehouseItem extends Model
     protected $fillable = [
         'name',
         'quantity',
+        'available',
         'threshold',
         'created_by',
         'batch_number',

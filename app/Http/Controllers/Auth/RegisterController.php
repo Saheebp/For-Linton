@@ -85,7 +85,7 @@ class RegisterController extends Controller
             return back()->with('failure', 'Email or Phone already exits');
         }
         
-        $user->assignRole('Customer');
+        $user->assignRole('Level 7');
 
         DB::commit();
 

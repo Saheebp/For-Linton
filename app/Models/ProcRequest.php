@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class QuoteRequest extends Model
+class ProcRequest extends Model
 {
     use HasFactory;
 
@@ -32,7 +32,11 @@ class QuoteRequest extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function requests() {
-        return $this->hasMany(ContractorRequest::class);
+    public function quotes() {
+        return $this->hasMany(ProcQuote::class);
+    }
+
+    public function files() {
+        return $this->hasMany(ProcRequestFile::class);
     }
 }

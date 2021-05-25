@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Procurement
+    Procurement Requests
     @parent
 @stop
 
@@ -392,7 +392,7 @@
                                             <td>{{ date('d M Y', strtotime($request->start)) }}</td>
                                             <td>{{ date('d M Y', strtotime($request->end)) }}</td>
                                             <td>
-                                                <a class="btn btn-dark btn-sm text-white  align-left" href="#">Manage</a>
+                                                <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('requests.show', $request->id) }}">Manage</a>
                                             </td>
                                         </tr>
                                         @endforeach

@@ -24,7 +24,7 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        $managers = User::role('Manager')->get();
+        $managers = User::role('Level 4')->get();
         $projects = Project::orderBy('created_at', 'desc')->paginate(10);
         $states = State::all();
 
@@ -174,7 +174,7 @@ class ProjectController extends Controller
                 'url' => 'uploads/'.$filename,
                 'type' => $filetype,
                 'description' => $request->description,
-                'creator' =>  auth()->user()->id,
+                'creator_id' =>  auth()->user()->id,
                 'project_id' => $project->id
             ]);
             
@@ -182,6 +182,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
+            //dd($e);
             return back()->with('error', "Oops, Error adding resource to Project");
         }
     }

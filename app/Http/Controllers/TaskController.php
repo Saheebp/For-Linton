@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Task;
+use App\Models\SubTask;
 use App\Models\User;
 use App\Models\TeamMember;
 use App\Models\Resource;
+
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class TaskController extends Controller
 {
@@ -44,12 +48,45 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $project = Project::find($request->project_id);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'budget' => 'required|string',
+            'budget' => 'required|string'
         ]);
         
+        // $task_start = new Carbon($request->start);
+        // $task_end = new Carbon($request->end);
+
+        // $project_start = new Carbon($project->start);
+        // $project_end = new Carbon($project->end);
+        
+        // if ($task_start->lessThan($project_start) || $task_start->greaterThan($project_end)) {
+        //     return back()->with('error', 'Task date is outside the allowed time frame for this project');
+        // }
+
+        // if ($task_end->greaterThan($project_end) || $task_end->lessThan($project_end)) {
+        //     return back()->with('error', 'Task date is outside the allowed time frame for this project');
+        // }
+
+        // if ($project_start->lessThanOrEqualTo($task_start)) {
+        //     return back()->with('error', 'Start date for task cannot be earlier than Project start date');
+        // }
+
+        // $start->lessThanOrEqualTo($end);
+
+        // if($project->start->greaterThan($start)){
+        //     // edited at is newer than created at
+        //     dd('Hi');
+        // }
+
+        // $date1 = Carbon::createFromFormat('m/d/Y H:i:s', '12/01/2020 10:20:00');
+        // $date2 = Carbon::createFromFormat('m/d/Y H:i:s', '12/01/2020 10:20:00');
+  
+        // $result = $date1->gte($date2);
+        // var_dump($result);
+
         try 
         {
             $task = Task::create([
@@ -57,8 +94,10 @@ class TaskController extends Controller
                 'description' => $request->description,
                 'budget' => $request->budget,
                 'project_id' => $request->project_id,
-                'duedate' => $request->duedate,
+                'start' => $request->start,
+                'end' => $request->end,
                 'status_id' => $this->new,
+                'department_id' => $request->department_id,
                 'preceedby' => $request->preceedby,
                 'succeedby' => $request->succeedby,
             ]);
