@@ -51,7 +51,7 @@
         <nav class="navbar navbar-static-top">
             <div class="container-fluid m-0">
                 <a class="navbar-brand" href="{{ route('admin.home') }}">
-                    <h4><img src="{{ asset('admin/img/logo1.ico') }}" class="admin_img" alt="logo"> STARKS ADMIN</h4>
+                    <h4> <!--<img src="{{ asset('admin/img/logo1.ico') }}" class="admin_img" alt="logo"> --> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STARKS ADMIN</h4>
                 </a>
                 <div class="menu mr-sm-auto">
                     <span class="toggle-left" id="menu-toggle">
@@ -76,111 +76,26 @@
                         <div class="notifications no-bg">
                             <a class="btn btn-default btn-sm messages" data-toggle="dropdown" id="messages_section"> <i
                                     class="fa fa-envelope-o fa-1x"></i>
-                                <span class="badge badge-pill badge-warning notifications_badge_top">8</span>
+                                <span class="badge badge-pill badge-warning notifications_badge_top">{{ ($messages->count() == 0 ? '' : $messages->count()) }}</span>
                             </a>
                             <div class="dropdown-menu drop_box_align" role="menu" id="messages_dropdown">
-                                <div class="popover-header">You have 8 Messages</div>
+                                <div class="popover-header">You have {{ $messages->count() }} Messages</div>
                                 <div id="messages">
+                                @foreach ( $messages as $message)
                                     <div class="data">
                                         <div class="row">
                                             <div class="col-2">
                                                 <img src="{{ asset('admin/img/mailbox_imgs/5.jpg') }}" class="message-img avatar rounded-circle"
                                                      alt="avatar1"></div>
-                                            <div class="col-10 message-data"><strong>hally</strong>
-                                                sent you an image.
+                                            <div class="col-10 message-data"><strong>{{ $message->creator->name }}</strong>
+                                                {{ $message->body }}
                                                 <br>
                                                 <small>add to timeline</small>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="{{ asset('admin/img/mailbox_imgs/8.jpg') }}" class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data"><strong>Meri</strong>
-                                                invitation for party.
-                                                <br>
-                                                <small>add to timeline</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="{{ asset('admin/img/mailbox_imgs/7.jpg') }}" class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data">
-                                                <strong>Remo</strong>
-                                                meeting details .
-                                                <br>
-                                                <small>add to timeline</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="{{ asset('admin/img/mailbox_imgs/6.jpg') }}" class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data">
-                                                <strong>David</strong>
-                                                upcoming events list.
-                                                <br>
-                                                <small>add to timeline</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="{{ asset('admin/img/mailbox_imgs/5.jpg') }}" class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data"><strong>hally</strong>
-                                                sent you an image.
-                                                <br>
-                                                <small>add to timeline</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="{{ asset('admin/img/mailbox_imgs/8.jpg') }}" class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data"><strong>Meri</strong>
-                                                invitation for party.
-                                                <br>
-                                                <small>add to timeline</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="{{ asset('admin/img/mailbox_imgs/7.jpg') }}" class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data">
-                                                <strong>Remo</strong>
-                                                meeting details .
-                                                <br>
-                                                <small>add to timeline</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="{{ asset('admin/img/mailbox_imgs/6.jpg') }}" class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data">
-                                                <strong>David</strong>
-                                                upcoming events list.
-                                                <br>
-                                                <small>add to timeline</small>
-                                            </div>
-                                        </div>
-                                    </div>
+                                @endforeach
+                                    
                                 </div>
                                 <div class="popover-footer">
                                     <a href="mail_inbox.html" class="text-white">Inbox</a>
@@ -188,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="btn-group">
+                    <!-- <div class="btn-group">
                         <div class="notifications messages no-bg">
                             <a class="btn btn-default btn-sm" data-toggle="dropdown" id="notifications_section"> <i
                                     class="fa fa-bell-o"></i>
@@ -338,7 +253,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="btn-group">
                         <div class="notifications request_section no-bg">
                             <a class="btn btn-default btn-sm messages" id="request_btn"> <i

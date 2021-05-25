@@ -47,6 +47,16 @@ Route::middleware('auth')->group(function() {
             // Route::post('/update/role', 'ContractorController@roleupdate')->name('roleupdate');
         });
     });
+
+    //messages
+    Route::resource('messages', 'MessageController');
+    Route::name('messages.')->group(function() {
+        Route::prefix('messages')->group(function() {
+            Route::get('/', 'MessageController@index')->name('index');
+            Route::post('update', 'MessageController@update')->name('update');
+
+        });
+    });
     
     //logs
     Route::resource('logs', 'LogController');
@@ -104,6 +114,7 @@ Route::middleware('auth')->group(function() {
             Route::post('filter', 'ProjectController@filter')->name('filter');
             Route::post('search', 'ProjectController@search')->name('search');
             Route::post('upload/resource/{project}', 'ProjectController@uploadResource')->name('upload');
+            Route::post('comment', 'ProjectController@comment')->name('comment');
         });
     });
 
@@ -165,6 +176,7 @@ Route::middleware('auth')->group(function() {
             Route::post('member/remove/', 'TaskController@removeMember')->name('removeMember');
             Route::post('status/update/{task}', 'TaskController@updateStatus')->name('updateStatus');
             Route::post('cost/update/{task}', 'TaskController@updateCost')->name('updateCost');
+            Route::post('comment', 'TaskController@comment')->name('comment');
             
         });
     });
@@ -181,6 +193,7 @@ Route::middleware('auth')->group(function() {
             Route::post('member/remove/', 'SubTaskController@removeMember')->name('removeMember');
             Route::post('status/update/{subtask}', 'SubTaskController@updateStatus')->name('updateStatus');
             Route::post('cost/update/{subtask}', 'SubTaskController@updateCost')->name('updateCost');
+            Route::post('comment', 'SubTaskController@comment')->name('comment');
         });
     });
 

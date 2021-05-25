@@ -211,7 +211,7 @@
                                                         
                                                         <div class="col-lg-4 col-sm-12 mb-3 text-left">
                                                             
-                                                            @role('SuperUser|Director')
+                                                            @role('Level 1|Level 2|Level 3')
                                                             <button class="btn btn-raised btn-secondary adv_cust_mod_btn"
                                                                     data-toggle="modal" data-target="#modalCreate">Create New Project
                                                             </button>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\SubTask;
+use App\Models\Comment;
 
 use Illuminate\Http\Request;
 
@@ -119,6 +120,26 @@ class SubTaskController extends Controller
         catch (\Exception $e) 
         {
             return back()->with('error', "Oops, Error Updating Sub Task Cost");
+        }
+    }
+
+    public function comment(Request $request)
+    {
+        try 
+        {
+            Comment::create([
+                'body' => $request->comment,
+                'project_id' => $request->project_id,
+                'task_id' => $request->task_id,
+                'sub_task_id' => $request->sub_task_id,
+                'creator_id' => auth()->user()->id
+            ]);
+
+            return back()->with('success', 'Comment added successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error adding Comment");
         }
     }
     /**

@@ -5,19 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Notification extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'body',
+        'tag',
 
-        'task_id',
-        'creator_id',
-        'receiver_id',
         'project_id',
-        'subtask_id',
+        'task_id',
+        'sub_task_id',
         'resource_id',
+        'proc_request_id',
+        'proc_quote_id',
+        'payment_id',
+
         'status_id'        
     ];
 
@@ -38,13 +41,6 @@ class Message extends Model
         return $this->belongsTo(SubTask::class);
     }
 
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
-
-    public function receiver() {
-        return $this->belongsTo(User::class);
-    }
     public function creator() {
         return $this->belongsTo(User::class);
     }

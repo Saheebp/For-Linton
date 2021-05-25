@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Message;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class NotificationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,47 +35,27 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'body' => 'required|string|max:255'
-        ]);
-        
-        try 
-        {
-            Message::create([
-                'body' => $request->body,
-                'project_id' => $request->project_id,
-                'task_id' => $request->task_id,
-                'receiver_id' => $request->receiver,
-                'creator_id' => auth()->user()->id
-            ]);
-
-            return back()->with('success', 'Message sent successfully.');
-        }
-        catch (\Exception $e) 
-        {
-            dd($e);
-            return back()->with('error', "Oops, Error sending Message");
-        }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Message  $message
+     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function show(Message $message)
+    public function show(Notification $notification)
     {
-        
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Message  $message
+     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function edit(Message $message)
+    public function edit(Notification $notification)
     {
         //
     }
@@ -84,10 +64,10 @@ class MessageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Message  $message
+     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Message $message)
+    public function update(Request $request, Notification $notification)
     {
         //
     }
@@ -95,10 +75,10 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Message  $message
+     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Message $message)
+    public function destroy(Notification $notification)
     {
         //
     }

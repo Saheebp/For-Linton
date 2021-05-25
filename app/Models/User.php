@@ -48,6 +48,14 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     } 
     
+    public function messages() {
+        return $this->hasMany(Message::class);
+    } 
+    
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    } 
+    
     public function subtasks() {
         return $this->hasMany(SubTask::class);
     }

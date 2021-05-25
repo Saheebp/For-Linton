@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Project;
 use App\Models\Category;
 use App\Models\Inventory;
+use App\Models\Comment;
 use App\Models\Resource;
 use App\Models\Status;
 use App\Models\State;
@@ -172,7 +173,7 @@ class ProjectController extends Controller
             Resource::create([
                 'name' => $request->name,
                 'url' => 'uploads/'.$filename,
-                'type' => $filetype,
+                'type' => $fileextension,
                 'description' => $request->description,
                 'creator_id' =>  auth()->user()->id,
                 'project_id' => $project->id
@@ -196,6 +197,24 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //
+    }
+
+    public function comment(Request $request)
+    {
+        try 
+        {
+            Comment::create([
+                'body' => $request->comment,
+                'project_id' => $request->project_id,
+                'creator_id' => auth()->user()->id
+            ]);
+
+            return back()->with('success', 'Comment added successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error adding Comment");
+        }
     }
 
     /**

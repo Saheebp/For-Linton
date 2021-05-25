@@ -68,13 +68,13 @@
                     <div class="card">
                         
                         <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> Project Information
+                            <i class="fa fa-table"></i> Ware House Allocation
                         </div>
                         <div class="card-body m-t-35">
-                            <h3><tag class="text-capitalize text-success">{{ $project->name ?? '' }}</tag></h3>
                             
                             <div class="row">
                                 <div class="col-lg-6">
+                                    <h3><tag class="text-capitalize text-success">Project</tag></h3>
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
                                             <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
@@ -94,6 +94,8 @@
                                     </table>
                                 </div>
                                 <div class="col-lg-6">
+                                    
+                                    <h3><tag class="text-capitalize text-success">Item</tag></h3>
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
                                             <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
@@ -116,8 +118,8 @@
                                         <input name="project" value="{{ $project->id }}" hidden readonly>
                                         <input name="item" value="{{ $item->id }}" hidden readonly>
                                         <input name="quantity" value="{{ $quantity }}" hidden readonly>
-                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Allocate</button>
-                                        <a class="btn btn-sm btn-secondary" href="{{ route('warehouse.index') }}">Cancel</a>
+                                        <button class="btn btn-lg btn-responsive layout_btn_prevent btn-primary">Yes, Allocate</button>
+                                        <a class="btn btn-lg btn-secondary" href="{{ route('warehouse.index') }}">Cancel</a>
                                     </form>
                                 </div>
                             </div>

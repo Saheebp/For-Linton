@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Message;
 use App\Traits\AppStatus;
+
+use Auth;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -48,6 +51,9 @@ class AppServiceProvider extends ServiceProvider
             
             $view->with('unavailable', $this->returnStatusId("Unavailable"));
             $view->with('available', $this->returnStatusId("Available"));
+
+            $messages = Message::where('receiver_id',Auth::user()->id)->get();
+            $view->with('messages', $messages);
         });
     }
 }

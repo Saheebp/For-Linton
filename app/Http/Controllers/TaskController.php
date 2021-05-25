@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\SubTask;
 use App\Models\User;
+use App\Models\Comment;
 use App\Models\TeamMember;
 use App\Models\Resource;
 
@@ -283,6 +284,30 @@ class TaskController extends Controller
         }
     }
 
+    public function comment(Request $request)
+    {
+        $validated = $request->validate([
+            'body' => 'required|string|max:255'
+        ]);
+        
+        try 
+        {
+            Comment::create([
+                'body' => $request->comment,
+                'project_id' => $request->project_id,
+                'task_id' => $request->task_id,
+                'creator_id' => auth()->user()->id
+            ]);
+
+            return back()->with('success', 'Comment added successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            dd($e);
+            return back()->with('error', "Oops, Error adding Comment");
+        }
+    }
+
     public function removeMember(Request $request)
     {
         try 
@@ -326,9 +351,9 @@ class TaskController extends Controller
             Resource::create([
                 'name' => $request->name,
                 'url' => 'uploads/'.$filename,
-                'type' => $filetype,
+                'type' => $fileextension,
                 'description' => $request->description,
-                'creator' =>  auth()->user()->id,
+                'creator_id' =>  auth()->user()->id,
                 'project_id' => $task->project_id,
                 'task_id' => $task->id,
             ]);

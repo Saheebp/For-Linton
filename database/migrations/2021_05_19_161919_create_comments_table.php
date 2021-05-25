@@ -25,8 +25,11 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('task_id')->nullable();
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('restrict');
 
-            $table->unsignedBigInteger('sub_tasks_id')->nullable();
-            $table->foreign('sub_tasks_id')->references('id')->on('sub_tasks')->onDelete('restrict');
+            $table->unsignedBigInteger('creator_id')->nullable()->default(null);
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
+
+            $table->unsignedBigInteger('sub_task_id')->nullable();
+            $table->foreign('sub_task_id')->references('id')->on('sub_tasks')->onDelete('restrict');
 
             $table->unsignedBigInteger('status_id')->default(13);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');

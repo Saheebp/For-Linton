@@ -13,9 +13,9 @@ class Comment extends Model
         'body',
 
         'task_id',
-        'user_id',
+        'creator_id',
         'project_id',
-        'subtask_id',
+        'sub_task_id',
         'resource_id',
         'status_id'        
     ];
@@ -37,7 +37,7 @@ class Comment extends Model
         return $this->belongsTo(SubTask::class);
     }
 
-    public function user() {
+    public function creator() {
         return $this->belongsTo(User::class);
     }
 }

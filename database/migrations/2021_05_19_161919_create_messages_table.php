@@ -25,6 +25,12 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('task_id')->nullable();
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('restrict');
 
+            $table->unsignedBigInteger('receiver_id')->nullable()->default(null);
+            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('restrict');
+
+            $table->unsignedBigInteger('creator_id')->nullable()->default(null);
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
+
             $table->unsignedBigInteger('sub_tasks_id')->nullable();
             $table->foreign('sub_tasks_id')->references('id')->on('sub_tasks')->onDelete('restrict');
 
