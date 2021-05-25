@@ -20,7 +20,11 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
 
             $table->string('name');
+            $table->string('phone')->nullable()->default(null);
+            $table->string('address')->nullable()->default(null);
+            $table->string('avatar')->nullable()->default(null);
             $table->string('email')->unique();
+            
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
@@ -32,11 +36,16 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('designation_id')->nullable()->default(null);
             $table->foreign('designation_id')->references('id')->on('designations')->onDelete('restrict');
 
-            $table->string('phone')->nullable()->default(null);
-            $table->string('address')->nullable()->default(null);
-            $table->string('avatar')->nullable()->default(null);
+            $table->string('org_name')->nullable()->default(null);
+            $table->string('org_email')->nullable()->default(null);
+            $table->string('org_phone')->nullable()->default(null);
+            $table->string('org_address')->nullable()->default(null);
+            $table->string('org_logo')->nullable()->default(null);
+            $table->string('org_nature')->nullable()->default(null);
+            $table->string('org_quote_count')->nullable()->default(null);
 
             $table->string('is_admin')->nullable()->default("false");
+            $table->string('is_contractor')->nullable()->default("false");
         });
     }
 

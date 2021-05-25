@@ -24,7 +24,16 @@ class User extends Authenticatable
         'status_id', 
         'profile_update_status',
         'is_admin',
-        'order_count',
+        // 'order_count',
+
+        'org_name',
+        'org_email',
+        'org_phone',
+        'org_address',
+        'org_logo',
+        'org_nature',
+        'org_quote_count',
+        'is_contractor',
     ];
 
     protected $hidden = [

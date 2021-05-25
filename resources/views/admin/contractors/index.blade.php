@@ -132,10 +132,10 @@
                                     <tag type="hidden" value="{{ $i=1 }}" >
                                     @foreach($contractors as $contractor)
                                     <tr>
-                                        <td>{{ $contractor->name }}</td>
-                                        <td>{{ $contractor->email }}</td>
-                                        <td>{{ $contractor->phone }}</td>
-                                        <td>{{ $contractor->email }}</td>
+                                        <td>{{ $contractor->org_name }}</td>
+                                        <td>{{ $contractor->org_email }}</td>
+                                        <td>{{ $contractor->org_phone }}</td>
+                                        <td>{{ $contractor->org_email }}</td>
                                         <td>{{ date('d M Y, h:i A', strtotime($contractor->created_at)) }}</td>
                                         <td><span class="badge badge-{{$contractor->status->style }}"> {{ $contractor->status->name }}</span></td>
                                         <td>
