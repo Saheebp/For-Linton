@@ -61,7 +61,16 @@ class ContractorController extends Controller
      */
     public function show($id)
     {
-        //
+        $contractor = User::where('is_admin','false')->where('is_contractor','false')->where('id', $id)->first();
+        $logs = Activity::where('causer_id', $id)->orderBy('created_at', 'desc')->paginate(10);
+        $roles = Role::all();
+        
+        return view('admin.contractors.show', 
+        [
+            'contractor' => $contractor,
+            'logs' => $logs,
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -86,6 +95,34 @@ class ContractorController extends Controller
     {
         //
     }
+
+    // public function addContractor(Request $request)
+    // {
+    //     try 
+    //     {
+    //         TeamMember::create([
+    //             'project_id' => $task->project_id,
+    //             'task_id' => $task->id,
+    //             'user_id' => $request->member
+    //         ]);
+            
+    //         $user = User::find($request->member);
+
+    //         $data = array();
+    //         $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name;
+    //         $data['project_id'] = $task->project->id;
+    //         $data['task_id'] = $task->id;
+    //         $data['sub_task_id'] = NULL;
+    //         $data['user_id'] = auth()->user()->id;
+    //         $this->createLog($data);
+
+    //         return back()->with('success', 'Team Member added successfully.');
+    //     }
+    //     catch (\Exception $e) 
+    //     {
+    //         return back()->with('error', "Oops, Error Updating Task");
+    //     }
+    // }
 
     /**
      * Remove the specified resource from storage.

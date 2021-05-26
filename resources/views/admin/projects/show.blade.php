@@ -467,7 +467,7 @@
                                                                             Start Date
                                                                         </label>
                                                                         <div class="input-group">
-                                                                            <input type="date" id="start" class="form-control" name="start" required>
+                                                                            <input type="date" id="start" class="form-control" min="{{ $project->start }}" max="{{ $project->end }}" name="start" required>
                                                                         </div>
                                                                         @error('start')
                                                                             <span class="text-danger">{{ $errors->first('start') }}</span>
@@ -476,13 +476,13 @@
 
                                                                     <div class="col-lg-6">
                                                                         <label End="subject1" class="col-form-label">
-                                                                            Due Date
+                                                                            End Date
                                                                         </label>
                                                                         <div class="input-group">
-                                                                            <input type="date" id="duedate" class="form-control" name="duedate" required>
+                                                                            <input type="date" id="end" class="form-control" name="end"  min="{{ $project->start }}" max="{{ $project->end }}" required>
                                                                         </div>
-                                                                        @error('duedate')
-                                                                            <span class="text-danger">{{ $errors->first('duedate') }}</span>
+                                                                        @error('end')
+                                                                            <span class="text-danger">{{ $errors->first('end') }}</span>
                                                                         @enderror
                                                                     </div>
 
@@ -1002,7 +1002,7 @@
                                                                                                     Start Date
                                                                                                 </label>
                                                                                                 <div class="input-group">
-                                                                                                    <input type="date" id="end" class="form-control" name="start" required>
+                                                                                                    <input type="date" id="end" class="form-control" name="start"  min="{{ $task->start }}" max="{{ $task->end }}" required>
                                                                                                 </div>
                                                                                                 @error('duedate')
                                                                                                     <span class="text-danger">{{ $errors->first('duedate') }}</span>
@@ -1014,10 +1014,10 @@
                                                                                                     End Date
                                                                                                 </label>
                                                                                                 <div class="input-group">
-                                                                                                    <input type="date" id="end" class="form-control" name="end" required>
+                                                                                                    <input type="date" id="end" class="form-control" min="{{ $task->start }}" max="{{ $task->end }}" name="end" required>
                                                                                                 </div>
-                                                                                                @error('duedate')
-                                                                                                    <span class="text-danger">{{ $errors->first('duedate') }}</span>
+                                                                                                @error('end')
+                                                                                                    <span class="text-danger">{{ $errors->first('end') }}</span>
                                                                                                 @enderror
                                                                                             </div>
 
@@ -1156,6 +1156,29 @@
                                             <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
 
+                                            @if ($project->logs->count() != 0)
+                                            <table id="example1" class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:20%;">Date</th>
+                                                        <th style="width:80%;">Activity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($project->logs as $log)
+                                                        <tr>
+                                                            <td class="text-left">
+                                                                {{ date('d M Y, H:ia', strtotime($log->created_at)) }}
+                                                            </td>
+                                                            <td style="width:10%;">
+                                                                {{ $log->body ?? '' }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                            @endif
+
                                         </div>
 
                                         <div class="tab-pane p-3" id="tab4">
@@ -1163,43 +1186,41 @@
                                             <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
                                             
-                                            <div class="table-responsive">
-                                                <table id="example1" class="table table-striped table-bordered bordered">
+                                            <div class="table-responsive text-nowrap overflow-auto ">
+                                                <table id="example1" class="table w-100">
                                                     <tbody>
-                                                        
-                                                        <?php 
-                                                            $i = 2; 
-                                                            // $start = DateTime::createFromFormat('m/d/Y', $project->start);
-                                                            // $end = DateTime::createFromFormat('m/d/Y', $project->end);
-
-                                                            //round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7
-
-                                                            // $start = \Carbon\Carbon::createFromFormat('Y-m-d', $project->start);
-                                                            // $end = \Carbon\Carbon::createFromFormat('Y-m-d', $project->end);
-                                                            // $interval = $start->diffInMonths($end);
-                                                            $interval = round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7);
-
-                                                            $taskcount = $project->tasks->count();
-                                                        ?>
                                                             <tr>
-                                                                <th>
+                                                                <th style="width:40%">
                                                                     <div>Name</div>
                                                                 </th>
-                                                                @for ($i = 1; $i <= $interval; $i++ )
+                                                                @for ($i = 1; $i <= $totalweeks; $i++ )
                                                                 <th>
                                                                    Week {{ $i }}
                                                                 </th>
                                                                 @endfor
                                                             </tr>
 
-                                                            @foreach ($project->tasks as $task)
+                                                            @foreach ($flots as $flot)
                                                             <tr>
                                                                 <td>
-                                                                    {{ $task->name }}
+                                                                    {{ $flot['name'] }}
                                                                 </td>
-                                                                @for ($i = 1; $i <= $interval; $i++ )
+
+                                                                @for ($i = 1; $i <= $flot['preoffset']; $i++ )
+                                                                <td>
+                                                                    &nbsp;
+                                                                </td>
+                                                                @endfor
+
+                                                                @for ($i = 1; $i <= $flot['length']; $i++ )
                                                                 <td>
                                                                     <div class="badge badge-success w-100">&nbsp;</div>
+                                                                </td>
+                                                                @endfor
+
+                                                                @for ($i = 1; $i <= $flot['postoffset']; $i++ )
+                                                                <td>
+                                                                    &nbsp;
                                                                 </td>
                                                                 @endfor
                                                             </tr>

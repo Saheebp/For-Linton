@@ -85,7 +85,7 @@
                                             
                                             <div class="col-lg-4 col-sm-12 m-t-15 text-left">
                                                 
-                                            @role('SuperUser|Director')
+                                            @role('Level 1|Level 2')
                                                 <button class="btn btn-raised btn-success adv_cust_mod_btn"
                                                         data-toggle="modal" data-target="#modalCreate">Create New User
                                                 </button>
@@ -101,6 +101,11 @@
                                                                 <p class="p-2">
                                                                 <form method="POST" action="{{ route('users.store') }}">
                                                                 @csrf
+
+                                                                    <input type="text" hidden readonly name="is_contractor" value="false">
+                                                                    <input type="text" hidden readonly name="is_admin" value="true">
+                                                                    <input type="text" hidden readonly name="status_id" value="{{ $active }}">
+
                                                                     <div class="form-group row">
                                                                         <div class="col-12">
                                                                             

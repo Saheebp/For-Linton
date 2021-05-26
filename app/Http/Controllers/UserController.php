@@ -90,10 +90,18 @@ class UserController extends Controller
                 'address' => NULL,
                 'profile_update_status' => NULL,
 
-                'is_admin' => 'true',
-                'status_id' => 1,
-                'password' => Hash::make($request->phone),
-                'designation_id' => $request->designation
+                'is_admin' => $request->is_admin,
+                'is_contractor' => $request->is_contractor,
+
+                'status_id' => $request->status_id,
+                'password' => Hash::make('123456'),
+                'designation_id' => $request->designation,
+
+                'org_name' => isset($request->org_name)? $request->org_name : '', 
+                'org_email' => $request->org_email,
+                'org_phone' => $request->org_phone,
+                'org_address' => $request->org_address,
+
             ]);
             
             $user->assignRole($role);

@@ -160,6 +160,14 @@ class WarehouseItemController extends Controller
                 'inventory_id' => $inventory->id
             ]);
 
+            $data = array();
+            $data['body'] = auth()->user()->name." disbursed a supply of ".$request->quantity." units of ".$item->name." to inventory";
+            $data['project_id'] = $inventory->project_id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
             return redirect()->route('warehouse.index')->with('success', $item->name.'Item Allocated successfully');
 
         } catch (\Exception $e) {

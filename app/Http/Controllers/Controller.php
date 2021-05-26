@@ -11,6 +11,8 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Traits\AppConfig;
 use App\Traits\AppStatus;
 use App\Traits\CreateUser;
+use App\Traits\CreateLog;
+use App\Traits\CreateNotification;
 use App\Traits\LogErrors;
 use App\Traits\SendMail;
 
@@ -21,6 +23,8 @@ class Controller extends BaseController
     use AppConfig;
     use AppStatus;
     use CreateUser;
+    use CreateLog;
+    use CreateNotification;
     use LogErrors;
     use SendMail;
 

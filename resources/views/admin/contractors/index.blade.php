@@ -76,32 +76,150 @@
 
                     <div class="card">
                         <div class="card-body m-t-35">
-                            
 
                             <div class="row">
                                 <div class="col-12">
                                     <div class="button_section_align">
                                         <!-- <h5>Glow Buttons</h5> -->
-                                        <div class="row">
+                                            <div class="row">
                                             
-                                            
-                                            <div class="col-lg-6 col-sm-12 m-t-15 text-right">
-                                               
-                                            </div>
+                                                <div class="col-lg-6 col-sm-12 m-t-15 text-left">
+                                                    @role('Level 1|Level 2')
+                                                    <button class="btn btn-raised btn-md btn-success adv_cust_mod_btn"
+                                                            data-toggle="modal" data-target="#modalCreate">Create Contractor
+                                                    </button>
+                                                    @endrole
 
-                                            <div class="col-lg-6 col-sm-12 m-t-15 text-right">
-                                                <form method="POST" action="{{ route('contractors.search') }}">
-                                                @csrf
-                                                    <div class="form-group row">
-                                                        <div class="col-md-10">
-                                                            <div class="input-group mb-3">
-                                                                <input class="form-control col-12" type="text" name="data">
-                                                                <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
+                                                    <div class="modal fade" id="modalCreate" role="dialog" aria-labelledby="modalLabelprimary">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header bg-primary">
+                                                                    <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">New User Details</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class="p-2">
+                                                                    <form method="POST" action="{{ route('users.store') }}">
+                                                                    @csrf
+                                                                        <div class="form-group row">
+                                                                            
+                                                                                <input type="text" hidden readonly name="role" value="7">
+                                                                                <input type="text" hidden readonly name="is_contractor" value="true">
+                                                                                <input type="text" hidden readonly name="is_admin" value="false">
+                                                                                <input type="text" hidden readonly name="status_id" value="{{ $active }}">
+                                                                                
+                                                                                <div class="col-12">
+                                                                                    <label for="subject1" class="col-form-label">
+                                                                                        Organisation Name
+                                                                                    </label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="fa fa-envelope"></i>
+                                                                                        </span>
+                                                                                        <input type="text" id="org_name" class="form-control" placeholder=" ALHAQ ENTERPRISES" name="org_name">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6">
+                                                                                    <label for="subject1" class="col-form-label">
+                                                                                        Organisation Phone
+                                                                                    </label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="fa fa-phone"></i>
+                                                                                        </span>
+                                                                                        <input type="tel" id="org_phone" class="form-control" placeholder=" 08012345678" name="org_phone">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6">
+                                                                                    <label for="subject1" class="col-form-label">
+                                                                                        Organisation Email
+                                                                                    </label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="fa fa-email"></i>
+                                                                                        </span>
+                                                                                        <input type="email" id="org_email" class="form-control" placeholder=" alhaq@gmail.com" name="org_email">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-12">
+                                                                                    <label for="subject1" class="col-form-label">
+                                                                                        Organisation Address
+                                                                                    </label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="fa fa-location"></i>
+                                                                                        </span>
+                                                                                        <input type="text" id="org_address" class="form-control" placeholder=" ALHAQ Avenue osun state" name="org_address">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-12">
+                                                                                    <label for="subject1" class="col-form-label">
+                                                                                        Name
+                                                                                    </label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="fa fa-user"></i>
+                                                                                        </span>
+                                                                                        <input type="text" id="name" class="form-control" placeholder=" Chukwu Idris Adebayo" name="name">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6">
+                                                                                    <label for="subject1" class="col-form-label">
+                                                                                        Email
+                                                                                    </label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="fa fa-envelope"></i>
+                                                                                        </span>
+                                                                                        <input type="email" id="email" class="form-control" placeholder=" abcd@gmail.com" name="email">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6">
+                                                                                    <label for="subject1" class="col-form-label">
+                                                                                        Phone
+                                                                                    </label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="fa fa-phone"></i>
+                                                                                        </span>
+                                                                                        <input type="tel" id="phone" class="form-control" placeholder=" 08012345678" name="phone">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                        </div>
+                                                                    
+                                                                    </p>
+                                                                </div> 
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-md btn-success" type="submit">Save Changes</button>
+                                                                    <button class="btn btn-md btn-dark" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
-                                            </div>
+
+                                                </div>
+                                            
+
+                                                <div class="col-lg-6 col-sm-12 m-t-15 text-right">
+                                                    <form method="POST" action="{{ route('contractors.search') }}">
+                                                    @csrf
+                                                        <div class="form-group row">
+                                                            <div class="col-md-10">
+                                                                <div class="input-group mb-3">
+                                                                    <input class="form-control col-12" type="text" name="data">
+                                                                    <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             
                                         </div>
                                     </div>
@@ -120,7 +238,6 @@
                                     <thead>
                                     <tr>
                                         <th style="width:30%; padding:5px;">Name</th>
-                                        <th style="width:10%; padding:5px;">Email</th>
                                         <th style="width:10%; padding:5px;">Phone</th>
                                         <th style="width:10%; padding:5px;">Email</th>
                                         <th style="width:12%; padding:5px;">Registered on</th>
@@ -133,13 +250,13 @@
                                     @foreach($contractors as $contractor)
                                     <tr>
                                         <td>{{ $contractor->org_name }}</td>
-                                        <td>{{ $contractor->org_email }}</td>
                                         <td>{{ $contractor->org_phone }}</td>
                                         <td>{{ $contractor->org_email }}</td>
                                         <td>{{ date('d M Y, h:i A', strtotime($contractor->created_at)) }}</td>
                                         <td><span class="badge badge-{{$contractor->status->style }}"> {{ $contractor->status->name }}</span></td>
                                         <td>
-                                            <a class="btn btn-success btn-sm text-white" href="{{ route('contractors.show', $contractor->id) }}">View Records</a>
+                                        <a class="btn btn-success btn-sm text-white" href="#">View Records</a>
+                                            <!-- <a class="btn btn-success btn-sm text-white" href="{{ route('contractors.show', $contractor->id) }}">View Records</a> -->
                                         </td>
                                     </tr>
                                     @endforeach

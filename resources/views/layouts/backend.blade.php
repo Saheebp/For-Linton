@@ -271,7 +271,7 @@
                             <div class="dropdown-menu admire_admin">
                                 <a class="dropdown-item title" href="#">
                                     STARKS Admin</a>
-                                <a class="dropdown-item" href="edit_user.html"><i class="fa fa-cogs"></i>
+                                <!-- <a class="dropdown-item" href="edit_user.html"><i class="fa fa-cogs"></i>
                                     Account Settings</a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fa fa-user"></i>
@@ -281,7 +281,7 @@
                                     Inbox</a>
 
                                 <a class="dropdown-item" href="lockscreen.html"><i class="fa fa-lock"></i>
-                                    Lock Screen</a>
+                                    Lock Screen</a> -->
                                 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();

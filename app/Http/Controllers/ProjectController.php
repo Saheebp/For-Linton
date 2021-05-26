@@ -112,11 +112,20 @@ class ProjectController extends Controller
                 'project_id' => $project->id,
                 'status_id' => $this->new,
             ]);
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." created a Project ".$request->name.", Details: ".$request->state."|".$request->lga."| starting: ".$request->start." and ending: ".$request->end;
+            $data['project_id'] = $project->id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
 
             return back()->with('success', 'Project and Inventory created successfully.');
         }
         catch (\Exception $e) 
         {
+            //dd($e);
             return back()->with('error', "Oops, Error Creating a Project");
         }
     }
@@ -135,13 +144,37 @@ class ProjectController extends Controller
         $categories = Category::all();
         $designations = Designation::all();
 
+        $totalweeks = round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7);
+        $tasks = $project->tasks;
+
+        $flots = array();
+        $i = 0;
+        foreach($tasks as $task)
+        {
+            $length = round(( strtotime($task->end) - strtotime($task->start)) / 3600 / 24 / 7);
+            $preoffset = round(( strtotime($task->start) - strtotime($project->start)) / 3600 / 24 / 7);
+            $postoffset = round(( strtotime($project->end) - strtotime($task->end)) / 3600 / 24 / 7);
+            
+            $flots[$i] = array();
+            $flots[$i]['name'] = $task->name;
+            $flots[$i]['preoffset'] = $preoffset;
+            $flots[$i]['length'] = $length;
+            $flots[$i]['postoffset'] = $postoffset;
+
+            $i = $i+1;
+        }
+        
         return view('admin.projects.show', [
             'members' => $members,
             'project' => $project,
             'projects' => $projects,
             'statuses' => $statuses,
             'categories' => $categories,
-            'designations' => $designations
+            'designations' => $designations,
+
+            
+            'totalweeks' => $totalweeks,
+            'flots' => $flots
         ]);
     }
 
@@ -179,6 +212,14 @@ class ProjectController extends Controller
                 'project_id' => $project->id
             ]);
             
+            $data = array();
+            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension."|".$filesize;
+            $data['project_id'] = $project->id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
             return back()->with('success', 'Resource added successfully.');
         }
         catch (\Exception $e) 
@@ -203,11 +244,19 @@ class ProjectController extends Controller
     {
         try 
         {
-            Comment::create([
+            $comment = Comment::create([
                 'body' => $request->comment,
                 'project_id' => $request->project_id,
                 'creator_id' => auth()->user()->id
             ]);
+
+            $data = array();
+            $data['body'] = auth()->user()->name." commented on the project";
+            $data['project_id'] = $comment->project_id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
 
             return back()->with('success', 'Comment added successfully.');
         }

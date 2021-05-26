@@ -37,6 +37,10 @@ class ProcRequest extends Model
     }
 
     public function files() {
-        return $this->hasMany(ProcRequestFile::class);
+        return $this->hasMany(ProcFile::class);
+    }
+
+    public function requests() {
+        return $this->hasMany(ProcContractor::class);
     }
 }

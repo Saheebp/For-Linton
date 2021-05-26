@@ -7,10 +7,7 @@ use App\Notifications\ContactUs;
 use Notification;
 
 use App\Models\User;
-use App\Models\Project;
-use App\Models\Category;
-use App\Models\Attribute;
-use App\Models\AttributeOption;
+use App\Models\ProcContractor;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -34,6 +31,15 @@ class HomeController extends Controller
         
         return view('admin.dashboard', [
             'projects' => $projects
+        ]);
+    }
+
+    public function upload()
+    {
+        $requests = ProcContractor::where('contractor_id', auth()->user()->id)->get();
+        
+        return view('upload', [
+            'requests' => $requests
         ]);
     }
 

@@ -131,16 +131,13 @@
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
                                             <tr>
-                                                <td colspan="2"><b>Subject: </b><br><tag class="text-success">{{ $request->description ?? '' }}</tag> </td>
-                                            </tr>
-                                            <tr>
+                                                <td colspan="2"><b>Subject: </b><br><tag class="text-success">{{ $request->subject ?? '' }}</tag> </td>
                                                 <td colspan="2"><b>Description: </b><br><tag class="text-success">{{ $request->description ?? '' }}</tag> </td>
                                             </tr>
                                             <tr>
-                                                <td><b>Start Date: </b><br><span>{{ $request->start ?? '' }}</span></td>
-                                                <td><b>End Date: </b><br>{{ $request->end ?? '' }}</td>
-                                            </tr>
-                                            <tr>
+                                                <td><b>Open Date: </b><br><span>{{ $request->start ?? '' }}</span></td>
+                                                <td><b>Closing Date: </b><br>{{ $request->end ?? '' }}</td>
+                                            
                                                 <td><b>Department: </b><br>{{ $request->department->name }}</td>
                                                 <td><b>Status: </b><br><span class="badge badge-{{ $request->status->style }}">{{ $request->status->name ?? '' }}</span></td>
                                             </tr>
@@ -167,7 +164,7 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link active" href="#tab3" data-toggle="tab">Resources</a>
+                                            <a class="nav-link" href="#tab3" data-toggle="tab">Resources</a>
                                         </li>
 
                                         <li class="nav-item">
@@ -193,107 +190,103 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $i = 1; ?>
-                                                    @foreach($request->quotes as $quote)
-                                                    <tr>
-                                                        <td class="text-left">
-                                                            {{ $i }}
-                                                        </td>
-
-                                                        <td class="text-left">
-                                                            {{ $quote->contractor->name ?? '' }}
-                                                        </td>
-
-                                                        <td class="text-left">
-                                                            {{ $quote->contractor->phone ?? '' }}
-                                                        </td>
-
-                                                        <td class="text-left">
-                                                            {{ $quote->contractor->address ?? '' }}
-                                                        </td>
-
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#comment{{ $quote->id }}">Comment</button>
-                                                            <div class="modal fade" id="comment{{ $quote->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                            aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title" id="modalLabel">Comment {{$task->name}}</h4>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">×</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <form class="form-horizontal" action="#" method="POST">
-                                                                        @csrf
-                                                                            <fieldset>
-                                                                                <div class="modal-body">
-                                                                                    
-                                                                                    <div class="col-12">
-                                                                                        <label for="subject1" class="col-form-label">
-                                                                                            Message
-                                                                                        </label>
-                                                                                        <div class="input-group">
-                                                                                            <textarea id="message" value="{{ old('message') }}" class="form-control" placeholder="" name="message"></textarea>
-                                                                                        </div>
-                                                                                        @error('message')
-                                                                                            <span class="text-danger">{{ $errors->first('message') }}</span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="modal-footer">
-                                                                                    <div class="form-group row">
-                                                                                        <div class="col-lg-12">
-                                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
-                                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </fieldset>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <?php $i=$i+1; ?>
-                                                    @endforeach
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
 
                                         <div class="tab-pane p-3 active" id="tab2">
-                                            <h4 class="card-title m-b-3">Contractors</h4>
                                             
-
                                             <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
-                                            
-                                            <div class="m-t-10 accordian_alignment">
-                                                <div id="accordion" role="tablist" aria-multiselectable="true">
-                                                    <table id="example1" class="table table-striped table-bordered bordered">
-                                                        <tbody>
-                                                            @foreach($request->contractors as $contractor)
-                                                                <tr>
-                                                                    <td class="text-left">
-                                                                        {{ $contractor->name ?? '' }}
-                                                                    <td>
-                                                                    <td style="width:20%;">
-                                                                        {{ $contractor->phone ?? '' }}
-                                                                    </td>
-                                                                    <td style="width:20%;">
-                                                                        {{ $contractor->address ?? '' }}
-                                                                    </td>
-                                                                    <td style="width:5%;">
-                                                                        <a class="btn btn-sm btn-success" href="#"> Manage</a>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
+
+                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
+                                                data-toggle="modal" data-target="#addContractor">Add Contractor
+                                            </button>
+
+                                            <div class="modal fade" id="addContractor" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="modalLabel">Add Contractor to Request</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <form class="form-horizontal" action="{{ route('requests.addContractor')}}" method="POST">
+                                                        @csrf
+                                                        <fieldset>
+                                                            <div class="modal-body">
+                                                                
+                                                                <input type="text" name="proc_request_id" value="{{ $request->id }}" hidden readonly>
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Select New Contractor
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                        <select class="form-control" name="contractor_id" required>
+                                                                            <option value="">-- Select --</option>
+                                                                            @foreach ($contractors as $contractor)                                                                                                    
+                                                                            <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Submit</button>
+                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
+
+                                            <h4 class="card-title m-b-3 mt-3">Contractors</h4>
+
+                                            <table id="example1" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:5%;">SNo</th>
+                                                        <th style="width:35%;">Name </th>
+                                                        <th style="width:35%;">Phone </th>
+                                                        <th style="width:20%;">Address </th>
+                                                        <th style="width:20%;" colspan="3" class="text-right"> &nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($request->contractors as $contractor)
+                                                    <tr>
+                                                        <td class="text-left">
+                                                            N/A
+                                                        </td>
+                                                        <td style="width:20%;">
+                                                            {{ $contractor->contractor->org_name ?? '' }}
+                                                        </td>
+                                                        <td style="width:40%;">
+                                                            {{ $contractor->contractor->org_phone ?? '' }}
+                                                        </td>
+                                                        <td style="width:40%;">
+                                                            {{ $contractor->contractor->org_address ?? '' }}
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                            
                                         </div>
 
                                         <div class="tab-pane p-3" id="tab3">
@@ -312,11 +305,12 @@
                                                         <div class="modal-header bg-secondary">
                                                             <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Upload Resources</h4>
                                                         </div>
-                                                        <form class="form-horizontal" action="{{ route('requests.upload', $request)}}" method="POST" enctype="multipart/form-data">
+                                                        <form class="form-horizontal" action="{{ route('requests.upload')}}" method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                             <fieldset>
                                                                 <div class="modal-body">
-                                                                    
+                                                                
+                                                                    <input hidden readonly type="text" name="proc_request_id" value="{{$request->id}}">
                                                                     <div class="form-group row">
                                                                         <div class="col-lg-12">
                                                                             <div class="input-group mb-1">
@@ -359,23 +353,35 @@
                                                 </div>
                                             </div>
 
-                                            <table id="example1" class="table table-striped table-bordered bordered">
+                                            <table id="example1" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:5%;">SNo</th>
+                                                        <th style="width:35%;">Name </th>
+                                                        <th style="width:35%;">Description </th>
+                                                        <th style="width:20%;">Type </th>
+                                                        <th style="width:20%;" colspan="2" class="text-right"> &nbsp;</th>
+                                                    </tr>
+                                                </thead>
                                                 <tbody>
-                                                    @foreach($request->resources as $resource)
-                                                        <tr>
-                                                            <td class="text-left">
-                                                                {{ $resource->type ?? '' }}
-                                                            <td>
-                                                            <td style="width:20%;">
-                                                                {{ $resource->name ?? '' }}
-                                                            </td>
-                                                            <td style="width:20%;">
-                                                                {{ $resource->url ?? '' }}
-                                                            </td>
-                                                            <td style="width:5%;">
-                                                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-download"></i> Download</a>
-                                                            </td>
-                                                        </tr>
+                                                    @foreach ($request->files as $file)
+                                                    <tr>
+                                                        <td class="text-left">
+                                                            N/A
+                                                        </td>
+                                                        <td style="width:20%;">
+                                                            {{ $file->name ?? '' }}
+                                                        </td>
+                                                        <td style="width:40%;">
+                                                            {{ $file->description ?? '' }}
+                                                        </td>
+                                                        <td style="width:40%;">
+                                                            {{ $file->type ?? '' }}
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>

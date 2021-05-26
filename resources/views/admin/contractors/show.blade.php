@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Customers
+    Contractors
     @parent
 @stop
 
@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#"> Customer </a>
+                            <a href="#"> Contractor </a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -76,16 +76,16 @@
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-warning">
-                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Update Bio {{ $customer->name }}</h4>
+                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Update Bio {{ $contractor->name }}</h4>
                                         </div>
                                         <div class="modal-body text-left">
                                             <p class="p-2">
-                                            <form class="form-horizontal" method="POST" action="{{ route('customer.bioupdate', $customer->id) }}">
+                                            <form class="form-horizontal" method="POST" action="{{ route('contractor.bioupdate', $contractor->id) }}">
                                             @csrf
                                                 <div class="form-group row">
                                                     <div class="col-lg-6 col-6">
 
-                                                        <input hidden readonly value="{{ $customer->id }}" name="id">
+                                                        <input hidden readonly value="{{ $contractor->id }}" name="id">
                                                         
                                                         <div class="col-12">
                                                             <label for="subject1" class="col-form-label">
@@ -95,7 +95,7 @@
                                                                 <span class="input-group-addon">
                                                                     <i class="fa fa-user"></i>
                                                                 </span>
-                                                                <input type="text" id="name" value="{{ $customer->name }}" class="form-control" placeholder=" Chukwu Idris Adebayo" name="name">
+                                                                <input type="text" id="name" value="{{ $contractor->name }}" class="form-control" placeholder=" Chukwu Idris Adebayo" name="name">
                                                             </div>
                                                             <span class="text-danger">
                                                                 <strong>{{ $errors->first('name') }}</strong>
@@ -110,7 +110,7 @@
                                                                 <span class="input-group-addon">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </span>
-                                                                <input type="email"  value="{{ $customer->email }}" id="email" class="form-control" placeholder=" abcd@gmail.com" name="email">
+                                                                <input type="email"  value="{{ $contractor->email }}" id="email" class="form-control" placeholder=" abcd@gmail.com" name="email">
                                                             </div>
                                                             <span class="text-danger">
                                                                 <strong>{{ $errors->first('email') }}</strong>
@@ -125,7 +125,7 @@
                                                                 <span class="input-group-addon">
                                                                     <i class="fa fa-phone"></i>
                                                                 </span>
-                                                                <input type="tel" id="phone"  value="{{ $customer->phone }}" class="form-control" placeholder=" 08012345678" name="phone">
+                                                                <input type="tel" id="phone"  value="{{ $contractor->phone }}" class="form-control" placeholder=" 08012345678" name="phone">
                                                             </div>
                                                             <span class="text-danger">
                                                                 <strong>{{ $errors->first('phone') }}</strong>
@@ -140,7 +140,7 @@
                                                                 <span class="input-group-addon">
                                                                     <i class="fa fa-road"></i>
                                                                 </span>
-                                                                <input type="text" id="address"  value="{{ $customer->address }}" class="form-control" placeholder=" 23 Valgee Avenue" name="address">
+                                                                <input type="text" id="address"  value="{{ $contractor->address }}" class="form-control" placeholder=" 23 Valgee Avenue" name="address">
                                                             </div>
                                                             <span class="text-danger">
                                                                 <strong>{{ $errors->first('address') }}</strong>
@@ -159,7 +159,7 @@
                                                                 <span class="input-group-addon">
                                                                     <i class="fa fa-user"></i>
                                                                 </span>
-                                                                <input type="text" id="name" value="{{ $customer->nok_name }}" class="form-control" placeholder=" Chukwu Idris Adebayo" name="nok_name">
+                                                                <input type="text" id="name" value="{{ $contractor->nok_name }}" class="form-control" placeholder=" Chukwu Idris Adebayo" name="nok_name">
                                                             </div>
                                                             <span class="text-danger">
                                                                 <strong>{{ $errors->first('nok_name') }}</strong>
@@ -174,7 +174,7 @@
                                                                 <span class="input-group-addon">
                                                                     <i class="fa fa-phone"></i>
                                                                 </span>
-                                                                <input type="tel" id="phone"  value="{{ $customer->nok_phone }}" class="form-control" placeholder=" 08012345678" name="nok_phone">
+                                                                <input type="tel" id="phone"  value="{{ $contractor->nok_phone }}" class="form-control" placeholder=" 08012345678" name="nok_phone">
                                                             </div>
                                                             <span class="text-danger">
                                                                 <strong>{{ $errors->first('nok_phone') }}</strong>
@@ -198,7 +198,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-secondary">
-                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Reset Password for {{ $customer->name }}</h4>
+                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Reset Password for {{ $contractor->name }}</h4>
                                         </div>
                                         <div class="modal-body text-left">
                                             <p class="p-2">
@@ -217,15 +217,15 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
-                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Reset Password for {{ $customer->name }}</h4>
+                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Reset Password for {{ $contractor->name }}</h4>
                                         </div>
                                         <div class="modal-body text-left">
                                             <p class="p-2">
-                                            Are you sure you want to reset and send this customers password to them?
+                                            Are you sure you want to reset and send this contractors password to them?
                                            </p>
                                         </div> 
                                         <div class="modal-footer">
-                                            <a class="btn btn-md btn-primary" href="{{ route('customer.passwordreset', $customer->id) }}">Reset and Send</a>
+                                            <a class="btn btn-md btn-primary" href="{{ route('contractor.passwordreset', $contractor->id) }}">Reset and Send</a>
                                             <button class="btn btn-md btn-dark" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
@@ -236,7 +236,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-success">
-                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Credit Wallet for {{ $customer->name }}</h4>
+                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Credit Wallet for {{ $contractor->name }}</h4>
                                         </div>
                                         <div class="modal-body text-left">
                                             <p class="p-2">
@@ -245,7 +245,7 @@
                                                 <div class="form-group row">
                                                     <div class="col-12">
                                                         
-                                                        <input hidden readonly value="{{ $customer->id }}" name="user_id">
+                                                        <input hidden readonly value="{{ $contractor->id }}" name="user_id">
                                                         <input hidden readonly value="Credit" name="type">
                                                         
                                                         <div class="col-12">
@@ -292,7 +292,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-danger">
-                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Debit Wallet for {{ $customer->name }}</h4>
+                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Debit Wallet for {{ $contractor->name }}</h4>
                                         </div>
                                         <div class="modal-body text-left">
                                             <p class="p-2">
@@ -301,7 +301,7 @@
                                                 <div class="form-group row">
                                                     <div class="col-12">
                                                         
-                                                        <input hidden readonly value="{{ $customer->id }}" name="user_id">
+                                                        <input hidden readonly value="{{ $contractor->id }}" name="user_id">
                                                         <input hidden readonly value="Debit" name="type">
                                                         
                                                         <div class="col-12">
@@ -347,19 +347,19 @@
                         </div>
 
                         <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> Customer Information
+                            <i class="fa fa-table"></i> Contractor Information
                         </div>
                         <div class="card-body m-t-35">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 m-t-15">
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
-                                            <tr><td><b>User ID: </b></td><td>{{ $customer->id }}</td></tr>
-                                            <tr><td><b>Name </b></td><td>{{ $customer->name }}</td></tr>
-                                            <tr><td><b>Email </b></td><td>{{ $customer->email }}</td></tr>
-                                            <tr><td><b>Phone </b></td><td>{{ $customer->phone }}</td></tr>
-                                            <tr><td><b>Address </b></td><td>{{ $customer->address }}</td></tr>
-                                            <tr><td><b>Date Registered: </b></td><td>{{ date('D M Y, h:iA', strtotime($customer->created_at)) }}</td></tr>
+                                            <tr><td><b>User ID: </b></td><td>{{ $contractor->id }}</td></tr>
+                                            <tr><td><b>Name </b></td><td>{{ $contractor->name }}</td></tr>
+                                            <tr><td><b>Email </b></td><td>{{ $contractor->email }}</td></tr>
+                                            <tr><td><b>Phone </b></td><td>{{ $contractor->phone }}</td></tr>
+                                            <tr><td><b>Address </b></td><td>{{ $contractor->address }}</td></tr>
+                                            <tr><td><b>Date Registered: </b></td><td>{{ date('D M Y, h:iA', strtotime($contractor->created_at)) }}</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -367,12 +367,12 @@
                                 <div class="col-lg-6 col-sm-12 m-t-15">
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
-                                            <tr><td><b>Next of Kin Name: </b></td><td>{{ $customer->nok_name }}</td></tr>
-                                            <tr><td><b>Next of Kin Phone: </b></td><td>{{ $customer->nok_phone }}</td></tr>
-                                            <tr><td><b>Total Bookings </b></td><td>{{ $customer->booking_count }}</td></tr>
-                                            <tr><td><b>Total Referrals </b></td><td>{{ $customer->referral_count }}</td></tr>
+                                            <tr><td><b>Next of Kin Name: </b></td><td>{{ $contractor->nok_name }}</td></tr>
+                                            <tr><td><b>Next of Kin Phone: </b></td><td>{{ $contractor->nok_phone }}</td></tr>
+                                            <tr><td><b>Total Bookings </b></td><td>{{ $contractor->booking_count }}</td></tr>
+                                            <tr><td><b>Total Referrals </b></td><td>{{ $contractor->referral_count }}</td></tr>
                                             <tr><td><b>Wallet Balance </b></td><td>&#8358;{{ number_format(floatval($wallet_bal ?? '0'), 2) }}</td></tr>
-                                            <tr><td><b>Date Updated: </b></td><td>{{ date('D M Y, h:iA', strtotime($customer->updated_at)) }}</td></tr>
+                                            <tr><td><b>Date Updated: </b></td><td>{{ date('D M Y, h:iA', strtotime($contractor->updated_at)) }}</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -640,7 +640,7 @@
 
                                                                         <a class="btn btn-sm btn-primary mt-1" href="{{ route('trips.show', [ 'trip' => $booking->trip ] ) }}">View Trip</a>
                                                                         
-                                                                        <a class="btn btn-sm btn-secondary mt-1" href="{{ route('customers.show', [ $booking->user_id ] ) }}">View Profile</a>
+                                                                        <a class="btn btn-sm btn-secondary mt-1" href="{{ route('contractors.show', [ $booking->user_id ] ) }}">View Profile</a>
                                                                         
                                                                         <a class="btn btn-sm btn-success mt-1" href="{{ route('admin.booking.receipt', [ 'booking'=>$booking ] ) }}">Print Receipt</a>
                                                                         @if($booking->status_id != $paid)

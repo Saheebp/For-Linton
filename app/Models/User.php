@@ -80,4 +80,8 @@ class User extends Authenticatable
     public function designation() {
         return $this->belongsTo(Designation::class);
     }
+
+    public function request() {
+        return $this->hasMany(ProcContractor::class);
+    }
 }

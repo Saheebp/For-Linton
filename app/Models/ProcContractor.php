@@ -5,33 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProcQuote extends Model
+class ProcContractor extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 
-        'address', 
-        'description',
-        
-        'contractor_id',  
         'proc_request_id',
-        'status_id'
+        'contractor_id'
+        
     ];
-
-    public function status() {
-        return $this->belongsTo(Status::class);
-    }
-
+    
     public function contractor() {
         return $this->belongsTo(User::class);
     }
 
-    public function request() {
+    public function procRequest() {
         return $this->belongsTo(ProcRequest::class);
-    }
-
-    public function files() {
-        return $this->hasMany(ProcFile::class);
     }
 }

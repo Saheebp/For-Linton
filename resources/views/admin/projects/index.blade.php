@@ -222,7 +222,7 @@
                                                                     <div class="modal-content">
                                                                         
                                                                         <div class="modal-header bg-secondary">
-                                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">New User Details</h4>
+                                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">New PROJECT Details</h4>
                                                                         </div>
                                                                         <form method="POST" action="{{ route('projects.store') }}">
                                                                             <div class="modal-body">

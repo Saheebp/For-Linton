@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProcQuotesTable extends Migration
+class CreateProcFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,25 @@ class CreateProcQuotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('proc_quotes', function (Blueprint $table) {
+        Schema::create('proc_files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
 
             $table->string('name')->nullable()->default(null);
-            $table->string('address')->nullable()->default(null);
-            $table->string('description')->nullable()->default(null);
-
             $table->string('url')->nullable()->default(null);
+            $table->string('type')->nullable()->default(null);
+            $table->string('description')->nullable()->default(null);
             
-            $table->unsignedBigInteger('contractor_id')->nullable()->default(null);
-            $table->foreign('contractor_id')->references('id')->on('users')->onDelete('restrict');
-            
+            $table->unsignedBigInteger('creator_id')->nullable()->default(null);
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
+
             $table->unsignedBigInteger('proc_request_id')->nullable()->default(null);
             $table->foreign('proc_request_id')->references('id')->on('proc_requests')->onDelete('restrict');
 
-            $table->unsignedBigInteger('status_id')->default(13);
+            $table->unsignedBigInteger('proc_quote_id')->nullable()->default(null);
+            $table->foreign('proc_quote_id')->references('id')->on('proc_quotes')->onDelete('restrict');
+            
+            $table->unsignedBigInteger('status_id')->nullable()->default(null);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
         });
     }
@@ -41,6 +43,6 @@ class CreateProcQuotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proc_quotes');
+        Schema::dropIfExists('proc_files');
     }
 }

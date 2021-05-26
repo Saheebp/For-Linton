@@ -49,44 +49,13 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $project = Project::find($request->project_id);
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'budget' => 'required|string'
         ]);
         
-        // $task_start = new Carbon($request->start);
-        // $task_end = new Carbon($request->end);
-
-        // $project_start = new Carbon($project->start);
-        // $project_end = new Carbon($project->end);
-        
-        // if ($task_start->lessThan($project_start) || $task_start->greaterThan($project_end)) {
-        //     return back()->with('error', 'Task date is outside the allowed time frame for this project');
-        // }
-
-        // if ($task_end->greaterThan($project_end) || $task_end->lessThan($project_end)) {
-        //     return back()->with('error', 'Task date is outside the allowed time frame for this project');
-        // }
-
-        // if ($project_start->lessThanOrEqualTo($task_start)) {
-        //     return back()->with('error', 'Start date for task cannot be earlier than Project start date');
-        // }
-
-        // $start->lessThanOrEqualTo($end);
-
-        // if($project->start->greaterThan($start)){
-        //     // edited at is newer than created at
-        //     dd('Hi');
-        // }
-
-        // $date1 = Carbon::createFromFormat('m/d/Y H:i:s', '12/01/2020 10:20:00');
-        // $date2 = Carbon::createFromFormat('m/d/Y H:i:s', '12/01/2020 10:20:00');
-  
-        // $result = $date1->gte($date2);
-        // var_dump($result);
+        $project = Project::find($request->project_id);
 
         try 
         {
@@ -94,7 +63,7 @@ class TaskController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'budget' => $request->budget,
-                'project_id' => $request->project_id,
+                'project_id' => $project->id,
                 'start' => $request->start,
                 'end' => $request->end,
                 'status_id' => $this->new,
@@ -102,6 +71,14 @@ class TaskController extends Controller
                 'preceedby' => $request->preceedby,
                 'succeedby' => $request->succeedby,
             ]);
+
+            $data = array();
+            $data['body'] = auth()->user()->name." created a Task : ".$request->name.", running from ".$request->start." to ".$request->end;
+            $data['project_id'] = $project->id;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
 
             activity()
             ->performedOn($task)
@@ -257,6 +234,15 @@ class TaskController extends Controller
                 'executor_id' => $request->executor
             ]);
             $task->save();
+            // $user = User::find($request->executor);
+
+            // $data = array();
+            // $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name;
+            // $data['project_id'] = $task->project->id;
+            // $data['task_id'] = $task->id;
+            // $data['sub_task_id'] = NULL;
+            // $data['user_id'] = auth()->user()->id;
+            // $this->createLog($data);
 
             return back()->with('success', 'Task Position Updated successfully.');
         }
@@ -275,6 +261,16 @@ class TaskController extends Controller
                 'task_id' => $task->id,
                 'user_id' => $request->member
             ]);
+            
+            $user = User::find($request->member);
+
+            $data = array();
+            $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name;
+            $data['project_id'] = $task->project->id;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
 
             return back()->with('success', 'Team Member added successfully.');
         }
@@ -287,23 +283,31 @@ class TaskController extends Controller
     public function comment(Request $request)
     {
         $validated = $request->validate([
-            'body' => 'required|string|max:255'
+            'comment' => 'required|string|max:255'
         ]);
         
         try 
         {
-            Comment::create([
+            $comment = Comment::create([
                 'body' => $request->comment,
                 'project_id' => $request->project_id,
                 'task_id' => $request->task_id,
                 'creator_id' => auth()->user()->id
             ]);
 
+            $data = array();
+            $data['body'] = auth()->user()->name." commented on ".$comment->task->name;
+            $data['project_id'] = $comment->project_id;
+            $data['task_id'] = $comment->task_id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
             return back()->with('success', 'Comment added successfully.');
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error adding Comment");
         }
     }
@@ -313,6 +317,15 @@ class TaskController extends Controller
         try 
         {
             $member = TeamMember::find($request->id);
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." removed ".$member->user->name." from Task : ".$member->task->name;
+            $data['project_id'] = $member->project_id;
+            $data['task_id'] = $member->task_id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
             $member->delete();
 
             return back()->with('success', 'Team Member deleted successfully.');
@@ -357,6 +370,14 @@ class TaskController extends Controller
                 'project_id' => $task->project_id,
                 'task_id' => $task->id,
             ]);
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension."|".$filesize;
+            $data['project_id'] = $task->project_id;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
             
             return back()->with('success', 'Resource added successfully.');
         }

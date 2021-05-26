@@ -79,11 +79,17 @@ class StatusSeeder extends Seeder
             [
                 'name' => 'Available',
                 'style' => 'success'
-            ]
-
-            ,
+            ],
             [
                 'name' => 'Out of Funds',
+                'style' => 'danger'
+            ],
+            [
+                'name' => 'Active',
+                'style' => 'success'
+            ],
+            [
+                'name' => 'Inactive',
                 'style' => 'danger'
             ]
 

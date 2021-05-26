@@ -40,16 +40,12 @@ class SubTaskController extends Controller
     public function store(Request $request)
     {
 
-        //dd($request);
         $task = Task::find($request->task_id);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'budget' => 'required|string',
-
-            // 'start' => 'required|date|after_or_equal:'.$task->start,
-            // 'end' => 'required|date|before_or_equal:'.$task->end,
         ]);
         
         try 
@@ -65,6 +61,14 @@ class SubTaskController extends Controller
                 'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,
                 'succeedby' => ($request->succeedby == null) ? null : $request->succeedby,
             ]);
+
+            $data = array();
+            $data['body'] = auth()->user()->name." created a Sub Task : ".$request->name.", Details: ".$request->start."-".$request->end;
+            $data['project_id'] = $$task->project->id;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = $subtask->id;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
             
             activity()
             ->performedOn($subtask)

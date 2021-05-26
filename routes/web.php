@@ -13,6 +13,7 @@ use App\Http\Controllers;
 |
 */
 Route::get('/', 'HomeController@home')->name('home')->middleware('auth');
+Route::get('/contractor/upload', 'HomeController@upload')->name('upload')->middleware('auth');
 
 Auth::routes();
 
@@ -59,12 +60,21 @@ Route::middleware('auth')->group(function() {
     });
     
     //logs
-    Route::resource('logs', 'LogController');
+    Route::resource('logs', 'LogsController');
     Route::name('logs.')->group(function() {
         Route::prefix('logs')->group(function() {
-            Route::get('/errors', 'LogController@index')->name('errors');
+
+            Route::post('/search', 'LogsController@search')->name('search');
+
+            Route::get('/errors', 'LogsController@index')->name('errors');
+            Route::get('/errors', 'LogsController@index')->name('errors');
         });
     });
+
+    Route::post('reports/search', 'ReportController@searchFeedback')->name('feedbacks.search');
+    Route::post('reports/filter', 'ReportController@datefilter')->name('feedbacks.datefilter');
+    Route::get('reports/feedback', 'ReportController@feedbacks')->name('reports.feedbacks');
+
     
     //system settings
     Route::resource('settings', 'SettingsController');
@@ -212,9 +222,9 @@ Route::middleware('auth')->group(function() {
             Route::get('/', 'ProcRequestController@index')->name('index');
             Route::post('filter', 'ProcRequestController@filter')->name('filter');
             Route::post('search', 'ProcRequestController@search')->name('search');
-            Route::post('upload/resource/{request}', 'ProcRequestController@uploadResource')->name('upload');
-            Route::post('contractor/add/{request}', 'ProcRequestController@addContractor')->name('addContractor');
-            Route::post('contractor/remove/', 'ProcRequestController@removeContractor')->name('removeContractor');
+            Route::post('upload/resource', 'ProcRequestController@uploadResource')->name('upload');
+            Route::post('contractor/add', 'ProcRequestController@addContractor')->name('addContractor');
+            Route::post('contractor/remove', 'ProcRequestController@removeContractor')->name('removeContractor');
             Route::post('status/update/{request}', 'ProcRequestController@updateStatus')->name('updateStatus');
         });
     });

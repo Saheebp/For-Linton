@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProcRequestFile;
+use App\Models\ProcFile;
 use Illuminate\Http\Request;
 
-class ProcRequestFileController extends Controller
+class ProcFileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ProcRequestFileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProcRequestFile  $procRequestFile
+     * @param  \App\Models\ProcFile  $procFile
      * @return \Illuminate\Http\Response
      */
-    public function show(ProcRequestFile $procRequestFile)
+    public function show(ProcFile $procFile)
     {
         //
     }
@@ -52,10 +52,10 @@ class ProcRequestFileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProcRequestFile  $procRequestFile
+     * @param  \App\Models\ProcFile  $procFile
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProcRequestFile $procRequestFile)
+    public function edit(ProcFile $procFile)
     {
         //
     }
@@ -64,10 +64,10 @@ class ProcRequestFileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProcRequestFile  $procRequestFile
+     * @param  \App\Models\ProcFile  $procFile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProcRequestFile $procRequestFile)
+    public function update(Request $request, ProcFile $procFile)
     {
         //
     }
@@ -75,10 +75,10 @@ class ProcRequestFileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProcRequestFile  $procRequestFile
+     * @param  \App\Models\ProcFile  $procFile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProcRequestFile $procRequestFile)
+    public function destroy(ProcFile $procFile)
     {
         //
     }

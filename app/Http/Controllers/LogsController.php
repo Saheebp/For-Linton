@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProcQuoteFile;
 use Illuminate\Http\Request;
+use Spatie\Activitylog\Models\Activity;
 
-class ProcQuoteFileController extends Controller
+class LogsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,27 @@ class ProcQuoteFileController extends Controller
      */
     public function index()
     {
-        //
+        $logs = Activity::orderBy('created_at', 'desc')->paginate(100);
+        return view('admin.logs.index', ['logs'=> $logs]);
+    }
+
+    public function search(Request $request){
+        $data = $request->data;
+        $title = "";
+
+        $logs = Activity::orderBy('created_at', 'desc')
+        ->where('description', 'LIKE', '%' . $data . '%')
+        ->orWhere('properties', 'LIKE', '%' . $data . '%')
+        ->paginate(100);
+
+        if ($logs != null) {
+            $title = "containing : ".$data;
+        }
+        
+        return view('admin.logs.index', [
+            'logs'=> $logs,
+            'title'=> $title,
+        ]);
     }
 
     /**
@@ -41,10 +61,10 @@ class ProcQuoteFileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProcQuoteFile  $procQuoteFile
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ProcQuoteFile $procQuoteFile)
+    public function show($id)
     {
         //
     }
@@ -52,10 +72,10 @@ class ProcQuoteFileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProcQuoteFile  $procQuoteFile
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProcQuoteFile $procQuoteFile)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +84,10 @@ class ProcQuoteFileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProcQuoteFile  $procQuoteFile
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProcQuoteFile $procQuoteFile)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +95,10 @@ class ProcQuoteFileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProcQuoteFile  $procQuoteFile
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProcQuoteFile $procQuoteFile)
+    public function destroy($id)
     {
         //
     }
