@@ -382,7 +382,8 @@ class TaskController extends Controller
             return back()->with('success', 'Resource added successfully.');
         }
         catch (\Exception $e) 
-        {
+        {   
+            dd($e);
             return back()->with('error', "Oops, Error adding resource to Task");
         }
     }

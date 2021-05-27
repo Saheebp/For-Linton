@@ -431,7 +431,7 @@
                                         <div class="tab-pane p-3 active" id="tab2">
                                             <h4 class="card-title m-b-3">Project Tasks & Processes</h4>
                                             
-                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
+                                            <button class="btn btn-raised btn-sm btn-success mt-3 mb-3 adv_cust_mod_btn"
                                                 data-toggle="modal" data-target="#modalTaskCreate">Add New Task
                                             </button>
 
@@ -1003,7 +1003,7 @@
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Add Resource to {{ $task->name }}</h4>
+                                                                                    <h4 class="modal-title" id="modalLabel">Add Resource to : <br>{{ $task->name }}</h4>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">×</span>
                                                                                     </button>
@@ -1262,7 +1262,7 @@
                                                     <div class="modal-content">
                                                         
                                                         <div class="modal-header bg-secondary">
-                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Upload Resources</h4>
+                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Upload Resource to Project</h4>
                                                         </div>
                                                         <form class="form-horizontal" action="{{ route('projects.upload', $project)}}" method="POST" enctype="multipart/form-data">
                                                         @csrf
