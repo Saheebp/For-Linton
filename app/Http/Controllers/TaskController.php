@@ -7,7 +7,7 @@ use App\Models\Task;
 use App\Models\SubTask;
 use App\Models\User;
 use App\Models\Comment;
-use App\Models\TeamMember;
+use App\Models\TaskMember;
 use App\Models\Resource;
 
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $members = TeamMember::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        $members = TaskMember::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         $tasks = Task::all();
         
         return view('admin.tasks.index', [
@@ -256,14 +256,19 @@ class TaskController extends Controller
     {
         try 
         {
-            TeamMember::create([
-                'project_id' => $task->project_id,
-                'task_id' => $task->id,
-                'user_id' => $request->member
-            ]);
+            $existing = TaskMember::where('task_id',$task->id)->where('user_id',$request->member)->first();
+            if ($existing == NULL) {
+                TaskMember::create([
+                    'task_id' => $task->id,
+                    'user_id' => $request->member
+                ]);
+                
+            }else{
+                return back()->with('error', "Oops, That Staff is already on that team");
+            }
             
             $user = User::find($request->member);
-
+            
             $data = array();
             $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name;
             $data['project_id'] = $task->project->id;
@@ -273,6 +278,31 @@ class TaskController extends Controller
             $this->createLog($data);
 
             return back()->with('success', 'Team Member added successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Task");
+        }
+    }
+
+    public function removeMember(Request $request, Task $task)
+    {
+        try 
+        {
+            $existing = TaskMember::where('task_id',$task->id)->where('user_id',$request->member)->first();
+            $existing->delete();
+            
+            $user = User::find($request->member);
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." removed ".$user->name." from Task : ".$task->name;
+            $data['project_id'] = $task->project->id;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            return back()->with('success', 'Team Member removed successfully.');
         }
         catch (\Exception $e) 
         {
@@ -312,36 +342,38 @@ class TaskController extends Controller
         }
     }
 
-    public function removeMember(Request $request)
+    public function deleteComment(Request $request)
     {
+        $comment = Comment::find($request->comment);
+        $task = $comment->task;
         try 
         {
-            $member = TeamMember::find($request->id);
-            
+            $comment->delete();
+
             $data = array();
-            $data['body'] = auth()->user()->name." removed ".$member->user->name." from Task : ".$member->task->name;
-            $data['project_id'] = $member->project_id;
-            $data['task_id'] = $member->task_id;
+            $data['body'] = auth()->user()->name." deleted a comment from ".$task->name;
+            $data['project_id'] = $task->project_id;
+            $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
 
-            $member->delete();
-
-            return back()->with('success', 'Team Member deleted successfully.');
+            return back()->with('success', 'Comment deleted successfully.');
         }
         catch (\Exception $e) 
         {
-            return back()->with('error', "Oops, Error deleting Member");
+            dd($e);
+            return back()->with('error', "Oops, Error deleting Comment");
         }
     }
+
 
     public function uploadResource(Request $request, Task $task)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx|max:2048'
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
         ]);
 
         try 
@@ -383,7 +415,7 @@ class TaskController extends Controller
         }
         catch (\Exception $e) 
         {   
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error adding resource to Task");
         }
     }

@@ -11,6 +11,7 @@ use App\Models\Resource;
 use App\Models\Status;
 use App\Models\State;
 use App\Models\Designation;
+use App\Models\ProjectMember;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -138,12 +139,14 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $members = User::all();
+        $staff = User::all();
         $projects = Project::all();
         $statuses = Status::all();
         $categories = Category::all();
         $designations = Designation::all();
 
+        $members = ProjectMember::where('project_id',$project->id)->get();
+        
         $totalweeks = round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7);
         $tasks = $project->tasks;
 
@@ -165,6 +168,7 @@ class ProjectController extends Controller
         }
         
         return view('admin.projects.show', [
+            'staff' => $staff,
             'members' => $members,
             'project' => $project,
             'projects' => $projects,
@@ -238,6 +242,64 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //
+    }
+
+    public function addMember(Request $request, Project $project)
+    {
+        try 
+        {
+
+            $existing = ProjectMember::where('project_id',$project->id)->where('user_id',$request->member)->first();
+            if ($existing == NULL) {
+                ProjectMember::create([
+                    'project_id' => $project->id,
+                    'user_id' => $request->member
+                ]);
+                
+            }else{
+                return back()->with('error', "Oops, That Staff is already on that team");
+            }
+            
+            $user = User::find($request->member);
+
+            $data = array();
+            $data['body'] = auth()->user()->name." added ".$user->name." to Project : ".$project->name;
+            $data['project_id'] = $project->id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            return back()->with('success', 'Staff added to project successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error adding Staff Project");
+        }
+    }
+    public function removeMember(Request $request, Project $project)
+    {
+        try 
+        {
+            $existing = ProjectMember::where('project_id',$project->id)->where('user_id',$request->member)->first();
+            $existing->delete();
+            
+            $user = User::find($request->member);
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." removed ".$user->name." from Project : ".$project->name;
+            $data['project_id'] = $project->id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            return back()->with('success', 'Team Member removed successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Project");
+        }
     }
 
     public function comment(Request $request)

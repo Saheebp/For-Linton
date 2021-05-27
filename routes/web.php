@@ -125,6 +125,9 @@ Route::middleware('auth')->group(function() {
             Route::post('search', 'ProjectController@search')->name('search');
             Route::post('upload/resource/{project}', 'ProjectController@uploadResource')->name('upload');
             Route::post('comment', 'ProjectController@comment')->name('comment');
+
+            Route::post('member/add/{project}', 'ProjectController@addMember')->name('addMember');
+            Route::post('member/remove/{project}', 'ProjectController@removeMember')->name('removeMember');
         });
     });
 
@@ -182,12 +185,14 @@ Route::middleware('auth')->group(function() {
             Route::post('search', 'TaskController@search')->name('search');
             Route::post('createsubtask', 'TaskController@createSubTask')->name('createsubtask');
             Route::post('upload/resource/{task}', 'TaskController@uploadResource')->name('upload');
-            Route::post('member/add/{task}', 'TaskController@addMember')->name('addMember');
-            Route::post('member/remove/', 'TaskController@removeMember')->name('removeMember');
             Route::post('status/update/{task}', 'TaskController@updateStatus')->name('updateStatus');
             Route::post('cost/update/{task}', 'TaskController@updateCost')->name('updateCost');
+
             Route::post('comment', 'TaskController@comment')->name('comment');
-            
+            Route::post('comment/delete', 'TaskController@deleteComment')->name('deleteComment');
+
+            Route::post('member/add/{task}', 'TaskController@addMember')->name('addMember');
+            Route::post('member/remove/{task}', 'TaskController@removeMember')->name('removeMember');
         });
     });
 
@@ -199,11 +204,13 @@ Route::middleware('auth')->group(function() {
             Route::post('filter', 'SubTaskController@filter')->name('filter');
             Route::post('search', 'SubTaskController@search')->name('search');
             Route::post('upload/resource/{subtask}', 'SubTaskController@uploadResource')->name('upload');
-            Route::post('member/add/{task}', 'SubTaskController@addMember')->name('addMember');
-            Route::post('member/remove/', 'SubTaskController@removeMember')->name('removeMember');
+            Route::post('executor/update/{subtask}', 'SubTaskController@updateExecutor')->name('updateExecutor');
             Route::post('status/update/{subtask}', 'SubTaskController@updateStatus')->name('updateStatus');
             Route::post('cost/update/{subtask}', 'SubTaskController@updateCost')->name('updateCost');
             Route::post('comment', 'SubTaskController@comment')->name('comment');
+
+            Route::post('member/add/{subtask}', 'SubTaskController@addMember')->name('addMember');
+            Route::post('member/remove/{subtask}', 'SubTaskController@removeMember')->name('removeMember');
         });
     });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\SubTask;
+use App\Models\User;
 use App\Models\Comment;
 
 use Illuminate\Http\Request;
@@ -80,11 +81,40 @@ class SubTaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error Creating a Sub Task");
         } 
     }
 
+    public function updateExecutor(Request $request, SubTask $subtask)
+    {
+        try 
+        {
+            $subtask->update([
+                'executor_id' => $request->member
+            ]);
+            
+            $user = User::find($request->member);
+
+            $data = array();
+            $data['body'] = auth()->user()->name." added ".$user->name." as executor for Sub Task : ".$subtask->name;
+            $data['project_id'] = NULL;
+            $data['task_id'] = $subtask->task->id;
+            $data['sub_task_id'] = $subtask->id;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+            
+            $subtask->save();
+            
+            return back()->with('success', 'Team Member updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            dd($e);
+            return back()->with('error', "Oops, Error Updating Sub Task");
+        }
+    }
+    
     public function updateStatus(Request $request, SubTask $subtask)
     {
         $validated = $request->validate([

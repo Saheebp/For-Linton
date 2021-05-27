@@ -261,9 +261,58 @@
                                     <div class="tab-content text-justify" style="padding-top:30px;">
                                         
                                         <div class="tab-pane p-3 " id="tab1">
-                                            <h4 class="card-title">Team Members</h4>
+                                            <h4 class="card-title">Project Team Members</h4>
                                             <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
+
+                                            <button class="btn btn-sm btn-secondary float-left m-1  mb-3" data-toggle="modal" data-target="#addMemberToProject">Add Member</button>
+                                            <div class="modal fade" id="addMemberToProject" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="modalLabel">Add Member to Project : </h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <form class="form-horizontal" action="{{ route('projects.addMember', $project)}}" method="POST">
+                                                        @csrf
+                                                        <fieldset>
+                                                            <div class="modal-body">
+                                                                
+                                                                <input type="text" name="project_id" value="{{ $project->id }}" hidden readonly>
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Select New Project Member
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                        <select class="form-control" name="member" required>
+                                                                            <option value="">-- Select Member --</option>
+                                                                            @foreach ($staff as $member)                                                                                                    
+                                                                            <option value="{{ $member->id }}">{{ $member->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Submit</button>
+                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <table id="example1" class="table">
                                                 <thead>
                                                     <tr>
@@ -653,7 +702,7 @@
                                                                                                 <th style="width:30%;">Name</th>
                                                                                                 <th style="width:10%;">Type</th>
                                                                                                 <th style="width:40%;">Description</th>
-                                                                                                <th style="width:15%;">File</th>
+                                                                                                <th style="width:5%;">File</th>
                                                                                                 <th style="width:5%;">Action</th>
                                                                                             </tr>
                                                                                         </thead>
@@ -692,13 +741,13 @@
                                                                                     <table id="example1" class="table">
                                                                                         <thead>
                                                                                             <tr>
-                                                                                                <th style="width:35%;">Name</th>
-                                                                                                <th style="width:10%;">Executor</th>
+                                                                                                <th style="width:25%;">Name</th>
+                                                                                                <th style="width:15%;">Executor</th>
                                                                                                 <th style="width:10%;">Start</th>
                                                                                                 <th style="width:10%;">End</th>
                                                                                                 <th style="width:10%;">Budget</th>
                                                                                                 <th style="width:10%;">Cost</th>
-                                                                                                <th style="width:15%;" colspan="2" class="text-left"> Update Actions</th>
+                                                                                                <th style="width:20%;" colspan="1" class="text-left"> Update Actions</th>
                                                                                             </tr>
                                                                                         </thead>
                                                                                         <tbody>
@@ -708,7 +757,7 @@
                                                                                                         {{ $subtask->name ?? '' }}
                                                                                                     </td>
                                                                                                     <td>
-                                                                                                        {{ $subtask->executor->name ?? '' }}
+                                                                                                        {{ $subtask->executor->name  ?? '' }}<br>
                                                                                                     </td>
                                                                                                     <td>
                                                                                                         {{ date('d/M/Y', strtotime($subtask->start)) }}
@@ -819,6 +868,54 @@
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
+
+                                                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubTaskExecutor{{$subtask->id}}">Assign</a>
+                                                                                                        <div class="modal fade" id="updateSubTaskExecutor{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                                                        aria-hidden="true">
+                                                                                                            <div class="modal-dialog" role="document">
+                                                                                                                <div class="modal-content">
+                                                                                                                    <div class="modal-header">
+                                                                                                                        <h4 class="modal-title" id="modalLabel">Assign to Team Member <br>{{$subtask->name}}</h4>
+                                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                            <span aria-hidden="true">×</span>
+                                                                                                                        </button>
+                                                                                                                    </div>
+                                                                                                                    <form class="form-horizontal" action="{{ route('subtasks.updateExecutor', $subtask)}}" method="POST">
+                                                                                                                    @csrf
+                                                                                                                        <fieldset>
+                                                                                                                            <div class="modal-body">
+                                                                                                                                
+                                                                                                                                <div class="form-group row">
+                                                                                                                                    <div class="col-lg-12">
+                                                                                                                                        <label for="subject1" class="col-form-label">
+                                                                                                                                            Select Executor
+                                                                                                                                        </label>
+                                                                                                                                        <div class="input-group">
+                                                                                                                                        <select class="form-control" name="member" required>
+                                                                                                                                            <option value="">-- Select Member --</option>
+                                                                                                                                            @foreach ($task->members as $member)                                                                                                    
+                                                                                                                                            <option value="{{ $member->id }}">{{ $member->user->name }}</option>
+                                                                                                                                            @endforeach
+                                                                                                                                        </select>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+
+                                                                                                                            </div>
+
+                                                                                                                            <div class="modal-footer">
+                                                                                                                                <div class="form-group row">
+                                                                                                                                    <div class="col-lg-12">
+                                                                                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
+                                                                                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </fieldset>
+                                                                                                                    </form>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
                                                                                                     </td>
 
                                                                                                 </tr>
@@ -836,7 +933,49 @@
                                                                                 <p class="text-justify">
                                                                                     <?php $i = 1; ?>
                                                                                     @foreach($task->members as $member)
-                                                                                        {{ $i }}. {{ $member->user->name  }} <a class="float-right text-white p-1 badge badge-danger">Remove</a><br>
+                                                                                        {{ $i }}. {{ $member->user->name  }} 
+
+                                                                                        <a class="btn btn-sm btn-outline-warning float-right" data-toggle="modal" data-target="#removeFromSubTask{{$subtask->id}}">remove</a>
+                                                                                        <div class="modal fade" id="removeFromSubTask{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                                        aria-hidden="true">
+                                                                                            <div class="modal-dialog" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h4 class="modal-title" id="modalLabel">Remove {{ $member->user->name  }} from, <br>{{$subtask->name}}</h4>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                            <span aria-hidden="true">×</span>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                    <form class="form-horizontal" action="{{ route('subtasks.removeMember', $subtask)}}" method="POST">
+                                                                                                    @csrf
+                                                                                                        <fieldset>
+                                                                                                            <div class="modal-body">
+                                                                                                                
+                                                                                                                <div class="form-group row">
+                                                                                                                    
+                                                                                                                    <div class="col-lg-12">
+                                                                                                                        <label for="subject1" class="col-form-label">
+                                                                                                                            Are you sure you want to remove this member from this task?
+                                                                                                                        </label>
+                                                                                                                        <input hidden readonly type="text" value="{{ $member->user->id }}" name="member">
+                                                                                                                    </div>
+                                                                                                                </div>
+
+                                                                                                            </div>
+
+                                                                                                            <div class="modal-footer">
+                                                                                                                <div class="form-group row">
+                                                                                                                    <div class="col-lg-12">
+                                                                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
+                                                                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </fieldset>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
                                                                                         <?php $i=$i+1; ?>
                                                                                     @endforeach
                                                                                 </p>
@@ -849,7 +988,47 @@
                                                                                 <p class="text-justify">
                                                                                     @foreach($task->comments as $comment)
                                                                                         <b>{{ $comment->creator->name  }}</b>
-                                                                                        <a class="float-right text-white p-1 badge badge-danger">Remove</a><br>
+                                                                                        <a class="btn btn-sm btn-outline-danger float-right" data-toggle="modal" data-target="#deleteCommentFromSubTask{{$subtask->id}}">remove</a>
+                                                                                        <div class="modal fade" id="deleteCommentFromSubTask{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                                        aria-hidden="true">
+                                                                                            <div class="modal-dialog" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h4 class="modal-title" id="modalLabel">Delete comment</h4>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                            <span aria-hidden="true">×</span>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                    <form class="form-horizontal" action="{{ route('tasks.deleteComment', $comment)}}" method="POST">
+                                                                                                    @csrf
+                                                                                                        <fieldset>
+                                                                                                            <div class="modal-body">
+                                                                                                                
+                                                                                                                <div class="form-group row">
+                                                                                                                    
+                                                                                                                    <div class="col-lg-12">
+                                                                                                                        <label for="subject1" class="col-form-label">
+                                                                                                                            Are you sure you want to remove this comment from this task?
+                                                                                                                        </label>
+                                                                                                                        <input hidden readonly type="text" value="{{ $comment->id }}" name="comment">
+                                                                                                                    </div>
+                                                                                                                </div>
+
+                                                                                                            </div>
+
+                                                                                                            <div class="modal-footer">
+                                                                                                                <div class="form-group row">
+                                                                                                                    <div class="col-lg-12">
+                                                                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-danger">Delete</button>
+                                                                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </fieldset>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
                                                                                         {{ $comment->body }}<br><br>
                                                                                     @endforeach
                                                                                     
@@ -862,7 +1041,7 @@
                                                                 <p class="p-2">
                                                                     <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{$task->id}}">Update</button>
                                                                     <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#deleteTaskFromProject{{$task->id}}">Delete this Task</button>
-                                                                    <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addMemberToTask{{$task->id}}">Assign Member</button>
+                                                                    <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addMemberToTask{{$task->id}}">Add Member to Task</button>
                                                                     <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addResourceToTask{{ $task->id }}">Add Resource</button>
                                                                     <button class="btn btn-sm btn-outline-dark float-right m-1" data-toggle="modal" data-target="#addSubTaskToTask{{$task->id}}">Add Sub Task</button>
                                                                     
@@ -956,7 +1135,7 @@
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Add Member to {{ $task->name }}</h4>
+                                                                                    <h4 class="modal-title" id="modalLabel">Add Member to Task : <br>{{ $task->name }}</h4>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">×</span>
                                                                                     </button>
@@ -975,8 +1154,8 @@
                                                                                                 <div class="input-group">
                                                                                                 <select class="form-control" name="member" required>
                                                                                                     <option value="">-- Select Member --</option>
-                                                                                                    @foreach ($members as $member)                                                                                                    
-                                                                                                    <option value="{{ $member->id }}">{{ $member->name }}</option>
+                                                                                                    @foreach ($project->members as $member)                                                                                                    
+                                                                                                    <option value="{{ $member->user_id }}">{{ $member->user->name }}</option>
                                                                                                     @endforeach
                                                                                                 </select>
                                                                                                 </div>
@@ -1366,26 +1545,26 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- <div class="col-12 col-sm-6 col-xl-3 media_max_573">
-                                                    <div id="top_widget2">
-                                                        <div class="">
-                                                            <div class="bg-white text-primary b_r_5 section_border">
-                                                                <div class="p-t-l-r-15">
-                                                                    <div class="h3 text-primary">&#8358;{{ number_format(floatval($project->budget - $project->tasks->sum('budget')), 2) }}</div>
-                                                                    <div>Available Cost</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-
                                                 <div class="col-12 col-sm-6 col-xl-3 media_max_573">
                                                     <div id="top_widget2">
                                                         <div class="">
                                                             <div class="bg-white text-warning b_r_5 section_border">
                                                                 <div class="p-t-l-r-15">
                                                                     <div class="h3 text-warning">&#8358;{{ number_format(floatval($project->tasks->sum('budget')), 2) }}</div>
-                                                                    <div>Expended Cost</div>
+                                                                    <div>Total Allocated</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 col-sm-6 col-xl-3 media_max_573">
+                                                    <div id="top_widget2">
+                                                        <div class="">
+                                                            <div class="bg-white text-primary b_r_5 section_border">
+                                                                <div class="p-t-l-r-15">
+                                                                    <div class="h3 text-primary">&#8358;{{ number_format(floatval($project->tasks->sum('actual_cost')), 2) }}</div>
+                                                                    <div>Total Spent</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1435,7 +1614,7 @@
                                                 <tbody>
                                                     <?php $i = 1; ?>
                                                     @foreach($project->tasks as $task)
-                                                        <tr>
+                                                        <tr class="bg-secondary text-white">
                                                             <td class="text-left">
                                                                 {{ $i }}
                                                             </td>
@@ -1451,16 +1630,16 @@
                                                             <td>
                                                                 &#8358;{{ number_format(floatval($task->budget - $task->subtasks->sum('actual_cost')), 2) }}
                                                             </td>
-                                                            <td>
+                                                            <td class="bg-white">
                                                                 <span class="badge badge-{{ $task->status->style }}">{{ $task->status->name ?? '' }}</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="" colspan="6">
-                                                                <h5 class="text-primary"><b>Sub Tasks</b></h5>
+                                                                <h5><b>Sub Tasks</b></h5>
                                                                 <table id="example1" class="table table-striped">
                                                                     <thead>
-                                                                        <tr class="text-primary">
+                                                                        <tr>
                                                                             <th>Task Name</th>
                                                                             <th style="width:20%;">Budget</th>
                                                                             <th style="width:20%;">Actual Cost </th>

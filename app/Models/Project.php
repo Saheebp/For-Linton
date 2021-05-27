@@ -59,7 +59,7 @@ class Project extends Model
     }
     
     public function members() {
-        return $this->hasMany(TeamMember::class);
+        return $this->hasMany(ProjectMember::class);
     }
 
     public function inventory() {

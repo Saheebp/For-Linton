@@ -84,4 +84,12 @@ class User extends Authenticatable
     public function request() {
         return $this->hasMany(ProcContractor::class);
     }
+
+    public function tasks() {
+        return $this->hasMany(TaskMember::class);
+    }
+
+    public function projects() {
+        return $this->hasMany(ProjectMember::class);
+    }
 }

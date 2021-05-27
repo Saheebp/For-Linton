@@ -506,7 +506,7 @@
                                         <th style="width:15%;">Title</th>
                                         <th style="width:15%;">Manager</th>
                                         <th style="width:10%;">Budget</th>
-                                        <th style="width:5%;">Completion</th>
+                                        <!-- <th style="width:5%;">Completion</th> -->
                                         <th style="width:5%;">Action</th>
                                     </tr>
                                     </thead>
@@ -519,7 +519,7 @@
                                             <td><a href="{{ route('projects.show', $project->id) }}">{{ $project->name }}</a></td>
                                             <td>{{ $project->manager->name }}</td>
                                             <td>&#8358;{{ number_format(floatval($project->budget), 2) }}</td>
-                                            <td>{{ 0 }}%</td>
+                                            <!-- <td>{{ 0 }}%</td> -->
                                             <td>
                                                 <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('projects.show', $project->id) }}">Manage</a>
                                             </td>
