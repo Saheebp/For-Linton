@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\ProcRequest;
 use App\Models\ProcContractor;
-use App\Models\ProcFile;
+use App\Models\Resource;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -85,8 +86,10 @@ class ProcRequestController extends Controller
     {
         //
         $contractors = User::where('is_admin','false')->where('is_contractor','true')->get();
+        $requestcontractors = ProcContractor::where('proc_request_id',$request->id)->get();
         
         return view('admin.proc_requests.show', [
+            'requestcontractors' => $requestcontractors,
             'contractors' => $contractors,
             'request' => $request
         ]);
@@ -112,19 +115,15 @@ class ProcRequestController extends Controller
 
     public function uploadResource(Request $request)
     {
+
+       
         $validated = $request->validate([
-            //'name' => 'required|string|max:255',
-            //'description' => 'required|string|max:255',
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx|max:2048'
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
         ]);
 
-        $existing = ProcFile::where('creator_id',auth()->user()->id)
-        ->where('proc_request_id',$request->proc_request_id)->first();
-
-        if ($existing != NULL) {
-            return back()->with('error', "Oops, You have already submitted a quotation for this request.");
-        }
-
+        
         try 
         {
             $file = $request->file('file');
@@ -142,14 +141,15 @@ class ProcRequestController extends Controller
             $destinationPath = 'uploads';
             $url = $file->move($destinationPath, $file->getClientOriginalName());
             
-            ProcFile::create([
-                //'name' => $request->name,
+            Resource::create([
+                'name' => $request->name,
                 'url' => 'uploads/'.$filename,
                 'type' => $fileextension,
-                //'description' => $request->description,
+                'description' => $request->description,
                 'creator_id' =>  auth()->user()->id,
+                'project_id' => NULL,
+                'task_id' => NULL,
                 'proc_request_id' => $request->proc_request_id,
-                //'proc_quote_id' => $request->proc_quote_id
             ]);
             
             // $data = array();
@@ -164,7 +164,7 @@ class ProcRequestController extends Controller
         }
         catch (\Exception $e) 
         {
-            return back()->with('error', "Oops, Error adding resource to Request");
+            return back()->with('error', "Oops, Error adding resource to Task");
         }
     }
     /**

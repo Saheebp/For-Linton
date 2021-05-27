@@ -70,7 +70,6 @@ return array(
     'App\\Models\\Notification' => $baseDir . '/app/Models/Notification.php',
     'App\\Models\\Payment' => $baseDir . '/app/Models/Payment.php',
     'App\\Models\\ProcContractor' => $baseDir . '/app/Models/ProcContractor.php',
-    'App\\Models\\ProcFile' => $baseDir . '/app/Models/ProcFile.php',
     'App\\Models\\ProcQuote' => $baseDir . '/app/Models/ProcQuote.php',
     'App\\Models\\ProcRequest' => $baseDir . '/app/Models/ProcRequest.php',
     'App\\Models\\Project' => $baseDir . '/app/Models/Project.php',

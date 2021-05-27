@@ -64,7 +64,7 @@ class SubTaskController extends Controller
 
             $data = array();
             $data['body'] = auth()->user()->name." created a Sub Task : ".$request->name.", Details: ".$request->start."-".$request->end;
-            $data['project_id'] = $$task->project->id;
+            $data['project_id'] = $task->project->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = $subtask->id;
             $data['user_id'] = auth()->user()->id;
@@ -80,7 +80,7 @@ class SubTaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            //dd($e);
+            dd($e);
             return back()->with('error', "Oops, Error Creating a Sub Task");
         } 
     }

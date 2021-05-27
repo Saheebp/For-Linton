@@ -17,7 +17,14 @@ class ProcRequest extends Model
         'end',
         'creator_id',  
         'department_id',  
-        'status_id'
+        'status_id',
+
+        'fileurl', 
+        'filename', 
+        'filetype',  
+        'proc_request_id'
+
+
     ];
 
     public function status() {
@@ -36,11 +43,11 @@ class ProcRequest extends Model
         return $this->hasMany(ProcQuote::class);
     }
 
-    public function files() {
-        return $this->hasMany(ProcFile::class);
-    }
-
     public function requests() {
         return $this->hasMany(ProcContractor::class);
+    }
+
+    public function resources() {
+        return $this->hasMany(Resource::class);
     }
 }

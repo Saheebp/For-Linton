@@ -35,7 +35,58 @@ class ProcQuoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
+        ]);
+
+        $initialquote = ProcQuote::where('contractor_id',auth()->user()->id)
+        ->where('proc_request_id',$request->proc_request_id)->first();
+
+        if ($initialquote != NULL) {
+            return back()->with('error', "Oops, You have already submitted a quotation for this request.");
+        }
+
+        try 
+        {
+            $file = $request->file('file');
+            //File Name
+            $filename = $file->getClientOriginalName();
+            //File Extension
+            $fileextension = $file->getClientOriginalExtension();
+            //File Real Path
+            $filepath = $file->getRealPath();
+            //File Size
+            $filesize = $file->getSize();
+            //File Mime Type
+            $filetype = $file->getMimeType();
+            //Move Uploaded File
+            $destinationPath = 'uploads';
+            $url = $file->move($destinationPath, $file->getClientOriginalName());
+            
+            ProcQuote::create([
+                'filename' => $filename,
+                'fileurl' => 'uploads/'.$filename,
+                'filetype' => $fileextension,
+                
+                'contractor_id' =>  auth()->user()->id,
+                'proc_request_id' => $request->proc_request_id,
+                'status_id' => $this->completed 
+            ]);
+            
+            // $data = array();
+            // $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension."|".$filesize;
+            // $data['project_id'] = $task->project_id;
+            // $data['task_id'] = $task->id;
+            // $data['sub_task_id'] = NULL;
+            // $data['user_id'] = auth()->user()->id;
+            // $this->createLog($data);
+            
+            return back()->with('success', 'Quotation added successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error adding resource to Request");
+        }
     }
 
     /**

@@ -18,7 +18,8 @@ class Resource extends Model
         'project_id',
         'task_id',  
         'creator',  
-        'status_id'
+        'status_id',
+        'proc_request_id'
     ];
 
     public function status() {

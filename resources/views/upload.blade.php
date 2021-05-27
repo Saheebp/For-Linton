@@ -65,11 +65,11 @@ z-index: 999999">
                     </div>
                     @endif
                     <div class="bg-white login_content login_border_radius">
-                        <form action="{{ route('requests.upload')}}"  method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('quotes.store')}}"  method="POST" enctype="multipart/form-data">
                         @csrf
 
                             <div class="form-group">
-                                <label class="col-form-label"> Hi, {{Auth::user()->org_name}}!<br>Please upload the required documents requestion in the RFQ.</label>
+                                <label class="col-form-label"> Hi, {{ Auth::user()->org_name ?? Auth::user()->name }}!<br>Please upload the required documents requestion in the RFQ.</label>
                             </div>
 
                             <div class="form-group">
@@ -78,7 +78,7 @@ z-index: 999999">
                                     <span class="input-group-addon input_email"><i
                                             class="fa fa-envelope text-primary"></i></span>
                                     <!-- <input type="text" class="form-control  form-control-md" id="email" name="email" placeholder="E-mail"> -->
-                                     <select class="form-control col-12" name="proq_request_id">
+                                     <select class="form-control col-12" name="proc_request_id" required>
                                         <option value=""> -- Select Requests --</option>
                                         @foreach($requests as $request)
                                         <option value="{{ $request->id }}">{{ $request->procRequest->name }}</option>

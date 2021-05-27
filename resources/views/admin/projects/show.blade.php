@@ -290,13 +290,13 @@
                                                         </td>
 
                                                         <td>
-                                                            <button class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#message{{ $member->id }}">Send Message</button>
-                                                            <div class="modal fade" id="message{{ $member->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                            <button class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#SendPersonalMessageTo{{$member->id}}">Send Message</button>
+                                                            <div class="modal fade" id="SendPersonalMessageTo{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                             aria-hidden="true">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h4 class="modal-title" id="modalLabel">Message {{$member->name}}</h4>
+                                                                            <h4 class="modal-title" id="modalLabel">Send Message to {{$member->user->name}}</h4>
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">×</span>
                                                                             </button>
@@ -337,14 +337,15 @@
                                                                 </div>
                                                             </div>
                                                         </td>
+                                                        
                                                         <td>
-                                                            <button class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#message{{ $member->id }}">Change Role</button>
-                                                            <div class="modal fade" id="role{{ $member->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                            <button class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#changeMemberRole{{$member->id}}">Change Role</button>
+                                                            <div class="modal fade" id="changeMemberRole{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                             aria-hidden="true">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h4 class="modal-title" id="modalLabel">Update {{$member->name}}</h4>
+                                                                            <h4 class="modal-title" id="modalLabel">Update Role for {{$member->user->name}}</h4>
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">×</span>
                                                                             </button>
@@ -388,13 +389,13 @@
                                                         </td>
 
                                                         <td>
-                                                            <button class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#remove{{ $member->id }}">Remove</button>
-                                                            <div class="modal fade" id="remove{{ $member->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                            <button class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#removeMemberFromTeam{{$member->id}}">Remove</button>
+                                                            <div class="modal fade" id="removeMemberFromTeam{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                             aria-hidden="true">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h4 class="modal-title" id="modalLabel">Remove {{$member->name}}</h4>
+                                                                            <h4 class="modal-title" id="modalLabel">Remove {{$member->user->name}} from Project</h4>
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">×</span>
                                                                             </button>
@@ -432,6 +433,10 @@
                                             
                                             <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
                                                 data-toggle="modal" data-target="#modalTaskCreate">Add New Task
+                                            </button>
+
+                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
+                                                data-toggle="modal" data-target="#modalCommentCreate">Add a Comment
                                             </button>
                                             
                                             <div class="modal fade" id="modalTaskCreate" role="dialog" aria-labelledby="modalLabelprimary">
@@ -532,6 +537,67 @@
                                                                 <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
                                                                 <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
                                                             </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="modalCommentCreate" role="dialog" aria-labelledby="modalLabelprimary">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        
+                                                        <div class="modal-header bg-secondary">
+                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">COmment</h4>
+                                                        </div>
+                                                        
+                                                        <form class="form-horizontal" action="{{ route('tasks.comment') }}" method="POST">
+                                                            @csrf
+
+                                                            <input name="project_id" value="{{ $project->id }}" hidden readonly>
+
+                                                            <fieldset>
+                                                                <div class="modal-body">
+
+                                                                    <div class="col-12">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Select Task to Comment on
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <select class="form-control col-12" name="task_id">
+                                                                                <option value=""> -- Select Task --</option>
+                                                                                @foreach($project->tasks as $task)
+                                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        
+                                                                        @error('task')
+                                                                            <span class="text-danger">{{ $errors->first('task') }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="col-12">
+                                                                        <label for="subject1" class="col-form-label">
+                                                                            Comment
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                            <textarea id="message" value="{{ old('comment') }}" class="form-control" placeholder="" name="comment"></textarea>
+                                                                        </div>
+                                                                        @error('comment')
+                                                                            <span class="text-danger">{{ $errors->first('comment') }}</span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-12">
+                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
+                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -657,13 +723,13 @@
                                                                                                         &#8358;{{ number_format(floatval($subtask->actual_cost), 2) }}
                                                                                                     </td>
                                                                                                     <td>
-                                                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateCost{{ $subtask->id }}">Cost</a>
-                                                                                                        <div class="modal fade" id="updateCost{{ $subtask->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubTaskCost{{$subtask->id}}">Cost</a>
+                                                                                                        <div class="modal fade" id="updateSubTaskCost{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                                                         aria-hidden="true">
                                                                                                             <div class="modal-dialog" role="document">
                                                                                                                 <div class="modal-content">
                                                                                                                     <div class="modal-header">
-                                                                                                                        <h4 class="modal-title" id="modalLabel">Update Actual Cost</h4>
+                                                                                                                        <h4 class="modal-title" id="modalLabel">Update Actual Cost of : <br>{{$subtask->name}}</h4>
                                                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                                             <span aria-hidden="true">×</span>
                                                                                                                         </button>
@@ -704,13 +770,13 @@
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     
-                                                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubTask{{ $subtask->id }}">Status</a>
-                                                                                                        <div class="modal fade" id="updateSubTask{{ $subtask->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubTask{{$subtask->id}}">Status</a>
+                                                                                                        <div class="modal fade" id="updateSubTask{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                                                         aria-hidden="true">
                                                                                                             <div class="modal-dialog" role="document">
                                                                                                                 <div class="modal-content">
                                                                                                                     <div class="modal-header">
-                                                                                                                        <h4 class="modal-title" id="modalLabel">Update Sub Task Status</h4>
+                                                                                                                        <h4 class="modal-title" id="modalLabel">Update Status for: <br>{{$subtask->name}}</h4>
                                                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                                             <span aria-hidden="true">×</span>
                                                                                                                         </button>
@@ -779,13 +845,14 @@
 
                                                                         <tr>
                                                                             <td>
-                                                                            <tag class="text-primary text-bold">Comments :</tag>
+                                                                                <tag class="text-primary text-bold">Comments :</tag>
                                                                                 <p class="text-justify">
                                                                                     @foreach($task->comments as $comment)
-                                                                                        {{ $comment->creator->name  }}
+                                                                                        <b>{{ $comment->creator->name  }}</b>
                                                                                         <a class="float-right text-white p-1 badge badge-danger">Remove</a><br>
-                                                                                        {{ $comment->body }}
+                                                                                        {{ $comment->body }}<br><br>
                                                                                     @endforeach
+                                                                                    
                                                                                 </p>
                                                                             </td>
                                                                         </tr>
@@ -793,21 +860,18 @@
                                                                 </table>
 
                                                                 <p class="p-2">
-                                                                    <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTask{{ $task->id }}">Update</button>
-                                                                    <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#removeTask{{ $task->id }}">Delete Task</button>
-                                                                    <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addTaskMember{{ $task->id }}">Assign Member</button>
-                                                                    <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addTaskResource{{ $task->id }}">Add Resource</button>
-                                                                    <button class="btn btn-sm btn-outline-dark float-right m-1" data-toggle="modal" data-target="#addSubTask{{ $task->id }}">Add Sub Task</button>
-                                                                    <button class="btn btn-sm btn-outline-primary float-right m-1" data-toggle="modal" data-target="#addComment{{ $task->id }}">Add Comment</button>
-
-                                                                    <button class="btn btn-sm btn-outline-primary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{ $task->id }}">Change Status</button>
+                                                                    <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{$task->id}}">Update</button>
+                                                                    <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#deleteTaskFromProject{{$task->id}}">Delete this Task</button>
+                                                                    <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addMemberToTask{{$task->id}}">Assign Member</button>
+                                                                    <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addResourceToTask{{ $task->id }}">Add Resource</button>
+                                                                    <button class="btn btn-sm btn-outline-dark float-right m-1" data-toggle="modal" data-target="#addSubTaskToTask{{$task->id}}">Add Sub Task</button>
                                                                     
                                                                     <div class="modal fade" id="updateTaskStatus{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Update Task Status</h4>
+                                                                                    <h4 class="modal-title" id="modalLabel">Update Status for: {{ $task->name }}</h4>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">×</span>
                                                                                     </button>
@@ -850,13 +914,49 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
-                                                                    <div class="modal fade" id="addTaskMember{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    
+                                                                    <div class="modal fade" id="deleteTaskFromProject{{$task->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Add Member to Task</h4>
+                                                                                    <h4 class="modal-title" id="modalLabel">Delete {{$task->name}} from Project</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form class="form-horizontal" action="#" method="POST">
+                                                                                @csrf
+                                                                                    <fieldset>
+                                                                                        <div class="modal-body">
+                                                                                            
+                                                                                            <div class="col-12">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Are you sure you want to delete the sub Task and its sub tasks?
+                                                                                                </label>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="modal-footer">
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <button class="btn btn-sm btn-responsive layout_btn_prevent btn-danger">Yes, Delete</button>
+                                                                                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </fieldset>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="modal fade" id="addMemberToTask{{$task->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title" id="modalLabel">Add Member to {{ $task->name }}</h4>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">×</span>
                                                                                     </button>
@@ -898,12 +998,12 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="modal fade" id="addTaskResource{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    <div class="modal fade" id="addResourceToTask{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Add Resource to Task</h4>
+                                                                                    <h4 class="modal-title" id="modalLabel">Add Resource to {{ $task->name }}</h4>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">×</span>
                                                                                     </button>
@@ -955,12 +1055,12 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="modal fade" id="addSubTask{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    <div class="modal fade" id="addSubTaskToTask{{$task->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Add Sub Task</h4>
+                                                                                    <h4 class="modal-title" id="modalLabel">Add Sub Task to {{ $task->name }}</h4>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">×</span>
                                                                                     </button>
@@ -1055,88 +1155,6 @@
                                                                                         <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
                                                                                         <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
                                                                                     </div>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="modal fade" id="addComment{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                                    aria-hidden="true">
-                                                                        <div class="modal-dialog" role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Comment {{$task->name}}</h4>
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">×</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <form class="form-horizontal" action="{{ route('tasks.comment') }}" method="POST">
-                                                                                @csrf
-
-                                                                                <input name="task_id" value="{{ $task->id }}" hidden readonly>
-                                                                                <input name="project_id" value="{{ $project->id }}" hidden readonly>
-
-                                                                                    <fieldset>
-                                                                                        <div class="modal-body">
-                                                                                            
-                                                                                            <div class="col-12">
-                                                                                                <label for="subject1" class="col-form-label">
-                                                                                                    Comment
-                                                                                                </label>
-                                                                                                <div class="input-group">
-                                                                                                    <textarea id="message" value="{{ old('comment') }}" class="form-control" placeholder="" name="comment"></textarea>
-                                                                                                </div>
-                                                                                                @error('comment')
-                                                                                                    <span class="text-danger">{{ $errors->first('comment') }}</span>
-                                                                                                @enderror
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="modal-footer">
-                                                                                            <div class="form-group row">
-                                                                                                <div class="col-lg-12">
-                                                                                                    <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
-                                                                                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </fieldset>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="modal fade" id="removeTask{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                                    aria-hidden="true">
-                                                                        <div class="modal-dialog" role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modalLabel">Delete {{$task->name}}</h4>
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">×</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <form class="form-horizontal" action="#" method="POST">
-                                                                                @csrf
-                                                                                    <fieldset>
-                                                                                        <div class="modal-body">
-                                                                                            
-                                                                                            <div class="col-12">
-                                                                                                <label for="subject1" class="col-form-label">
-                                                                                                    Are you sure you want to delete the sub Task and its sub tasks?
-                                                                                                </label>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="modal-footer">
-                                                                                            <div class="form-group row">
-                                                                                                <div class="col-lg-12">
-                                                                                                    <button class="btn btn-sm btn-responsive layout_btn_prevent btn-danger">Yes, Delete</button>
-                                                                                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </fieldset>
                                                                                 </form>
                                                                             </div>
                                                                         </div>

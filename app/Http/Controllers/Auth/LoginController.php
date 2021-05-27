@@ -54,17 +54,12 @@ class LoginController extends Controller
     
     public function authenticated(Request $request, $user) 
     {
-        if($user->hasRole('Level 7')) 
-        {
+        if ($user->is_admin == "true") {
+            return redirect()->route('admin.home');
+            //return redirect(session('link'));
+        } else {
             return redirect()->route('upload');
         }
-
-        if(session('link'))
-        {
-            return redirect(session('link'));
-        }
-
-        return redirect()->route('home');
     }
 
     public function showLoginForm()

@@ -54,15 +54,25 @@
         <div class="inner bg-light lter bg-container">
             <div class="row">
                 <div class="col-12 data_tables">
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success pt-0 pb-0">
-                            <p>{{ $message }}</p>
+                @if (session('error'))
+                        <div class="alert alert-danger">
+                                {{ session('error') }}
                         </div>
                     @endif
-                    @if ($message = Session::get('error'))
-                        <div class="alert alert-danger pt-0 pb-0">
-                            <p>{{ $message }}</p>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
                         </div>
+                    @endif
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger pt-0 pb-0">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                     @endif
 
                     <div class="card">
@@ -184,13 +194,31 @@
                                                     <tr>
                                                         <th style="width:5%;">SNo</th>
                                                         <th style="width:35%;">Name </th>
-                                                        <th style="width:35%;">Phone </th>
-                                                        <th style="width:20%;">Address </th>
-                                                        <th style="width:20%;" colspan="3" class="text-right"> &nbsp;</th>
+                                                        <th style="width:15%;">Phone </th>
+                                                        <th style="width:20%;">Date </th>
+                                                        <th style="width:10%;" colspan="1" class="text-left"> Quotation</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    
+                                                    @foreach ($request->quotes as $quote)
+                                                    <tr>
+                                                        <td class="text-left">
+                                                            N/A
+                                                        </td>
+                                                        <td style="width:20%;">
+                                                            {{ $quote->contractor->org_name ?? '' }}
+                                                        </td>
+                                                        <td style="width:40%;">
+                                                            {{ $quote->contractor->org_phone ?? '' }}
+                                                        </td>
+                                                        <td style="width:40%;">
+                                                            {{ $quote->created_at ?? '' }}
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-sm btn-outline-secondary" href="{{ $quote->fileurl ?? '' }}"><i class="fa fa-download"></i> Download</a>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -265,7 +293,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($request->contractors as $contractor)
+                                                    @foreach ($requestcontractors as $contractor)
                                                     <tr>
                                                         <td class="text-left">
                                                             N/A
@@ -312,12 +340,18 @@
                                                                 
                                                                     <input hidden readonly type="text" name="proc_request_id" value="{{$request->id}}">
                                                                     <div class="form-group row">
+
+
+
                                                                         <div class="col-lg-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                               Select File
+                                                                            </label>
                                                                             <div class="input-group mb-1">
                                                                                 <input class="form-control col-12" type="file" name="file">
                                                                             </div>
                                                                         </div>
-                                                                    
+
                                                                         <div class="col-lg-12">
                                                                             <label for="subject1" class="col-form-label">
                                                                                 File Name
@@ -360,26 +394,26 @@
                                                         <th style="width:35%;">Name </th>
                                                         <th style="width:35%;">Description </th>
                                                         <th style="width:20%;">Type </th>
-                                                        <th style="width:20%;" colspan="2" class="text-right"> &nbsp;</th>
+                                                        <th style="width:20%;" colspan="1" class="text-left"> Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($request->files as $file)
+                                                @foreach ($request->resources as $resource)
                                                     <tr>
                                                         <td class="text-left">
                                                             N/A
                                                         </td>
                                                         <td style="width:20%;">
-                                                            {{ $file->name ?? '' }}
+                                                            {{ $resource->name ?? '' }}
                                                         </td>
                                                         <td style="width:40%;">
-                                                            {{ $file->description ?? '' }}
+                                                            {{ $resource->description ?? '' }}
                                                         </td>
                                                         <td style="width:40%;">
-                                                            {{ $file->type ?? '' }}
+                                                            {{ $resource->type ?? '' }}
                                                         </td>
                                                         <td>
-                                                            &nbsp;
+                                                            <a class="btn btn-sm btn-outline-secondary" href="{{ $quote->fileurl ?? '' }}"><i class="fa fa-download"></i> Download</a>
                                                         </td>
                                                     </tr>
                                                     @endforeach

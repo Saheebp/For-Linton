@@ -17,11 +17,9 @@ class CreateProcQuotesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
 
-            $table->string('name')->nullable()->default(null);
-            $table->string('address')->nullable()->default(null);
-            $table->string('description')->nullable()->default(null);
-
-            $table->string('url')->nullable()->default(null);
+            $table->string('fileurl')->nullable()->default(null);
+            $table->string('filename')->nullable()->default(null);
+            $table->string('filetype')->nullable()->default(null);
             
             $table->unsignedBigInteger('contractor_id')->nullable()->default(null);
             $table->foreign('contractor_id')->references('id')->on('users')->onDelete('restrict');

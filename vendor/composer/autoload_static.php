@@ -594,7 +594,6 @@ class ComposerStaticInita00efdadb3bab574a8f4a39d12ed7ff1
         'App\\Models\\Notification' => __DIR__ . '/../..' . '/app/Models/Notification.php',
         'App\\Models\\Payment' => __DIR__ . '/../..' . '/app/Models/Payment.php',
         'App\\Models\\ProcContractor' => __DIR__ . '/../..' . '/app/Models/ProcContractor.php',
-        'App\\Models\\ProcFile' => __DIR__ . '/../..' . '/app/Models/ProcFile.php',
         'App\\Models\\ProcQuote' => __DIR__ . '/../..' . '/app/Models/ProcQuote.php',
         'App\\Models\\ProcRequest' => __DIR__ . '/../..' . '/app/Models/ProcRequest.php',
         'App\\Models\\Project' => __DIR__ . '/../..' . '/app/Models/Project.php',

@@ -10,13 +10,14 @@ class ProcQuote extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 
-        'address', 
-        'description',
         
         'contractor_id',  
         'proc_request_id',
-        'status_id'
+        'status_id',
+
+        'fileurl', 
+        'filename', 
+        'filetype',  
     ];
 
     public function status() {
@@ -33,5 +34,9 @@ class ProcQuote extends Model
 
     public function files() {
         return $this->hasMany(ProcFile::class);
+    }
+
+    public function resources() {
+        return $this->hasMany(Resource::class);
     }
 }

@@ -7,6 +7,7 @@ use App\Notifications\ContactUs;
 use Notification;
 
 use App\Models\User;
+use App\Models\Project;
 use App\Models\ProcContractor;
 
 use Carbon\Carbon;
