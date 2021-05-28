@@ -152,11 +152,36 @@ class UserSeeder extends Seeder
         $contractor = User::create([
             'name' => 'Nnamdi Ibe',
             'email' => 'endee09@gmail.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('123456'),
             'phone' =>'00000000005',
             'address' => 'Zaramaganda rayfield rd',
             'status_id' => 7,
             'is_admin' => 'false',
+            'is_contractor' => 'true',
+            'designation_id' => NULL,
+
+            'org_name' => 'Gnorizon', 
+            'org_email' => 'gnorizon@gmail.com',
+            'org_phone' => '08090590166',
+            'org_address' => 'Old Airport Jos',
+        ]);
+        $contractor->assignRole('Level 7');
+
+        $contractor = User::create([
+            'name' => 'Oscar Osas',
+            'email' => 'oscar@gmail.com',
+            'password' => Hash::make('123456'),
+            'phone' =>'00000000006',
+            'address' => 'Secretarite rayfield rd',
+            'status_id' => 7,
+            'is_admin' => 'false',
+            'is_contractor' => 'true',
+            'designation_id' => NULL,
+
+            'org_name' => 'Splufic and More', 
+            'org_email' => 'splufic@gmail.com',
+            'org_phone' => '08090099900',
+            'org_address' => 'Main Airport Jos',
         ]);
         $contractor->assignRole('Level 7');
     }

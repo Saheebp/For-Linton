@@ -48,43 +48,27 @@ class ProcQuoteController extends Controller
 
         try 
         {
-            $file = $request->file('file');
-            //File Name
-            $filename = $file->getClientOriginalName();
-            //File Extension
-            $fileextension = $file->getClientOriginalExtension();
-            //File Real Path
-            $filepath = $file->getRealPath();
-            //File Size
-            $filesize = $file->getSize();
-            //File Mime Type
-            $filetype = $file->getMimeType();
-            //Move Uploaded File
-            $destinationPath = 'uploads';
-            $url = $file->move($destinationPath, $file->getClientOriginalName());
-            
-            ProcQuote::create([
-                'filename' => $filename,
-                'fileurl' => 'uploads/'.$filename,
-                'filetype' => $fileextension,
-                
-                'contractor_id' =>  auth()->user()->id,
-                'proc_request_id' => $request->proc_request_id,
-                'status_id' => $this->completed 
-            ]);
-            
-            // $data = array();
-            // $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension."|".$filesize;
-            // $data['project_id'] = $task->project_id;
-            // $data['task_id'] = $task->id;
-            // $data['sub_task_id'] = NULL;
-            // $data['user_id'] = auth()->user()->id;
-            // $this->createLog($data);
-            
+            if ($request->file('file')->isValid()) 
+            {   
+                $file = $request->file('file');
+                $filename = time().'.'.$file->getClientOriginalExtension();
+                $fileextension = $file->getClientOriginalExtension();
+                $fileurl = $request->file->storeAs('quotes', time().'.'.$file->getClientOriginalExtension());
+
+                ProcQuote::create([
+                    'fileurl' => $fileurl,
+                    'filename' => $filename,
+                    'filetype' => $fileextension,
+                    
+                    'contractor_id' =>  auth()->user()->id,
+                    'proc_request_id' => $request->proc_request_id,
+                    'status_id' => $this->completed 
+                ]);
+            }
             return back()->with('success', 'Quotation added successfully.');
         }
         catch (\Exception $e) 
-        {
+        {   dd($e);
             return back()->with('error', "Oops, Error adding resource to Request");
         }
     }
@@ -132,5 +116,12 @@ class ProcQuoteController extends Controller
     public function destroy(ProcQuote $procQuote)
     {
         //
+    }
+
+    public function download($id)
+    {
+        if (!auth()->check()) { return abort(404); }
+        $request = ProcQuote::where('id', $id)->firstOrFail();
+        return response()->download(storage_path('app/'.$request->fileurl));
     }
 }

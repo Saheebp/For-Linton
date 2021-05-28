@@ -99,11 +99,20 @@ class ProcRequestController extends Controller
     {
         try 
         {
-            $procContractor = ProcContractor::create([
-                'proc_request_id' => $request->proc_request_id,
-                'contractor_id' => $request->contractor_id
-            ]);
+            $existing = ProcContractor::where('proc_request_id',$request->proc_request_id)
+            ->where('contractor_id',$request->contractor_id)->first();
             
+            if ($existing == NULL) 
+            {
+                $procContractor = ProcContractor::create([
+                    'proc_request_id' => $request->proc_request_id,
+                    'contractor_id' => $request->contractor_id
+                ]);
+                
+            }else{
+                return back()->with('error', "Oops, That Contractor is already on the Request");
+            }
+
             return back()->with('success', 'Contractor added successfully.');
         }
         catch (\Exception $e) 
@@ -126,31 +135,24 @@ class ProcRequestController extends Controller
         
         try 
         {
-            $file = $request->file('file');
-            //File Name
-            $filename = $file->getClientOriginalName();
-            //File Extension
-            $fileextension = $file->getClientOriginalExtension();
-            //File Real Path
-            $filepath = $file->getRealPath();
-            //File Size
-            $filesize = $file->getSize();
-            //File Mime Type
-            $filetype = $file->getMimeType();
-            //Move Uploaded File
-            $destinationPath = 'uploads';
-            $url = $file->move($destinationPath, $file->getClientOriginalName());
-            
-            Resource::create([
-                'name' => $request->name,
-                'url' => 'uploads/'.$filename,
-                'type' => $fileextension,
-                'description' => $request->description,
-                'creator_id' =>  auth()->user()->id,
-                'project_id' => NULL,
-                'task_id' => NULL,
-                'proc_request_id' => $request->proc_request_id,
-            ]);
+            if ($request->file('file')->isValid()) 
+            {   
+                $file = $request->file('file');
+                $filename = time().'.'.$file->getClientOriginalExtension();
+                $fileextension = $file->getClientOriginalExtension();
+                $fileurl = $request->file->storeAs('requests', time().'.'.$file->getClientOriginalExtension());
+
+                Resource::create([
+                    'name' => $request->name,
+                    'url' => $fileurl,
+                    'type' => $fileextension,
+                    'description' => $request->description,
+                    'creator_id' =>  auth()->user()->id,
+                    'project_id' => NULL,
+                    'task_id' => NULL,
+                    'proc_request_id' => $request->proc_request_id,
+                ]);
+            }
             
             // $data = array();
             // $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension."|".$filesize;
@@ -199,5 +201,12 @@ class ProcRequestController extends Controller
     public function destroy(ProcRequest $procRequest)
     {
         //
+    }
+
+    public function download($id)
+    {
+        if (!auth()->check()) { return abort(404); }
+        $resource = Resource::where('id', $id)->firstOrFail();
+        return response()->download(storage_path('app/'.$resource->url));
     }
 }

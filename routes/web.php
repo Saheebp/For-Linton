@@ -233,6 +233,8 @@ Route::middleware('auth')->group(function() {
             Route::post('contractor/add', 'ProcRequestController@addContractor')->name('addContractor');
             Route::post('contractor/remove', 'ProcRequestController@removeContractor')->name('removeContractor');
             Route::post('status/update/{request}', 'ProcRequestController@updateStatus')->name('updateStatus');
+
+            Route::get('download/{id}', 'ProcRequestController@download')->name('download');
         });
     });
 
@@ -247,6 +249,8 @@ Route::middleware('auth')->group(function() {
             Route::post('contractor/add/{quotes}', 'ProcQuoteController@addContractor')->name('addContractor');
             Route::post('contractor/remove/', 'ProcQuoteController@removeContractor')->name('removeContractor');
             Route::post('status/update/{quotes}', 'ProcQuoteController@updateStatus')->name('updateStatus');
+
+            Route::get('download/{id}', 'ProcQuoteController@download')->name('download');
         });
     });
         

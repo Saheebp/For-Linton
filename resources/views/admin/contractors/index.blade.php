@@ -242,7 +242,7 @@
                                         <th style="width:10%; padding:5px;">Email</th>
                                         <th style="width:12%; padding:5px;">Registered on</th>
                                         <th style="width:5%; padding:5px;">Status</th>
-                                        <th style="width:5%; padding:5px;" colspan="2">Action</th>
+                                        <th style="width:5%; padding:5px;" colspan="1">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -255,8 +255,7 @@
                                         <td>{{ date('d M Y, h:i A', strtotime($contractor->created_at)) }}</td>
                                         <td><span class="badge badge-{{$contractor->status->style }}"> {{ $contractor->status->name }}</span></td>
                                         <td>
-                                        <a class="btn btn-success btn-sm text-white" href="#">View Records</a>
-                                            <!-- <a class="btn btn-success btn-sm text-white" href="{{ route('contractors.show', $contractor->id) }}">View Records</a> -->
+                                            <a class="btn btn-secondary btn-sm text-white" href="{{ route('contractors.show', $contractor->id) }}">View Records</a>
                                         </td>
                                     </tr>
                                     @endforeach

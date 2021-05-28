@@ -81,7 +81,7 @@ class User extends Authenticatable
         return $this->belongsTo(Designation::class);
     }
 
-    public function request() {
+    public function requests() {
         return $this->hasMany(ProcContractor::class);
     }
 
@@ -91,5 +91,9 @@ class User extends Authenticatable
 
     public function projects() {
         return $this->hasMany(ProjectMember::class);
+    }
+
+    public function quotes() {
+        return $this->hasMany(ProcQuote::class);
     }
 }

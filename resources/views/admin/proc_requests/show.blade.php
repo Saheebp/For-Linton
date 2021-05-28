@@ -133,12 +133,13 @@
                         <div class="card-header bg-white">
                             <i class="fa fa-table"></i> Request for Quotation
                         </div>
+
                         <div class="card-body m-t-35">
                             <h3><tag class="text-capitalize text-success">{{ $request->name ?? '' }}</tag></h3>
                             
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table id="example1" class="display table table-stripped table-bordered">
+                                    <table id="example1" class="display table table-stripped">
                                         <tbody>
                                             <tr>
                                                 <td colspan="2"><b>Subject: </b><br><tag class="text-success">{{ $request->subject ?? '' }}</tag> </td>
@@ -158,284 +159,381 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col-lg">
-                            <div class="card m-t-35">
-                                <div class="card-header bg-white">
-                                    <ul class="nav nav-tabs card-header-tabs float-left">
-                                        
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab1" data-toggle="tab">Quotations</a>
-                                        </li>
 
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="#tab2" data-toggle="tab">Contractors</a>
-                                        </li>
+                    <div class="card mt-3">
+                        <div class="card-header bg-white">
+                            <i class="fa fa-table"></i> Submitted Quotations
+                        </div>
+                        <div class="card-body m-t-35">
 
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab3" data-toggle="tab">Resources</a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab4" data-toggle="tab">Summary</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card-body p-2 ">
-                                    <div class="tab-content text-justify" style="padding-top:30px;">
-                                        
-                                        <div class="tab-pane p-3 " id="tab1">
-                                            <h4 class="card-title">Quotations/Submissions</h4>
-                                            <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </p> -->
-                                            <table id="example1" class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:5%;">SNo</th>
-                                                        <th style="width:35%;">Name </th>
-                                                        <th style="width:15%;">Phone </th>
-                                                        <th style="width:20%;">Date </th>
-                                                        <th style="width:10%;" colspan="1" class="text-left"> Quotation</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($request->quotes as $quote)
-                                                    <tr>
-                                                        <td class="text-left">
-                                                            N/A
-                                                        </td>
-                                                        <td style="width:20%;">
-                                                            {{ $quote->contractor->org_name ?? '' }}
-                                                        </td>
-                                                        <td style="width:40%;">
-                                                            {{ $quote->contractor->org_phone ?? '' }}
-                                                        </td>
-                                                        <td style="width:40%;">
-                                                            {{ $quote->created_at ?? '' }}
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-sm btn-outline-secondary" href="{{ $quote->fileurl ?? '' }}"><i class="fa fa-download"></i> Download</a>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="tab-pane p-3 active" id="tab2">
-                                            
-                                            <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </p> -->
-
-                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
-                                                data-toggle="modal" data-target="#addContractor">Add Contractor
-                                            </button>
-
-                                            <div class="modal fade" id="addContractor" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="modalLabel">Add Contractor to Request</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        <form class="form-horizontal" action="{{ route('requests.addContractor')}}" method="POST">
-                                                        @csrf
-                                                        <fieldset>
-                                                            <div class="modal-body">
-                                                                
-                                                                <input type="text" name="proc_request_id" value="{{ $request->id }}" hidden readonly>
-                                                                <div class="form-group row">
-                                                                    <div class="col-lg-12">
-                                                                        <label for="subject1" class="col-form-label">
-                                                                            Select New Contractor
-                                                                        </label>
-                                                                        <div class="input-group">
-                                                                        <select class="form-control" name="contractor_id" required>
-                                                                            <option value="">-- Select --</option>
-                                                                            @foreach ($contractors as $contractor)                                                                                                    
-                                                                            <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="modal-footer">
-                                                                <div class="form-group row">
-                                                                    <div class="col-lg-12">
-                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Submit</button>
-                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                        </form>
-                                                    </div>
+                            <!-- <div class="row">
+                                <div class="col-lg-6 col-sm-12 text-right">
+                                    <form method="POST" action="{{ route('projects.filter') }}">
+                                    @csrf
+                                        <div class="form-group row">
+                                            <div class="col-md-10">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control col-12" type="date" name="date" placeholder="search by ref no, ">
+                                                    <div class="input-group-append"><button class="btn btn-outline-success" type="submit">Filter by Start Date</button></div>
                                                 </div>
                                             </div>
-
-                                            <h4 class="card-title m-b-3 mt-3">Contractors</h4>
-
-                                            <table id="example1" class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:5%;">SNo</th>
-                                                        <th style="width:35%;">Name </th>
-                                                        <th style="width:35%;">Phone </th>
-                                                        <th style="width:20%;">Address </th>
-                                                        <th style="width:20%;" colspan="3" class="text-right"> &nbsp;</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($requestcontractors as $contractor)
-                                                    <tr>
-                                                        <td class="text-left">
-                                                            N/A
-                                                        </td>
-                                                        <td style="width:20%;">
-                                                            {{ $contractor->contractor->org_name ?? '' }}
-                                                        </td>
-                                                        <td style="width:40%;">
-                                                            {{ $contractor->contractor->org_phone ?? '' }}
-                                                        </td>
-                                                        <td style="width:40%;">
-                                                            {{ $contractor->contractor->org_address ?? '' }}
-                                                        </td>
-                                                        <td>
-                                                            &nbsp;
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                            
                                         </div>
-
-                                        <div class="tab-pane p-3" id="tab3">
-                                            <h4 class="card-title">Resources</h4>
-                                            <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </p> -->
-
-                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
-                                                data-toggle="modal" data-target="#modalUploadResource">Upload Resource
-                                            </button>
-                                            
-                                            <div class="modal fade" id="modalUploadResource" role="dialog" aria-labelledby="modalLabelprimary">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        
-                                                        <div class="modal-header bg-secondary">
-                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Upload Resources</h4>
-                                                        </div>
-                                                        <form class="form-horizontal" action="{{ route('requests.upload')}}" method="POST" enctype="multipart/form-data">
-                                                        @csrf
-                                                            <fieldset>
-                                                                <div class="modal-body">
-                                                                
-                                                                    <input hidden readonly type="text" name="proc_request_id" value="{{$request->id}}">
-                                                                    <div class="form-group row">
-
-
-
-                                                                        <div class="col-lg-12">
-                                                                            <label for="subject1" class="col-form-label">
-                                                                               Select File
-                                                                            </label>
-                                                                            <div class="input-group mb-1">
-                                                                                <input class="form-control col-12" type="file" name="file">
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-lg-12">
-                                                                            <label for="subject1" class="col-form-label">
-                                                                                File Name
-                                                                            </label>
-                                                                            <div class="input-group mb-1">
-                                                                                <input class="form-control col-12" type="text" name="name">
-                                                                            </div>
-                                                                        </div>
-                                                            
-                                                                        <div class="col-lg-12">
-                                                                            <label for="subject1" class="col-form-label">
-                                                                                File Description
-                                                                            </label>
-                                                                            <div class="input-group mb-1">
-                                                                                <input class="form-control col-12" type="text" name="description">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-
-                                                                <div class="modal-footer">
-                                                                    <div class="form-group row">
-                                                                        <div class="col-lg-12">
-                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Save</button>
-                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </fieldset>
-                                                        </form>
-                                                    </div>
+                                    </form>
+                                </div>
+                                
+                                <div class="col-lg-6 col-sm-12 text-right">
+                                    <form method="POST" action="{{ route('projects.search') }}">
+                                    @csrf
+                                        <div class="form-group row">
+                                            <div class="col-md-10">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control col-12" type="text" name="data">
+                                                    <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
+                                                    <div class="input-group-append"><a class="btn btn-outline-dark" href="{{ route('payments.index') }}">Reset</a></div>
                                                 </div>
                                             </div>
-
-                                            <table id="example1" class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:5%;">SNo</th>
-                                                        <th style="width:35%;">Name </th>
-                                                        <th style="width:35%;">Description </th>
-                                                        <th style="width:20%;">Type </th>
-                                                        <th style="width:20%;" colspan="1" class="text-left"> Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach ($request->resources as $resource)
-                                                    <tr>
-                                                        <td class="text-left">
-                                                            N/A
-                                                        </td>
-                                                        <td style="width:20%;">
-                                                            {{ $resource->name ?? '' }}
-                                                        </td>
-                                                        <td style="width:40%;">
-                                                            {{ $resource->description ?? '' }}
-                                                        </td>
-                                                        <td style="width:40%;">
-                                                            {{ $resource->type ?? '' }}
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-sm btn-outline-secondary" href="{{ $quote->fileurl ?? '' }}"><i class="fa fa-download"></i> Download</a>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-
                                         </div>
-
-                                        <div class="tab-pane p-3" id="tab4">
-                                            <h4 class="card-title">Summary</h4>
-                                            <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </p> -->
-
-
-                                        </div>
-
-                                    </div>
+                                    </form>
                                 </div>
+                            </div> -->
+
+                            <div class="table-responsive">
+                                <table id="example1" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:5%;">SNo</th>
+                                            <th style="width:35%;">Name </th>
+                                            <th style="width:15%;">Phone </th>
+                                            <th style="width:20%;">Submission Date </th>
+                                            <th style="width:10%;" colspan="1" class="text-left"> Quotation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($request->quotes as $quote)
+                                        <tr>
+                                            <td class="text-left">
+                                                N/A
+                                            </td>
+                                            <td style="width:20%;">
+                                                {{ $quote->contractor->org_name ?? '' }}
+                                            </td>
+                                            <td style="width:40%;">
+                                                {{ $quote->contractor->org_phone ?? '' }}
+                                            </td>
+                                            <td style="width:40%;">
+                                                {{ $quote->created_at ?? '' }}
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-outline-secondary" href="{{ route('quotes.download', $quote->id)}}"><i class="fa fa-download"></i> Download</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
 
+                    <div class="card mt-3">
+                        <div class="card-header bg-white">
+                            <i class="fa fa-table"></i> All Resources
+                        </div>
+                        <div class="card-body m-t-35">
+
+                            <!-- <div class="row">
+                                <div class="col-lg-6 col-sm-12 text-right">
+                                    <form method="POST" action="{{ route('projects.filter') }}">
+                                    @csrf
+                                        <div class="form-group row">
+                                            <div class="col-md-10">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control col-12" type="date" name="date" placeholder="search by ref no, ">
+                                                    <div class="input-group-append"><button class="btn btn-outline-success" type="submit">Filter by Start Date</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <div class="col-lg-6 col-sm-12 text-right">
+                                    <form method="POST" action="{{ route('projects.search') }}">
+                                    @csrf
+                                        <div class="form-group row">
+                                            <div class="col-md-10">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control col-12" type="text" name="data">
+                                                    <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
+                                                    <div class="input-group-append"><a class="btn btn-outline-dark" href="{{ route('payments.index') }}">Reset</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div> -->
+
+                            <div class="table-responsive">
+                                <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
+                                    data-toggle="modal" data-target="#modalUploadResource">Upload Resource
+                                </button>
+                                
+                                <div class="modal fade" id="modalUploadResource" role="dialog" aria-labelledby="modalLabelprimary">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            
+                                            <div class="modal-header bg-secondary">
+                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Upload Resources</h4>
+                                            </div>
+                                            <form class="form-horizontal" action="{{ route('requests.upload')}}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                                <fieldset>
+                                                    <div class="modal-body">
+                                                    
+                                                        <input hidden readonly type="text" name="proc_request_id" value="{{$request->id}}">
+                                                        <div class="form-group row">
+
+
+
+                                                            <div class="col-lg-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Select File
+                                                                </label>
+                                                                <div class="input-group mb-1">
+                                                                    <input class="form-control col-12" type="file" name="file">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    File Name
+                                                                </label>
+                                                                <div class="input-group mb-1">
+                                                                    <input class="form-control col-12" type="text" name="name">
+                                                                </div>
+                                                            </div>
+                                                
+                                                            <div class="col-lg-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    File Description
+                                                                </label>
+                                                                <div class="input-group mb-1">
+                                                                    <input class="form-control col-12" type="text" name="description">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-12">
+                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Save</button>
+                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <table id="example1" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:5%;">SNo</th>
+                                            <th style="width:35%;">Name </th>
+                                            <th style="width:35%;">Description </th>
+                                            <th style="width:20%;">Type </th>
+                                            <th style="width:20%;" colspan="1" class="text-left"> Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($request->resources as $resource)
+                                        <tr>
+                                            <td class="text-left">
+                                                N/A
+                                            </td>
+                                            <td style="width:20%;">
+                                                {{ $resource->name ?? '' }}
+                                            </td>
+                                            <td style="width:40%;">
+                                                {{ $resource->description ?? '' }}
+                                            </td>
+                                            <td style="width:40%;">
+                                                {{ $resource->type ?? '' }}
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-outline-secondary" href="{{ route('requests.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header bg-white">
+                            <i class="fa fa-table"></i> All Contractors
+                        </div>
+                        <div class="card-body m-t-35">
+
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12 text-left">
+                                    <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
+                                        data-toggle="modal" data-target="#addContractor">Add Contractor
+                                    </button>
+
+                                    <div class="modal fade" id="addContractor" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="modalLabel">Add Contractor to Request</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <form class="form-horizontal" action="{{ route('requests.addContractor')}}" method="POST">
+                                                @csrf
+                                                <fieldset>
+                                                    <div class="modal-body">
+                                                        
+                                                        <input type="text" name="proc_request_id" value="{{ $request->id }}" hidden readonly>
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Select New Contractor
+                                                                </label>
+                                                                <div class="input-group">
+                                                                <select class="form-control" name="contractor_id" required>
+                                                                    <option value="">-- Select --</option>
+                                                                    @foreach ($contractors as $contractor)                                                                                                    
+                                                                    <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-12">
+                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Submit</button>
+                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-6 col-sm-12 text-right">
+                                    <form method="POST" action="{{ route('projects.search') }}">
+                                    @csrf
+                                        <div class="form-group row">
+                                            <div class="col-md-10">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control col-12" type="text" name="data">
+                                                    <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
+                                                    <div class="input-group-append"><a class="btn btn-outline-dark" href="{{ route('payments.index') }}">Reset</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table id="example1" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:5%;">SNo</th>
+                                            <th style="width:35%;">Name </th>
+                                            <th style="width:35%;">Phone </th>
+                                            <th style="width:20%;">Address </th>
+                                            <th style="width:20%;" colspan="3" class="text-right"> &nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($requestcontractors as $contractor)
+                                        <tr>
+                                            <td class="text-left">
+                                                N/A
+                                            </td>
+                                            <td style="width:20%;">
+                                                {{ $contractor->contractor->org_name ?? '' }}
+                                            </td>
+                                            <td style="width:40%;">
+                                                {{ $contractor->contractor->org_phone ?? '' }}
+                                            </td>
+                                            <td style="width:40%;">
+                                                {{ $contractor->contractor->org_address ?? '' }}
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target="#viewContractor{{$contractor->id}}">remove</a>
+                                                <div class="modal fade" id="viewContractor{{$contractor->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Details</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+
+                                                            <table id="example1" class="table table-stripped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width:5%;">SNo</th>
+                                                                        <th style="width:35%;">Name </th>
+                                                                        <th style="width:35%;">Description </th>
+                                                                        <th style="width:20%;">Type </th>
+                                                                        <th style="width:20%;" colspan="1" class="text-left"> Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                @foreach ($request->resources as $resource)
+                                                                    <tr>
+                                                                        <td class="text-left">
+                                                                            N/A
+                                                                        </td>
+                                                                        <td style="width:20%;">
+                                                                            {{ $resource->name ?? '' }}
+                                                                        </td>
+                                                                        <td style="width:40%;">
+                                                                            {{ $resource->description ?? '' }}
+                                                                        </td>
+                                                                        <td style="width:40%;">
+                                                                            {{ $resource->type ?? '' }}
+                                                                        </td>
+                                                                        <td>
+                                                                            <a class="btn btn-sm btn-outline-secondary" href="{{ $quote->fileurl ?? '' }}"><i class="fa fa-download"></i> Download</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>

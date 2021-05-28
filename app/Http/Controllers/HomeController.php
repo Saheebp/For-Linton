@@ -29,7 +29,13 @@ class HomeController extends Controller
     public function dashboard()
     {
         $projects = Project::all();
-        
+        if (auth()->user()->is_contractor == 'true') 
+        {
+            $requests = ProcContractor::where('contractor_id', auth()->user()->id)->get();
+            return view('upload', [
+                'requests' => $requests
+            ]);
+        }
         return view('admin.dashboard', [
             'projects' => $projects
         ]);

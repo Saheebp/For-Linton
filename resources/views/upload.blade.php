@@ -81,7 +81,7 @@ z-index: 999999">
                                      <select class="form-control col-12" name="proc_request_id" required>
                                         <option value=""> -- Select Requests --</option>
                                         @foreach($requests as $request)
-                                        <option value="{{ $request->id }}">{{ $request->procRequest->name }}</option>
+                                        <option value="{{ $request->procRequest->id }}">{{ $request->procRequest->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
