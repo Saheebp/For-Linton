@@ -1854,10 +1854,10 @@
                                                                                 <table id="example1" class="table table-striped">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th style="width:5%;">Action </th>
-                                                                                            <th style="width:10%;">Disburser</th>
-                                                                                            <th style="width:10%;">Receiver</th>
-                                                                                            <th style="width:7%;">Quantity</th>
+                                                                                            <th style="width:10%;">Action </th>
+                                                                                            <th style="width:40%;">Disburser</th>
+                                                                                            <th style="width:40%;">Receiver</th>
+                                                                                            <th style="width:10%;">Quantity</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
@@ -1867,7 +1867,8 @@
                                                                                                     {{ $activity->type}}
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    {{ $activity->user->name ?? '' }}
+                                                                                                    {{ $activity->user->name ?? '' }}<br>
+                                                                                                    <tag style="font-size:10px;">{{ $activity->created_at }}</tag>
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     {{ $activity->receiver->name ?? '' }}

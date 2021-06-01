@@ -129,7 +129,7 @@ class ProcRequestController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,jpeg,png,docx,doc|max:2048'
         ]);
 
         

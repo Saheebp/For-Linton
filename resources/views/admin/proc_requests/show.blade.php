@@ -135,7 +135,7 @@
                         </div>
 
                         <div class="card-body m-t-35">
-                            <h3><tag class="text-capitalize text-success">{{ $request->name ?? '' }}</tag></h3>
+                            <h3><tag class="text-capitalize text-success">RFQ{{ $request->id }} : {{ $request->name ?? '' }}</tag></h3>
                             
                             <div class="row">
                                 <div class="col-lg-12">
@@ -212,7 +212,7 @@
                                         @foreach ($request->quotes as $quote)
                                         <tr>
                                             <td class="text-left">
-                                                N/A
+                                                Q{{ $quote->id }}
                                             </td>
                                             <td style="width:20%;">
                                                 {{ $quote->contractor->org_name ?? '' }}
@@ -351,7 +351,7 @@
                                     @foreach ($request->resources as $resource)
                                         <tr>
                                             <td class="text-left">
-                                                N/A
+                                                R{{ $resource->id }}
                                             </td>
                                             <td style="width:20%;">
                                                 {{ $resource->name ?? '' }}

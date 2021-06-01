@@ -375,17 +375,19 @@
                                 <table id="example1" class="table table-striped table-bordered bordered">
                                     <thead>
                                     <tr>
-                                        <th style="width:3%;">Status</th>
-                                        <th style="width:15%;">Title</th>
-                                        <th style="width:7%;">Department </th>
-                                        <th style="width:5%;">Start</th>
-                                        <th style="width:5%;">Due Date</th>
-                                        <th style="width:2%;">Action</th>
+                                        <th style="width:5%;">SNo</th>
+                                        <th style="width:5%;">Status</th>
+                                        <th style="width:40%;">Title</th>
+                                        <th style="width:10%;">Department </th>
+                                        <th style="width:15%;">Start</th>
+                                        <th style="width:15%;">Due Date</th>
+                                        <th style="width:10%;">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($requests as $request)
                                         <tr>
+                                            <td>RFQ{{ $request->id }}</span></td>
                                             <td><span class="badge badge-{{$request->status->style }}">{{ $request->status->name }}</span></td>
                                             <td>{{ $request->name }}</td>
                                             <td>{{ $request->department->name }}</td>
