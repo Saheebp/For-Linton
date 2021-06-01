@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function() {
         Route::prefix('users')->group(function() {
             Route::get('/', 'UserController@index')->name('index');
             Route::post('/search', 'UserController@search')->name('search');
-            Route::get('/delete/{user}', 'UserController@delete')->name('destroy');
+            //Route::get('/delete/{user}', 'UserController@delete')->name('destroy');
             Route::post('/update/password', 'UserController@passwordupdate')->name('passwordupdate');
             Route::post('/update/bio', 'UserController@bioupdate')->name('bioupdate');
             Route::post('/update/code', 'UserController@codeupdate')->name('codeupdate');
@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function() {
         Route::prefix('contractors')->group(function() {
             Route::get('/', 'ContractorController@index')->name('index');
             Route::post('/search', 'ContractorController@search')->name('search');
-            Route::get('/delete/{user}', 'ContractorController@delete')->name('destroy');
+            //Route::get('/delete/{contractor}', 'ContractorController@delete')->name('destroy');
             Route::post('/update/password', 'ContractorController@passwordupdate')->name('passwordupdate');
             Route::post('/update/bio', 'ContractorController@bioupdate')->name('bioupdate');
             // Route::post('/update/code', 'ContractorController@codeupdate')->name('codeupdate');
@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function() {
     Route::name('messages.')->group(function() {
         Route::prefix('messages')->group(function() {
             Route::get('/', 'MessageController@index')->name('index');
-            Route::post('update', 'MessageController@update')->name('update');
+            //Route::post('update', 'MessageController@update')->name('update');
 
         });
     });
@@ -81,7 +81,7 @@ Route::middleware('auth')->group(function() {
     Route::name('settings.')->group(function() {
         Route::prefix('settings')->group(function() {
             Route::get('/', 'SettingsController@index')->name('index');
-            Route::post('update', 'SettingsController@update')->name('update');
+            //Route::post('update', 'SettingsController@update')->name('update');
 
         });
     });
@@ -277,17 +277,17 @@ Route::middleware('auth')->group(function() {
     });
 
     //accounts
-    Route::resource('accounts', 'AccountController');
-    Route::name('accounts.')->group(function() {
-        Route::prefix('accounts.')->group(function() {
+    // Route::resource('accounts', 'AccountController');
+    // Route::name('accounts.')->group(function() {
+    //     Route::prefix('accounts.')->group(function() {
 
-            Route::get('/', 'AccountController@index')->name('index');
-            Route::get('/summary', 'AccountController@index')->name('summary');
-            Route::get('/payments', 'AccountController@index')->name('payments');
-            Route::get('/expenditure', 'AccountController@index')->name('expenditure');
+    //         //Route::get('/', 'AccountController@index')->name('index');
+    //         Route::get('/summary', 'AccountController@index')->name('summary');
+    //         Route::get('/payments', 'AccountController@index')->name('payments');
+    //         Route::get('/expenditure', 'AccountController@index')->name('expenditure');
 
-            Route::post('filter', 'AccountController@filter')->name('filter');
-            Route::post('search', 'AccountController@search')->name('search');
-        });
-    });    
+    //         Route::post('filter', 'AccountController@filter')->name('filter');
+    //         Route::post('search', 'AccountController@search')->name('search');
+    //     });
+    // });    
 });

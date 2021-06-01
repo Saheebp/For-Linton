@@ -40,14 +40,16 @@ class SubTaskController extends Controller
      */
     public function store(Request $request)
     {
-
-        $task = Task::find($request->task_id);
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'budget' => 'required|string',
         ]);
+
+        $task = Task::find($request->task_id);
+        if ($task == null) {
+            return back()->with('error', 'Specific task not found.');
+        }
         
         try 
         {
@@ -57,6 +59,7 @@ class SubTaskController extends Controller
                 'budget' => $request->budget,
                 'start' => $request->start,
                 'end' => $request->end,
+                'project_id' => $request->project_id,
                 'task_id' => $request->task_id,
                 'status_id' => $this->pending,
                 'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,
@@ -65,8 +68,8 @@ class SubTaskController extends Controller
 
             $data = array();
             $data['body'] = auth()->user()->name." created a Sub Task : ".$request->name.", Details: ".$request->start."-".$request->end;
-            $data['project_id'] = $task->project->id;
-            $data['task_id'] = $task->id;
+            $data['project_id'] = $request->project_id;
+            $data['task_id'] = $request->task_id;
             $data['sub_task_id'] = $subtask->id;
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);

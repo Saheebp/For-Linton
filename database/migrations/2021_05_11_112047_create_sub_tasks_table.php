@@ -28,6 +28,9 @@ class CreateSubTasksTable extends Migration
             $table->unsignedBigInteger('executor_id')->nullable()->default(null);
             $table->foreign('executor_id')->references('id')->on('users')->onDelete('restrict');
 
+            $table->unsignedBigInteger('project_id')->nullable()->default(null);
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');
+
             $table->unsignedBigInteger('task_id')->nullable()->default(null);
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('restrict');
 

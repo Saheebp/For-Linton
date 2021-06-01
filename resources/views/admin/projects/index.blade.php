@@ -113,20 +113,7 @@
 
                         <div class="col-12 col-sm-6 col-xl-3 media_max_1199">
                             <div id="top_widget3">
-                                <!-- <div class="front">
-                                    <div class="bg-warning p-d-15 b_r_5">
-                                        <div class="float-right m-t-5">
-                                            <i class="fa fa-comments-o"></i>
-                                        </div>
-                                        <div class="user_font">Bookings</div>
-                                        <div id="widget_countup3">85</div>
-                                        <div class="tag-white ">
-                                            <span id="percent_count3">30</span>%
-                                        </div>
-                                        <div class="previous_font">Monthly comments</div>
-                                    </div>
-                                </div> -->
-
+                                
                                 <div class="">
                                     <div class="bg-white text-dark b_r_5 section_border">
                                         <div class="p-t-l-r-15">
@@ -141,20 +128,7 @@
 
                         <div class="col-12 col-sm-6 col-xl-3 media_max_1199">
                             <div id="top_widget4">
-                                <!-- <div class="front">
-                                    <div class="bg-danger p-d-15 b_r_5">
-                                        <div class="float-right m-t-5">
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="user_font">Rating</div>
-                                        <div id="widget_countup4">8</div>
-                                        <div class="tag-white">
-                                            <span id="percent_count4">80</span>%
-                                        </div>
-                                        <div class="previous_font">This month ratings </div>
-                                    </div>
-                                </div> -->
-
+                                
                                 <div class="">
                                     <div class="bg-white text-danger b_r_5 section_border">
                                         <div class="p-t-l-r-15">
@@ -318,7 +292,12 @@
                                                                                             Source of Funding
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <input type="text"  id="funding_source" value="{{ old('funding_source') }}" class="form-control" placeholder="" name="funding_source">
+                                                                                            <select class="form-control" id="funding_source" name="funding_source" required>
+                                                                                                <option value="">-- Select Source --</option>
+                                                                                                <option value="Individual">Individual</option>
+                                                                                                <option value="Private">Private</option>
+                                                                                                <option value="Government">Government</option>
+                                                                                            </select>
                                                                                         </div>
                                                                                         @error('funding_source')
                                                                                             <span class="text-danger">{{ $errors->first('funding_source') }}</span>

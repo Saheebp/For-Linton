@@ -819,8 +819,8 @@
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     
-                                                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubTask{{$subtask->id}}">Status</a>
-                                                                                                        <div class="modal fade" id="updateSubTask{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubTaskStatus{{$subtask->id}}">Status</a>
+                                                                                                        <div class="modal fade" id="updateSubTaskStatus{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                                                         aria-hidden="true">
                                                                                                             <div class="modal-dialog" role="document">
                                                                                                                 <div class="modal-content">
@@ -935,8 +935,8 @@
                                                                                     @foreach($task->members as $member)
                                                                                         {{ $i }}. {{ $member->user->name  }} 
 
-                                                                                        <a class="btn btn-sm btn-outline-warning float-right" data-toggle="modal" data-target="#removeFromSubTask{{$subtask->id}}">remove</a>
-                                                                                        <div class="modal fade" id="removeFromSubTask{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                                        <a class="btn btn-sm btn-outline-warning float-right" data-toggle="modal" data-target="#removeFromSubTask{{$member->id}}">remove</a>
+                                                                                        <div class="modal fade" id="removeFromSubTask{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                                         aria-hidden="true">
                                                                                             <div class="modal-dialog" role="document">
                                                                                                 <div class="modal-content">
@@ -946,8 +946,9 @@
                                                                                                             <span aria-hidden="true">×</span>
                                                                                                         </button>
                                                                                                     </div>
-                                                                                                    <form class="form-horizontal" action="{{ route('subtasks.removeMember', $subtask)}}" method="POST">
+                                                                                                    <form class="form-horizontal" action="{{ route('tasks.removeMember', $task)}}" method="POST">
                                                                                                     @csrf
+                                                                                                    
                                                                                                         <fieldset>
                                                                                                             <div class="modal-body">
                                                                                                                 
@@ -1247,6 +1248,7 @@
                                                                                 <form method="POST" action="{{ route('subtasks.store') }}">
                                                                                     <div class="modal-body">
 
+                                                                                        <input name="project_id" value="{{ $project->id }}" hidden readonly> 
                                                                                         <input name="task_id" value="{{ $task->id }}" hidden readonly> 
 
                                                                                         @csrf
@@ -1537,7 +1539,7 @@
                                                         <div class="">
                                                             <div class="bg-white text-success text-white b_r_5 section_border">
                                                                 <div class="p-t-l-r-15">
-                                                                    <div class="h3 text-success">&#8358;{{ number_format(floatval($project->budget), 2) }}</div>
+                                                                    <div class="h3 text-success">&#8358;{{ number_format(floatval($project->budget ?? 0), 2) }}</div>
                                                                     <div>Estimated Cost</div>
                                                                 </div>
                                                             </div>
@@ -1550,7 +1552,7 @@
                                                         <div class="">
                                                             <div class="bg-white text-warning b_r_5 section_border">
                                                                 <div class="p-t-l-r-15">
-                                                                    <div class="h3 text-warning">&#8358;{{ number_format(floatval($project->tasks->sum('budget')), 2) }}</div>
+                                                                    <div class="h3 text-warning">&#8358;{{ number_format(floatval($project->tasks->sum('budget') ?? 0), 2) }}</div>
                                                                     <div>Total Allocated</div>
                                                                 </div>
                                                             </div>
@@ -1563,7 +1565,7 @@
                                                         <div class="">
                                                             <div class="bg-white text-primary b_r_5 section_border">
                                                                 <div class="p-t-l-r-15">
-                                                                    <div class="h3 text-primary">&#8358;{{ number_format(floatval($project->tasks->sum('actual_cost')), 2) }}</div>
+                                                                    <div class="h3 text-primary">&#8358;{{ number_format(floatval($project->subtasks->sum('actual_cost') ?? 0), 2) }}</div>
                                                                     <div>Total Spent</div>
                                                                 </div>
                                                             </div>
@@ -1576,7 +1578,7 @@
                                                         <div class="">
                                                             <div class="bg-white text-dark b_r_5 section_border">
                                                                 <div class="p-t-l-r-15">
-                                                                    <div class="h3 text-dark">&#8358;{{ number_format(floatval($project->budget - $project->tasks->sum('budget')), 2) }}</div>
+                                                                    <div class="h3 text-dark">&#8358;{{ number_format(floatval($project->budget - $project->tasks->sum('budget') ?? 0), 2) }}</div>
                                                                     <div>Cost Variance</div>
                                                                 </div>
                                                             </div>
@@ -1691,7 +1693,7 @@
                                                         <th style="width:7%;">Quantity</th>
                                                         <th style="width:7%;">Available</th>
                                                         <th style="width:5%;">Status</th>
-                                                        <th style="width:25%;">Action</th>
+                                                        <th style="width:5%;">Action</th>
                                                     </tr>
                                                 </thead>
 
@@ -1714,13 +1716,13 @@
                                                                 {{ $item->status->name ?? '' }}
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateTask{{ $item->id }}">Allocate to Task</a>
+                                                                <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateTask{{ $item->id }}">Disburse</a>
                                                                 <div class="modal fade" id="allocateTask{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                 aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
-                                                                                <h4 class="modal-title" id="modalLabel">Allocate {{$item->name}} to Task</h4>
+                                                                                <h4 class="modal-title" id="modalLabel">Disburse {{ $item->name }}</h4>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true">×</span>
                                                                                 </button>
@@ -1761,54 +1763,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
-                                                                <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#allocateSubTask{{ $item->id }}">Allocate to Sub Task</a>
-                                                                <div class="modal fade" id="allocateSubTask{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                                aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title" id="modalLabel">Allocate {{$item->name}} to Sub Task</h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">×</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <form class="form-horizontal" action="#" method="POST">
-                                                                            @csrf
-                                                                                <fieldset>
-                                                                                    <div class="modal-body">
-                                                                                        
-                                                                                    <div class="col-12">
-                                                                                        <label for="subject1" class="col-form-label">
-                                                                                            Allocate to a Sub task
-                                                                                        </label>
-                                                                                        <div class="input-group">
-                                                                                            <span class="input-group-addon">
-                                                                                                <i class="fa fa-home"></i>
-                                                                                            </span>
-                                                                                            <select class="form-control col-12" name="designation">
-                                                                                                <option value=""> -- Select Sub Task --</option>
-                                                                                                @foreach($project->tasks as $task)
-                                                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
-                                                                                                @endforeach
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    </div>
-
-                                                                                    <div class="modal-footer">
-                                                                                        <div class="form-group row">
-                                                                                            <div class="col-lg-12">
-                                                                                                <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-primary">Yes, Allocate</button>
-                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </fieldset>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -1839,7 +1793,7 @@
                                                             @endif
                                                             <br>
                                                             {{ $comment->body }}<br>
-                                                            {{ $comment->created_at }}
+                                                            <b>{{ date('d M Y, h:ia', strtotime($comment->created_at)) }}</b>
                                                             </td>
                                                         </tr>
                                                     @endforeach

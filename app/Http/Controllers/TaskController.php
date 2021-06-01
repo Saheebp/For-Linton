@@ -56,6 +56,9 @@ class TaskController extends Controller
         ]);
         
         $project = Project::find($request->project_id);
+        if ($project == null) {
+            return back()->with('error', 'Specific Project not found.');
+        }
 
         try 
         {

@@ -54,6 +54,10 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
+    public function subtasks() {
+        return $this->hasMany(SubTask::class);
+    }
+
     public function resources() {
         return $this->hasMany(Resource::class);
     }
