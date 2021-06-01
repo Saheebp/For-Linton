@@ -166,13 +166,14 @@ Route::middleware('auth')->group(function() {
     });
 
     //inventory
-    Route::resource('items', 'ItemController');
+    Route::resource('items', 'InventoryItemController');
     Route::name('items.')->group(function() {
         Route::prefix('items')->group(function() {
-            Route::get('/', 'ItemController@index')->name('index');
-            Route::post('filter', 'ItemController@filter')->name('filter');
-            Route::post('search', 'ItemController@search')->name('search');
-            Route::post('upload/resource', 'ItemController@uploadResource')->name('upload');
+            Route::get('/', 'InventoryItemController@index')->name('index');
+            Route::post('filter', 'InventoryItemController@filter')->name('filter');
+            Route::post('search', 'InventoryItemController@search')->name('search');
+            Route::post('disburse', 'InventoryItemController@disburse')->name('disburse');
+            Route::post('upload/resource', 'InventoryItemController@uploadResource')->name('upload');
         });
     });
 

@@ -1716,8 +1716,8 @@
                                                                 {{ $item->status->name ?? '' }}
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateTask{{ $item->id }}">Disburse</a>
-                                                                <div class="modal fade" id="allocateTask{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#DisburseItem{{ $item->id }}">Disburse</a>
+                                                                <div class="modal fade" id="DisburseItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                 aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
                                                                         <div class="modal-content">
@@ -1727,27 +1727,39 @@
                                                                                     <span aria-hidden="true">×</span>
                                                                                 </button>
                                                                             </div>
-                                                                            <form class="form-horizontal" action="#" method="POST">
+                                                                            <form class="form-horizontal" action="{{ route('items.disburse') }}" method="POST">
                                                                             @csrf
                                                                                 <fieldset>
                                                                                     <div class="modal-body">
                                                                                         
-                                                                                    <div class="col-12">
-                                                                                        <label for="subject1" class="col-form-label">
-                                                                                            Allocate to a task
-                                                                                        </label>
-                                                                                        <div class="input-group">
-                                                                                            <span class="input-group-addon">
-                                                                                                <i class="fa fa-home"></i>
-                                                                                            </span>
-                                                                                            <select class="form-control col-12" name="designation">
-                                                                                                <option value=""> -- Select Task --</option>
-                                                                                                @foreach($project->tasks as $task)
-                                                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
-                                                                                                @endforeach
-                                                                                            </select>
+                                                                                        <div class="col-12">
+                                                                                            <label for="subject1" class="col-form-label">
+                                                                                                Disburse Item
+                                                                                            </label>
+                                                                                            <div class="input-group">
+                                                                                                <span class="input-group-addon">
+                                                                                                    <i class="fa fa-home"></i>
+                                                                                                </span>
+                                                                                                <select class="form-control col-12" name="designation">
+                                                                                                    <option value=""> -- Select Task --</option>
+                                                                                                    @foreach($project->tasks as $task)
+                                                                                                    <option value="{{ $task->id }}">{{ $task->name }}</option>
+                                                                                                    @endforeach
+                                                                                                </select>
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
+
+                                                                                        <div class="col-12">
+                                                                                            <label for="subject1" class="col-form-label">
+                                                                                                Quantity
+                                                                                            </label>
+                                                                                            <div class="input-group">
+                                                                                                <input id="quantity" value="{{ old('quantity') ?? $item->available }}" min="1" max="{{ $item->available }}"  class="form-control" name="quantity">
+                                                                                            </div>
+                                                                                            @error('quantity')
+                                                                                                <span class="text-danger">{{ $errors->first('quantity') }}</span>
+                                                                                            @enderror
+                                                                                        </div>
                                                                                     </div>
 
                                                                                     <div class="modal-footer">

@@ -87,6 +87,16 @@ class InventoryItemController extends Controller
         }
     }
 
+    public function disburse(Request $request)
+    {
+        try
+        {
+            return back()->with('success', 'Item disbursed successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
     /**
      * Display the specified resource.
      *
