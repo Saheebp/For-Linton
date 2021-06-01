@@ -63,6 +63,7 @@ return array(
     'App\\Models\\Designation' => $baseDir . '/app/Models/Designation.php',
     'App\\Models\\Group' => $baseDir . '/app/Models/Group.php',
     'App\\Models\\Inventory' => $baseDir . '/app/Models/Inventory.php',
+    'App\\Models\\InventoryActivity' => $baseDir . '/app/Models/InventoryActivity.php',
     'App\\Models\\InventoryItem' => $baseDir . '/app/Models/InventoryItem.php',
     'App\\Models\\Item' => $baseDir . '/app/Models/Item.php',
     'App\\Models\\Log' => $baseDir . '/app/Models/Log.php',

@@ -417,7 +417,7 @@
                                             <th style="width:5%;">Quantity</th>
                                             <th style="width:5%;">Available</th>
                                             <th style="width:5%;">Status</th>
-                                            <th style="width:20%;">Action</th>
+                                            <th style="width:25%;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -431,9 +431,11 @@
                                             <td>{{ $item->available }}</td>
                                             <td><span class="badge badge-{{ $item->status->style }}">{{ $item->status->name }}</span></td>
                                             <td>
-                                                <a class="btn btn-secondary btn-sm text-white text-right" data-toggle="modal" data-target="#modalDetails{{$item->id}}">Manage</a>&nbsp;&nbsp;
-                                                <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateProject{{ $item->id }}">Allocate to Project</a>
-                                                
+                                                <a class="btn btn-outline-warning btn-sm text-right" data-toggle="modal" data-target="#modalDetails{{$item->id}}">Manage</a>&nbsp;&nbsp;
+                                                <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateProject{{ $item->id }}">Disburse</a>
+                                                <a class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#modalDelete{{ $item->id }}">Delete</a>
+                                                <!-- <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#modalHistory{{ $item->id }}">History</a>
+                                                 -->
                                                 
                                                 <div class="modal fade" id="modalDetails{{$item->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
@@ -478,7 +480,7 @@
                                                 <div class="modal fade" id="modalDelete{{$item->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <div class="modal-header bg-primary">
+                                                            <div class="modal-header bg-danger">
                                                                 <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">{{ $item->name }}</h4>
                                                             </div>
                                                             <form method="POST" action="{{ route('warehouseitem.destroy', $item) }}">
@@ -550,6 +552,21 @@
                                                                     </div>
                                                                 </fieldset>
                                                             </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="modalHistory{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Item History : {{$item->name}}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>

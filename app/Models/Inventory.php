@@ -24,6 +24,10 @@ class Inventory extends Model
     public function items(){
         return $this->hasMany(InventoryItem::class);
     }
+
+    public function itemActivities(){
+        return $this->hasMany(InventoryActivity::class);
+    }
     
     public function status() {
         return $this->belongsTo(Status::class);

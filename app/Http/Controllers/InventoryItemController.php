@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\InventoryItem;
+use App\Models\InventoryActivity;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -91,7 +93,65 @@ class InventoryItemController extends Controller
     {
         try
         {
+            $receiver = User::find($request->member);
+
+            $item = InventoryActivity::create([
+                'type' => 'Disbursement',
+                'quantity' => $request->quantity,
+                'receiver_id' => $request->member,
+                'user_id' => Auth::user()->id,
+                'inventory_id' => $request->inventory_id,
+                'inventory_item_id' => $request->inventory_item_id
+            ]);
+
+            $inventory_item = InventoryItem::find($request->inventory_item_id);
+            $inventory_item->update([
+                'available' => $inventory_item->available - $request->quantity
+            ]);
+            $inventory_item->save();
+            
+            activity()
+            ->performedOn($item)
+            ->causedBy(auth()->user())
+            ->withProperties(['Item' => $item->id])
+            ->log(auth()->user()->name.' Disbursed '.$request->quality.' units of '.$item->name.' to '.$receiver->name );
+
             return back()->with('success', 'Item disbursed successfully');
+
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function return(Request $request)
+    {
+        try
+        {
+            $receiver = User::find($request->member);
+
+            $item = InventoryActivity::create([
+                'type' => 'Return',
+                'quantity' => $request->quantity,
+                'receiver_id' => $request->member,
+                'user_id' => Auth::user()->id,
+                'inventory_id' => $request->inventory_id,
+                'inventory_item_id' => $request->inventory_item_id
+            ]);
+
+            $inventory_item = InventoryItem::find($request->inventory_item_id);
+            $inventory_item->update([
+                'available' => $inventory_item->available + $request->quantity
+            ]);
+            $inventory_item->save();
+            
+            activity()
+            ->performedOn($item)
+            ->causedBy(auth()->user())
+            ->withProperties(['Item' => $item->id])
+            ->log(auth()->user()->name.' Returned '.$request->quality.' units of '.$item->name.' to '.$receiver->name );
+
+            return back()->with('success', 'Item disbursed successfully');
+
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

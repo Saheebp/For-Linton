@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Waere House
+    Ware House
     @parent
 @stop
 
@@ -80,7 +80,7 @@
                                             <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
                                             <tr>
                                                 <td><b>Title: </b><br><tag class="text-success">{{ $project->name ?? '' }}</tag> </td>
-                                                <td><b>Budget: </b><br><tag class="text-danger">{{ $project->budget ?? '' }}</tag></td>
+                                                <td><b>Budget: </b><br><tag class="text-danger">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td>
                                             </tr>
                                             <tr>
                                                 <td><b>State: </b><br><span>{{ $project->state ?? '' }}</span></td>

@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 class InventoryItem extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -27,6 +28,10 @@ class InventoryItem extends Model
     public function inventory()
     {
         return $this->belongsTo(Inventory::class);
+    }
+    
+    public function itemActivities(){
+        return $this->hasMany(InventoryActivity::class);
     }
 
     public function category()

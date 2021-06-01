@@ -587,6 +587,7 @@ class ComposerStaticInita00efdadb3bab574a8f4a39d12ed7ff1
         'App\\Models\\Designation' => __DIR__ . '/../..' . '/app/Models/Designation.php',
         'App\\Models\\Group' => __DIR__ . '/../..' . '/app/Models/Group.php',
         'App\\Models\\Inventory' => __DIR__ . '/../..' . '/app/Models/Inventory.php',
+        'App\\Models\\InventoryActivity' => __DIR__ . '/../..' . '/app/Models/InventoryActivity.php',
         'App\\Models\\InventoryItem' => __DIR__ . '/../..' . '/app/Models/InventoryItem.php',
         'App\\Models\\Item' => __DIR__ . '/../..' . '/app/Models/Item.php',
         'App\\Models\\Log' => __DIR__ . '/../..' . '/app/Models/Log.php',

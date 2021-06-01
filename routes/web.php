@@ -173,6 +173,7 @@ Route::middleware('auth')->group(function() {
             Route::post('filter', 'InventoryItemController@filter')->name('filter');
             Route::post('search', 'InventoryItemController@search')->name('search');
             Route::post('disburse', 'InventoryItemController@disburse')->name('disburse');
+            Route::post('return', 'InventoryItemController@return')->name('return');
             Route::post('upload/resource', 'InventoryItemController@uploadResource')->name('upload');
         });
     });
