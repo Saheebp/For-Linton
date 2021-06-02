@@ -17,26 +17,30 @@ class WarehouseSeeder extends Seeder
      */
     public function run()
     {
-        //
         $categories = [
             [
                 'name' => 'Equipment',
+                'description' => 'Site equipment'
             ],
             [
-                'name' => 'Building Materials'
+                'name' => 'Disposables',
+                'description' => 'Site disposables'
             ],
             [
-                'name' => 'Disposables'
+                'name' => 'Building Materials',
+                'description' => 'Site Tools'
             ],
             [
-                'name' => 'Vehicles'
+                'name' => 'Disposables',
+                'description' => 'Site disposables'
             ]
         ];
 
-        foreach ($categories as $category) {
+        foreach ($categories as $item) {
             # code...
             Category::create([
-                'name' => $category['name']
+                'name' => $item['name'],
+                'description' => $item['description']
             ]);
         }
 

@@ -50,24 +50,5 @@ class SettingSeeder extends Seeder
             'tag' => 'walletpay',
             'value' => 'true'
         ]);
-
-        $categories = [
-            [
-                'name' => 'Equipment',
-                'description' => 'Site equipment'
-            ],
-            [
-                'name' => 'Disposables',
-                'description' => 'Site disposables'
-            ]
-        ];
-
-        foreach ($categories as $item) {
-            # code...
-            Category::create([
-                'name' => $item['name'],
-                'description' => $item['description']
-            ]);
-        }
     }
 }
