@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
-use App\Models\ProcRequest;
-use App\Models\ProcContractor;
-use App\Models\Resource;
+use App\Models\Quote;
+use App\Models\RequestFq;
+use App\Models\RequestFqResource;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProcRequestController extends Controller
+class RequestFqController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,10 @@ class ProcRequestController extends Controller
      */
     public function index()
     {
-        $requests = ProcRequest::orderBy('created_at', 'desc')->paginate(10);
+        $requests = RequestFq::orderBy('created_at', 'desc')->paginate(10);
         $departments = Department::all();
 
-        return view('admin.proc_requests.index', [
+        return view('admin.requests.index', [
             'departments' => $departments,
             'requests' => $requests
         ]);
@@ -57,7 +57,7 @@ class ProcRequestController extends Controller
         
         try 
         {
-            $request = ProcRequest::create([
+            $request = RequestFq::create([
                 'name' => $request->name,
                 'subject' => $request->subject,
                 'description' => $request->description,
@@ -79,34 +79,67 @@ class ProcRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProcRequest  $procRequest
+     * @param  \App\Models\RequestFq  $requestFq
      * @return \Illuminate\Http\Response
      */
-    public function show(ProcRequest $request)
+    public function show(RequestFq $request)
     {
         //
         $contractors = User::where('is_admin','false')->where('is_contractor','true')->get();
-        $requestcontractors = ProcContractor::where('proc_request_id',$request->id)->get();
         
-        return view('admin.proc_requests.show', [
-            'requestcontractors' => $requestcontractors,
+        return view('admin.requests.show', [
             'contractors' => $contractors,
             'request' => $request
         ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\RequestFq  $requestFq
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(RequestFq $requestFq)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\RequestFq  $requestFq
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, RequestFq $requestFq)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\RequestFq  $requestFq
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(RequestFq $requestFq)
+    {
+        //
     }
 
     public function addContractor(Request $request)
     {
         try 
         {
-            $existing = ProcContractor::where('proc_request_id',$request->proc_request_id)
-            ->where('contractor_id',$request->contractor_id)->first();
+            $existing = Quote::where('request_fq_id',$request->request_fq_id)
+            ->where('user_id',$request->contractor_id)->first();
             
             if ($existing == NULL) 
             {
-                $procContractor = ProcContractor::create([
-                    'proc_request_id' => $request->proc_request_id,
-                    'contractor_id' => $request->contractor_id
+                $quote = Quote::create([
+                    'request_fq_id' => $request->request_fq_id,
+                    'user_id' => $request->contractor_id,
+                    'status_id' => $this->pending 
                 ]);
                 
             }else{
@@ -123,9 +156,7 @@ class ProcRequestController extends Controller
     }
 
     public function uploadResource(Request $request)
-    {
-
-       
+    {  
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
@@ -142,15 +173,13 @@ class ProcRequestController extends Controller
                 $fileextension = $file->getClientOriginalExtension();
                 $fileurl = $request->file->storeAs('requests', time().'.'.$file->getClientOriginalExtension());
 
-                Resource::create([
+                RequestFqResource::create([
                     'name' => $request->name,
                     'url' => $fileurl,
                     'type' => $fileextension,
                     'description' => $request->description,
-                    'creator_id' =>  auth()->user()->id,
-                    'project_id' => NULL,
-                    'task_id' => NULL,
-                    'proc_request_id' => $request->proc_request_id,
+                    'user_id' =>  auth()->user()->id,
+                    'request_fq_id' => $request->request_fq_id,
                 ]);
             }
             
@@ -166,47 +195,15 @@ class ProcRequestController extends Controller
         }
         catch (\Exception $e) 
         {
-            return back()->with('error', "Oops, Error adding resource to Task");
+            dd($e);
+            return back()->with('error', "Oops, Error adding resource to Request");
         }
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ProcRequest  $procRequest
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProcRequest $procRequest)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProcRequest  $procRequest
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProcRequest $procRequest)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ProcRequest  $procRequest
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProcRequest $procRequest)
-    {
-        //
     }
 
     public function download($id)
     {
         if (!auth()->check()) { return abort(404); }
-        $resource = Resource::where('id', $id)->firstOrFail();
+        $resource = RequestFqResource::where('id', $id)->firstOrFail();
         return response()->download(storage_path('app/'.$resource->url));
     }
 }

@@ -225,34 +225,34 @@ Route::middleware('auth')->group(function() {
     });
 
     //procurement request
-    Route::resource('requests', 'ProcRequestController');
+    Route::resource('requests', 'RequestFqController');
     Route::name('requests.')->group(function() {
         Route::prefix('requests')->group(function() {
-            Route::get('/', 'ProcRequestController@index')->name('index');
-            Route::post('filter', 'ProcRequestController@filter')->name('filter');
-            Route::post('search', 'ProcRequestController@search')->name('search');
-            Route::post('upload/resource', 'ProcRequestController@uploadResource')->name('upload');
-            Route::post('contractor/add', 'ProcRequestController@addContractor')->name('addContractor');
-            Route::post('contractor/remove', 'ProcRequestController@removeContractor')->name('removeContractor');
-            Route::post('status/update/{request}', 'ProcRequestController@updateStatus')->name('updateStatus');
+            Route::get('/', 'RequestFqController@index')->name('index');
+            Route::post('filter', 'RequestFqController@filter')->name('filter');
+            Route::post('search', 'RequestFqController@search')->name('search');
+            Route::post('upload/resource', 'RequestFqController@uploadResource')->name('upload');
+            Route::post('contractor/add', 'RequestFqController@addContractor')->name('addContractor');
+            Route::post('contractor/remove', 'RequestFqController@removeContractor')->name('removeContractor');
+            Route::post('status/update/{request}', 'RequestFqController@updateStatus')->name('updateStatus');
 
-            Route::get('download/{id}', 'ProcRequestController@download')->name('download');
+            Route::get('download/{id}', 'RequestFqController@download')->name('download');
         });
     });
 
     //procurement quotes
-    Route::resource('quotes', 'ProcQuoteController');
+    Route::resource('quotes', 'QuoteController');
     Route::name('quotes.')->group(function() {
         Route::prefix('quotes')->group(function() {
-            Route::get('/', 'ProcQuoteController@index')->name('index');
-            Route::post('filter', 'ProcQuoteController@filter')->name('filter');
-            Route::post('search', 'ProcQuoteController@search')->name('search');
-            Route::post('upload/resource/{quotes}', 'ProcQuoteController@uploadResource')->name('upload');
-            Route::post('contractor/add/{quotes}', 'ProcQuoteController@addContractor')->name('addContractor');
-            Route::post('contractor/remove/', 'ProcQuoteController@removeContractor')->name('removeContractor');
-            Route::post('status/update/{quotes}', 'ProcQuoteController@updateStatus')->name('updateStatus');
+            Route::get('/', 'QuoteController@index')->name('index');
+            Route::post('filter', 'QuoteController@filter')->name('filter');
+            Route::post('search', 'QuoteController@search')->name('search');
+            Route::post('upload/resource/{quotes}', 'QuoteController@uploadResource')->name('upload');
+            Route::post('contractor/add/{quotes}', 'QuoteController@addContractor')->name('addContractor');
+            Route::post('contractor/remove/', 'QuoteController@removeContractor')->name('removeContractor');
+            Route::post('status/update/{quotes}', 'QuoteController@updateStatus')->name('updateStatus');
 
-            Route::get('download/{id}', 'ProcQuoteController@download')->name('download');
+            Route::get('download/{id}', 'QuoteController@download')->name('download');
         });
     });
         

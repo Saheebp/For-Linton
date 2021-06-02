@@ -8,7 +8,8 @@ use Notification;
 
 use App\Models\User;
 use App\Models\Project;
-use App\Models\ProcContractor;
+use App\Models\Quote;
+use App\Models\RequestFq;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,9 +32,18 @@ class HomeController extends Controller
         $projects = Project::all();
         if (auth()->user()->is_contractor == 'true') 
         {
-            $requests = ProcContractor::where('contractor_id', auth()->user()->id)->get();
+            $quotes = Quote::where('user_id', auth()->user()->id)
+            ->where('status_id', $this->pending)->get();
+            
+            if ($quotes->isEmpty()) {
+                $status = 'closed';
+            }else{
+                $status = 'open';
+            }
+
             return view('upload', [
-                'requests' => $requests
+                'quotes' => $quotes,
+                'status' => $status
             ]);
         }
         return view('admin.dashboard', [
@@ -43,10 +53,18 @@ class HomeController extends Controller
 
     public function upload()
     {
-        $requests = ProcContractor::where('contractor_id', auth()->user()->id)->get();
+        $quotes = Quote::where('user_id', auth()->user()->id)
+            ->where('status_id', $this->pending)->get();
         
+        if ($quotes->isEmpty()) {
+            $status = 'closed';
+        }else{
+            $status = 'open';
+        }
+
         return view('upload', [
-            'requests' => $requests
+            'quotes' => $quotes,
+            'status' => $status
         ]);
     }
 

@@ -38,9 +38,6 @@ class CreateResourcesTable extends Migration
             $table->unsignedBigInteger('group_id')->nullable()->default(null);
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('restrict');
 
-            $table->unsignedBigInteger('proc_request_id')->nullable()->default(null);
-            $table->foreign('proc_request_id')->references('id')->on('proc_requests')->onDelete('restrict');
-
             $table->unsignedBigInteger('status_id')->nullable()->default(null);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
         });

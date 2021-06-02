@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProcQuote;
+use App\Models\Quote;
+use App\Models\QuoteResource;
 use Illuminate\Http\Request;
 
-class ProcQuoteController extends Controller
+class QuoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,13 +40,17 @@ class ProcQuoteController extends Controller
             'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
         ]);
 
-        $initialquote = ProcQuote::where('contractor_id',auth()->user()->id)
-        ->where('proc_request_id',$request->proc_request_id)->first();
+        // $initialquote = Quote::where('user_id',auth()->user()->id)
+        // ->where('request_fq_id',$request->request_fq_id)->first();
 
-        if ($initialquote != NULL) {
-            return back()->with('error', "Oops, You have already submitted a quotation for this request.");
+        // if ($initialquote != NULL) {
+        //     return back()->with('error', "Oops, You have already submitted a quotation for this request.");
+        // }
+        $quote = Quote::where('id', $request->quote_id)->first();
+        if ($quote == NULL) {
+            return back()->with('error', "Oops, Resource not found.");
         }
-
+        
         try 
         {
             if ($request->file('file')->isValid()) 
@@ -55,20 +60,24 @@ class ProcQuoteController extends Controller
                 $fileextension = $file->getClientOriginalExtension();
                 $fileurl = $request->file->storeAs('quotes', time().'.'.$file->getClientOriginalExtension());
 
-                ProcQuote::create([
-                    'fileurl' => $fileurl,
-                    'filename' => $filename,
-                    'filetype' => $fileextension,
-                    
-                    'contractor_id' =>  auth()->user()->id,
-                    'proc_request_id' => $request->proc_request_id,
-                    'status_id' => $this->completed 
+                $quote->update([
+                    'status_id' => $this->completed
+                ]);
+                $quote->update();
+
+                QuoteResource::create([
+                    'url' => $fileurl,
+                    'name' => $filename,
+                    'type' => $fileextension,
+                    'description' => 'Attachment for Quotation',
+                    'quote_id' => $quote->id
                 ]);
             }
             return back()->with('success', 'Quotation added successfully.');
         }
         catch (\Exception $e) 
-        {   dd($e);
+        {   
+            //dd($e);
             return back()->with('error', "Oops, Error adding resource to Request");
         }
     }
@@ -76,10 +85,10 @@ class ProcQuoteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProcQuote  $procQuote
+     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function show(ProcQuote $procQuote)
+    public function show(Quote $quote)
     {
         //
     }
@@ -87,10 +96,10 @@ class ProcQuoteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProcQuote  $procQuote
+     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProcQuote $procQuote)
+    public function edit(Quote $quote)
     {
         //
     }
@@ -99,10 +108,10 @@ class ProcQuoteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProcQuote  $procQuote
+     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProcQuote $procQuote)
+    public function update(Request $request, Quote $quote)
     {
         //
     }
@@ -110,10 +119,10 @@ class ProcQuoteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProcQuote  $procQuote
+     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProcQuote $procQuote)
+    public function destroy(Quote $quote)
     {
         //
     }
@@ -121,7 +130,7 @@ class ProcQuoteController extends Controller
     public function download($id)
     {
         if (!auth()->check()) { return abort(404); }
-        $request = ProcQuote::where('id', $id)->firstOrFail();
-        return response()->download(storage_path('app/'.$request->fileurl));
+        $resource = QuoteResource::where('id', $id)->firstOrFail();
+        return response()->download(storage_path('app/'.$resource->fileurl));
     }
 }

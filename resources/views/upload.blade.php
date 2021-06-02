@@ -67,7 +67,8 @@ z-index: 999999">
                     <div class="bg-white login_content login_border_radius">
                         <form action="{{ route('quotes.store')}}"  method="POST" enctype="multipart/form-data">
                         @csrf
-
+                            
+                            @if ($status == 'open')
                             <div class="form-group">
                                 <label class="col-form-label"> Hi, {{ Auth::user()->org_name ?? Auth::user()->name }}!<br>Please upload the required documents requestion in the RFQ.</label>
                             </div>
@@ -78,10 +79,11 @@ z-index: 999999">
                                     <span class="input-group-addon input_email"><i
                                             class="fa fa-envelope text-primary"></i></span>
                                     <!-- <input type="text" class="form-control  form-control-md" id="email" name="email" placeholder="E-mail"> -->
-                                     <select class="form-control col-12" name="proc_request_id" required>
+                                     <select class="form-control col-12" name="request_fq_id" required>
                                         <option value=""> -- Select Requests --</option>
-                                        @foreach($requests as $request)
-                                        <option value="{{ $request->procRequest->id }}">{{ $request->procRequest->name }}</option>
+                                        @foreach($quotes->where('status_id', $pending) as $quote)
+                                        <option value="{{ $quote->request_fq_id }}">{{ $quote->requestFq->name }}</option>
+                                        <input name="quote_id" value="{{ $quote->id }}" hidden readonly>
                                         @endforeach
                                     </select>
                                 </div>
@@ -95,13 +97,21 @@ z-index: 999999">
                                     <input type="file" class="form-control form-control-md" id="file"   name="file" placeholder="">
                                 </div>
                             </div>
+                            @endif
 
+                            <div class="form-group">
+                                <label class="col-form-label"> Hi, {{ Auth::user()->org_name ?? Auth::user()->name }}!<br>You have no pending Requests to quote for.</label>
+                            </div>
+                            
                             <div class="form-group mt-5">
                                 <div class="row">
+                                    
+                                    @if ($status == 'open')
                                     <div class="col-lg-6">
                                         <input type="submit" value="Upload and Save" class="btn btn-success btn-block login_button">
                                     </div>
-
+                                    @endif
+                                    
                                     </form>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

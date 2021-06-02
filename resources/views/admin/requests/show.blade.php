@@ -96,7 +96,7 @@
                                             <fieldset>
                                             <div class="modal-body">
                                                 
-                                                <input type="text" name="request_id" value="{{ $request->id }}" hidden readonly>
+                                                <input type="text" name="request_fq_id" value="{{ $request->id }}" hidden readonly>
                                                 <div class="form-group row">
                                                     <div class="col-lg-12">
                                                         <!-- <label for="subject1" class="col-form-label">
@@ -149,8 +149,8 @@
                                                 <td><b>Open Date: </b><br><span>{{ $request->start ?? '' }}</span></td>
                                                 <td><b>Closing Date: </b><br>{{ $request->end ?? '' }}</td>
                                             
-                                                <td><b>Department: </b><br>{{ $request->department->name }}</td>
-                                                <td><b>Status: </b><br><span class="badge badge-{{ $request->status->style }}">{{ $request->status->name ?? '' }}</span></td>
+                                                <td><b>Department: </b><br>{{ $request->department->name ?? '' }}</td>
+                                                <td><b>Status: </b><br><span class="badge badge-{{ $request->status->style ?? 'default' }}">{{ $request->status->name ?? '' }}</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -204,23 +204,27 @@
                                             <th style="width:5%;">SNo</th>
                                             <th style="width:35%;">Name </th>
                                             <th style="width:15%;">Phone </th>
-                                            <th style="width:20%;">Submission Date </th>
+                                            <th style="width:10%;">Status </th>
+                                            <th style="width:15%;">Submission Date </th>
                                             <th style="width:10%;" colspan="1" class="text-left"> Quotation</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($request->quotes as $quote)
+                                        @foreach ($request->quotes->where('status_id', $completed) as $quote)
                                         <tr>
                                             <td class="text-left">
                                                 Q{{ $quote->id }}
                                             </td>
-                                            <td style="width:20%;">
-                                                {{ $quote->contractor->org_name ?? '' }}
+                                            <td style="">
+                                                {{ $quote->user->org_name ?? '' }}
                                             </td>
-                                            <td style="width:40%;">
-                                                {{ $quote->contractor->org_phone ?? '' }}
+                                            <td style="">
+                                                {{ $quote->user->org_phone ?? '' }}
                                             </td>
-                                            <td style="width:40%;">
+                                            <td>
+                                                <span class="badge badge-{{$quote->status->style }}">{{ $quote->status->name }}</span>
+                                            </td>
+                                            <td style="">
                                                 {{ $quote->created_at ?? '' }}
                                             </td>
                                             <td>
@@ -288,10 +292,8 @@
                                                 <fieldset>
                                                     <div class="modal-body">
                                                     
-                                                        <input hidden readonly type="text" name="proc_request_id" value="{{$request->id}}">
+                                                        <input hidden readonly type="text" name="request_fq_id" value="{{$request->id}}">
                                                         <div class="form-group row">
-
-
 
                                                             <div class="col-lg-12">
                                                                 <label for="subject1" class="col-form-label">
@@ -400,7 +402,7 @@
                                                 <fieldset>
                                                     <div class="modal-body">
                                                         
-                                                        <input type="text" name="proc_request_id" value="{{ $request->id }}" hidden readonly>
+                                                        <input type="text" name="request_fq_id" value="{{ $request->id }}" hidden readonly>
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
                                                                 <label for="subject1" class="col-form-label">
@@ -422,7 +424,7 @@
                                                     <div class="modal-footer">
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
-                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Submit</button>
+                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Save</button>
                                                                 <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
                                                             </div>
                                                         </div>
@@ -462,19 +464,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($requestcontractors as $contractor)
+                                        @foreach ($request->quotes as $quote)
                                         <tr>
                                             <td class="text-left">
                                                 N/A
                                             </td>
                                             <td style="width:20%;">
-                                                {{ $contractor->contractor->org_name ?? '' }}
+                                                {{ $quote->user->org_name ?? '' }}
                                             </td>
                                             <td style="width:40%;">
-                                                {{ $contractor->contractor->org_phone ?? '' }}
+                                                {{ $quote->user->org_phone ?? '' }}
                                             </td>
                                             <td style="width:40%;">
-                                                {{ $contractor->contractor->org_address ?? '' }}
+                                                {{ $quote->user->org_address ?? '' }}
                                             </td>
                                             <td>
                                                 <a class="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target="#viewContractor{{$contractor->id}}">remove</a>

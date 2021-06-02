@@ -68,6 +68,7 @@ class ContractorController extends Controller
         $roles = Role::all();
         $quotes = ProcQuote::where('contractor_id', $id)->get();
         $requests = ProcContractor::where('contractor_id', $id)->get();
+        dd($contractor->requests);
         
         return view('admin.contractors.show', 
         [

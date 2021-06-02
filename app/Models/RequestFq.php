@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProcRequest extends Model
+class RequestFq extends Model
 {
     use HasFactory;
 
@@ -15,14 +15,9 @@ class ProcRequest extends Model
         'description',
         'start',
         'end',
-        'creator_id',  
-        'department_id',  
-        'status_id',
-
-        'fileurl', 
-        'filename', 
-        'filetype',  
-        'proc_request_id'
+        'user_id',  
+        'status_id',  
+        'department_id', 
 
 
     ];
@@ -31,7 +26,7 @@ class ProcRequest extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function creator() {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 
@@ -40,14 +35,10 @@ class ProcRequest extends Model
     }
 
     public function quotes() {
-        return $this->hasMany(ProcQuote::class);
-    }
-
-    public function requests() {
-        return $this->hasMany(ProcContractor::class);
+        return $this->hasMany(Quote::class);
     }
 
     public function resources() {
-        return $this->hasMany(Resource::class);
+        return $this->hasMany(RequestFqResource::class);
     }
 }
