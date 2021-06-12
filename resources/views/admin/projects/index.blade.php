@@ -498,7 +498,7 @@
                                             <td>{{ $project->manager->name }}</td>
                                             <td>&#8358;{{ number_format(floatval($project->budget), 2) }}</td>
                                             <td>
-                                                <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('projects.show', $project->id) }}">Manage</a>
+                                                <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('projects.tasks', $project->id) }}">Manage</a>
                                             </td>
                                         </tr>
                                         @endforeach

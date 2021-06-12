@@ -219,7 +219,7 @@
                                             </td>
                                             
                                             <td style="">
-                                                {{ $quote->user->org_name ?? '' }}                                            </td>
+                                                {{ $quote->user->org_name ?? '' }}
                                             </td>
 
                                             <td style="">

@@ -17,7 +17,7 @@ class Resource extends Model
 
         'project_id',
         'task_id',  
-        'creator',  
+        'user_id',  
         'status_id'
     ];
 
@@ -41,7 +41,7 @@ class Resource extends Model
         return $this->belongsTo(SubTask::class);
     }
 
-    public function creator() {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 }

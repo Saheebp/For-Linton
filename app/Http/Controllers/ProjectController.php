@@ -138,23 +138,117 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    // public function show(Project $project)
+    // {
+    //     try 
+    //     {
+    //         $staff = User::all();
+    //         $statuses = Status::all();
+    //         $categories = Category::all();
+    //         $designations = Designation::all();
+
+    //         $members = ProjectMember::where('project_id',$project->id)->get();
+            
+    //         $totalweeks = round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7);
+    //         $tasks = $project->tasks;
+
+    //         $flots = array();
+    //         $i = 0;
+    //         foreach($tasks as $task)
+    //         {
+    //             $length = round(( strtotime($task->end) - strtotime($task->start)) / 3600 / 24 / 7);
+    //             $preoffset = round(( strtotime($task->start) - strtotime($project->start)) / 3600 / 24 / 7);
+    //             $postoffset = round(( strtotime($project->end) - strtotime($task->end)) / 3600 / 24 / 7);
+                
+    //             $flots[$i] = array();
+    //             $flots[$i]['name'] = $task->name;
+    //             $flots[$i]['preoffset'] = $preoffset;
+    //             $flots[$i]['length'] = $length;
+    //             $flots[$i]['postoffset'] = $postoffset;
+    //             $flots[$i]['status_style'] = $task->status->style;
+
+    //             $i = $i+1;
+    //         }
+
+    //         $completion = $this->completion($project->id);
+
+    //         return view('admin.projects.show', [
+    //             'staff' => $staff,
+    //             'members' => $members,
+    //             'project' => $project,
+    //             //'projects' => $projects,
+    //             'statuses' => $statuses,
+    //             'categories' => $categories,
+    //             'designations' => $designations,
+    //             'completion' => $completion,
+    //             'totalweeks' => $totalweeks,
+    //             'flots' => $flots
+    //         ]);
+    //     }
+    //     catch (\Exception $e) 
+    //     {
+    //         return back()->with('error', "Oops, Cannot access project at the moment");
+    //     }
+    // }
+
+    public function team(Project $project)
     {
         try 
         {
             $staff = User::all();
-            $statuses = Status::all();
-            $categories = Category::all();
             $designations = Designation::all();
+            return view('admin.projects.team', [
+                'staff' => $staff,
+                'project' => $project,
+                'designations' => $designations,
+                'tabtea' => 'active' 
+            ]);
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Cannot access project at the moment");
+        }
+    }
 
-            $members = ProjectMember::where('project_id',$project->id)->get();
-            
-            $totalweeks = round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7);
-            $tasks = $project->tasks;
+    public function tasks(Project $project)
+    {
+        try 
+        {
+            $designations = Designation::all();
+            return view('admin.projects.tasks', [
+                'project' => $project,
+                'designations' => $designations,
+                'tabtas' => 'active'
+            ]);
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Cannot access project at the moment");
+        }
+    }
 
+    public function activity(Project $project)
+    {
+        try 
+        {
+            return view('admin.projects.activity', [
+                'project' => $project,
+                'tabact' => 'active'
+            ]);
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Cannot access project at the moment");
+        }
+    }
+
+    public function timeline(Project $project)
+    {
+        try 
+        {
             $flots = array();
             $i = 0;
-            foreach($tasks as $task)
+            foreach($project->tasks as $task)
             {
                 $length = round(( strtotime($task->end) - strtotime($task->start)) / 3600 / 24 / 7);
                 $preoffset = round(( strtotime($task->start) - strtotime($project->start)) / 3600 / 24 / 7);
@@ -170,19 +264,70 @@ class ProjectController extends Controller
                 $i = $i+1;
             }
 
-            $completion = $this->completion($project->id);
-
-            return view('admin.projects.show', [
-                'staff' => $staff,
-                'members' => $members,
+            return view('admin.projects.timeline', [
                 'project' => $project,
-                //'projects' => $projects,
-                'statuses' => $statuses,
-                'categories' => $categories,
-                'designations' => $designations,
-                'completion' => $completion,
-                'totalweeks' => $totalweeks,
-                'flots' => $flots
+                'flots' => $flots,
+                'tabtim' => 'active'
+            ]);
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Cannot access project at the moment");
+        }
+    }
+
+    public function resources(Project $project)
+    {
+        try 
+        {
+            return view('admin.projects.resources', [
+                'project' => $project,
+                'tabres' => 'active'
+            ]);
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Cannot access project at the moment");
+        }
+    }
+
+    public function budget(Project $project)
+    {
+        try 
+        {
+            return view('admin.projects.budget', [
+                'project' => $project,
+                'tabbud' => 'active'
+            ]);
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Cannot access project at the moment");
+        }
+    }
+
+    public function inventory(Project $project)
+    {
+        try 
+        {
+            return view('admin.projects.inventory', [
+                'project' => $project,
+                'tabinv' => 'active'
+            ]);
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Cannot access project at the moment");
+        }
+    }
+
+    public function comments(Project $project)
+    {
+        try 
+        {
+            return view('admin.projects.comments', [
+                'project' => $project,
+                'tabcom' => 'active'
             ]);
         }
         catch (\Exception $e) 
@@ -196,7 +341,7 @@ class ProjectController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx|max:2048'
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
         ]);
 
         try 
@@ -211,17 +356,15 @@ class ProjectController extends Controller
                 Resource::create([
                     'name' => $request->name,
                     'url' => $fileurl,
-                    //'url' => 'uploads/'.$filename,
                     'type' => $fileextension,
                     'description' => $request->description,
                     'user_id' =>  auth()->user()->id,
                     'project_id' => $project->id
-                    //'request_fq_id' => $request->request_fq_id,
                 ]);
             }
             
             $data = array();
-            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension."|".$filesize;
+            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension;
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -232,7 +375,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            //dd($e);
+            dd($e);
             return back()->with('error', "Oops, Error adding resource to Project");
         }
     }

@@ -326,7 +326,7 @@
                     <hr/>
                 </div>
                 <ul id="menu">
-                    <li class="active">
+                    <li class="@if(request()->is('home')) active @endif">
                         <a href="{{ route('home') }}">
                             <i class="fa fa-home"></i>
                             <span class="link-title menu_hide">&nbsp;Dashboard</span>
@@ -335,7 +335,7 @@
 
 
                     @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
-                    <li class="">
+                    <li class="@if(request()->is('projects')) active @endif">
                         <a href="{{ route('projects.index') }}">
                             <i class="fa fa-tasks"></i>
                             <span class="link-title menu_hide">&nbsp; Projects</span>
@@ -354,7 +354,7 @@
                     @endrole
 
                     @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
-                    <li class="dropdown_menu">
+                    <li class="dropdown_menu @if(request()->is('requests')) active @endif">
                         <a href="#">
                             <i class="fa fa-download"></i>
                             <span class="link-title menu_hide">&nbsp; Procurement</span>
@@ -378,7 +378,8 @@
                     @endrole
 
                     @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
-                    <li class="dropdown_menu">
+                    <li class="dropdown_menu @if(request()->is('warehouse')) active @endif">
+                        
                         <a href="#">
                             <i class="fa fa-users"></i>
                             <span class="link-title menu_hide">&nbsp; Warehouse</span>
@@ -391,19 +392,19 @@
                                     &nbsp; Items
                                 </a>
                             </li>
-                            <li>
+                            <li class="@if(request()->is('categories')) active @endif">
                                 <a href="{{ route('categories.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Categories
                                 </a>
                             </li>
-                            <li>
+                            <li class="@if(request()->is('batches')) active @endif">
                                 <a href="{{ route('batches.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Batches
                                 </a>
                             </li>
-                            <li>
+                            <li class="@if(request()->is('inventories')) active @endif">
                                 <a href="{{ route('inventories.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Inventories
@@ -415,14 +416,14 @@
 
 
                     @role('Level 1|Level 2|Level 3')
-                    <li class="dropdown_menu">
+                    <li class="dropdown_menu @if(request()->is('admin')) active @endif">
                         <a href="{{ route('admin.home') }}">
                             <i class="fa fa-users"></i>
                             <span class="link-title menu_hide">&nbsp; Users</span>
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
-                            <li>
+                            <li class="@if(request()->is('users')) active @endif">
                                 <a href="{{ route('users.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Manage Users
@@ -439,7 +440,7 @@
                     @endrole
 
                     @role('Level 1|Level 2|Level 3')
-                    <li class="">
+                    <li class="@if(request()->is('logs')) active @endif">
                         <a href="{{ route('logs.index') }}">
                             <i class="fa fa-history"></i>
                             <span class="link-title menu_hide">&nbsp; Logs</span>
@@ -449,7 +450,7 @@
                     @endrole
 
                     @role('Level 1|Level 2')
-                    <li class="dropdown_menu">
+                    <li class="dropdown_menu @if(request()->is('admin')) active @endif">
                         <a href="{{ route('admin.home') }}">
                             <i class="fa fa-shield"></i>
                             <span class="link-title menu_hide">&nbsp; Permissions</span>

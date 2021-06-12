@@ -188,6 +188,15 @@ Route::middleware('auth')->group(function() {
              Route::post('member/updaterole', 'ProjectController@updateRole')->name('updateRole');
 
              Route::post('member/updatebudget', 'ProjectController@updateBudget')->name('updateBudget');
+
+             Route::get('team/{project}', 'ProjectController@team')->name('team');
+             Route::get('tasks/{project}', 'ProjectController@tasks')->name('tasks');
+             Route::get('activity/{project}', 'ProjectController@activity')->name('activity');
+             Route::get('timeline/{project}', 'ProjectController@timeline')->name('timeline');
+             Route::get('resources/{project}', 'ProjectController@resources')->name('resources');
+             Route::get('budget/{project}', 'ProjectController@budget')->name('budget');
+             Route::get('inventory/{project}', 'ProjectController@inventory')->name('inventory');
+             Route::get('comments/{project}', 'ProjectController@comments')->name('comments');
          });
      });
 
