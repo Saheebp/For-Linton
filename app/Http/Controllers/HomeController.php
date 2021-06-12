@@ -51,7 +51,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function upload()
+    public function documents()
     {
         $quotes = Quote::where('user_id', auth()->user()->id)
             ->where('status_id', $this->pending)->get();
@@ -70,11 +70,15 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home');   
+        $quotes = Quote::where('user_id', auth()->user()->id)->get();
+        
+        return view('welcome', [
+            'quotes' => $quotes
+        ]);
     }
 
     public function home()
-    {
+    {   
         return view('home');   
     }
 
@@ -88,18 +92,18 @@ class HomeController extends Controller
         return view('terms');   
     }
 
-    public function shop()
-    {
-        $categories = Category::all();
-        $attributes = Attribute::all();
-        $options = AttributeOption::all();
+    // public function shop()
+    // {
+    //     $categories = Category::all();
+    //     $attributes = Attribute::all();
+    //     $options = AttributeOption::all();
 
-        return view('shop', [
-            'categories' => $categories,
-            'attributes' => $attributes,
-            'options' => $options
-        ]);
-    }
+    //     return view('shop', [
+    //         'categories' => $categories,
+    //         'attributes' => $attributes,
+    //         'options' => $options
+    //     ]);
+    // }
 
     public function contact()
     {
@@ -116,28 +120,28 @@ class HomeController extends Controller
         return view('account');   
     }
 
-    public function checkout()
-    {
-        return view('checkout');   
-    }
+    // public function checkout()
+    // {
+    //     return view('checkout');   
+    // }
 
-    public function cart()
-    {
-        return view('cart');   
-    }
+    // public function cart()
+    // {
+    //     return view('cart');   
+    // }
 
-    public function detail()
-    {
-        return view('product-detail');   
-    }
+    // public function detail()
+    // {
+    //     return view('product-detail');   
+    // }
 
-    public function locations()
-    {
-        return view('locations');   
-    }
+    // public function locations()
+    // {
+    //     return view('locations');   
+    // }
 
-    public function track()
-    {
-        return view('track');   
-    }
+    // public function track()
+    // {
+    //     return view('track');   
+    // }
 }

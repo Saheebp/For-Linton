@@ -56,33 +56,6 @@
                 <div class="card-body m-t-35">
                     <div class="row widget_countup">
                         
-                        <div class="col-12 col-sm-6 col-xl-3">
-                            <div id="top_widget1">
-                                <!-- <div class="front">
-                                    <div class="bg-primary p-d-15 b_r_5">
-                                        <div class="float-right m-t-5">
-                                            <i class="fa fa-users"></i>
-                                        </div>
-                                        <div class="user_font">Customers</div>
-                                        <div id="widget_countup1">3,250</div>
-                                        <div class="tag-white">
-                                            <span id="percent_count1">85</span>%
-                                        </div>
-                                        <div class="previous_font">Yearly Users stats</div>
-                                    </div>
-                                </div> -->
-                                
-                                <div class="">
-                                    <div class="bg-white text-primary text-white b_r_5 section_border">
-                                        <div class="p-t-l-r-15">
-                                            <div id="widget_countup12">{{ $projects->where('status_id', $new)->count() }}</div>
-                                            <div>New Projects</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="col-12 col-sm-6 col-xl-3 media_max_573">
                             <div id="top_widget2">
                                 <!-- <div class="front">
@@ -109,6 +82,33 @@
                                 </div>
                             </div>
 
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div id="top_widget1">
+                                <!-- <div class="front">
+                                    <div class="bg-primary p-d-15 b_r_5">
+                                        <div class="float-right m-t-5">
+                                            <i class="fa fa-users"></i>
+                                        </div>
+                                        <div class="user_font">Customers</div>
+                                        <div id="widget_countup1">3,250</div>
+                                        <div class="tag-white">
+                                            <span id="percent_count1">85</span>%
+                                        </div>
+                                        <div class="previous_font">Yearly Users stats</div>
+                                    </div>
+                                </div> -->
+                                
+                                <div class="">
+                                    <div class="bg-white text-primary text-white b_r_5 section_border">
+                                        <div class="p-t-l-r-15">
+                                            <div id="widget_countup12">{{ $projects->where('status_id', $queried)->count() }}</div>
+                                            <div>Queried Projects</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-xl-3 media_max_1199">
@@ -309,7 +309,7 @@
                                                                                             Estimated Cost
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <input type="tel"  id="budget" value="{{ old('budget') }}" class="form-control" placeholder="" name="budget">
+                                                                                            <input type="number"  id="budget" value="{{ old('budget') }}" class="form-control" placeholder="" name="budget">
                                                                                         </div>
                                                                                         @error('budget')
                                                                                             <span class="text-danger">{{ $errors->first('budget') }}</span>
@@ -485,7 +485,6 @@
                                         <th style="width:15%;">Title</th>
                                         <th style="width:15%;">Manager</th>
                                         <th style="width:10%;">Budget</th>
-                                        <!-- <th style="width:5%;">Completion</th> -->
                                         <th style="width:5%;">Action</th>
                                     </tr>
                                     </thead>
@@ -498,7 +497,6 @@
                                             <td><a href="{{ route('projects.show', $project->id) }}">{{ $project->name }}</a></td>
                                             <td>{{ $project->manager->name }}</td>
                                             <td>&#8358;{{ number_format(floatval($project->budget), 2) }}</td>
-                                            <!-- <td>{{ 0 }}%</td> -->
                                             <td>
                                                 <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('projects.show', $project->id) }}">Manage</a>
                                             </td>

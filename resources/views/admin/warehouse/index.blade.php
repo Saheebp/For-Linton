@@ -385,7 +385,125 @@
                         <div class="card-body m-t-35">
                             
                             <div class="row">
-                                <div class="col-lg-6 col-sm-12 m-t-1 text-right">
+                                <div class="col-lg-6 col-sm-12 m-t-1 text-left">
+
+                                @role('Level 1|Level 2|Level 3')
+                                    <button class="btn btn-sm btn-raised m-t-2 btn-primary adv_cust_mod_btn"
+                                            data-toggle="modal" data-target="#createCategory">New Warehouse Item
+                                    </button>
+                                    @endrole
+
+                                    <div class="modal fade" id="createCategory" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="modalLabel">Create New Warehouse Item</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+
+                                                <form class="form-horizontal" action="{{ route('warehouseitem.store') }}" method="POST">
+                                                    @csrf
+                                                    <fieldset>
+                                                    <div class="modal-body">
+                                                        <!-- Name input-->
+                                                        <div class="form-group row m-t-25">
+                                                            <div class="col-lg-12">
+                                                                <label for="name" class="col-form-label">
+                                                                    Name
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-file"></i>
+                                                                    </span>
+                                                                    <input type="text" class="form-control" id="name" placeholder="" name="name">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-6">
+                                                                <label for="quantity" class="col-form-label">
+                                                                    Quantity
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-file"></i>
+                                                                    </span>
+                                                                    <input type="text" class="form-control" id="quantity" placeholder="" name="quantity">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-6">
+                                                                <label for="threshold" class="col-form-label">
+                                                                Threshold
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-file"></i>
+                                                                    </span>
+                                                                    <input type="number" class="form-control" id="threshold" placeholder="" name="threshold">
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+
+                                                        <div class="form-group row m-t-25">
+                                                            <div class="col-lg-6">
+                                                                <label for="quantity" class="col-form-label">
+                                                                    Batch
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <select class="form-control" name="batch" required>
+                                                                        <option value="">-- Select Batch --</option>
+                                                                        @foreach ($batches as $batch)                                                                                                    
+                                                                        <option value="{{ $batch->id }}">{{ $batch->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-6">
+                                                                <label for="Threshhold" class="col-form-label">
+                                                                    Category
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <select class="form-control" name="category" required>
+                                                                        <option value="">-- Select Category --</option>
+                                                                        @foreach ($categories as $category)                                                                                                    
+                                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group row m-t-25">
+                                                            <div class="col-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Description
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <textarea type="text" name="description" id="subject1" class="form-control" placeholder="Subject"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-12">
+                                                                <button class="btn btn-responsive layout_btn_prevent btn-primary">Save & Create</button>
+                                                                <button class="btn  btn-secondary" data-dismiss="modal">Close me!</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-lg-6 col-sm-12 m-t-1 text-right">
@@ -411,9 +529,7 @@
                                     <thead>
                                         <tr>
                                             <th style="width:3%;">ID</th>
-                                            <th style="width:20%;">Name</th>
-                                            <th style="width:10%;">Category</th>
-                                            <th style="width:5%;">Batch</th>
+                                            <th style="width:30%;">Name</th>
                                             <th style="width:5%;">Quantity</th>
                                             <th style="width:5%;">Available</th>
                                             <th style="width:5%;">Status</th>
@@ -423,10 +539,8 @@
                                     <tbody>
                                         @foreach($items as $item)
                                         <tr>
-                                            <td>{{ $item->id }}</td>
+                                            <td>WH{{ $item->id }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->category->name }}</td>
-                                            <td>{{ $item->batch->name }}</td>
                                             <td>{{ $item->quantity }}</td>
                                             <td>{{ $item->available }}</td>
                                             <td><span class="badge badge-{{ $item->status->style }}">{{ $item->status->name }}</span></td>
@@ -434,8 +548,8 @@
                                                 <a class="btn btn-outline-warning btn-sm text-right" data-toggle="modal" data-target="#modalDetails{{$item->id}}">Manage</a>&nbsp;&nbsp;
                                                 <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateProject{{ $item->id }}">Disburse</a>
                                                 <a class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#modalDelete{{ $item->id }}">Delete</a>
-                                                <!-- <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#modalHistory{{ $item->id }}">History</a>
-                                                 -->
+                                                <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#modalHistory{{ $item->id }}">History</a>
+                                                
                                                 
                                                 <div class="modal fade" id="modalDetails{{$item->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
@@ -453,9 +567,16 @@
                                                                         
                                                                         <tr>
                                                                             <td><b>Available Qty:</b></td>
-                                                                            <td>&#8358;{{ $item->quantity }}</td>
+                                                                            <td>{{ $item->quantity }}</td>
                                                                         </tr>
-                                                                        
+                                                                        <tr>
+                                                                            <td><b>Category:</b></td>
+                                                                            <td>{{ $item->category->name }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><b>Batch:</b></td>
+                                                                            <td>{{ $item->batch->name }}</td>
+                                                                        </tr>
                                                                         <tr>
                                                                             <td><b>Item Status:</b></td>
                                                                             <td><span class="text-{{ $item->status->style }}">{{ $item->status->name }}</span></td>
@@ -517,7 +638,7 @@
                                                                     <div class="modal-body">
                                                                         
                                                                         <input value="{{ $item->id }}" name="item" hidden readonly>
-                                                                            
+                                                                        
                                                                         <div class="col-12">
                                                                             <label for="subject1" class="col-form-label">
                                                                                 Allocate to a Project
@@ -562,9 +683,40 @@
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h4 class="modal-title" id="modalLabel">Item History : {{$item->name}}</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
+                                                                <p class="p-2">
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <table id="example1" class="table table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="width:10%;">Action </th>
+                                                                            <th style="width:40%;">Disburser</th>
+                                                                            <th style="width:40%;">Receiver</th>
+                                                                            <th style="width:10%;">Quantity</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach($item->itemActivities as $activity)
+                                                                            <tr>
+                                                                                <td>
+                                                                                    {{ $activity->type}}
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{ $activity->user->name ?? '' }}<br>
+                                                                                    <tag style="font-size:10px;">{{ $activity->created_at }}</tag>
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{ $activity->project ?? '' }}
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{ $activity->quantity ?? '' }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </p>
                                                             </div>
 
                                                         </div>

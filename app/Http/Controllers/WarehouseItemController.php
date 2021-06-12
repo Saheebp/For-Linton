@@ -6,6 +6,7 @@ use App\Models\Inventory;
 use App\Models\InventoryItem;
 use App\Models\Warehouse;
 use App\Models\WarehouseItem;
+use App\Models\WarehouseActivity;
 use App\Models\Project;
 
 use Illuminate\Http\Request;
@@ -120,6 +121,7 @@ class WarehouseItemController extends Controller
 
     public function allocate(Request $request)
     {
+        $warehouse_id = 1;
         try
         {
             $project = Project::find($request->project);
@@ -129,8 +131,8 @@ class WarehouseItemController extends Controller
                 return redirect()->route('warehouse.index')->with('success', 'Target inventory not found');
             }
 
-            if ($item->available == 0) {
-                
+            if ($item->available == 0) 
+            {   
                 $item->status_id = $this->unavailable;
                 $item->save();
                 return back()->with('error', 'Insufficient quantity available');
@@ -144,9 +146,7 @@ class WarehouseItemController extends Controller
             $item->available = $item->available - $request->quantity;
             $item->save();
             
-
             $inventory = Inventory::where('project_id',$project->id)->first();
-            
             InventoryItem::create([
                 'name' => $item->name,
                 'quantity' => $request->quantity, 
@@ -168,7 +168,17 @@ class WarehouseItemController extends Controller
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
 
-            return redirect()->route('warehouse.index')->with('success', $item->name.'Item Allocated successfully');
+            WarehouseActivity::create([
+                'type' => 'allocation',
+                'quantity' => $request->quantity,
+                'project' => $project->name,
+                'project_id' => $project->id,
+                'user_id' => Auth::user()->id,
+                'warehouse_id' => $warehouse_id,
+                'warehouse_item_id' => $item->id
+            ]);
+
+            return redirect()->route('warehouse.index')->with('success', $item->name.' Item Allocated successfully');
 
         } catch (\Exception $e) {
             //dd($e);

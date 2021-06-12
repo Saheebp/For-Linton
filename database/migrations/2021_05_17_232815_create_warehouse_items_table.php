@@ -32,8 +32,8 @@ class CreateWarehouseItemsTable extends Migration
             $table->unsignedBigInteger('batch_id')->nullable();
             $table->foreign('batch_id')->references('id')->on('batches')->onDelete('restrict');
 
-            $table->unsignedBigInteger('inventory_id')->nullable();
-            $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('restrict');
+            $table->unsignedBigInteger('warehouse_id')->nullable();
+            $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('restrict');
 
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');

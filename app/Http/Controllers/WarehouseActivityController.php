@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Resource;
+use App\Models\WarehouseActivity;
 use Illuminate\Http\Request;
 
-class ResourceController extends Controller
+class WarehouseActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ResourceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Resource  $resource
+     * @param  \App\Models\WarehouseActivity  $warehouseActivity
      * @return \Illuminate\Http\Response
      */
-    public function show(Resource $resource)
+    public function show(WarehouseActivity $warehouseActivity)
     {
         //
     }
@@ -52,10 +52,10 @@ class ResourceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Resource  $resource
+     * @param  \App\Models\WarehouseActivity  $warehouseActivity
      * @return \Illuminate\Http\Response
      */
-    public function edit(Resource $resource)
+    public function edit(WarehouseActivity $warehouseActivity)
     {
         //
     }
@@ -64,10 +64,10 @@ class ResourceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Resource  $resource
+     * @param  \App\Models\WarehouseActivity  $warehouseActivity
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Resource $resource)
+    public function update(Request $request, WarehouseActivity $warehouseActivity)
     {
         //
     }
@@ -75,25 +75,11 @@ class ResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Resource  $resource
+     * @param  \App\Models\WarehouseActivity  $warehouseActivity
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Resource $resource)
+    public function destroy(WarehouseActivity $warehouseActivity)
     {
         //
-    }
-
-    public function download($id)
-    {
-        try
-        {
-            if (!auth()->check()) { return abort(404); }
-            $resource = Resource::where('id', $id)->firstOrFail();
-            return response()->download(storage_path('app/'.$resource->url));
-        }
-        catch (\Exception $e) 
-        {   
-            return back()->with('error', "Oops, Unable to download resource, check connection");
-        }
     }
 }

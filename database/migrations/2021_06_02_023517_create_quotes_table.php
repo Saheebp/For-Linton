@@ -20,6 +20,9 @@ class CreateQuotesTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             
+            $table->string('approval_status')->nullable()->default('Pending');
+            $table->string('total_cost')->nullable()->default(null);
+
             $table->unsignedBigInteger('request_fq_id')->nullable()->default(null);
             $table->foreign('request_fq_id')->references('id')->on('request_fqs')->onDelete('restrict');
 

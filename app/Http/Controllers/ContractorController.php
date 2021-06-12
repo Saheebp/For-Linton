@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Designation;
-use App\Models\ProcQuote;
-use App\Models\ProcContractor;
+use App\Models\Quote;
+use App\Models\RequestFq;
 
 use Illuminate\Http\Request;
 
@@ -66,9 +66,8 @@ class ContractorController extends Controller
         $contractor = User::where('is_admin','false')->where('is_contractor','true')->where('id', $id)->first();
         $logs = Activity::where('causer_id', $id)->orderBy('created_at', 'desc')->paginate(10);
         $roles = Role::all();
-        $quotes = ProcQuote::where('contractor_id', $id)->get();
-        $requests = ProcContractor::where('contractor_id', $id)->get();
-        dd($contractor->requests);
+        $quotes = Quote::where('user_id', $id)->get();
+        $requests = RequestFq::where('user_id', $id)->get();
         
         return view('admin.contractors.show', 
         [

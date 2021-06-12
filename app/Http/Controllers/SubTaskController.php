@@ -84,7 +84,6 @@ class SubTaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            //dd($e);
             return back()->with('error', "Oops, Error Creating a Sub Task");
         } 
     }

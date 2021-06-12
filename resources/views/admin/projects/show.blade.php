@@ -69,9 +69,64 @@
                         <div class="text-right p-3">
 
                             @role('Level 1|Level 2|Level 3')
-                                <button class="btn btn-sm btn-secondary align-right mt-1" data-toggle="modal" data-target="#manageProject">Manage Project</button>
+                                
+                                @if ($project->status_id != $completed)
+                                <button class="btn btn-sm btn-success align-right mt-1" data-toggle="modal" data-target="#updateBudget">Update Budget</button>
+                                @endif
 
-                                <div class="modal fade" id="manageProject" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                <div class="modal fade" id="updateBudget" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="modalLabel">Update Budget of Project</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <form class="form-horizontal" action="{{ route('projects.updateBudget', $project)}}" method="POST">
+                                            @csrf
+                                            <fieldset>
+                                            <div class="modal-body">
+                                                
+                                                <input type="text" name="project" value="{{ $project->id }}" hidden readonly>
+                                                <div class="form-group row text-left">
+                                                    <div class="col-12">
+                                                        <label for="subject1" class="col-form-label">
+                                                            Estimated Cost
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <input type="number"  id="budget" value="{{ $project->budget }}" class="form-control" placeholder="" name="budget">
+                                                        </div>
+                                                        @error('budget')
+                                                            <span class="text-danger">{{ $errors->first('budget') }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-12">
+                                                        <button class="btn btn-responsive layout_btn_prevent btn-success">Submit</button>
+                                                        <button class="btn  btn-secondary" data-dismiss="modal">Close me!</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endrole
+
+                            @role('Level 1|Level 2|Level 3')
+
+                                @if ($project->status_id != $completed)
+                                <button class="btn btn-sm btn-secondary align-right mt-1" data-toggle="modal" data-target="#manageProjectStatus">Manage Project</button>    
+                                @endif
+                                
+                                <div class="modal fade" id="manageProjectStatus" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -81,19 +136,19 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <form class="form-horizontal" action="{{ route('projects.update', $project)}}" method="POST">
+                                            <form class="form-horizontal" action="{{ route('projects.updateStatus', $project)}}" method="POST">
                                             @csrf
                                             <fieldset>
                                             <div class="modal-body">
                                                 
-                                                <input type="text" name="trip_id" value="{{ $project->id }}" hidden readonly>
+                                                <input type="text" name="project_id" value="{{ $project->id }}" hidden readonly>
                                                 <div class="form-group row">
                                                     <div class="col-lg-12">
                                                         <!-- <label for="subject1" class="col-form-label">
                                                             Trip Status
                                                         </label> -->
                                                         <div class="input-group">
-                                                        <select class="form-control" name="status_id" required>
+                                                        <select class="form-control" name="status" required>
                                                             <option value="">-- Select Status --</option>
                                                             <option value="{{ $pending }}">In Progress</option>
                                                             <option value="{{ $queried }}">Queried</option>
@@ -120,7 +175,10 @@
                             @endrole
 
                             @role('Level 1|Level 2|Level 3')
+                                @if ($project->status_id != $completed)
                                 <button class="btn btn-sm btn-primary align-right mt-1" data-toggle="modal" data-target="#commentProject">Comment on Project</button>
+                                @endif
+
                                 <div class="modal fade" id="commentProject" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
                                     <div class="modal-dialog text-left" role="document">
@@ -155,8 +213,8 @@
                                                     <div class="modal-footer">
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
-                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
-                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                <button class="btn btn-md btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
+                                                                <button class="btn btn-md btn-secondary" data-dismiss="modal">Close me!</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -177,7 +235,7 @@
                             
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <table id="example1" class="display table table-stripped table-bordered">
+                                    <table id="example1" class="table table-striped">
                                         <tbody>
                                             <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
                                             <tr>
@@ -196,7 +254,7 @@
                                     </table>
                                 </div>
                                 <div class="col-lg-6">
-                                    <table id="example1" class="display table table-stripped table-bordered">
+                                    <table id="example1" class="table table-striped">
                                         <tbody>
                                             <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
                                             <tr>
@@ -209,7 +267,7 @@
                                             </tr>
                                             <tr>
                                                 <td><b>Remaining Days: </b><br>{{ round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 ) }} days</td>
-                                                <td><b>&nbsp; </b><br>&nbsp;</td>
+                                                <td><b>Project Completion </b><br> {{ number_format(floatval($completion), 0) }}%</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -229,7 +287,7 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link active" href="#tab2" data-toggle="tab">Project Tasks</a>
+                                            <a class="nav-link" href="#tab2" data-toggle="tab">Project Tasks</a>
                                         </li>
 
                                         <li class="nav-item">
@@ -335,7 +393,7 @@
                                                         </td>
 
                                                         <td class="text-left">
-                                                            {{ $member->user->designation->name ?? '' }}
+                                                            {{ $member->designation->name ?? '' }}
                                                         </td>
 
                                                         <td>
@@ -399,11 +457,14 @@
                                                                                 <span aria-hidden="true">×</span>
                                                                             </button>
                                                                         </div>
-                                                                        <form class="form-horizontal" action="#" method="POST">
+                                                                        <form class="form-horizontal" action="{{ route('projects.updateRole')}}" method="POST">
                                                                         @csrf
                                                                             <fieldset>
                                                                                 <div class="modal-body">
-                                                                                    
+                                                                                
+                                                                                <input name="member" value="{{$member->id}}" hidden readonly>
+                                                                                <input name="project" value="{{$project->id}}" hidden readonly>
+
                                                                                 <div class="col-12">
                                                                                     <label for="subject1" class="col-form-label">
                                                                                         Designation
@@ -480,11 +541,11 @@
                                         <div class="tab-pane p-3 active" id="tab2">
                                             <h4 class="card-title m-b-3">Project Tasks & Processes</h4>
                                             
-                                            <button class="btn btn-raised btn-sm btn-success mt-3 mb-3 adv_cust_mod_btn"
+                                            <button class="btn btn-raised btn-sm btn-outline-success mt-3 mb-3 adv_cust_mod_btn"
                                                 data-toggle="modal" data-target="#modalTaskCreate">Add New Task
                                             </button>
 
-                                            <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
+                                            <button class="btn btn-raised btn-sm btn-outline-secondary mt-3 mb-3 adv_cust_mod_btn"
                                                 data-toggle="modal" data-target="#modalCommentCreate">Add a Comment
                                             </button>
                                             
@@ -663,9 +724,9 @@
                                                         <div class="card-header bg-white" role="tab" id="title-one">
                                                             <a class="collapsed accordion-section-title" data-toggle="collapse" data-parent="#accordion" href="#card-data-one{{$task->id}}" aria-expanded="false">
                                                                 <div class="row"> 
-                                                                    <div class="col-1"> <span class="float-left p-1 badge badge-{{ $task->status->style }}">{{ $task->status->name }}</span> </div>
-                                                                    <div class="col-10"> {{ $task->order ?? ''}} {{ $task->name ?? ''}} </div>
-                                                                    <div class="col-1"> <i class="fa fa-plus float-right m-t-5"></i> </div>
+                                                                    <div class="col-lg-2 col-sm-2"> <span class="float-left p-1 badge badge-{{ $task->status->style }}">{{ $task->status->name }}</span> </div>
+                                                                    <div class="col-lg-8 col-sm-8"> {{ $task->order ?? ''}} {{ $task->name ?? ''}} </div>
+                                                                    <div class="col-lg-2 col-sm-2"> <i class="fa fa-plus float-right m-t-5"></i> </div>
                                                                 </div>
                                                             </a>
                                                         </div>
@@ -675,6 +736,14 @@
 
                                                                 <table class="table table-hover" style="width:100%;">
                                                                     <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <tag class="text-primary text-bold">Task Budget :</tag>
+                                                                                <p class="text-justify">
+                                                                                    &#8358;{{ number_format(floatval($task->budget ?? 0), 2) }}
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
                                                                         <tr>
                                                                             <td>
                                                                                 <tag class="text-primary text-bold">Description :</tag>
@@ -691,6 +760,7 @@
                                                                                 </p>
                                                                             </td>
                                                                         </tr>
+                                                                        
                                                                         <tr>
                                                                             <td>
                                                                                 <tag class="text-primary text-bold">Resources :</tag>
@@ -719,7 +789,7 @@
                                                                                                         {{ $resource->description ?? '' }}
                                                                                                     </td>
                                                                                                     <td>
-                                                                                                        <a class="btn btn-sm btn-outline-secondary" href="{{ $resource->url ?? '' }}"><i class="fa fa-download"></i> Download</a>  
+                                                                                                        <a class="btn btn-sm btn-outline-secondary" href="{{ route('tasks.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>  
                                                                                                     </td>
                                                                                                     <td style="width:5%;">
                                                                                                         <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
@@ -741,8 +811,8 @@
                                                                                     <table id="example1" class="table">
                                                                                         <thead>
                                                                                             <tr>
-                                                                                                <th style="width:25%;">Name</th>
-                                                                                                <th style="width:15%;">Executor</th>
+                                                                                                <th style="width:5%;">Status</th>
+                                                                                                <th style="width:35%;">Name</th>
                                                                                                 <th style="width:10%;">Start</th>
                                                                                                 <th style="width:10%;">End</th>
                                                                                                 <th style="width:10%;">Budget</th>
@@ -754,10 +824,10 @@
                                                                                             @foreach($task->subtasks as $subtask)
                                                                                                 <tr>
                                                                                                     <td class="text-left">
-                                                                                                        {{ $subtask->name ?? '' }}
+                                                                                                        <span class="badge badge-{{ $subtask->status->style }}">{{ $subtask->status->name ?? '' }}</span>
                                                                                                     </td>
-                                                                                                    <td>
-                                                                                                        {{ $subtask->executor->name  ?? '' }}<br>
+                                                                                                    <td class="text-left">
+                                                                                                        {{ $subtask->name ?? '' }}
                                                                                                     </td>
                                                                                                     <td>
                                                                                                         {{ date('d/M/Y', strtotime($subtask->start)) }}
@@ -935,19 +1005,22 @@
                                                                                     @foreach($task->members as $member)
                                                                                         {{ $i }}. {{ $member->user->name  }} 
 
-                                                                                        <a class="btn btn-sm btn-outline-warning float-right" data-toggle="modal" data-target="#removeFromSubTask{{$member->id}}">remove</a>
-                                                                                        <div class="modal fade" id="removeFromSubTask{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                                        <a class="btn btn-sm btn-outline-warning float-right" data-toggle="modal" data-target="#removeFromTask{{$member->id}}">remove</a>
+                                                                                        <div class="modal fade" id="removeFromTask{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                                         aria-hidden="true">
                                                                                             <div class="modal-dialog" role="document">
                                                                                                 <div class="modal-content">
                                                                                                     <div class="modal-header">
-                                                                                                        <h4 class="modal-title" id="modalLabel">Remove {{ $member->user->name  }} from, <br>{{$subtask->name}}</h4>
+                                                                                                        <h4 class="modal-title" id="modalLabel">Remove {{ $member->user->name  }} from, <br>{{$task->name}}</h4>
                                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                             <span aria-hidden="true">×</span>
                                                                                                         </button>
                                                                                                     </div>
                                                                                                     <form class="form-horizontal" action="{{ route('tasks.removeMember', $task)}}" method="POST">
                                                                                                     @csrf
+
+                                                                                                        <input name="member" value="{{$member->id}}" hidden readonly>
+                                                                                                        <input name="task" value="{{$task->id}}" hidden readonly>
                                                                                                     
                                                                                                         <fieldset>
                                                                                                             <div class="modal-body">
@@ -1040,7 +1113,7 @@
                                                                 </table>
 
                                                                 <p class="p-2">
-                                                                    <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{$task->id}}">Update</button>
+                                                                    <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{$task->id}}">Update Status</button>
                                                                     <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#deleteTaskFromProject{{$task->id}}">Delete this Task</button>
                                                                     <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addMemberToTask{{$task->id}}">Add Member to Task</button>
                                                                     <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addResourceToTask{{ $task->id }}">Add Resource</button>
@@ -1157,6 +1230,22 @@
                                                                                                     <option value="">-- Select Member --</option>
                                                                                                     @foreach ($project->members as $member)                                                                                                    
                                                                                                     <option value="{{ $member->user_id }}">{{ $member->user->name }}</option>
+                                                                                                    @endforeach
+                                                                                                </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-lg-12">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Select Role on Project
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                <select class="form-control" name="member" required>
+                                                                                                    <option value="">-- Select Role --</option>
+                                                                                                    @foreach ($designations as $designation)                                                                                                    
+                                                                                                    <option value="{{ $designation->id }}">{{ $designation->name }}</option>
                                                                                                     @endforeach
                                                                                                 </select>
                                                                                                 </div>
@@ -1413,7 +1502,7 @@
 
                                                                 @for ($i = 1; $i <= $flot['length']; $i++ )
                                                                 <td>
-                                                                    <div class="badge badge-success w-100">&nbsp;</div>
+                                                                    <div class="badge badge-{{$flot['status_style']}} w-100">&nbsp;</div>
                                                                 </td>
                                                                 @endfor
 
@@ -1516,7 +1605,7 @@
                                                                 {{ $resource->description ?? '' }}
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-sm btn-outline-secondary" href="{{ $resource->url ?? '' }}"><i class="fa fa-download"></i> Download</a>  
+                                                                <a class="btn btn-sm btn-outline-secondary" href="{{ route('projects.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
                                                             </td>
                                                             <td style="width:5%;">
                                                                 <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
@@ -1586,18 +1675,6 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- <div class="col-12 col-sm-6 col-xl-3 media_max_1199">
-                                                    <div id="top_widget4">
-                                                        <div class="">
-                                                            <div class="bg-white text-danger b_r_5 section_border">
-                                                                <div class="p-t-l-r-15">
-                                                                    <div id="widget_countup12"> {{ $projects->where('status_id', $overdue)->count() }}</div>
-                                                                    <div>Overdue Projects</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
                                             </div>
                                             
                                             <h4 class="card-title">Budget Allocation</h4>

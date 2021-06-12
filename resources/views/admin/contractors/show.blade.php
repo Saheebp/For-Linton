@@ -239,11 +239,11 @@
                                 <div class="col-lg-6 col-sm-12 m-t-15">
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
-                                            <tr><td><b>User ID: </b></td><td>{{ $contractor->id }}</td></tr>
-                                            <tr><td><b>Name </b></td><td>{{ $contractor->name }}</td></tr>
-                                            <tr><td><b>Email </b></td><td>{{ $contractor->email }}</td></tr>
-                                            <tr><td><b>Phone </b></td><td>{{ $contractor->phone }}</td></tr>
-                                            <tr><td><b>Address </b></td><td>{{ $contractor->address }}</td></tr>
+                                            <tr><td><b>Reg No: </b></td><td>{{ $contractor->id ?? '' }}</td></tr>
+                                            <tr><td><b>Contact Name </b></td><td>{{ $contractor->name ?? '' }}</td></tr>
+                                            <tr><td><b>Contact Email </b></td><td>{{ $contractor->email ?? '' }}</td></tr>
+                                            <tr><td><b>Contact Phone </b></td><td>{{ $contractor->phone ?? '' }}</td></tr>
+                                            <tr><td><b>Contact Address </b></td><td>{{ $contractor->address ?? '' }}</td></tr>
                                             <tr><td><b>Date Registered: </b></td><td>{{ date('D M Y, h:iA', strtotime($contractor->created_at)) }}</td></tr>
                                         </tbody>
                                     </table>
@@ -252,11 +252,11 @@
                                 <div class="col-lg-6 col-sm-12 m-t-15">
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
-                                            <tr><td><b>Next of Kin Name: </b></td><td>{{ $contractor->nok_name }}</td></tr>
-                                            <tr><td><b>Next of Kin Phone: </b></td><td>{{ $contractor->nok_phone }}</td></tr>
-                                            <tr><td><b>Total Bookings </b></td><td>{{ $contractor->booking_count }}</td></tr>
-                                            <tr><td><b>Total Referrals </b></td><td>{{ $contractor->referral_count }}</td></tr>
-                                            <tr><td><b>Wallet Balance </b></td><td>&#8358;{{ number_format(floatval($wallet_bal ?? '0'), 2) }}</td></tr>
+                                            <tr><td><b>Company Name: </b></td><td>{{ $contractor->org_name ?? '' }}</td></tr>
+                                            <tr><td><b>Company Phone: </b></td><td>{{ $contractor->org_phone ?? '' }}</td></tr>
+                                            <tr><td><b>Company Address </b></td><td>{{ $contractor->org_address ?? '' }}</td></tr>
+                                            <tr><td><b>Nature of Company </b></td><td>{{ $contractor->org_nature ?? '' }}</td></tr>
+                                            <tr><td><b>Quote Count </b></td><td>{{ $contractor->quote_count ?? '0' }}</td></tr>
                                             <tr><td><b>Date Updated: </b></td><td>{{ date('D M Y, h:iA', strtotime($contractor->updated_at)) }}</td></tr>
                                         </tbody>
                                     </table>
@@ -264,6 +264,44 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card m-t-35">
+                        <div class="card-header bg-white">
+                            <i class="fa fa-table"></i> Accepted Bids
+                        </div>
+                        <div class="card-body m-t-35">
+                        
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-striped table-bordered bordered">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:3%;">Status</th>
+                                        <th style="width:15%;">Title</th>
+                                        <th style="width:7%;">Department </th>
+                                        <th style="width:5%;">Start</th>
+                                        <th style="width:5%;">Due Date</th>
+                                        <th style="width:2%;">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($contractor->requests as $request)
+                                        <tr>
+                                            <td><span class="badge badge-{{$request->status->style }}">{{ $request->status->name }}</span></td>
+                                            <td>{{ $request->name }}</td>
+                                            <td>{{ $request->department->name }}</td>
+                                            <td>{{ date('d M Y', strtotime($request->start)) }}</td>
+                                            <td>{{ date('d M Y', strtotime($request->end)) }}</td>
+                                            <td>
+                                                <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('requests.show', $request->id) }}">Manage</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="text-align: right; width:100%;"></div>
+                        </div>
+                    </div>
+
                     <div class="card m-t-35">
                         <div class="card-header bg-white">
                             <i class="fa fa-table"></i> Request for Quotes
@@ -341,40 +379,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="card m-t-35">
-                        <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> Wallet Transactions
-                        </div>
-                        <div class="card-body m-t-35">
-                            <div class="table-responsive">
-                                <table id="example1" class="display table table-stripped table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th style="width:15%;">Date</th>
-                                        <th>Transaction</th>
-                                        <th>Description</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    
-                                    @foreach($wallets as $wallet)
-                                    <tr>
-                                        <td>{{ date('d M Y, h:i A', strtotime($wallet->created_at)) }}</td>
-                                        <td>{{ $wallet->type }}</td>
-                                        <td>{{ $wallet->description }}</td>
-                                        <td>&#8358;{{ number_format(floatval($wallet->amount), 2) }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                                    
-                                </table>
-                            </div>
-                            <div style="text-align: right; width:100%;">{{ $wallets->links() }}</div>
-                        
                         </div>
                     </div>
                     

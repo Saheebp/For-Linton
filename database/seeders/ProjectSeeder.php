@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Project;
 use App\Models\Inventory;
+use App\Models\RequestFq;
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
@@ -39,7 +40,7 @@ class ProjectSeeder extends Seeder
             
             'manager_id' => 8,
             'creator_id' => 2,
-            'status_id' => 4
+            'status_id' => 6
         ]);
 
         Inventory::create([
@@ -47,6 +48,30 @@ class ProjectSeeder extends Seeder
             'description' => 'Inventory for Reconstruction of 3 bedroom Bungalow for Special Assistant to the Govenor',
             'project_id' => $project->id,
             'status_id' => 4,
+        ]);
+
+        RequestFq::create([
+            'name' => 'Purchase of Equipment',
+            'subject' => 'Purchases',
+            'description' => 'Purchases of stationarys and office equipment',
+            'start' => Carbon::now(),
+            'end' => Carbon::now()->addDays(3),
+            'user_id' => 1,
+            'department_id' => 1,
+            'status_id' => 9,
+            'total_cost' => 5000000
+        ]);
+
+        RequestFq::create([
+            'name' => 'Purchase of Vehicles',
+            'subject' => 'Purchases',
+            'description' => 'Purchases of SUVs and Hilux Vans',
+            'start' => Carbon::now(),
+            'end' => Carbon::now()->addDays(3),
+            'user_id' => 1,
+            'department_id' => 1,
+            'status_id' => 9,
+            'total_cost' => 1000000
         ]);
     }
 }

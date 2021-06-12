@@ -15,6 +15,7 @@ class RequestFq extends Model
         'description',
         'start',
         'end',
+        'total_cost',
         'user_id',  
         'status_id',  
         'department_id', 

@@ -40,7 +40,11 @@ z-index: 999999">
                     <div class="form">
                         <p class="form-control-static">ADMIN</p>
                         <!-- <input type="password" name="user" class="form-control" placeholder="Password"> -->
-                        <a class="btn btn-primary btn-block login" id="" href="{{ route('admin.home') }}">Continue</a>
+                        @if (Auth::user()->is_admin == "true")
+                            <a class="btn btn-primary btn-block login" id="" href="{{ route('admin.home') }}">Continue</a>
+                        @else
+                            <a class="btn btn-primary btn-block login" id="" href="{{ route('welcome') }}">Continue</a>
+                        @endif
                     </div>
                 </div>
             </div>

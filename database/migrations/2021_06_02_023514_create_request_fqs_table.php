@@ -22,6 +22,7 @@ class CreateRequestFqsTable extends Migration
             $table->string('description')->nullable()->default(null);
             $table->date('start')->nullable()->default(null);
             $table->date('end')->nullable()->default(null);
+            $table->string('total_cost')->nullable()->default(null);
 
             $table->unsignedBigInteger('department_id')->nullable()->default(null);
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('restrict');

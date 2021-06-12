@@ -55,7 +55,12 @@ class AppServiceProvider extends ServiceProvider
             $view->with('active', $this->returnStatusId("Active"));
             $view->with('inactive', $this->returnStatusId("Inactive"));
 
-            if (Auth::check()) {
+            $view->with('open', $this->returnStatusId("Open"));
+            $view->with('closed', $this->returnStatusId("Closed"));
+            $view->with('accepted', $this->returnStatusId("Accepted"));
+
+            if (Auth::check()) 
+            {
                 $messages = Message::where('receiver_id',Auth::user()->id)->get();
                 $view->with('messages', $messages);
             }else{

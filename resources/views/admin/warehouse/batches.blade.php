@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">Inventories</a>
+                            <a href="#">Batches</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -84,7 +84,7 @@
                             
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 m-t-1 text-left">
-                                @role('SuperUser|Director|Admin')
+                                @role('Level 1|Level 2|Level 3')
                                 <button class="btn btn-sm btn-raised m-t-2 btn-secondary adv_cust_mod_btn"
                                         data-toggle="modal" data-target="#createBatch">New Batch
                                 </button>

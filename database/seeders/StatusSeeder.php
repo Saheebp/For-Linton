@@ -31,7 +31,18 @@ class StatusSeeder extends Seeder
                 'name' => 'Declined',
                 'style' => 'secondary'
             ],
-
+            [
+                'name' => 'Accepted',
+                'style' => 'success'
+            ],
+            [
+                'name' => 'Open',
+                'style' => 'success'
+            ],
+            [
+                'name' => 'Closed',
+                'style' => 'dark'
+            ],
 
 
             [
@@ -92,7 +103,6 @@ class StatusSeeder extends Seeder
                 'name' => 'Inactive',
                 'style' => 'danger'
             ]
-
         ];
 
         foreach ($statuses as $status) {

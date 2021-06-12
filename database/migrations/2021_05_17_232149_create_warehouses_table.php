@@ -14,8 +14,14 @@ class CreateWarehousesTable extends Migration
     public function up()
     {
         Schema::create('warehouses', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->timestamps();
+
+            $table->string('name')->nullable(false);
+            $table->string('address')->nullable()->default(null);
+
+            $table->unsignedBigInteger('user_id')->default(1);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 

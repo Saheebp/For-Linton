@@ -73,43 +73,50 @@
                         <div class="card-body m-t-35">
                             
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <h3><tag class="text-capitalize text-success">Project</tag></h3>
-                                    <table id="example1" class="display table table-stripped table-bordered">
-                                        <tbody>
-                                            <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
-                                            <tr>
-                                                <td><b>Title: </b><br><tag class="text-success">{{ $project->name ?? '' }}</tag> </td>
-                                                <td><b>Budget: </b><br><tag class="text-danger">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>State: </b><br><span>{{ $project->state ?? '' }}</span></td>
-                                                <td><b>L.G.A: </b><br>{{ $project->lga ?? '' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Owner: </b><br>{{ $project->sponsor_name }}</td>
-                                                <td><b>Project Type: </b><br>{{ $project->type }} days</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-lg-6">
+
+                            <div class="col-lg-6">
                                     
                                     <h3><tag class="text-capitalize text-success">Item</tag></h3>
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
-                                            <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
+                                            
                                             <tr>
-                                                <td><b>Item: </b><br><tag>{{ $item->name ?? '' }}</tag> </td>
-                                                <td><b>Category: </b><br><tag>{{ $item->category->name ?? '' }}</tag></td>
+                                                <td><b>Item: </b></td> <td><tag>{{ $item->name ?? '' }}</tag></td>
                                             </tr>
                                             <tr>
-                                                <td><b>Batch: </b><br>{{ $item->batch->name ?? '' }}</td>
-                                                <td><b>Quantity: </b><br>{{ $quantity ?? '' }}</td>
+                                                <td><b>Category: </b></td> <td><tag>{{ $item->category->name ?? '' }}</tag></td>
                                             </tr>
                                             <tr>
-                                                <td><b>Officer </b><br>{{ Auth::user()->name }}</td>
-                                                <td><b>Date: </b><br></td>
+                                                <td><b>Batch: </b></td> <td>{{ $item->batch->name ?? '' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Quantity: </b></td> <td>{{ $quantity ?? '' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Allocated By </b></td> <td>{{ Auth::user()->name }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <h3><tag class="text-capitalize text-success">Project</tag></h3>
+                                    <table id="example1" class="display table table-stripped table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td><b>Title: </b></td> <td><tag class="text-success">{{ $project->name ?? '' }}</tag> </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Budget: </b></td> <td><tag class="text-danger">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>State: </b></td> <td><span>{{ $project->state ?? '' }}, {{ $project->lga ?? '' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Owner: </b></td> <td>{{ $project->sponsor_name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Project Type: </b></td> <td>{{ $project->type }} days</td>
                                             </tr>
                                         </tbody>
                                     </table>

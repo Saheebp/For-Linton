@@ -289,7 +289,7 @@
                                                                                         @enderror
                                                                                     </div>
                                                                                 
-                                                                                    <div class="col-lg-12">
+                                                                                    <div class="col-lg-6">
                                                                                         <label for="subject1" class="col-form-label">
                                                                                             Department
                                                                                         </label>
@@ -304,6 +304,14 @@
                                                                                         </div>
                                                                                     </div>
 
+                                                                                    <div class="col-lg-6">
+                                                                                        <label for="subject1" class="col-form-label">
+                                                                                            Maximum Expected Cost
+                                                                                        </label>
+                                                                                        <div class="input-group">
+                                                                                            <input type="number" step="0.1" id="cost" value="{{ old('cost') }}" class="@error('cost') is-invalid @enderror form-control" placeholder="" name="cost">
+                                                                                        </div>
+                                                                                    </div>
 
                                                                                 </div>                                                                    
                                                                             </div> 

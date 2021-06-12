@@ -12,7 +12,9 @@ class Quote extends Model
         
         'user_id',  
         'request_fq_id',
-        'status_id'
+        'status_id',
+        'approval_status',
+        'total_cost'
     ];
 
     public function status() {

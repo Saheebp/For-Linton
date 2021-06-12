@@ -69,7 +69,7 @@ class TaskController extends Controller
                 'project_id' => $project->id,
                 'start' => $request->start,
                 'end' => $request->end,
-                'status_id' => $this->new,
+                'status_id' => $this->pending,
                 'department_id' => $request->department_id,
                 'preceedby' => $request->preceedby,
                 'succeedby' => $request->succeedby,
@@ -365,7 +365,7 @@ class TaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error deleting Comment");
         }
     }
@@ -381,30 +381,24 @@ class TaskController extends Controller
 
         try 
         {
-            $file = $request->file('file');
-            //File Name
-            $filename = $file->getClientOriginalName();
-            //File Extension
-            $fileextension = $file->getClientOriginalExtension();
-            //File Real Path
-            $filepath = $file->getRealPath();
-            //File Size
-            $filesize = $file->getSize();
-            //File Mime Type
-            $filetype = $file->getMimeType();
-            //Move Uploaded File
-            $destinationPath = 'uploads';
-            $url = $file->move($destinationPath, $file->getClientOriginalName());
-            
-            Resource::create([
-                'name' => $request->name,
-                'url' => 'uploads/'.$filename,
-                'type' => $fileextension,
-                'description' => $request->description,
-                'creator_id' =>  auth()->user()->id,
-                'project_id' => $task->project_id,
-                'task_id' => $task->id,
-            ]);
+            if ($request->file('file')->isValid()) 
+            {   
+                $file = $request->file('file');
+                $filename = time().'.'.$file->getClientOriginalExtension();
+                $fileextension = $file->getClientOriginalExtension();
+                $fileurl = $request->file->storeAs('uploads', time().'.'.$file->getClientOriginalExtension());
+
+                Resource::create([
+                    'name' => $request->name,
+                    'url' => $fileurl,
+                    //'url' => 'uploads/'.$filename,
+                    'type' => $fileextension,
+                    'description' => $request->description,
+                    'user_id' =>  auth()->user()->id,
+                    'project_id' => $task->project_id,
+                    'task_id' => $task->id,
+                ]);
+            }
             
             $data = array();
             $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension."|".$filesize;
@@ -420,6 +414,20 @@ class TaskController extends Controller
         {   
             //dd($e);
             return back()->with('error', "Oops, Error adding resource to Task");
+        }
+    }
+
+    public function download($id)
+    {
+        try
+        {
+            if (!auth()->check()) { return abort(404); }
+            $resource = Resource::where('id', $id)->firstOrFail();
+            return response()->download(storage_path('app/'.$resource->url));
+        }
+        catch (\Exception $e) 
+        {   
+            return back()->with('error', "Oops, Unable to download resource, check connection");
         }
     }
 

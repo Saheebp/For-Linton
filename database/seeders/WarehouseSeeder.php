@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Warehouse;
 use App\Models\WarehouseItem;
 use App\Models\Batch;
 
@@ -17,6 +18,12 @@ class WarehouseSeeder extends Seeder
      */
     public function run()
     {
+        Warehouse::create([
+            'name' => 'Warehouse 1',
+            'address' => 'Headquaters',
+            'user_id' => 1
+        ]);
+
         $categories = [
             [
                 'name' => 'Equipment',
@@ -75,9 +82,9 @@ class WarehouseSeeder extends Seeder
                 'created_by' => 1,
                 'batch_id' => 1,
                 'image' => '',
-                'status_id' => 14,
+                'status_id' => 17,
                 'category_id' => 2,
-                'inventory_id' => NULL
+                'warehouse_id' => 1
             ],
             [
                 'name' => 'Wheel Barrows',
@@ -87,9 +94,9 @@ class WarehouseSeeder extends Seeder
                 'created_by' => 1,
                 'batch_id' => 1,
                 'image' => '',
-                'status_id' => 14,
+                'status_id' => 17,
                 'category_id' => 1,
-                'inventory_id' => NULL
+                'warehouse_id' => 1
             ],
             [
                 'name' => 'Blocks',
@@ -99,9 +106,9 @@ class WarehouseSeeder extends Seeder
                 'created_by' => 1,
                 'batch_id' => 1,
                 'image' => '',
-                'status_id' => 14,
+                'status_id' => 17,
                 'category_id' => 2,
-                'inventory_id' => NULL
+                'warehouse_id' => 1
             ],
             [
                 'name' => 'Toyota Hilux Vans',
@@ -111,11 +118,12 @@ class WarehouseSeeder extends Seeder
                 'created_by' => 1,
                 'batch_id' => 1,
                 'image' => '',
-                'status_id' => 14,
+                'status_id' => 17,
                 'category_id' => 4,
-                'inventory_id' => NULL
+                'warehouse_id' => 1
             ]
         ];
+
         foreach ($items as $item) {
             # code...
             WarehouseItem::create([
@@ -128,7 +136,7 @@ class WarehouseSeeder extends Seeder
                 'image' => $item['image'],
                 'status_id' => $item['status_id'],
                 'category_id' => $item['category_id'],
-                'inventory_id' => $item['inventory_id']
+                'warehouse_id' => $item['warehouse_id']
             ]);
         }
     }

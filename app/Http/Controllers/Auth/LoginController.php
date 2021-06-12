@@ -58,7 +58,8 @@ class LoginController extends Controller
             return redirect()->route('admin.home');
             //return redirect(session('link'));
         } else {
-            return redirect()->route('upload');
+            //return redirect()->route('upload');
+            return redirect()->route('welcome');
         }
     }
 

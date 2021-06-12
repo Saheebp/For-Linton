@@ -68,7 +68,7 @@
                     <div class="card">
                         <div class="text-right p-3">
 
-                            @role('SuperUser|Director|Admin')
+                            @role('Level 1|Level 2|Level 2')
                                 <!-- <button class="btn btn-sm btn-secondary align-right mt-1" data-toggle="modal" data-target="#manageProject">Manage Project</button> -->
 
                             @endrole

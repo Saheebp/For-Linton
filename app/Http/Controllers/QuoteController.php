@@ -37,7 +37,8 @@ class QuoteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048',
+            'cost' => 'required|string|max:255'
         ]);
 
         // $initialquote = Quote::where('user_id',auth()->user()->id)
@@ -46,6 +47,7 @@ class QuoteController extends Controller
         // if ($initialquote != NULL) {
         //     return back()->with('error', "Oops, You have already submitted a quotation for this request.");
         // }
+        
         $quote = Quote::where('id', $request->quote_id)->first();
         if ($quote == NULL) {
             return back()->with('error', "Oops, Resource not found.");
@@ -61,9 +63,10 @@ class QuoteController extends Controller
                 $fileurl = $request->file->storeAs('quotes', time().'.'.$file->getClientOriginalExtension());
 
                 $quote->update([
-                    'status_id' => $this->completed
+                    'status_id' => $this->completed,
+                    'total_cost' => $request->cost
                 ]);
-                $quote->update();
+                $quote->save();
 
                 QuoteResource::create([
                     'url' => $fileurl,
@@ -79,6 +82,34 @@ class QuoteController extends Controller
         {   
             //dd($e);
             return back()->with('error', "Oops, Error adding resource to Request");
+        }
+    }
+
+    public function updateStatus(Request $request, Quote $quote)
+    {
+        $validated = $request->validate([
+            'approval' => 'required|string|max:255'
+        ]);
+        
+        $quote = Quote::find($request->quote_id);
+
+        if ($quote == null) {
+            return back()->with('error', "Oops, You cannot update this Quote status");
+        }
+
+        try 
+        {
+            $quote->update([
+                'approval_status' => $request->approval,
+            ]);
+            $quote->save();
+
+            return back()->with('success', 'Quote Status updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            //dd($e);
+            return back()->with('error', "Oops, Error Updating Quote Status");
         }
     }
 
@@ -129,8 +160,15 @@ class QuoteController extends Controller
 
     public function download($id)
     {
-        if (!auth()->check()) { return abort(404); }
-        $resource = QuoteResource::where('id', $id)->firstOrFail();
-        return response()->download(storage_path('app/'.$resource->fileurl));
+        try
+        {
+            if (!auth()->check()) { return abort(404); }
+            $resource = QuoteResource::where('id', $id)->firstOrFail();
+            return response()->download(storage_path('app/'.$resource->url));
+        }
+        catch (\Exception $e) 
+        {   
+            return back()->with('error', "Oops, Unable to download resource, check connection");
+        }
     }
 }

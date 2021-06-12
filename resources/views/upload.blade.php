@@ -1,49 +1,32 @@
+@extends('layouts.frontend')
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Contractor | Home </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="{{ asset('admin/img/logo.ico') }}"/>
-    <!--Global styles -->
-    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/components.css') }}" />
-    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/custom.css') }}" />
-    <!--End of Global styles -->
+{{-- Page title --}}
+@section('title')
+    Registration Documents
+    @parent
+@stop
+
+@section('header_styles')
     <!--Plugin styles-->
-    <link type="text/css" rel="stylesheet" href="{{ asset('admin/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}"/>
-    <link type="text/css" rel="stylesheet" href="{{ asset('admin/vendors/wow/css/animate.css') }}"/>
-    <!--End of Plugin styles-->
-    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/pages/login1.css') }}"/>
-</head>
-<body>
-<!-- <div class="preloader" style=" position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 100000;
-  backface-visibility: hidden;
-  background: #ffffff;">
-    <div class="preloader_img" style="width: 200px;
-  height: 200px;
-  position: absolute;
-  left: 48%;
-  top: 48%;
-  background-position: center;
-z-index: 999999">
-        <img src="{{ asset('admin/img/loader.gif') }}" style=" width: 40px;" alt="loading...">
-    </div>
-</div> -->
-<div class="container wow fadeInDown" data-wow-delay="0.5s" data-wow-duration="2s">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 login_top_bottom">
+    <link type="text/css" rel="stylesheet" href="{{asset('vendors/select2/css/select2.min.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('vendors/datatables/css/scroller.bootstrap.min.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('vendors/datatables/css/colReorder.bootstrap.min.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('css/pages/dataTables.bootstrap.css')}}" />
+    <!-- end of plugin styles -->
+    <!--Page level styles-->
+    <link type="text/css" rel="stylesheet" href="{{asset('css/pages/tables.css')}}" />
+    <!--End of page level styles-->
+
+@stop
+{{-- Page content --}}
+@section('content')
+    <!-- Content Header (Page header) -->
+    
+    <div class="outer">
+        <div class="inner bg-light lter bg-container">
             <div class="row">
-                <div class="col-lg-5  col-md-8  col-sm-12 mx-auto">
-                    <div class="login_logo login_border_radius1">
-                        <h3 class="text-center p-3">
-                            <span class="text-dark">QUOTATION UPLOAD</span>
-                        </h3>
-                    </div>
+                <div class="col-12 data_tables">
                     @if (session('error'))
                         <div class="alert alert-danger">
                                 {{ session('error') }}
@@ -51,10 +34,10 @@ z-index: 999999">
                     @endif
                     @if (session('success'))
                         <div class="alert alert-success">
-                                {{ session('success') }}
+                            {{ session('success') }}
                         </div>
                     @endif
-                    
+
                     @if ($errors->any())
                     <div class="alert alert-danger pt-0 pb-0">
                         <ul>
@@ -64,120 +47,136 @@ z-index: 999999">
                         </ul>
                     </div>
                     @endif
-                    <div class="bg-white login_content login_border_radius">
-                        <form action="{{ route('quotes.store')}}"  method="POST" enctype="multipart/form-data">
-                        @csrf
-                            
-                            @if ($status == 'open')
-                            <div class="form-group">
-                                <label class="col-form-label"> Hi, {{ Auth::user()->org_name ?? Auth::user()->name }}!<br>Please upload the required documents requestion in the RFQ.</label>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email" class="col-form-label">Select Request you are Quoting for</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon input_email"><i
-                                            class="fa fa-envelope text-primary"></i></span>
-                                    <!-- <input type="text" class="form-control  form-control-md" id="email" name="email" placeholder="E-mail"> -->
-                                     <select class="form-control col-12" name="request_fq_id" required>
-                                        <option value=""> -- Select Requests --</option>
-                                        @foreach($quotes->where('status_id', $pending) as $quote)
-                                        <option value="{{ $quote->request_fq_id }}">{{ $quote->requestFq->name }}</option>
-                                        <input name="quote_id" value="{{ $quote->id }}" hidden readonly>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <!--</h3>-->
-                            <div class="form-group">
-                                <label for="files" class="col-form-label">Quotation Files</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon addon_password"><i
-                                            class="fa fa-file text-primary"></i></span>
-                                    <input type="file" class="form-control form-control-md" id="file"   name="file" placeholder="">
-                                </div>
-                            </div>
-                            @endif
-
-                            <div class="form-group">
-                                <label class="col-form-label"> Hi, {{ Auth::user()->org_name ?? Auth::user()->name }}!<br>You have no pending Requests to quote for.</label>
-                            </div>
-                            
-                            <div class="form-group mt-5">
-                                <div class="row">
-                                    
-                                    @if ($status == 'open')
-                                    <div class="col-lg-6">
-                                        <input type="submit" value="Upload and Save" class="btn btn-success btn-block login_button">
-                                    </div>
-                                    @endif
-                                    
-                                    </form>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <div class="col-lg-6">
-                                        <a class="btn btn-primary btn-block login_button" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                        <!-- <div class="form-group">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input form-control">
-                                        <span class="custom-control-indicator"></span>
-                                        <a class="custom-control-description">Keep me logged in</a>
-                                    </label>
-                                </div>
-                                <div class="col-6 text-right forgot_pwd">
-                                    <a href="forgot_password1.html" class="custom-control-description forgottxt_clr">Forgot password?</a>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-6 col-sm-6 m-t-10">
-                                    <div class="icon-white btn-facebook icon_padding loginpage_border">
-                                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                                        <span class="text-white icon_padding text-center question_mark">Log In With Facebook</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-sm-6 pull-lg-right m-t-10">
-                                    <div class="icon-white btn-google icon_padding loginpage_border">
-                                        <i class="fa fa-google-plus" aria-hidden="true"></i>
-                                        <span class="text-white icon_padding question_mark">Log In With Google+</span>
-                                    </div>
-                                </div>
-                            </div>
+                    
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <i class="fa fa-table"></i> Update Contractor Documents
                         </div>
-                        <div class="form-group">
-                            <label class="col-form-label">Don't you have an Account? </label>
-                            <a href='register1.html' class="text-primary"><b>Sign Up</b></a>
-                        </div> -->
+                        <div class="card-body m-t-35">
+                            <div class="row">
+                                <div class="col-lg-6 offset-md-3 col-sm-12">
+                                    <form action="{{ route('users.upload') }}"  method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                        
+                                        <div class="form-group">
+                                            <label class="h4"> Upload Registration Docs</label>
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <div class="col-lg-12">
+                                                <div class="input-group mb-1">
+                                                    <input class="form-control col-12" type="file" name="file">
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="col-lg-12">
+                                                <label for="subject1" class="col-form-label">
+                                                    File Name <tag class="text-danger h6"> (docx, doc, pdf)</tag>
+                                                </label>
+                                                <div class="input-group">
+                                                    <select class="form-control" name="name" required>
+                                                        <option value="">-- Select Documents --</option>
+                                                        <option value="CAC Documents">CAC Documents</option>
+                                                        <option value="Evidence of Jobs Done">Evidence of Jobs Done</option>
+                                                        <option value="Other Documents">Other Documents</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="col-lg-12">
+                                                <label for="subject1" class="col-form-label">
+                                                    File Description
+                                                </label>
+                                                <div class="input-group mb-1">
+                                                    <input class="form-control col-12" type="text" name="description">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-5">
+                                            <div class="row">
+                                                
+                                                <div class="col-lg-6 offset-md-3">
+                                                    <input type="submit" value="Upload and Save" class="btn btn-success btn-block login_button">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <i class="fa fa-table"></i> All Documents
+                        </div>
+                        <div class="card-body m-t-35">
+                        <table id="example1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width:30%;">Name</th>
+                                    <th style="width:10%;">Type</th>
+                                    <th style="width:40%;">Description</th>
+                                    <th style="width:15%;">File</th>
+                                    <th style="width:5%;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(Auth::user()->userResources as $resource)
+                                    <tr>
+                                        <td class="text-left">
+                                            {{ $resource->name ?? '' }}
+                                        </td>
+                                        <td style="width:10%;">
+                                            {{ $resource->type ?? '' }}
+                                        </td>
+                                        <td style="width:40%;">
+                                            {{ $resource->description ?? '' }}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-outline-secondary" href="{{ route('users.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
+                                        </td>
+                                        <td style="width:5%;">
+                                            <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                            
+                        </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
+        <!-- /.inner -->
     </div>
-</div>
-<!-- global js -->
-<script type="text/javascript" src="{{ asset('admin/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('admin/js/popper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('admin/js/bootstrap.min.js') }}"></script>
-<!-- end of global js-->
-<!--Plugin js-->
-<script type="text/javascript" src="{{ asset('admin/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('admin/vendors/wow/js/wow.min.js') }}"></script>
-<!--End of plugin js-->
-<script type="text/javascript" src="{{ asset('admin/js/pages/login1.js') }}"></script>
-</body>
+    <!-- /.outer -->
+    <!-- /.content -->
+@stop
 
-</html>
+
+@section('footer_scripts')
+    <!--plugin scripts-->
+    <script type="text/javascript" src="{{asset('vendors/select2/js/select2.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/pluginjs/dataTables.tableTools.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.colReorder.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.buttons.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.responsive.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.rowReorder.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.colVis.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.print.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.scroller.min.js')}}"></script>
+    <!-- end of plugin scripts -->
+    <!--Page level scripts-->
+    <script type="text/javascript" src="{{asset('js/pages/simple_datatables.js')}}"></script>
+    <!-- end of global scripts-->
+@stop

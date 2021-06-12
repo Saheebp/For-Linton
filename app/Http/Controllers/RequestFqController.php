@@ -53,6 +53,7 @@ class RequestFqController extends Controller
             'start' => 'required|string|max:255',
             'end' => 'required|string|max:255',
             'department' => 'required|string|max:255',
+            'cost' => 'required|string|max:255',
         ]);
         
         try 
@@ -63,9 +64,10 @@ class RequestFqController extends Controller
                 'description' => $request->description,
                 'start' => $request->start,
                 'end' => $request->end,
-                'creator_id' => auth()->user()->id,
+                'user_id' => auth()->user()->id,
                 'department_id' => $request->department,
-                'status_id' => $this->pending
+                'status_id' => $this->pending,
+                'total_cost' => $request->cost
             ]);
             
             return redirect()->route('requests.index')->with('success', 'Quote Request created successfully');
@@ -139,7 +141,7 @@ class RequestFqController extends Controller
                 $quote = Quote::create([
                     'request_fq_id' => $request->request_fq_id,
                     'user_id' => $request->contractor_id,
-                    'status_id' => $this->pending 
+                    'status_id' => $this->pending
                 ]);
                 
             }else{
@@ -150,7 +152,7 @@ class RequestFqController extends Controller
         }
         catch (\Exception $e) 
         {
-            
+            //dd($e);
             return back()->with('error', "Oops, Error adding Contractor");
         }
     }
@@ -171,7 +173,7 @@ class RequestFqController extends Controller
                 $file = $request->file('file');
                 $filename = time().'.'.$file->getClientOriginalExtension();
                 $fileextension = $file->getClientOriginalExtension();
-                $fileurl = $request->file->storeAs('requests', time().'.'.$file->getClientOriginalExtension());
+                $fileurl = $request->file->storeAs('uploads', time().'.'.$file->getClientOriginalExtension());
 
                 RequestFqResource::create([
                     'name' => $request->name,
@@ -195,15 +197,22 @@ class RequestFqController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error adding resource to Request");
         }
     }
-
+    
     public function download($id)
     {
-        if (!auth()->check()) { return abort(404); }
-        $resource = RequestFqResource::where('id', $id)->firstOrFail();
-        return response()->download(storage_path('app/'.$resource->url));
+        try
+        {
+            if (!auth()->check()) { return abort(404); }
+            $resource = RequestFqResource::where('id', $id)->firstOrFail();
+            return response()->download(storage_path('app/'.$resource->url));
+        }
+        catch (\Exception $e) 
+        {   
+            return back()->with('error', "Oops, Unable to download resource, check connection");
+        }
     }
 }

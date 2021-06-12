@@ -12,13 +12,16 @@ use App\Http\Controllers;
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('/', 'HomeController@home')->name('home')->middleware('auth');
-Route::get('/contractor/upload', 'HomeController@upload')->name('upload')->middleware('auth');
-
 Auth::routes();
 
 Route::middleware('auth')->group(function() {
     
+    //frontend
+    Route::get('/', 'HomeController@home')->name('home');
+    Route::get('/welcome', 'HomeController@index')->name('welcome');
+    Route::get('/contractor/documents', 'HomeController@documents')->name('documents');
+
+    //backend
     Route::get('/home', 'HomeController@dashboard')->name('admin.home');
 
     //users
@@ -32,6 +35,9 @@ Route::middleware('auth')->group(function() {
             Route::post('/update/bio', 'UserController@bioupdate')->name('bioupdate');
             Route::post('/update/code', 'UserController@codeupdate')->name('codeupdate');
             Route::post('/update/role', 'UserController@roleupdate')->name('roleupdate');
+
+            Route::post('/user/upload', 'UserController@uploadResource')->name('upload');
+            Route::get('download/resource/{id}', 'UserController@download')->name('download');
         });
     });
 
@@ -116,21 +122,6 @@ Route::middleware('auth')->group(function() {
         });
     });
 
-    //projects
-    Route::resource('projects', 'ProjectController');
-    Route::name('projects.')->group(function() {
-        Route::prefix('projects')->group(function() {
-            Route::get('/', 'ProjectController@index')->name('index');
-            Route::post('filter', 'ProjectController@filter')->name('filter');
-            Route::post('search', 'ProjectController@search')->name('search');
-            Route::post('upload/resource/{project}', 'ProjectController@uploadResource')->name('upload');
-            Route::post('comment', 'ProjectController@comment')->name('comment');
-
-            Route::post('member/add/{project}', 'ProjectController@addMember')->name('addMember');
-            Route::post('member/remove/{project}', 'ProjectController@removeMember')->name('removeMember');
-        });
-    });
-
     //warehouse
     Route::resource('warehouse', 'WarehouseController');
     Route::name('warehouse.')->group(function() {
@@ -178,6 +169,28 @@ Route::middleware('auth')->group(function() {
         });
     });
 
+     //projects
+     Route::resource('projects', 'ProjectController');
+     Route::name('projects.')->group(function() {
+         Route::prefix('projects')->group(function() {
+             Route::get('/', 'ProjectController@index')->name('index');
+             Route::post('filter', 'ProjectController@filter')->name('filter');
+             Route::post('search', 'ProjectController@search')->name('search');
+             
+             Route::post('status/update/{project}', 'ProjectController@updateStatus')->name('updateStatus');
+             Route::post('upload/resource/{project}', 'ProjectController@uploadResource')->name('upload');
+             Route::get('download/resource/{id}', 'ProjectController@download')->name('download');
+ 
+             Route::post('comment', 'ProjectController@comment')->name('comment');
+ 
+             Route::post('member/add/{project}', 'ProjectController@addMember')->name('addMember');
+             Route::post('member/remove/{project}', 'ProjectController@removeMember')->name('removeMember');
+             Route::post('member/updaterole', 'ProjectController@updateRole')->name('updateRole');
+
+             Route::post('member/updatebudget', 'ProjectController@updateBudget')->name('updateBudget');
+         });
+     });
+
     //tasks
     Route::resource('tasks', 'TaskController');
     Route::name('tasks.')->group(function() {
@@ -186,7 +199,10 @@ Route::middleware('auth')->group(function() {
             Route::post('filter', 'TaskController@filter')->name('filter');
             Route::post('search', 'TaskController@search')->name('search');
             Route::post('createsubtask', 'TaskController@createSubTask')->name('createsubtask');
+            
             Route::post('upload/resource/{task}', 'TaskController@uploadResource')->name('upload');
+            Route::get('download/resource/{id}', 'TaskController@download')->name('download');
+            
             Route::post('status/update/{task}', 'TaskController@updateStatus')->name('updateStatus');
             Route::post('cost/update/{task}', 'TaskController@updateCost')->name('updateCost');
 
@@ -205,7 +221,10 @@ Route::middleware('auth')->group(function() {
             Route::get('/', 'SubTaskController@index')->name('index');
             Route::post('filter', 'SubTaskController@filter')->name('filter');
             Route::post('search', 'SubTaskController@search')->name('search');
+
             Route::post('upload/resource/{subtask}', 'SubTaskController@uploadResource')->name('upload');
+            Route::get('download/resource/{id}', 'SubTaskController@download')->name('download');
+
             Route::post('executor/update/{subtask}', 'SubTaskController@updateExecutor')->name('updateExecutor');
             Route::post('status/update/{subtask}', 'SubTaskController@updateStatus')->name('updateStatus');
             Route::post('cost/update/{subtask}', 'SubTaskController@updateCost')->name('updateCost');
@@ -251,7 +270,8 @@ Route::middleware('auth')->group(function() {
             Route::post('contractor/add/{quotes}', 'QuoteController@addContractor')->name('addContractor');
             Route::post('contractor/remove/', 'QuoteController@removeContractor')->name('removeContractor');
             Route::post('status/update/{quotes}', 'QuoteController@updateStatus')->name('updateStatus');
-
+            
+            Route::post('status/update/{quote}', 'QuoteController@updateStatus')->name('updateStatus');
             Route::get('download/{id}', 'QuoteController@download')->name('download');
         });
     });

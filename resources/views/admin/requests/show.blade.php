@@ -142,8 +142,9 @@
                                     <table id="example1" class="display table table-stripped">
                                         <tbody>
                                             <tr>
-                                                <td colspan="2"><b>Subject: </b><br><tag class="text-success">{{ $request->subject ?? '' }}</tag> </td>
-                                                <td colspan="2"><b>Description: </b><br><tag class="text-success">{{ $request->description ?? '' }}</tag> </td>
+                                                <td colspan="2"><b>Subject: </b><br><tag class="">{{ $request->subject ?? '' }}</tag> </td>
+                                                <td><b>Description: </b><br><tag class="">{{ $request->description ?? '' }}</tag> </td>
+                                                <td><b>Maximum Cost: </b><br><tag class="">&#8358;{{ number_format(floatval($request->total_cost), 2) }}</tag> </td>
                                             </tr>
                                             <tr>
                                                 <td><b>Open Date: </b><br><span>{{ $request->start ?? '' }}</span></td>
@@ -201,35 +202,100 @@
                                 <table id="example1" class="table">
                                     <thead>
                                         <tr>
-                                            <th style="width:5%;">SNo</th>
+                                            <th style="width:15%;">Cost</th>
                                             <th style="width:35%;">Name </th>
-                                            <th style="width:15%;">Phone </th>
-                                            <th style="width:10%;">Status </th>
-                                            <th style="width:15%;">Submission Date </th>
-                                            <th style="width:10%;" colspan="1" class="text-left"> Quotation</th>
+                                            <th style="width:20%;">Submission Date </th>
+                                            <th style="width:5%;">Approval </th>
+                                            <th style="width:5%;">Submission </th>
+                                            <th style="width:20%;" class="text-center"> Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($request->quotes->where('status_id', $completed) as $quote)
-                                        <tr>
+                                        <tr @if($quote->total_cost > $request->total_cost) class="text-danger" @endif >
+                                            
                                             <td class="text-left">
-                                                Q{{ $quote->id }}
+                                                &#8358;{{ number_format(floatval($quote->total_cost), 2) }}
                                             </td>
+                                            
                                             <td style="">
-                                                {{ $quote->user->org_name ?? '' }}
+                                                {{ $quote->user->org_name ?? '' }}                                            </td>
                                             </td>
+
                                             <td style="">
-                                                {{ $quote->user->org_phone ?? '' }}
+                                                {{ date('d M Y, h:ia', strtotime($quote->created_at)) }}
                                             </td>
+                                            
+                                            <td>
+                                            @if ($quote->approval_status == 'Pending')
+                                                <span class="badge badge-warning">{{ $quote->approval_status }}</span>
+                                            @else
+                                                <span class="badge badge-success">{{ $quote->approval_status }}</span>
+                                            @endif
+                                            </td>
+
                                             <td>
                                                 <span class="badge badge-{{$quote->status->style }}">{{ $quote->status->name }}</span>
                                             </td>
-                                            <td style="">
-                                                {{ $quote->created_at ?? '' }}
-                                            </td>
+
                                             <td>
-                                                <a class="btn btn-sm btn-outline-secondary" href="{{ route('quotes.download', $quote->id)}}"><i class="fa fa-download"></i> Download</a>
+                                                @role('Level 1|Level 2|Level 3')
+                                                    @if ($quote->requestFq->status_id != $closed)
+                                                    <a class="btn btn-outline-warning btn-sm text-left" data-toggle="modal" data-target="#manageQuoteStatus{{$quote->id}}"><i class="fa fa-cogs"></i></a>&nbsp;&nbsp;
+                                                    @endif
+                                                    
+                                                    <a class="btn btn-sm btn-outline-success text-left" href="{{ route('quotes.download', $quote->id)}}"><i class="fa fa-download"></i> </a>
+                                                    <a class="btn btn-sm btn-outline-secondary text-left" href="{{ route('contractors.show', $quote->user_id)}}"><i class="fa fa-user"> View</i> </a>
+                                                    
+                                                    <div class="modal fade" id="manageQuoteStatus{{$quote->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                    aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title" id="modalLabel">Update Status of Quote</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <form class="form-horizontal" action="{{ route('quotes.updateStatus', $quote)}}" method="POST">
+                                                                @csrf
+                                                                <fieldset>
+                                                                <div class="modal-body">
+                                                                    
+                                                                    <input type="text" name="quote_id" value="{{ $quote->id }}" hidden readonly>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-12">
+                                                                            <!-- <label for="subject1" class="col-form-label">
+                                                                                Trip Status
+                                                                            </label> -->
+                                                                            <div class="input-group">
+                                                                            <select class="form-control" name="approval" required>
+                                                                                <option value="">-- Select Status --</option>
+                                                                                <option value="Accepted">Accepted</option>
+                                                                                <!-- <option value="{{ $queried }}">Queried</option>
+                                                                                <option value="{{ $completed }}">Completed</option> -->
+                                                                            </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-12">
+                                                                            <button class="btn btn-responsive layout_btn_prevent btn-primary">Submit</button>
+                                                                            <button class="btn  btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                </fieldset>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endrole
                                             </td>
+                                            
                                         </tr>
                                         @endforeach
                                     </tbody>

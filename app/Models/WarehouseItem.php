@@ -21,12 +21,21 @@ class WarehouseItem extends Model
         'batch_id',
         'category_id',
         'status_id',
-        //'expiry_date',
+        'warehouse_id',
     ];
     
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
+    public function itemActivities(){
+        return $this->hasMany(WarehouseActivity::class);
     }
 
     public function batch()
