@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Message;
+use App\Models\Setting;
+
 use App\Traits\AppStatus;
 
 use Auth;
@@ -66,7 +68,9 @@ class AppServiceProvider extends ServiceProvider
             }else{
                 $view->with('messages', NULL);
             }
-            
+
+            $settings = Setting::all()->toArray();
+            $view->with('settings', $settings['0']);
         });
     }
 }

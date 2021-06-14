@@ -67,7 +67,7 @@
 
                     <div class="card">
                         <div class="text-right p-3">
-
+                            
                             @role('Level 1|Level 2|Level 3')
                                 
                                 @if ($project->status_id != $completed)

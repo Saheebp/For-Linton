@@ -2,6 +2,7 @@
 
 @section('page')
 <div class="tab-pane p-3 active" id="tab2">
+    <a class="btn btn-sm btn-outline-success float-right mt-1" href="{{ route('projects.tasks.print', $project) }}">Print Summary</a>
     <h4 class="card-title" style="margin-bottom:30px; margin-top:30px;">Project Tasks & Processes</h4>
     
     <button class="btn btn-raised btn-sm btn-outline-success mt-3 mb-3 adv_cust_mod_btn"

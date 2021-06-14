@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'VTS') }}</title>
+    <title>{{ config('app.name', 'Project Manager') }}</title>
 
     <meta name="description" content="We offer a unique service of transportation for those visiting Jos where safety, comfort, affordability and excellent customer service are our core values.">
 

@@ -32,6 +32,9 @@ class Controller extends BaseController
     public $unpaid;
     public $declined;
 
+    public $open;
+    public $closed;
+
     public $new;
     public $in_progress;
     public $pending;
@@ -46,11 +49,18 @@ class Controller extends BaseController
     public $unavailable;
     public $available;
 
+    public $outoffunds;
+    public $active;
+    public $inactive;
+
     public function __construct()
     {
         $this->paid = $this->returnStatusId("Paid");
         $this->unpaid = $this->returnStatusId('Unpaid');
         $this->declined = $this->returnStatusId("Declined");
+
+        $this->open = $this->returnStatusId("open");
+        $this->closed = $this->returnStatusId("closed");
 
         $this->new = $this->returnStatusId("New");
         $this->in_progress = $this->returnStatusId("In Progress");
@@ -65,5 +75,9 @@ class Controller extends BaseController
 
         $this->unavailable = $this->returnStatusId("Unavailable");
         $this->available = $this->returnStatusId("Available");
+        
+        $this->outoffunds = $this->returnStatusId("Out of Funds");
+        $this->active = $this->returnStatusId("Active");
+        $this->inactive = $this->returnStatusId("Inactive");
     }
 }

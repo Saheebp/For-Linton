@@ -136,7 +136,7 @@ class UserSeeder extends Seeder
         $agent->assignRole('Level 5');
 
         $agent = User::create([
-            'name' => 'Quantity Surveyors',
+            'name' => 'Bidemi Saheed',
             'email' => 'qs@lintonstarksmanager.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11, 

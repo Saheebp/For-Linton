@@ -24,6 +24,16 @@ Route::middleware('auth')->group(function() {
     //backend
     Route::get('/home', 'HomeController@dashboard')->name('admin.home');
 
+    //print
+    Route::get('print/project/tasks/{project}', 'PrintController@printTask')->name('projects.tasks.print');
+    Route::get('print/project/budget/{project}', 'PrintController@printBudget')->name('projects.budget.print');
+    Route::get('print/project/team/{project}', 'PrintController@printTeam')->name('projects.team.print');
+    Route::get('print/project/activity/{project}', 'PrintController@printActivity')->name('projects.activity.print');
+    Route::get('print/project/comments/{project}', 'PrintController@printComments')->name('projects.comments.print');
+    Route::get('print/project/timeline/{project}', 'PrintController@printTimeline')->name('projects.timeline.print');
+    Route::get('print/project/resources/{project}', 'PrintController@printResources')->name('projects.resources.print');
+    Route::get('print/project/inventory/{project}', 'PrintController@printInventory')->name('projects.inventory.print');
+    
     //users
     Route::resource('users', 'UserController')->except('edit');
     Route::name('users.')->group(function() {

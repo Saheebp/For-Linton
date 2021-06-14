@@ -19,6 +19,7 @@ class SettingSeeder extends Seeder
     {
         //
         Setting::create([
+            'name' => 'LINTONSTARKS MANAGER',
             'address' => 'Farin Gada Jos',
             'phone1' => '00000000000',
             'phone2' => '00000000000',
