@@ -140,4 +140,9 @@ class ContractorController extends Controller
     {
         //
     }
+
+    public function bioupdate()
+    {
+        return back()->with('success', "Bio Data updated successfully");
+    }
 }

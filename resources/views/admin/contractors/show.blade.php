@@ -352,6 +352,7 @@
                                             <th style="width:5%;">SNo</th>
                                             <th style="width:35%;">Name </th>
                                             <th style="width:15%;">Phone </th>
+                                            <th style="width:15%;">Status </th>
                                             <th style="width:20%;">Date </th>
                                             <th style="width:10%;" colspan="1" class="text-left"> Quotation</th>
                                         </tr>
@@ -359,16 +360,19 @@
                                     <tbody>
                                         @foreach ($contractor->quotes as $quote)
                                         <tr>
-                                            <td class="text-left">
-                                                N/A
+                                            <td>
+                                                {{ $quote->id }}
                                             </td>
-                                            <td style="width:20%;">
-                                                {{ $quote->contractor->org_name ?? '' }}
+                                            <td>
+                                                {{ $quote->user->org_name ?? '' }}
                                             </td>
-                                            <td style="width:40%;">
-                                                {{ $quote->contractor->org_phone ?? '' }}
+                                            <td>
+                                                {{ $quote->user->org_phone ?? '' }}
                                             </td>
-                                            <td style="width:40%;">
+                                            <td>
+                                                <tag class="badge badge-{{ $quote->status->style }}">{{ $quote->status->name }}</tag>
+                                            </td>
+                                            <td>
                                                 {{ $quote->created_at ?? '' }}
                                             </td>
                                             <td>

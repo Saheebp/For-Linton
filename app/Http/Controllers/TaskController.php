@@ -401,7 +401,7 @@ class TaskController extends Controller
             }
             
             $data = array();
-            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension."|".$filesize;
+            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension;
             $data['project_id'] = $task->project_id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;

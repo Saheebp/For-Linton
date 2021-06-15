@@ -526,8 +526,8 @@
                                         <p class="text-justify">
                                             @foreach($task->comments as $comment)
                                                 <b>{{ $comment->creator->name  }}</b>
-                                                <a class="btn btn-sm btn-outline-danger float-right" data-toggle="modal" data-target="#deleteCommentFromSubTask{{$subtask->id}}">remove</a>
-                                                <div class="modal fade" id="deleteCommentFromSubTask{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                <a class="btn btn-sm btn-outline-danger float-right" data-toggle="modal" data-target="#deleteCommentFromSubTask{{$comment->id}}">remove</a>
+                                                <div class="modal fade" id="deleteCommentFromSubTask{{$comment->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                 aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
