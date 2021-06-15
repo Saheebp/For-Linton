@@ -85,7 +85,15 @@ z-index: 999999">
                                     <a href="forgot_password1.html" class="custom-control-description forgottxt_clr">Forgot password?</a>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12 p-4">
+                                        <a class="custom-control-description">Email: super@lintonstarksmanager.com</a><br>
+                                        <a class="custom-control-description">Password: 1234567</a>
+                                    </div>
+                                </div>
+                            </div>
                         <!-- <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-6 m-t-10">
