@@ -71,7 +71,266 @@
                             @role('Level 1|Level 2|Level 3')
                                 
                                 @if ($project->status_id != $completed)
-                                <button class="btn btn-sm btn-success align-right mt-1" data-toggle="modal" data-target="#updateBudget">Update Budget</button>
+                                <button class="btn btn-sm btn-outline-warning align-right mt-1" data-toggle="modal" data-target="#updateDetails">Update Details</button>
+                                @endif
+
+                                <div class="modal fade" id="updateDetails" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="modalLabel">Update Details of Project</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                                <form method="POST" action="{{ route('projects.updateInfo') }}">
+                                                    <div class="modal-body text-left">
+                                                        @csrf
+                                                        <div class="form-group row">
+                                                            
+                                                            <input hidden readonly value="{{ $project->id }}" name="project_id">
+                                                                
+                                                            <div class="col-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Project Name
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="text" id="name" value="{{ $project->name ?? '' }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
+                                                                </div>
+                                                                @error('name')
+                                                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Project Description
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <textarea id="description" class="form-control"  name="description">{{ $project->description ?? '' }}</textarea>
+                                                                </div>
+                                                                @error('description')
+                                                                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Project Objective
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <textarea id="objective" class="form-control" placeholder="" name="objective">{{ $project->objective ?? '' }}</textarea>
+                                                                </div>
+                                                                @error('objective')
+                                                                    <span class="text-danger">{{ $errors->first('objective') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-lg-6">
+                                                                <label End="subject1" class="col-form-label">
+                                                                    Start Date
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="date" value="{{ $project->start ?? '' }}" id="start" class="form-control" name="start" required>
+                                                                </div>
+                                                                @error('start')
+                                                                    <span class="text-danger">{{ $errors->first('start') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-lg-6">
+                                                                <label End="subject1" class="col-form-label">
+                                                                    End Date
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="date" value="{{ $project->end ?? '' }}" id="end" class="form-control" name="end" required>
+                                                                </div>
+                                                                @error('end')
+                                                                    <span class="text-danger">{{ $errors->first('end') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Project Nature
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="text" id="nature" value="{{ $project->nature ?? '' }}" class="form-control" placeholder="" name="nature">
+                                                                </div>
+                                                                @error('nature')
+                                                                    <span class="text-danger">{{ $errors->first('nature') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Project Type
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="text"  id="type" value="{{ $project->type ?? '' }}" class="form-control" placeholder="" name="type">
+                                                                </div>
+                                                                @error('type')
+                                                                    <span class="text-danger">{{ $errors->first('type') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <!-- <div class="col-6">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Source of Funding
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <select class="form-control" id="funding_source" name="funding_source" required>
+                                                                        <option value="">-- Select Source --</option>
+                                                                        <option value="Individual">Individual</option>
+                                                                        <option value="Private">Private</option>
+                                                                        <option value="Government">Government</option>
+                                                                    </select>
+                                                                </div>
+                                                                @error('funding_source')
+                                                                    <span class="text-danger">{{ $errors->first('funding_source') }}</span>
+                                                                @enderror
+                                                            </div> -->
+
+                                                            <!-- <div class="col-6">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Estimated Cost
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="number"  id="budget" value="{{ old('budget') }}" class="form-control" placeholder="" name="budget">
+                                                                </div>
+                                                                @error('budget')
+                                                                    <span class="text-danger">{{ $errors->first('budget') }}</span>
+                                                                @enderror
+                                                            </div> -->
+
+                                                            <div class="col-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Sponsor Name
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="text" id="sponsor_name" value="{{ $project->sponsor_name ?? '' }}" class="form-control" placeholder="" name="sponsor_name">
+                                                                </div>
+                                                                @error('sponsor_name')
+                                                                    <span class="text-danger">{{ $errors->first('sponsor_name') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-6">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Sponsor Email
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="email" id="sponsor_email" value="{{ $project->sponsor_email ?? '' }}" class="form-control" placeholder="" name="sponsor_email">
+                                                                </div>
+                                                                @error('sponsor_email')
+                                                                    <span class="text-danger">{{ $errors->first('sponsor_email') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-6">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Sponsor Phone
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="tel" id="sponsor_phone" value="{{ $project->sponsor_phone ?? '' }}" class="form-control" placeholder="" name="sponsor_phone">
+                                                                </div>
+                                                                @error('sponsor_phone')
+                                                                    <span class="text-danger">{{ $errors->first('sponsor_phone') }}</span>
+                                                                @enderror
+                                                            </div>
+                                                            
+                                                            <div class="col-lg-6">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    State
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <select class="form-control" name="state" required>
+                                                                        <option value="">-- Select State --</option>
+                                                                        <option>Abuja</option>
+                                                                        <option>Abia</option>
+                                                                        <option>Adamawa</option>
+                                                                        <option>Akwa Ibom</option>
+                                                                        <option>Anambra</option>
+                                                                        <option>Bauchi</option>
+                                                                        <option>Bayelsa</option>
+                                                                        <option>Benue</option>
+                                                                        <option>Borno</option>
+                                                                        <option>Cross River</option>
+                                                                        <option>Delta</option>
+                                                                        <option>Ebonyi</option>
+                                                                        <option>Edo</option>
+                                                                        <option>Ekiti</option>
+                                                                        <option>Enugu</option>
+                                                                        <option>Gombe</option>
+                                                                        <option>Imo</option>
+                                                                        <option>Jigawa</option>
+                                                                        <option>Kaduna</option>
+                                                                        <option>Kano</option>
+                                                                        <option>Katsina</option>
+                                                                        <option>Kebbi</option>
+                                                                        <option>Kogi</option>
+                                                                        <option>Kwara</option>
+                                                                        <option>Lagos</option>
+                                                                        <option>Nassarawa</option>
+                                                                        <option>Niger</option>
+                                                                        <option>Ogun</option>
+                                                                        <option>Ondo</option>
+                                                                        <option>Osun</option>
+                                                                        <option>Oyo</option>
+                                                                        <option>Plateau</option>
+                                                                        <option>Rivers</option>
+                                                                        <option>Sokoto</option>
+                                                                        <option>Taraba</option>
+                                                                        <option>Yobe</option>
+                                                                        <option>Zamfara</option>
+                                                                    </select>
+                                                                </div>
+                                                                @error('state')
+                                                                    <span class="text-danger">{{ $errors->first('state') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-lg-6">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    L.G.A
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="text" id="lga" value="{{ $project->lga ?? '' }}" class="form-control" placeholder="" name="lga">
+                                                                </div>
+                                                                @error('lga')
+                                                                    <span class="text-danger">{{ $errors->first('lga') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Project Address
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="text" id="address" value="{{ $project->address ?? '' }}" class="form-control" placeholder="" name="address">
+                                                                </div>
+                                                                @error('address')
+                                                                    <span class="text-danger">{{ $errors->first('address') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                        </div>                                                                    
+                                                    </div> 
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
+                                                        <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endrole
+
+                            @role('Level 1|Level 2|Level 3')
+                                
+                                @if ($project->status_id != $completed)
+                                <button class="btn btn-sm btn-outline-success align-right mt-1" data-toggle="modal" data-target="#updateBudget">Update Budget</button>
                                 @endif
 
                                 <div class="modal fade" id="updateBudget" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -123,7 +382,7 @@
                             @role('Level 1|Level 2|Level 3')
 
                                 @if ($project->status_id != $completed)
-                                <button class="btn btn-sm btn-secondary align-right mt-1" data-toggle="modal" data-target="#manageProjectStatus">Manage Project</button>    
+                                <button class="btn btn-sm btn-outline-secondary align-right mt-1" data-toggle="modal" data-target="#manageProjectStatus">Manage Project</button>    
                                 @endif
                                 
                                 <div class="modal fade" id="manageProjectStatus" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -176,7 +435,7 @@
 
                             @role('Level 1|Level 2|Level 3')
                                 @if ($project->status_id != $completed)
-                                <button class="btn btn-sm btn-primary align-right mt-1" data-toggle="modal" data-target="#commentProject">Comment on Project</button>
+                                <button class="btn btn-sm btn-outline-primary align-right mt-1" data-toggle="modal" data-target="#commentProject">Comment on Project</button>
                                 @endif
 
                                 <div class="modal fade" id="commentProject" tabindex="-1" role="dialog" aria-labelledby="modalLabel"

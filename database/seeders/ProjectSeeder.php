@@ -40,7 +40,7 @@ class ProjectSeeder extends Seeder
             
             'manager_id' => 8,
             'creator_id' => 2,
-            'status_id' => 6
+            'status_id' => 9
         ]);
 
         Inventory::create([

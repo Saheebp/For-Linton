@@ -194,11 +194,12 @@
                                         <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
-                                <form class="form-horizontal" action="#" method="POST">
+                                <form class="form-horizontal" action="{{ route('projects.removeMember')}}" method="POST">
                                 @csrf
                                     <fieldset>
                                         <div class="modal-body">
-                                            
+                                            <input name="member" value="{{$member->id}}" hidden readonly>
+                                            <input name="project" value="{{$project->id}}" hidden readonly>
                                         </div>
 
                                         <div class="modal-footer">

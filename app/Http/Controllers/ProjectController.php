@@ -375,7 +375,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error adding resource to Project");
         }
     }
@@ -440,14 +440,15 @@ class ProjectController extends Controller
             return back()->with('error', "Oops, Error adding Staff Project");
         }
     }
-    public function removeMember(Request $request, Project $project)
+    public function removeMember(Request $request)
     {
         try 
         {
-            $existing = ProjectMember::where('project_id',$project->id)->where('user_id',$request->member)->first();
-            $existing->delete();
+            $member = ProjectMember::find($request->member);
+            $project = Project::find($request->project);
             
-            $user = User::find($request->member);
+            $user = User::find($member->user_id);
+            $member->delete();
             
             $data = array();
             $data['body'] = auth()->user()->name." removed ".$user->name." from Project : ".$project->name;
@@ -461,7 +462,8 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            return back()->with('error', "Oops, Error Updating Project");
+            //dd($e);
+            return back()->with('error', "Oops, Error removing member from Project");
         }
     }
 
@@ -602,31 +604,76 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function updateInfo(Request $request)
     {
         $validated = $request->validate([
+            //'manager' => 'required|string',
+
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'budget' => 'required|string',
-            'status' => 'required',
+            'objective' => 'required|string|max:255',
+    
+            'start' => 'required|string|max:255',
+            'end' => 'required|string|max:255',
+            
+            'nature' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            //'funding_source' => 'required|string|max:255',
+            //'budget' => 'required|string|max:255',
+    
+            'sponsor_name' => 'required|string|max:255',
+            'sponsor_email' => 'required|string|max:255',
+            'sponsor_phone' => 'required|string|max:255',
+    
+            'state' => 'required|string|max:255',
+            'lga' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
         ]);
 
         try 
         {
+            $project = Project::find($request->project_id);
             $project->update([
+
                 'name' => $request->name,
                 'description' => $request->description,
-                'budget' => $request->budget,
-                'owner' => $request->owner,
-                'status_id' => $request->status,
+                'objective' => $request->objective,
+                'start' => $request->start,
+                'end' => $request->end,
+                
+                'nature' => $request->nature,
+                'type' => $request->type,
+                'funding_source' => $request->funding_source,
+                //'budget' => $request->budget,
+
+                'sponsor_name' => $request->sponsor_name,
+                'sponsor_email' => $request->sponsor_email,
+                'sponsor_phone' => $request->sponsor_phone,
+
+                'state' => $request->state,
+                'lga' => $request->lga,
+                'address' => $request->address,
+                
+                //'manager_id' => $request->manager,
+                //'creator_id' => auth()->user()->id,
+                //'status_id' => $this->pending
             ]);
             $project->save();
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." updated Project ".$request->name.", Details: ".$request->state."|".$request->lga."| starting: ".$request->start." and ending: ".$request->end;
+            $data['project_id'] = $project->id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
 
-            return back()->with('success', 'Project created successfully.');
+            return back()->with('success', 'Project Updated successfully.');
         }
         catch (\Exception $e) 
         {
-            return back()->with('error', "Oops, Error Creating a Project");
+            //dd($e);
+            return back()->with('error', "Oops, Error Updating a Project");
         }
     }
 
@@ -640,6 +687,7 @@ class ProjectController extends Controller
     {
         //
     }
+    
 
     public function completion($project_id)
     {

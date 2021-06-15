@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->string('name');
+            $table->string('name')->nullable()->default(null);
             $table->string('description')->nullable()->default(null);
             $table->string('objective')->nullable()->default(null);
             $table->string('owner')->nullable()->default(null);

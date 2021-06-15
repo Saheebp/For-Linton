@@ -194,11 +194,12 @@ Route::middleware('auth')->group(function() {
              Route::post('comment', 'ProjectController@comment')->name('comment');
  
              Route::post('member/add/{project}', 'ProjectController@addMember')->name('addMember');
-             Route::post('member/remove/{project}', 'ProjectController@removeMember')->name('removeMember');
+             Route::post('member/remove', 'ProjectController@removeMember')->name('removeMember');
              Route::post('member/updaterole', 'ProjectController@updateRole')->name('updateRole');
 
              Route::post('member/updatebudget', 'ProjectController@updateBudget')->name('updateBudget');
-
+             Route::post('member/updateInfo', 'ProjectController@updateInfo')->name('updateInfo');
+             
              Route::get('team/{project}', 'ProjectController@team')->name('team');
              Route::get('tasks/{project}', 'ProjectController@tasks')->name('tasks');
              Route::get('activity/{project}', 'ProjectController@activity')->name('activity');
