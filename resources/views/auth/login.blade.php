@@ -90,7 +90,7 @@ z-index: 999999">
                                 <div class="row">
                                     <div class="col-12 p-4">
                                         <a class="custom-control-description">Email: super@lintonstarksmanager.com</a><br>
-                                        <a class="custom-control-description">Password: 1234567</a>
+                                        <a class="custom-control-description">Password: 12345678</a>
                                     </div>
                                 </div>
                             </div>
