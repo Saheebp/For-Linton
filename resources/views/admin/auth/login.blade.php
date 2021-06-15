@@ -4,7 +4,7 @@
 <div class="col-12 col-lg-5">
     <!-- Section Heading -->
     <div class="section-heading">
-        <h2>LOGIN</h2>
+        <h2>PROJECTMGR LOGIN</h2>
         <p></p>
     </div>
     <!-- Contact Form Area -->
