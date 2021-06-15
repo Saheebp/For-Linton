@@ -134,7 +134,7 @@
                                                             @enderror
                                                         </div>
 
-                                                        <div class="col-12">
+                                                        <!-- <div class="col-12">
                                                             <label for="subject1" class="col-form-label">
                                                                 Staff Transaction Code
                                                             </label>
@@ -144,7 +144,7 @@
                                                                 </span>
                                                                 <input type="password" id="password" class="form-control" name="transcode">
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </p>
