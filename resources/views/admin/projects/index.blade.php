@@ -58,19 +58,6 @@
                         
                         <div class="col-12 col-sm-6 col-xl-3 media_max_573">
                             <div id="top_widget2">
-                                <!-- <div class="front">
-                                    <div class="bg-success p-d-15 b_r_5">
-                                        <div class="float-right m-t-5">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </div>
-                                        <div class="user_font">Income</div>
-                                        <div id="widget_countup2">1,140</div>
-                                        <div class="tag-white">
-                                            <span id="percent_count2">60</span>%
-                                        </div>
-                                        <div class="previous_font">Sales per month</div>
-                                    </div>
-                                </div> -->
 
                                 <div class="">
                                     <div class="bg-white text-warning b_r_5 section_border">
@@ -86,19 +73,6 @@
 
                         <div class="col-12 col-sm-6 col-xl-3">
                             <div id="top_widget1">
-                                <!-- <div class="front">
-                                    <div class="bg-primary p-d-15 b_r_5">
-                                        <div class="float-right m-t-5">
-                                            <i class="fa fa-users"></i>
-                                        </div>
-                                        <div class="user_font">Customers</div>
-                                        <div id="widget_countup1">3,250</div>
-                                        <div class="tag-white">
-                                            <span id="percent_count1">85</span>%
-                                        </div>
-                                        <div class="previous_font">Yearly Users stats</div>
-                                    </div>
-                                </div> -->
                                 
                                 <div class="">
                                     <div class="bg-white text-primary text-white b_r_5 section_border">

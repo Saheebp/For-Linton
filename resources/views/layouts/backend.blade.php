@@ -392,30 +392,6 @@
                     @endrole
 
                     @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
-                    <li class="dropdown_menu @if(request()->is('requests')) active @endif">
-                        <a href="#">
-                            <i class="fa fa-download"></i>
-                            <span class="link-title menu_hide">&nbsp; Procurement</span>
-                            <span class="fa arrow menu_hide"></span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="{{ route('requests.index') }}">
-                                    <i class="fa fa-spinner fa-spin"></i>
-                                    &nbsp; Requests for quotes
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('contractors.index') }}">
-                                    <i class="fa fa-spinner fa-spin"></i>
-                                    &nbsp; Contactors
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endrole
-
-                    @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
                     <li class="dropdown_menu @if(request()->is('warehouse')) active @endif">
                         
                         <a href="#">
@@ -512,7 +488,7 @@
                     @endrole
 
                     @role('Level 1|Level 2|Level 3')
-                    <li class="dropdown_menu">
+                    <!-- <li class="dropdown_menu">
                         <a href="{{ route('admin.home') }}">
                             <i class="fa fa-file"></i>
                             <span class="link-title menu_hide">&nbsp; Reports</span>
@@ -526,7 +502,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     @endrole
 
                     @role('Level 1|Level 2|Level 3')
