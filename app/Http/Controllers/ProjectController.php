@@ -27,14 +27,10 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        $managers = User::role('Level 4')->get();
         $projects = Project::orderBy('created_at', 'desc')->paginate(10);
-        $states = State::all();
-
+        
         return view('admin.projects.index', [
-            'managers' => $managers,
             'projects' => $projects,
-            'states' => $states
         ]);
     }
 
@@ -45,7 +41,13 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $managers = User::role('Level 4')->get();
+        $states = State::all();
+
+        return view('admin.projects.create', [
+            'managers' => $managers,
+            'states' => $states
+        ]);
     }
 
     /**
@@ -123,7 +125,8 @@ class ProjectController extends Controller
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
 
-            return back()->with('success', 'Project and Inventory created successfully.');
+            //return back()->with('success', 'Project and Inventory created successfully.');
+            return redirect()->route('projects.index')->with('success', 'Project and Inventory created successfully.');
         }
         catch (\Exception $e) 
         {

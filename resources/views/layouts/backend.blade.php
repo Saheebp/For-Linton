@@ -336,11 +336,25 @@
 
                     @role('Level 1|Level 2|Level 3|Level 4|Level 5|Level 6')
                     <li class="@if(request()->is('projects')) active @endif">
-                        <a href="{{ route('projects.index') }}">
+                        <a href=#">
                             <i class="fa fa-tasks"></i>
                             <span class="link-title menu_hide">&nbsp; Projects</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
+                            <span class="fa arrow menu_hide"></span>
                         </a>
+                        <ul>
+                            <li>
+                                <a href="{{ route('projects.index') }}">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                    &nbsp; All Projects
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('projects.create') }}">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                    &nbsp; Create New Project
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     @endrole
 
