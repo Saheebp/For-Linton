@@ -14,13 +14,28 @@ use App\Models\State;
 use App\Models\Designation;
 use App\Models\ProjectMember;
 
+//traits
+use App\Traits\AppStatus;
+
 use Stevebauman\Location\Facades\Location;
+use Geocoder;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
+
+    use AppStatus;
+    public $new;
+
+    public function __construct()
+    {
+        //$this->middleware('auth')->except(['index', 'select', 'createSharedTrip', 'createHiredTrip', 'confirm']);
+        //$this->middleware('permission:member dashboard', ['only' => ['dashboard']]);
+
+        $this->paid = $this->returnStatusId("New");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -89,6 +104,12 @@ class ProjectController extends Controller
         {
             //get gps coordinates
             $position = Location::get();
+
+            // $client = new \GuzzleHttp\Client();
+            // $geocoder = new \Spatie\Geocoder\Geocoder($client);
+            // $geocoder->setApiKey(config('geocoder.key'));
+            // $geocoder->setCountry(config('geocoder.country'));
+            // $address = $geocoder->getCoordinatesForAddress($request->address);
             
             $project = Project::create([
 
@@ -184,7 +205,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error Creating a Project");
         }
     }

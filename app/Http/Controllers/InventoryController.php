@@ -12,10 +12,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Models\Activity;
 
+use App\Imports\InventoryImport;
+use Maatwebsite\Excel\Facades\Excel;
+
+//traits
+use App\Traits\AppStatus;
+
 use Auth;
 
 class InventoryController extends Controller
 {
+    use AppStatus;
+    public $available;
+
+    public function __construct()
+    {
+        $this->available = $this->returnStatusId("Available");
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -128,5 +142,32 @@ class InventoryController extends Controller
     public function destroy(Inventory $inventory)
     {
         //
+    }
+
+    public function uploadItems(Request $request, Project $project)
+    {
+        // $validated = $request->validate([
+        //     // 'name' => 'required|string|max:255',
+        //     // 'description' => 'required|string|max:255',
+        //     'inventoryfile' => 'required|mimes:csv,xlx,xlxs,xls|max:2048'
+        // ]);
+        
+        $file = $request->file('inventoryfile');
+        $filename = time().'.'.$file->getClientOriginalExtension();
+        $fileextension = $file->getClientOriginalExtension();
+        $fileurl = $file->storeAs('uploads', $filename);
+
+        Excel::import(new InventoryImport, $fileurl);
+        return back()->with('success', 'Items added successfully.');
+
+        try
+        {
+            Excel::import(new InventoryImport, 'inventory.xlsx');
+            return back()->with('success', 'Items added successfully.');
+        }
+        catch (\Exception $e) 
+        {   
+            return back()->with('error', "Oops, Error adding Items to Inventory");
+        }
     }
 }

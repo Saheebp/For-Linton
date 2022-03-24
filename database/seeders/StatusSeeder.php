@@ -43,8 +43,6 @@ class StatusSeeder extends Seeder
                 'name' => 'Closed',
                 'style' => 'dark'
             ],
-
-
             [
                 'name' => 'New',
                 'style' => 'primary'

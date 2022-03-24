@@ -572,9 +572,9 @@
                                             <a class="nav-link {{ $tabbud ?? ''}}" href="{{ route('projects.budget', $project->id) }}"  >Budget</a>
                                         </li> -->
 
-                                        <!-- <li class="nav-item">
+                                        <li class="nav-item">
                                             <a class="nav-link {{ $tabinv ?? ''}}" href="{{ route('projects.inventory', $project->id) }}"  >Inventory</a>
-                                        </li> -->
+                                        </li>
 
                                         <li class="nav-item">
                                             <a class="nav-link {{ $tabcom ?? ''}}" href="{{ route('projects.comments', $project->id) }}"  >Comments</a>

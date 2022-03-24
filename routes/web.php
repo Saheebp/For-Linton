@@ -164,6 +164,7 @@ Route::middleware('auth')->group(function() {
             Route::post('filter', 'InventoryController@filter')->name('filter');
             Route::post('search', 'InventoryController@search')->name('search');
             Route::post('upload/resource', 'InventoryController@uploadResource')->name('upload');
+            Route::post('upload/items', 'InventoryController@uploadItems')->name('uploadItems');
         });
     });
 
