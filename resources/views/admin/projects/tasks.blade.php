@@ -9,6 +9,10 @@
         data-toggle="modal" data-target="#modalTaskCreate">Add New Task
     </button>
 
+    <button class="btn btn-raised btn-sm btn-outline-primary mt-3 mb-3 adv_cust_mod_btn"
+        data-toggle="modal" data-target="#modalTaskUpload">Upload Task Doc
+    </button>
+    
     <button class="btn btn-raised btn-sm btn-outline-secondary mt-3 mb-3 adv_cust_mod_btn"
         data-toggle="modal" data-target="#modalCommentCreate">Add a Comment
     </button>
@@ -111,6 +115,62 @@
                         <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
                         <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalTaskUpload" role="dialog" aria-labelledby="modalLabelprimary">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalLabel">Upload and Create Task</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" action="{{ route('tasks.uploadDetails', $project)}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                    <fieldset>
+                        <div class="modal-body">
+                            
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <div class="input-group mb-1">
+                                        <input class="form-control col-12" type="file" name="file">
+                                    </div>
+                                </div>
+                            
+                                <!-- <div class="col-lg-12">
+                                    <label for="subject1" class="col-form-label">
+                                        Task Title
+                                    </label>
+                                    <div class="input-group mb-1">
+                                        <input class="form-control col-12" type="text" name="name">
+                                    </div>
+                                </div>
+                    
+                                <div class="col-lg-12">
+                                    <label for="subject1" class="col-form-label">
+                                        Task Description
+                                    </label>
+                                    <div class="input-group mb-1">
+                                        <input class="form-control col-12" type="text" name="description">
+                                    </div>
+                                </div> -->
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Create</button>
+                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
                 </form>
             </div>
         </div>
@@ -364,7 +424,7 @@
                                                                                     <span aria-hidden="true">×</span>
                                                                                 </button>
                                                                             </div>
-                                                                            <form class="form-horizontal" action="{{ route('subtasks.updateStatus', $subtask)}}" method="POST">
+                                                                            <form class="form-horizontal" action="{{ route('subtasks.updateStatus', $subtask)}}" method="POST" enctype="multipart/form-data">
                                                                             @csrf
                                                                                 <fieldset>
                                                                                     <div class="modal-body">
@@ -384,6 +444,18 @@
                                                                                                         <option value="{{ $queried }}">Queried</option>
                                                                                                     </select>
                                                                                                 </div>
+                                                                                            </div>
+
+                                                                                            <div class="col-lg-12">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Captured Image
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <input type="file" accept="image/*" id="captured_image" value="{{ old('captured_image') }}" class="@error('captured_image') is-invalid @enderror form-control" placeholder="" name="captured_image">
+                                                                                                </div>
+                                                                                                @error('captured_image')
+                                                                                                    <span class="text-danger">{{ $errors->first('captured_image') }}</span>
+                                                                                                @enderror
                                                                                             </div>
                                                                                         </div>
 

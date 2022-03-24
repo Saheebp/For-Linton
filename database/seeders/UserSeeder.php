@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $super->assignRole('Level 1');
+        $super->assignRole('Super User');
 
         $director = User::create([
             'name' => 'Panlu Manchan',
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $director->assignRole('Level 2');
+        $director->assignRole('Level 1');
 
         $manager1 = User::create([
             'name' => 'Pascal Edozie',
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $manager1->assignRole('Level 4');
+        $manager1->assignRole('Level 2');
 
         $manager2 = User::create([
             'name' => 'Sowore Tolulope',
@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $manager3->assignRole('Level 3');
+        $manager3->assignRole('Level 4');
 
         $admin = User::create([
             'name' => 'Chima Emeka',
@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $admin->assignRole('Level 3');
+        $admin->assignRole('Level 5');
 
         $admin = User::create([
             'name' => 'Dauda Khalid',
@@ -165,7 +165,7 @@ class UserSeeder extends Seeder
             'org_phone' => '08090590166',
             'org_address' => 'Old Airport Jos',
         ]);
-        $contractor->assignRole('Level 7');
+        $contractor->assignRole('Level 6');
 
         $contractor = User::create([
             'name' => 'Oscar Osas',
@@ -183,6 +183,6 @@ class UserSeeder extends Seeder
             'org_phone' => '08090099900',
             'org_address' => 'Main Airport Jos',
         ]);
-        $contractor->assignRole('Level 7');
+        $contractor->assignRole('Level 6');
     }
 }

@@ -207,7 +207,7 @@
                                                 <div class="input-group mb-3">
                                                     <input class="form-control col-12" type="text" name="data">
                                                     <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
-                                                    <div class="input-group-append"><a class="btn btn-outline-dark" href="{{ route('payments.index') }}">Reset</a></div>
+                                                    <div class="input-group-append"><a class="btn btn-outline-dark" href="{{ route('projects.index') }}">Reset</a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -224,7 +224,8 @@
                                         <th style="width:10%;">Due </th>
                                         <th style="width:15%;">Title</th>
                                         <th style="width:15%;">Manager</th>
-                                        <th style="width:10%;">Budget</th>
+                                        <!-- <th style="width:10%;">Budget</th> -->
+                                        <th style="width:15%;">Location</th>
                                         <th style="width:5%;">Action</th>
                                     </tr>
                                     </thead>
@@ -236,7 +237,8 @@
                                             <td>{{ date('d M Y', strtotime($project->end)) }}</td>
                                             <td><a href="{{ route('projects.show', $project->id) }}">{{ $project->name }}</a></td>
                                             <td>{{ $project->manager->name }}</td>
-                                            <td>&#8358;{{ number_format(floatval($project->budget), 2) }}</td>
+                                            <!-- <td>&#8358;{{ number_format(floatval($project->budget), 2) }}</td> -->
+                                            <td>{{ $project->state }}, {{ $project->lga }}</td>
                                             <td>
                                                 <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('projects.tasks', $project->id) }}">Manage</a>
                                             </td>

@@ -26,6 +26,15 @@ class CreateProjectsTable extends Migration
             $table->date('start')->nullable()->default(null);
             $table->date('end')->nullable()->default(null);
 
+            $table->string('architectural_design')->nullable()->default(null);
+            $table->string('structural_design')->nullable()->default(null);
+            $table->string('boquantities')->nullable()->default(null);
+            $table->string('powork')->nullable()->default(null);
+            $table->string('rpdocuments')->nullable()->default(null);
+
+            $table->string('longitude')->nullable()->default(null);
+            $table->string('latitude')->nullable()->default(null);
+            
             $table->string('nature')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
             $table->string('funding_source')->nullable()->default(null);

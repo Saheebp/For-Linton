@@ -19,6 +19,9 @@ class Task extends Model
         'start', 
         'end', 
         
+        'longitude',
+        'latitude',
+        
         'executor_id',  
         'project_id',
         'group_id',  

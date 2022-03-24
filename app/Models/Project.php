@@ -19,7 +19,18 @@ class Project extends Model
         'start',
         'end',
         
+        'architectural_design',
+        'structural_design',
+        'boquantities',
+        'powork',
+        'rpdocuments',
+        
+        'start', 
+        'end', 
         'nature',
+        'longitude',
+        'latitude',
+
         'type',
         'funding_source',
         'budget', 

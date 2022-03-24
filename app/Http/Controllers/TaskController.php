@@ -10,6 +10,8 @@ use App\Models\Comment;
 use App\Models\TaskMember;
 use App\Models\Resource;
 
+use Stevebauman\Location\Facades\Location;
+
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -162,12 +164,55 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'status' => 'required|string|max:255'
+            //verify captured_image
         ]);
 
         try 
         {
+            
+            //if project is physical
+            //get gps coordinates
+            $position = Location::get();
+
+            //match coordinates with project coordinates
+            //distance($lat1, $lon1, $lat2, $lon2, $unit)
+            $distance_from_project_site = $this->distance($position->latitude, $position->longitude, $task->latitude, $task->latitude, "K");
+            dd($distance_from_project_site);
+            if (1) {
+                # code...
+            }
+
+            if ($request->status == 'completed') {
+                
+                // notify members that where assigned the next task
+                // create project notification
+                //return message specifies that task has been completed
+                //save camera image
+                //get gps coordinates
+            }
+
+            if ($request->status == 'queried') {
+                // notify members that where assigned the current task
+                // create project notification
+                //return message specifies that task has been queried
+                //save camera image
+                //get gps coordinates
+            }
+
+            if ($request->status == 'in_progress') {
+                // notify members that where assigned the current task has started
+                // create project notification
+                //return message specifies that task is in progress
+                //save camera image
+                //get gps coordinates
+            }
+
+            //notify project manager
+
             $task->update([
                 'status_id' => $request->status,
+                'latitude' => $position->latitude,
+                'longitude' => $position->longitude,
             ]);
             $task->save();
 
@@ -431,6 +476,55 @@ class TaskController extends Controller
         }
     }
 
+    
+    public function uploadDetails(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
+        ]);
+
+        try 
+        {
+            if ($request->file('file')->isValid()) 
+            {   
+                $file = $request->file('file');
+                $filename = time().'.'.$file->getClientOriginalExtension();
+                $fileextension = $file->getClientOriginalExtension();
+                $fileurl = $request->file->storeAs('uploads', time().'.'.$file->getClientOriginalExtension());
+
+                //create task using file contents
+
+                // Resource::create([
+                //     'name' => $request->name,
+                //     'url' => $fileurl,
+                //     //'url' => 'uploads/'.$filename,
+                //     'type' => $fileextension,
+                //     'description' => $request->description,
+                //     'user_id' =>  auth()->user()->id,
+                //     'project_id' => $task->project_id,
+                //     'task_id' => $task->id,
+                // ]);
+            }
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension;
+            $data['project_id'] = $task->project_id;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+            
+            return back()->with('success', 'Task added successfully.');
+        }
+        catch (\Exception $e) 
+        {   
+            //dd($e);
+            return back()->with('error', "Oops, Error adding Task");
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -441,4 +535,22 @@ class TaskController extends Controller
     {
         //
     }
+
+    function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+      
+        if ($unit == "K") {
+            return ($miles * 1.609344);
+        } else if ($unit == "N") {
+            return ($miles * 0.8684);
+        } else {
+            return $miles;
+        }
+      }
 }

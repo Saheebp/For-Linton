@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "spatie/laravel-activitylog": "^3.17",
-        "spatie/laravel-permission": "^4.0"
+        "spatie/laravel-permission": "^4.0",
+        "spatie/geocoder": "^3.10"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

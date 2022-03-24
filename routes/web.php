@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function() {
     Route::get('print/project/timeline/{project}', 'PrintController@printTimeline')->name('projects.timeline.print');
     Route::get('print/project/resources/{project}', 'PrintController@printResources')->name('projects.resources.print');
     Route::get('print/project/inventory/{project}', 'PrintController@printInventory')->name('projects.inventory.print');
+    Route::get('print/project/notification/{project}', 'PrintController@printNotification')->name('projects.notification.print');
     
     //users
     Route::resource('users', 'UserController')->except('edit');
@@ -66,14 +67,14 @@ Route::middleware('auth')->group(function() {
     });
 
     //messages
-    Route::resource('messages', 'MessageController');
-    Route::name('messages.')->group(function() {
-        Route::prefix('messages')->group(function() {
-            Route::get('/', 'MessageController@index')->name('index');
-            //Route::post('update', 'MessageController@update')->name('update');
+    // Route::resource('messages', 'MessageController');
+    // Route::name('messages.')->group(function() {
+    //     Route::prefix('messages')->group(function() {
+    //         Route::get('/', 'MessageController@index')->name('index');
+    //         //Route::post('update', 'MessageController@update')->name('update');
 
-        });
-    });
+    //     });
+    // });
     
     //logs
     Route::resource('logs', 'LogsController');
@@ -208,6 +209,7 @@ Route::middleware('auth')->group(function() {
              Route::get('budget/{project}', 'ProjectController@budget')->name('budget');
              Route::get('inventory/{project}', 'ProjectController@inventory')->name('inventory');
              Route::get('comments/{project}', 'ProjectController@comments')->name('comments');
+             Route::get('notification/{project}', 'ProjectController@notifications')->name('notifications');
          });
      });
 
@@ -231,6 +233,8 @@ Route::middleware('auth')->group(function() {
 
             Route::post('member/add/{task}', 'TaskController@addMember')->name('addMember');
             Route::post('member/remove/{task}', 'TaskController@removeMember')->name('removeMember');
+
+            Route::post('upload/details/{project}', 'TaskController@uploadDetails')->name('uploadDetails');
         });
     });
 
@@ -308,6 +312,26 @@ Route::middleware('auth')->group(function() {
         });
     });
 
+     //messaging
+     Route::resource('messages', 'MessageController');
+     Route::name('messages.')->group(function() {
+         Route::prefix('messages')->group(function() {
+             Route::get('/', 'MessageController@index')->name('index');
+             Route::post('filter', 'MessageController@filter')->name('filter');
+             Route::post('search', 'MessageController@search')->name('search');
+         });
+     });
+
+      //payments
+    Route::resource('reports', 'ReportController');
+    Route::name('reports.')->group(function() {
+        Route::prefix('reports')->group(function() {
+            Route::get('/', 'ReportController@index')->name('index');
+            Route::post('filter', 'ReportController@filter')->name('filter');
+            Route::post('search', 'ReportController@search')->name('search');
+        });
+    });
+
     //tickets
     Route::resource('tickets', 'TicketController');
     Route::name('tickets.')->group(function() {
@@ -317,6 +341,25 @@ Route::middleware('auth')->group(function() {
             Route::post('/search', 'TicketController@search')->name('search');
         });
     });
+    
+    //Permissions
+    Route::resource('permissions', 'PermissionController');
+    Route::name('permissions.')->group(function() {
+        Route::prefix('permissions')->group(function() {
+            Route::get('/', 'PermissionController@index')->name('index');
+            Route::post('/filter', 'PermissionController@filter')->name('filter');
+            Route::post('/search', 'PermissionController@search')->name('search');
+
+            Route::get('/roles', 'PermissionController@index')->name('home');
+            Route::post('/role/add', 'PermissionController@addToRole')->name('addtoroles');
+            Route::get('/role/show/{role_id}', 'PermissionController@showPermission')->name('showpermission');
+            Route::post('/role/sync', 'PermissionController@syncRolePermissions')->name('syncrolepermissions');
+            Route::post('/user/sync', 'PermissionController@syncUserPermissions')->name('syncuserpermissions');
+     
+        });
+    });
+
+
 
     //accounts
     // Route::resource('accounts', 'AccountController');

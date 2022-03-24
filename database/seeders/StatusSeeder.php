@@ -73,8 +73,6 @@ class StatusSeeder extends Seeder
                 'name' => 'Queried',//5
                 'style' => 'danger'
             ],
-            
-            
             [
                 'name' => 'Gold',//8
                 'style' => 'success'
@@ -163,14 +161,16 @@ class StatusSeeder extends Seeder
         
         $designations = [
             ['name' => 'Managing Director'],
-            ['name' => 'Chief Financial Officer'],
-            ['name' => 'Procurement Manager'],
-            ['name' => 'Procurement Officer'],
-            ['name' => 'Project Manager'],
-            ['name' => 'Project Engineer'],
-            ['name' => 'Site Manager'],
-            ['name' => 'Quantity Surveyors']
+            ['name' => 'Architect'],
+            ['name' => 'Structural Engineer'],
+            ['name' => 'Quantity Surveyor'],
+            ['name' => 'Site Engineer'],
+            ['name' => 'Electrical Engineer'],
+            ['name' => 'Mechanical Engineer'],
+            ['name' => 'Store keeper'],
+            ['name' => 'Procurement officer']
         ];
+
 
         foreach ($designations as $designation) {
             # code...

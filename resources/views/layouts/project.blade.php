@@ -498,16 +498,16 @@
                                         <tbody>
                                             <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
                                             <tr>
-                                                <td><b>Objective: </b><br><tag class="">{{ $project->objective ?? '' }}</tag> </td>
-                                                <td><b>Budget: </b><br><tag class="">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td>
+                                                <td colspan="3"><b>Objective: </b><br><tag class="">{{ $project->objective ?? '' }}</tag> </td>
+                                                <!-- <td><b>Budget: </b><br><tag class="">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td> -->
                                             </tr>
                                             <tr>
                                                 <td><b>State: </b><br><span>{{ $project->state ?? '' }}</span></td>
                                                 <td><b>L.G.A: </b><br>{{ $project->lga ?? '' }}</td>
+                                                <td><b>Project Type: </b><br>{{ $project->type }}</td>
                                             </tr>
                                             <tr>
-                                                <td><b>Owner: </b><br>{{ $project->sponsor_name }}</td>
-                                                <td><b>Project Type: </b><br>{{ $project->type }} days</td>
+                                                <td colspan="3"><b>Address: </b><br><span>{{ $project->address ?? '' }}</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -568,16 +568,19 @@
                                             <a class="nav-link {{ $tabres ?? ''}}" href="{{ route('projects.resources', $project->id) }}"  >Project Resources</a>
                                         </li>
 
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a class="nav-link {{ $tabbud ?? ''}}" href="{{ route('projects.budget', $project->id) }}"  >Budget</a>
-                                        </li>
+                                        </li> -->
 
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a class="nav-link {{ $tabinv ?? ''}}" href="{{ route('projects.inventory', $project->id) }}"  >Inventory</a>
-                                        </li>
+                                        </li> -->
 
                                         <li class="nav-item">
                                             <a class="nav-link {{ $tabcom ?? ''}}" href="{{ route('projects.comments', $project->id) }}"  >Comments</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ $tabnot ?? ''}}" href="{{ route('projects.notifications', $project->id) }}" >Notifications</a>
                                         </li>
                                     </ul>
                                 </div>

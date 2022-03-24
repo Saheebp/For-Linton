@@ -19,6 +19,9 @@ class SubTask extends Model
         'start', 
         'end', 
         
+        'longitude',
+        'latitude',
+        
         'executor_id',  
         'project_id',
         'task_id',

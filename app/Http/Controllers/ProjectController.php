@@ -14,6 +14,8 @@ use App\Models\State;
 use App\Models\Designation;
 use App\Models\ProjectMember;
 
+use Stevebauman\Location\Facades\Location;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -68,22 +70,26 @@ class ProjectController extends Controller
             'start' => 'required|string|max:255',
             'end' => 'required|string|max:255',
             
-            'nature' => 'required|string|max:255',
+            //'nature' => 'required|string|max:255',
             'type' => 'required|string|max:255',
-            'funding_source' => 'required|string|max:255',
+            //'funding_source' => 'required|string|max:255',
             'budget' => 'required|string|max:255',
     
-            'sponsor_name' => 'required|string|max:255',
-            'sponsor_email' => 'required|string|max:255',
-            'sponsor_phone' => 'required|string|max:255',
+            // 'sponsor_name' => 'required|string|max:255',
+            // 'sponsor_email' => 'required|string|max:255',
+            // 'sponsor_phone' => 'required|string|max:255',
     
             'state' => 'required|string|max:255',
             'lga' => 'required|string|max:255',
             'address' => 'required|string|max:255',
         ]);
 
+        
         try 
         {
+            //get gps coordinates
+            $position = Location::get();
+            
             $project = Project::create([
 
                 'name' => $request->name,
@@ -92,14 +98,17 @@ class ProjectController extends Controller
                 'start' => $request->start,
                 'end' => $request->end,
                 
-                'nature' => $request->nature,
+                'latitude' => $position->latitude,
+                'longitude' => $position->longitude,
+                
+                //'nature' => $request->nature,
                 'type' => $request->type,
-                'funding_source' => $request->funding_source,
-                'budget' => $request->budget,
+                //'funding_source' => $request->funding_source,
+                //'budget' => $request->budget,
 
-                'sponsor_name' => $request->sponsor_name,
-                'sponsor_email' => $request->sponsor_email,
-                'sponsor_phone' => $request->sponsor_phone,
+                // 'sponsor_name' => $request->sponsor_name,
+                // 'sponsor_email' => $request->sponsor_email,
+                // 'sponsor_phone' => $request->sponsor_phone,
 
                 'state' => $request->state,
                 'lga' => $request->lga,
@@ -110,12 +119,57 @@ class ProjectController extends Controller
                 'status_id' => $this->pending
             ]);
 
+            $architectural_design = null;
+            $structural_design = null;
+            $boquantities = null;
+            $powork = null;
+            $rpdocuments = null;
+
+            if ($request->file('architectural_design')->isValid()) 
+            {   
+                $file = $request->file('architectural_design');
+                $architectural_design = $this->projectfileUpload($file, $project->id, 'Architectural Design', 'Document containing Architectural Design');
+            }
+
+            if ($request->file('structural_design')->isValid()) 
+            {   
+                $file = $request->file('structural_design');
+                $structural_design = $this->projectfileUpload($file, $project->id, 'Structural Design', 'Document containing Structural Design');
+            }
+
+            if ($request->file('boquantities')->isValid()) 
+            {   
+                $file = $request->file('boquantities');
+                $boquantities = $this->projectfileUpload($file, $project->id, 'Bill of Quantitites', 'Document containing Bill of Quantitites');
+            }
+
+            if ($request->file('powork')->isValid()) 
+            {   
+                $file = $request->file('powork');
+                $powork = $this->projectfileUpload($file, $project->id, 'Progress of Work', 'Document containing Progress of Work');
+            }
+
+            if ($request->file('rpdocuments')->isValid()) 
+            {   
+                $file = $request->file('rpdocuments');
+                $rpdocuments = $this->projectfileUpload($file, $project->id, 'Related Project Documents', 'Document containing Related Project Documents');
+            }
+
             Inventory::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'project_id' => $project->id,
                 'status_id' => $this->new,
             ]);
+
+            $project->update([
+                'architectural_design' => $architectural_design,
+                'structural_design' => $structural_design,
+                'boquantities' => $boquantities,
+                'powork' => $powork,
+                'rpdocuments' => $rpdocuments
+            ]);
+            $project->save();
             
             $data = array();
             $data['body'] = auth()->user()->name." created a Project ".$request->name.", Details: ".$request->state."|".$request->lga."| starting: ".$request->start." and ending: ".$request->end;
@@ -130,7 +184,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            //dd($e);
+            dd($e);
             return back()->with('error', "Oops, Error Creating a Project");
         }
     }
@@ -700,5 +754,22 @@ class ProjectController extends Controller
         $completion = ($completed == 0) ? 0 : ($completed/$all_tasks)*100;
         
         return $completion;
+    }
+
+    public function projectfileUpload($file, $project_id, $name, $description)
+    {
+        $filename = time().'.'.$file->getClientOriginalExtension();
+        $fileextension = $file->getClientOriginalExtension();
+        $fileurl = $file->storeAs('uploads', time().'.'.$file->getClientOriginalExtension());
+        
+        Resource::create([
+            'name' => $name,
+            'url' => $fileurl,
+            'type' => $fileextension,
+            'description' => $description,
+            'user_id' =>  auth()->user()->id,
+            'project_id' => $project_id
+        ]);
+        return $fileurl;
     }
 }

@@ -81,7 +81,7 @@
                         </div>
                         <div class="card-body m-t-35">
                             <div class="col-lg-6  col-md-8  col-sm-12 mx-auto">
-                                <form method="POST" action="{{ route('projects.store') }}">
+                                <form method="POST" action="{{ route('projects.store') }}" enctype="multipart/form-data">
                                 @csrf
                                     <div class="form-group row">
                                         
@@ -97,9 +97,9 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 mt-3">
                                             <label for="subject1" class="col-form-label">
-                                                Project Description
+                                                Project Brief
                                             </label>
                                             <div class="input-group">
                                                 <textarea id="description" value="{{ old('title') }}" class="form-control" placeholder="" name="description"></textarea>
@@ -109,7 +109,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Project Objective
                                             </label>
@@ -121,7 +121,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6 mt-3">
                                             <label End="subject1" class="col-form-label">
                                                 Start Date
                                             </label>
@@ -133,7 +133,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6 mt-3">
                                             <label End="subject1" class="col-form-label">
                                                 End Date
                                             </label>
@@ -145,7 +145,79 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 mt-3">
+                                            <label for="subject1" class="col-form-label">
+                                                Project Architectural Design
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="file" id="architectural_design" value="{{ old('architectural_design') }}" class="form-control" placeholder="" name="architectural_design">
+                                            </div>
+                                            @error('architectural_design')
+                                                <span class="text-danger">{{ $errors->first('architectural_design') }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 mt-3">
+                                            <label for="subject1" class="col-form-label">
+                                                Project Structural Design
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="file" id="structural_design" value="{{ old('structural_design') }}" class="form-control" placeholder="" name="structural_design">
+                                            </div>
+                                            @error('structural_design')
+                                                <span class="text-danger">{{ $errors->first('structural_design') }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 mt-3">
+                                            <label for="subject1" class="col-form-label">
+                                                Project Bill of Quantities
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="file" id="boquantities" value="{{ old('boquantities') }}" class="form-control" placeholder="" name="boquantities">
+                                            </div>
+                                            @error('boquantities')
+                                                <span class="text-danger">{{ $errors->first('boquantities') }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 mt-3">
+                                            <label for="subject1" class="col-form-label">
+                                                Program of Work
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="file" id="powork" value="{{ old('powork') }}" class="form-control" placeholder="" name="powork">
+                                            </div>
+                                            @error('powork')
+                                                <span class="text-danger">{{ $errors->first('powork') }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 mt-3">
+                                            <label for="subject1" class="col-form-label">
+                                                Related Project Documents
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="file" id="rpdocuments" value="{{ old('rpdocuments') }}" class="form-control" placeholder="" name="rpdocuments">
+                                            </div>
+                                            @error('rpdocuments')
+                                                <span class="text-danger">{{ $errors->first('rpdocuments') }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <!-- <div class="col-12 mt-3">
+                                            <label for="subject1" class="col-form-label">
+                                                Project Task Documents
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="file" id="project_tasks" value="{{ old('project_tasks') }}" class="form-control" placeholder="" name="project_tasks">
+                                            </div>
+                                            @error('project_tasks')
+                                                <span class="text-danger">{{ $errors->first('project_tasks') }}</span>
+                                            @enderror
+                                        </div> -->
+
+                                        <!-- <div class="col-12 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Project Nature
                                             </label>
@@ -155,21 +227,25 @@
                                             @error('nature')
                                                 <span class="text-danger">{{ $errors->first('nature') }}</span>
                                             @enderror
-                                        </div>
+                                        </div> -->
 
-                                        <div class="col-12">
+                                        <div class="col-6 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Project Type
                                             </label>
                                             <div class="input-group">
-                                                <input type="text"  id="type" value="{{ old('type') }}" class="form-control" placeholder="" name="type">
+                                                <select class="form-control" id="type" name="type" required>
+                                                    <option value="">-- Select Type --</option>
+                                                    <option value="remote">Remote</option>
+                                                    <option value="physical">Physical</option>
+                                                </select>
                                             </div>
                                             @error('type')
                                                 <span class="text-danger">{{ $errors->first('type') }}</span>
                                             @enderror
                                         </div>
 
-                                        <div class="col-6">
+                                        <!-- <div class="col-6 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Source of Funding
                                             </label>
@@ -184,9 +260,9 @@
                                             @error('funding_source')
                                                 <span class="text-danger">{{ $errors->first('funding_source') }}</span>
                                             @enderror
-                                        </div>
+                                        </div> -->
 
-                                        <div class="col-6">
+                                        <!-- <div class="col-6 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Estimated Cost
                                             </label>
@@ -196,9 +272,9 @@
                                             @error('budget')
                                                 <span class="text-danger">{{ $errors->first('budget') }}</span>
                                             @enderror
-                                        </div>
+                                        </div> -->
 
-                                        <div class="col-12">
+                                        <!-- <div class="col-12 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Sponsor Name
                                             </label>
@@ -208,9 +284,9 @@
                                             @error('sponsor_name')
                                                 <span class="text-danger">{{ $errors->first('sponsor_name') }}</span>
                                             @enderror
-                                        </div>
+                                        </div> -->
 
-                                        <div class="col-6">
+                                        <!-- <div class="col-6 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Sponsor Email
                                             </label>
@@ -220,9 +296,9 @@
                                             @error('sponsor_email')
                                                 <span class="text-danger">{{ $errors->first('sponsor_email') }}</span>
                                             @enderror
-                                        </div>
+                                        </div> -->
 
-                                        <div class="col-6">
+                                        <!-- <div class="col-6 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Sponsor Phone
                                             </label>
@@ -232,9 +308,9 @@
                                             @error('sponsor_phone')
                                                 <span class="text-danger">{{ $errors->first('sponsor_phone') }}</span>
                                             @enderror
-                                        </div>
+                                        </div> -->
                                         
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 State
                                             </label>
@@ -251,7 +327,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 L.G.A
                                             </label>
@@ -263,7 +339,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Project Address
                                             </label>
@@ -275,7 +351,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-12 mt-3">
                                             <label for="subject1" class="col-form-label">
                                                 Manager
                                             </label>

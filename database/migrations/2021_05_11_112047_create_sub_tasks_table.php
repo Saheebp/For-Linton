@@ -25,6 +25,9 @@ class CreateSubTasksTable extends Migration
             $table->string('budget')->nullable()->default(null);
             $table->string('actual_cost')->nullable()->default(null);
 
+            $table->string('longitude')->nullable()->default(null);
+            $table->string('latitude')->nullable()->default(null);
+            
             $table->unsignedBigInteger('executor_id')->nullable()->default(null);
             $table->foreign('executor_id')->references('id')->on('users')->onDelete('restrict');
 
