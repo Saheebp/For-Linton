@@ -507,7 +507,9 @@
                                                 <td><b>Project Type: </b><br>{{ $project->type }}</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="3"><b>Address: </b><br><span>{{ $project->address ?? '' }}</span></td>
+                                                <td colspan="3"><b>Address: </b><br><span>{{ $project->address ?? '' }}</span>
+                                                <br> Coordinates : {{ $project->latitude }}, {{ $project->longitude }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

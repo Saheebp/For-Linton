@@ -433,19 +433,17 @@
                         <a href="{{ route('messages.index') }}">
                             <i class="fa fa-envelope"></i>
                             <span class="link-title menu_hide">&nbsp; Messaging</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
                         </a>
                     </li>
                     @endrole
 
                     @role('Super User|Level 1|Level 2|Level 3|Level 4|Level 5')
-                    <li class="@if(request()->is('reports')) active @endif">
+                    <!-- <li class="@if(request()->is('reports')) active @endif">
                         <a href="{{ route('reports.index') }}">
                             <i class="fa fa-bar-chart"></i>
                             <span class="link-title menu_hide">&nbsp; Reports & Analytics</span>
-                            <!-- <span class="fa arrow menu_hide"></span> -->
                         </a>
-                    </li>
+                    </li> -->
                     @endrole
 
                     @role('Super User|Level 1|Level 2|Level 3')

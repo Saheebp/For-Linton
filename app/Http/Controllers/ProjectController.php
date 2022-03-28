@@ -25,9 +25,10 @@ use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
-
     use AppStatus;
+
     public $new;
+    public $pending;
 
     public function __construct()
     {
@@ -35,6 +36,7 @@ class ProjectController extends Controller
         //$this->middleware('permission:member dashboard', ['only' => ['dashboard']]);
 
         $this->paid = $this->returnStatusId("New");
+        $this->pending = $this->returnStatusId("Pending");
     }
     /**
      * Display a listing of the resource.
@@ -88,7 +90,7 @@ class ProjectController extends Controller
             //'nature' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             //'funding_source' => 'required|string|max:255',
-            'budget' => 'required|string|max:255',
+            // 'budget' => 'required|string|max:255',
     
             // 'sponsor_name' => 'required|string|max:255',
             // 'sponsor_email' => 'required|string|max:255',
@@ -105,6 +107,7 @@ class ProjectController extends Controller
             //get gps coordinates
             $position = Location::get();
 
+            // or resolve address into coordinates
             // $client = new \GuzzleHttp\Client();
             // $geocoder = new \Spatie\Geocoder\Geocoder($client);
             // $geocoder->setApiKey(config('geocoder.key'));
@@ -200,7 +203,6 @@ class ProjectController extends Controller
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
 
-            //return back()->with('success', 'Project and Inventory created successfully.');
             return redirect()->route('projects.index')->with('success', 'Project and Inventory created successfully.');
         }
         catch (\Exception $e) 

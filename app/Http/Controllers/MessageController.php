@@ -12,10 +12,16 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
-        //
+        //$payments = Payment::orderBy('created_at', 'desc')->paginate(10);
+
+        return view('admin.messages.index', [
+            //'payments' => $payments
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

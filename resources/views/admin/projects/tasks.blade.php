@@ -686,6 +686,19 @@
                                                                 </select>
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-lg-12">
+                                                            <label for="subject1" class="col-form-label">
+                                                                Captured Image
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <input type="file" accept="image/*" id="captured_image" value="{{ old('captured_image') }}" class="@error('captured_image') is-invalid @enderror form-control" placeholder="" name="captured_image">
+                                                            </div>
+                                                            @error('captured_image')
+                                                                <span class="text-danger">{{ $errors->first('captured_image') }}</span>
+                                                            @enderror
+                                                        </div>
+
                                                     </div>
 
                                                 </div>

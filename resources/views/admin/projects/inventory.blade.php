@@ -2,13 +2,12 @@
 
 @section('page')
     <div class="tab-pane p-3" id="tab7">
-        <!-- <a class="btn btn-sm btn-outline-success float-right mt-1" href="{{ route('projects.inventory.print', $project) }}">Print Summary</a> -->
-        <a href="" class="float-right btn btn-sm btn-secondary mt-1" data-toggle="modal" data-target="#addInventoryItems">Upload Items to Inventory</a></li>
+        <a class="btn btn-sm btn-outline-success float-right mt-1" href="{{ route('projects.inventory.print', $project) }}">Print Summary</a>
         
         <h4 class="card-title" style="margin-bottom:30px; margin-top:30px;">Inventory</h4>
         <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p> -->
-
+        <button class="btn btn-sm btn-secondary float-left m-1  mb-3" data-toggle="modal" data-target="#addInventoryItems">Upload Items to Inventory</button>
         <div class="modal fade" id="addInventoryItems" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -68,8 +67,8 @@
                 </div>
             </div>
         </div>
-
-        <table id="example1" class="">
+        
+        <table id="example1" class="table">
             <thead>
                 <tr>
                     <th style="width:40%;">Name </th>
