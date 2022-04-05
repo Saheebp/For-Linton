@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         $super = User::create([
             'name' => 'Super User',
-            'email' => 'super@lintonstarksmanager.com',
+            'email' => 'super@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
 
         $director = User::create([
             'name' => 'Panlu Manchan',
-            'email' => 'md@lintonstarksmanager.com',
+            'email' => 'md@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
 
         $manager1 = User::create([
             'name' => 'Pascal Edozie',
-            'email' => 'cfo@lintonstarksmanager.com',
+            'email' => 'cfo@poaadit.com',
             'designation_id' => 2,
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
 
         $manager2 = User::create([
             'name' => 'Sowore Tolulope',
-            'email' => 'pcm@lintonstarksmanager.com',
+            'email' => 'pcm@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -65,7 +65,7 @@ class UserSeeder extends Seeder
 
         $manager3 = User::create([
             'name' => 'Dele Farhan',
-            'email' => 'po@lintonstarksmanager.com',
+            'email' => 'po@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -77,7 +77,7 @@ class UserSeeder extends Seeder
 
         $admin = User::create([
             'name' => 'Chima Emeka',
-            'email' => 'pm@lintonstarksmanager.com',
+            'email' => 'pm@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -89,7 +89,7 @@ class UserSeeder extends Seeder
 
         $admin = User::create([
             'name' => 'Dauda Khalid',
-            'email' => 'pm2@lintonstarksmanager.com',
+            'email' => 'pm2@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -101,7 +101,7 @@ class UserSeeder extends Seeder
 
         $admin = User::create([
             'name' => 'John Johnson',
-            'email' => 'pm3@lintonstarksmanager.com',
+            'email' => 'pm3@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -113,7 +113,7 @@ class UserSeeder extends Seeder
 
         $agent = User::create([
             'name' => 'Ahmed Ibrahim',
-            'email' => 'pe@lintonstarksmanager.com',
+            'email' => 'pe@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11, 
             'address' => '',
@@ -137,7 +137,7 @@ class UserSeeder extends Seeder
 
         $agent = User::create([
             'name' => 'Bidemi Saheed',
-            'email' => 'qs@lintonstarksmanager.com',
+            'email' => 'qs@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11, 
             'address' => '',

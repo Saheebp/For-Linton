@@ -19,37 +19,37 @@ class SettingSeeder extends Seeder
     {
         //
         Setting::create([
-            'name' => 'LINTONSTARKS MANAGER',
-            'address' => 'Farin Gada Jos',
+            'name' => 'POADIT',
+            'address' => 'Lagos, Nigeria',
             'phone1' => '00000000000',
             'phone2' => '00000000000',
-            'email' => 'jsag@gmail.com',
-            'web_url' => 'www.josstrawberriesandgrains.com',
-            'facebook_url' => 'www.facebook.com/jsag',
-            'instagram_url' => 'www.instagram.com/jsag',
-            'twitter_url' => 'www.twitter.com/jsag',
-            'youtube_url' => 'www.youtube.com/jsag',
+            'email' => 'help@poadit.com',
+            'web_url' => 'www.poadit.com',
+            'facebook_url' => 'www.facebook.com/poadit',
+            'instagram_url' => 'www.instagram.com/poadit',
+            'twitter_url' => 'www.twitter.com/poadit',
+            'youtube_url' => 'www.youtube.com/poadit',
         ]);
 
-        Config::create([
-            'name' => 'Referral Status',
-            'category' => 'referral',
-            'tag' => 'refstatus',
-            'value' => 'false'
-        ]);
+        // Config::create([
+        //     'name' => 'Referral Status',
+        //     'category' => 'referral',
+        //     'tag' => 'refstatus',
+        //     'value' => 'false'
+        // ]);
 
-        Config::create([
-            'name' => 'Time Before Cancellation',
-            'category' => 'order',
-            'tag' => 'tbcancel',
-            'value' => '15'
-        ]);
+        // Config::create([
+        //     'name' => 'Time Before Cancellation',
+        //     'category' => 'order',
+        //     'tag' => 'tbcancel',
+        //     'value' => '15'
+        // ]);
 
-        Config::create([
-            'name' => 'Allow Wallet Payment',
-            'category' => 'payment',
-            'tag' => 'walletpay',
-            'value' => 'true'
-        ]);
+        // Config::create([
+        //     'name' => 'Allow Wallet Payment',
+        //     'category' => 'payment',
+        //     'tag' => 'walletpay',
+        //     'value' => 'true'
+        // ]);
     }
 }
