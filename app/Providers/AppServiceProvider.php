@@ -71,6 +71,8 @@ class AppServiceProvider extends ServiceProvider
 
             $settings = Setting::all()->toArray();
             $view->with('settings', $settings['0']);
+
+            config(['settings', $settings['0']]);
         });
 
         config(['paid', $this->returnStatusId("Paid")]);
