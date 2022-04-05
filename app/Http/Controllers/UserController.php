@@ -61,20 +61,19 @@ class UserController extends Controller
     {
         $designations = Designation::all();
         $roles = Role::all();
-        
-        $nonsuper = $roles->reject(function ($user, $key) {
-            return $role->hasRole('Super User');
-        });
+
+        $super_id = Role::where('name','Super User')->first()->id;
+        $nonsuper = Role::all()->except($super_id);
 
         if(auth()->user()->hasRole('Super User'))
         {
-            return view('admin.users.index', [
+            return view('admin.users.create', [
                 'roles' => $roles,
                 'designations' => $designations
             ]);
         }
 
-        return view('admin.users.index', [
+        return view('admin.users.create', [
             'roles' => $nonsuper,
             'designations' => $designations
         ]);

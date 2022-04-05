@@ -106,18 +106,21 @@
                                             <tr>
                                                 <td><b>Title: </b></td> <td><tag class="text-success">{{ $project->name ?? '' }}</tag> </td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td><b>Budget: </b></td> <td><tag class="text-danger">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td>
-                                            </tr>
+                                            </tr> -->
                                             <tr>
                                                 <td><b>State: </b></td> <td><span>{{ $project->state ?? '' }}, {{ $project->lga ?? '' }}</td>
                                             </tr>
                                             <tr>
+                                                <td><b>Address: </b></td> <td><span>{{ $project->address ?? '' }}</td>
+                                            </tr>
+                                            <!-- <tr>
                                                 <td><b>Owner: </b></td> <td>{{ $project->sponsor_name }}</td>
                                             </tr>
                                             <tr>
                                                 <td><b>Project Type: </b></td> <td>{{ $project->type }} days</td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                     <form action="{{ route('warehouseitem.allocate.save') }}" method="POST">
