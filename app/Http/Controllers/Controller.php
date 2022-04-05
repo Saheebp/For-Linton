@@ -14,84 +14,84 @@ use App\Models\Log;
 use App\Models\User;
 
 //traits
-use App\Traits\AppConfig;
-use App\Traits\AppStatus;
+// use App\Traits\AppConfig;
+// use App\Traits\AppStatus;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    use AppConfig;
-    use AppStatus;
+    // use AppConfig;
+    // use AppStatus;
 
-    public $paid;
-    public $unpaid;
-    public $declined;
+    // public $paid;
+    // public $unpaid;
+    // public $declined;
 
-    public $open;
-    public $closed;
+    // public $open;
+    // public $closed;
 
-    public $new;
-    public $in_progress;
-    public $pending;
-    public $completed;
-    public $cancelled;
-    public $overdue;
-    public $queried;
+    // public $new;
+    // public $in_progress;
+    // public $pending;
+    // public $completed;
+    // public $cancelled;
+    // public $overdue;
+    // public $queried;
 
-    public $gold;
-    public $premium;
+    // public $gold;
+    // public $premium;
 
-    public $unavailable;
-    public $available;
+    // public $unavailable;
+    // public $available;
 
-    public $outoffunds;
-    public $active;
-    public $inactive;
+    // public $outoffunds;
+    // public $active;
+    // public $inactive;
 
-    public $read;
-    public $unread;
+    // public $read;
+    // public $unread;
 
     public function __construct()
     {
-        $this->paid = $this->returnStatusId("Paid");
-        $this->unpaid = $this->returnStatusId('Unpaid');
-        $this->declined = $this->returnStatusId("Declined");
+        // $this->paid = $this->returnStatusId("Paid");
+        // $this->unpaid = $this->returnStatusId('Unpaid');
+        // $this->declined = $this->returnStatusId("Declined");
 
-        $this->open = $this->returnStatusId("open");
-        $this->closed = $this->returnStatusId("closed");
+        // $this->open = $this->returnStatusId("open");
+        // $this->closed = $this->returnStatusId("closed");
 
-        $this->new = $this->returnStatusId("New");
-        $this->in_progress = $this->returnStatusId("In Progress");
-        $this->pending = $this->returnStatusId("Pending");
-        $this->completed = $this->returnStatusId("Completed");
-        $this->cancelled = $this->returnStatusId("Cancelled");
-        $this->overdue = $this->returnStatusId("Overdue");
-        $this->queried = $this->returnStatusId("Queried");
+        // $this->new = $this->returnStatusId("New");
+        // $this->in_progress = $this->returnStatusId("In Progress");
+        // $this->pending = $this->returnStatusId("Pending");
+        // $this->completed = $this->returnStatusId("Completed");
+        // $this->cancelled = $this->returnStatusId("Cancelled");
+        // $this->overdue = $this->returnStatusId("Overdue");
+        // $this->queried = $this->returnStatusId("Queried");
         
-        $this->gold = $this->returnStatusId("Gold");
-        $this->premium = $this->returnStatusId("Premium");
+        // $this->gold = $this->returnStatusId("Gold");
+        // $this->premium = $this->returnStatusId("Premium");
 
-        $this->unavailable = $this->returnStatusId("Unavailable");
-        $this->available = $this->returnStatusId("Available");
+        // $this->unavailable = $this->returnStatusId("Unavailable");
+        // $this->available = $this->returnStatusId("Available");
         
-        $this->outoffunds = $this->returnStatusId("Out of Funds");
-        $this->active = $this->returnStatusId("Active");
-        $this->inactive = $this->returnStatusId("Inactive");
+        // $this->outoffunds = $this->returnStatusId("Out of Funds");
+        // $this->active = $this->returnStatusId("Active");
+        // $this->inactive = $this->returnStatusId("Inactive");
 
-        $this->read = $this->returnStatusId("Read");
-        $this->unread = $this->returnStatusId("Unread");
+        // $this->read = $this->returnStatusId("Read");
+        // $this->unread = $this->returnStatusId("Unread");
     }
 
-    function returnStatusId($status)
-    {
-        try {
-            $status_id = Status::where('name',$status)->first()->id;
-            return $status_id; 
-        } catch (\Throwable $th) {
-            //throw $th;
-        }        
-    }
+    // function returnStatusId($status)
+    // {
+    //     try {
+    //         $status_id = Status::where('name',$status)->first()->id;
+    //         return $status_id; 
+    //     } catch (\Throwable $th) {
+    //         //throw $th;
+    //     }        
+    // }
 
     function CreateNotification(array $data)
     {
@@ -144,7 +144,7 @@ class Controller extends BaseController
             // 'nok_phone' => isset($data['nok_phone'])? $data['nok_phone'] : '', 
 
             'is_admin' => 'false',
-            'status_id' => 1,
+            'status_id' => config('active'),
             'password' => Hash::make($data['phone']),
         ]);
         

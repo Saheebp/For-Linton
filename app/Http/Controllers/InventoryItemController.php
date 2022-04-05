@@ -70,7 +70,7 @@ class InventoryItemController extends Controller
                 'created_by' => Auth::user()->id,
                 'batch_id' => $request->batch,
                 'image' => $request->image,
-                'status_id' => $this->available,
+                'status_id' => config('available'),
                 'category_id' => $request->category_id,
                 'inventory_id' => $request->inventory_id
             ]);

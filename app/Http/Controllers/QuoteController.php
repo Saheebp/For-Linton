@@ -63,7 +63,7 @@ class QuoteController extends Controller
                 $fileurl = $request->file->storeAs('quotes', time().'.'.$file->getClientOriginalExtension());
 
                 $quote->update([
-                    'status_id' => $this->completed,
+                    'status_id' => config('completed'),
                     'total_cost' => $request->cost
                 ]);
                 $quote->save();

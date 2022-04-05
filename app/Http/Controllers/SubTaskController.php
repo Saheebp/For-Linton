@@ -65,7 +65,7 @@ class SubTaskController extends Controller
                 'end' => $request->end,
                 'project_id' => $request->project_id,
                 'task_id' => $request->task_id,
-                'status_id' => $this->pending,
+                'status_id' => config('pending'),
                 'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,
                 'succeedby' => ($request->succeedby == null) ? null : $request->succeedby,
             ]);
