@@ -19,12 +19,16 @@
                     <tr>
                         <td>
 
-                            @if ($notification->sub_task_id != NULL)
-                                {{ $comment->subtask->name  }}
-                            @elseif ($comment->task_id != NULL)
-                                {{ $comment->task->name  }}
-                            @else
-                                {{ $comment->project->name  }}
+                            @if ($notification->project_id != NULL)
+                                <span class="badge badge-secondary">project</span>
+                            @elseif ($notification->task_id != NULL)
+                                <span class="badge badge-secondary">task</span>
+                            @elseif ($notification->sub_task_id != NULL)
+                                <span class="badge badge-secondary">sub task</span>
+                            @elseif ($notification->grand_task_id != NULL)
+                                <span class="badge badge-secondary">grand</span>
+                            @elseif ($notification->great_task_id != NULL)
+                                <span class="badge badge-secondary">great</span>
                             @endif
                             <br>
 

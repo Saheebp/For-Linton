@@ -804,6 +804,29 @@ class ProjectController extends Controller
         }
     }
 
+    public function updateTime(Request $request, Project $project)
+    {
+        $validated = $request->validate([
+            'start' => 'required|string|max:255',
+            'end' => 'required|string|max:255',
+        ]);
+
+        try 
+        {
+            $project->update([
+                'start' => $request->start,
+                'end' => $request->end,
+            ]);
+            $task->save();
+
+            return back()->with('success', 'Task time updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Task time");
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
