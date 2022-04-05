@@ -19,12 +19,9 @@ use Auth;
 
 class InventoryController extends Controller
 {
-    use AppStatus;
-    public $available;
 
     public function __construct()
     {
-        $this->available = $this->returnStatusId("Available");
     }
 
     /**
@@ -80,7 +77,7 @@ class InventoryController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'project_id' => $request->project,
-                'status_id' => $this->new,
+                'status_id' => config('new'),
             ]);
 
             return back()->with('success', 'Inventory created successfully.');
