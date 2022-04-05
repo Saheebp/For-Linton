@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        STARKS | 
+        {{ $settings['name'] ?? STARKS }} | 
         @section('title')
         @show
     </title>
@@ -27,7 +27,7 @@
 
 <body class="body fixedNav_position fixedMenu_left">
 
-<!-- <div class="preloader" style=" position: fixed;
+<div class="preloader" style=" position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -42,16 +42,16 @@
             top: 48%;
             background-position: center;
             z-index: 999999">
-        <img src="{{ asset('admin/img/loader.gif') }}" style=" width: 40px;" alt="loading...">
+        <img src="{{ asset('admin/img/logo.png') }}" style=" width: 100px;" alt="loading...">
     </div>
-</div> -->
+</div>
 <div id="wrap">
     <div id="top" class="fixed">
         <!-- .navbar -->
         <nav class="navbar navbar-static-top">
             <div class="container-fluid m-0">
                 <a class="navbar-brand" href="{{ route('admin.home') }}">
-                    <h4> <!--<img src="{{ asset('admin/img/logo1.ico') }}" class="admin_img" alt="logo"> --> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STARKS ADMIN</h4>
+                    <h4> <img src="{{ asset('admin/img/logo.png') }}" class="admin_img" alt="logo"> &nbsp;{{ $settings['name'] ?? STARKS }} ADMIN</h4>
                 </a>
                 <div class="menu mr-sm-auto">
                     <span class="toggle-left" id="menu-toggle">

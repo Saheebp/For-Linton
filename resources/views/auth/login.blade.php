@@ -16,7 +16,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/pages/login1.css') }}"/>
 </head>
 <body>
-<!-- <div class="preloader" style=" position: fixed;
+<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -31,19 +31,20 @@
   top: 48%;
   background-position: center;
 z-index: 999999">
-        <img src="{{ asset('admin/img/loader.gif') }}" style=" width: 40px;" alt="loading...">
+        <img src="{{ asset('admin/img/logo.png') }}" style=" width: 40px;" alt="loading...">
     </div>
-</div> -->
+</div>
 <div class="container wow fadeInDown" data-wow-delay="0.5s" data-wow-duration="2s">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 login_top_bottom">
             <div class="row">
                 <div class="col-lg-5  col-md-8  col-sm-12 mx-auto">
-                    <!-- <div class="login_logo login_border_radius1">
+                    <div class="login_logo login_border_radius1">
                         <h3 class="text-center p-3">
-                            <span class="text-white">LOGIN</span>
+                            <!-- <span class="text-white">LOGIN</span> -->
+                            <img src="{{ asset('admin/img/logo.png') }}" style=" width: 100px;" alt="loading...">
                         </h3>
-                    </div> -->
+                    </div>
                     <div class="bg-white login_content login_border_radius">
                         <form action="{{ route('login') }}" id="login_validator" method="post" class="login_validator">
                         @csrf
@@ -67,7 +68,7 @@ z-index: 999999">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <input type="submit" value="Log In" class="btn btn-primary btn-block login_button">
+                                        <input type="submit" value="Log In" class="btn btn-secondary btn-block login_button">
                                     </div>
                                 </div>
                             </div>
