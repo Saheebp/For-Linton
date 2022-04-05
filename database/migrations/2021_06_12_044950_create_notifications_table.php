@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMessagesTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,18 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-
+            
             $table->string('body')->nullable(false);
+            //$table->string('tag')->nullable();
             
             $table->unsignedBigInteger('project_id')->nullable();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');
 
             $table->unsignedBigInteger('task_id')->nullable();
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('restrict');
-
-            $table->unsignedBigInteger('receiver_id')->nullable()->default(null);
-            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('restrict');
 
             $table->unsignedBigInteger('creator_id')->nullable()->default(null);
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
@@ -39,9 +37,24 @@ class CreateMessagesTable extends Migration
 
             $table->unsignedBigInteger('great_task_id')->nullable()->default(null);
             $table->foreign('great_task_id')->references('id')->on('great_tasks')->onDelete('restrict');
-            
+
+            $table->unsignedBigInteger('request_fq_id')->nullable()->default(null);
+            $table->foreign('request_fq_id')->references('id')->on('request_fqs')->onDelete('restrict');
+
+            $table->unsignedBigInteger('payment_id')->nullable()->default(null);
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('restrict');
+
+            $table->unsignedBigInteger('quote_id')->nullable()->default(null);
+            $table->foreign('quote_id')->references('id')->on('quotes')->onDelete('restrict');
+
+            $table->unsignedBigInteger('resource_id')->nullable()->default(null);
+            $table->foreign('resource_id')->references('id')->on('resources')->onDelete('restrict');
+
             $table->unsignedBigInteger('status_id')->default(13);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -52,6 +65,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('notifications');
     }
 }

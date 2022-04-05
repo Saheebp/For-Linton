@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Task;
+
 use App\Models\Project;
+use App\Models\Task;
+use App\Models\SubTask;
+use App\Models\GrandTask;
+use App\Models\GreatTask;
+
 use App\Models\Category;
 use App\Models\Inventory;
 use App\Models\Comment;
@@ -14,29 +19,21 @@ use App\Models\State;
 use App\Models\Designation;
 use App\Models\ProjectMember;
 
-//traits
-use App\Traits\AppStatus;
-
 use Stevebauman\Location\Facades\Location;
 use Geocoder;
+
+use App\Imports\PowImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
-    use AppStatus;
-
-    public $new;
-    public $pending;
-
     public function __construct()
     {
-        //$this->middleware('auth')->except(['index', 'select', 'createSharedTrip', 'createHiredTrip', 'confirm']);
+        //$this->middleware('auth')->except(['index', '', '', '', '']);
         //$this->middleware('permission:member dashboard', ['only' => ['dashboard']]);
-
-        $this->paid = $this->returnStatusId("New");
-        $this->pending = $this->returnStatusId("Pending");
     }
     /**
      * Display a listing of the resource.
@@ -104,15 +101,21 @@ class ProjectController extends Controller
         
         try 
         {
-            //get gps coordinates
-            $position = Location::get();
-
+            //get gps coordinates if location is remote
+            if ($request->type == 'remote') 
+            {
+                $position = Location::get() ?? NULL;
+            }
+            else
+            {
+                $position = NULL;
             // or resolve address into coordinates
             // $client = new \GuzzleHttp\Client();
             // $geocoder = new \Spatie\Geocoder\Geocoder($client);
             // $geocoder->setApiKey(config('geocoder.key'));
             // $geocoder->setCountry(config('geocoder.country'));
             // $address = $geocoder->getCoordinatesForAddress($request->address);
+            }
             
             $project = Project::create([
 
@@ -122,8 +125,8 @@ class ProjectController extends Controller
                 'start' => $request->start,
                 'end' => $request->end,
                 
-                'latitude' => $position->latitude,
-                'longitude' => $position->longitude,
+                'latitude' => $position->latitude ?? NULL,
+                'longitude' => $position->longitude ?? NULL,
                 
                 //'nature' => $request->nature,
                 'type' => $request->type,
@@ -140,7 +143,7 @@ class ProjectController extends Controller
                 
                 'manager_id' => $request->manager,
                 'creator_id' => auth()->user()->id,
-                'status_id' => $this->pending
+                'status_id' =>  config('pending')
             ]);
 
             $architectural_design = null;
@@ -169,8 +172,10 @@ class ProjectController extends Controller
 
             if ($request->file('powork')->isValid()) 
             {   
+                session(['project_id' => $project->id]);
                 $file = $request->file('powork');
                 $powork = $this->projectfileUpload($file, $project->id, 'Progress of Work', 'Document containing Progress of Work');
+                Excel::import(new PowImport, $powork);
             }
 
             if ($request->file('rpdocuments')->isValid()) 
@@ -183,7 +188,7 @@ class ProjectController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'project_id' => $project->id,
-                'status_id' => $this->new,
+                'status_id' => config('new')
             ]);
 
             $project->update([
@@ -201,13 +206,15 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+
             $this->createLog($data);
+            $this->CreateNotification($data);
 
             return redirect()->route('projects.index')->with('success', 'Project and Inventory created successfully.');
         }
         catch (\Exception $e) 
         {
-            //dd($e);
+            dd($e);
             return back()->with('error', "Oops, Error Creating a Project");
         }
     }
@@ -416,6 +423,21 @@ class ProjectController extends Controller
         }
     }
 
+    public function notifications(Project $project)
+    {
+        try 
+        {
+            return view('admin.projects.notifications', [
+                'project' => $project,
+                'tabnot' => 'active'
+            ]);
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Cannot access project at the moment");
+        }
+    }
+
     public function uploadResource(Request $request, Project $project)
     {
         $validated = $request->validate([
@@ -449,7 +471,9 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            
             $this->createLog($data);
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Resource added successfully.');
         }
@@ -511,7 +535,9 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+
             $this->createLog($data);
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Staff added to project successfully.');
         }
@@ -536,7 +562,9 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+
             $this->createLog($data);
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Team Member removed successfully.');
         }
@@ -558,12 +586,14 @@ class ProjectController extends Controller
             ]);
 
             $data = array();
-            $data['body'] = auth()->user()->name." commented on the project";
+            $data['body'] = auth()->user()->name." commented on a project";
             $data['project_id'] = $comment->project_id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+
             $this->createLog($data);
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Comment added successfully.');
         }
@@ -580,7 +610,7 @@ class ProjectController extends Controller
         ]);
         
         $tasks = Task::where('project_id',$request->project_id)
-        ->where('status_id', '!=', $this->completed)->get();
+        ->where('status_id', '!=', config('completed'))->get();
 
         if ($tasks != null) {
             return back()->with('error', "Oops, You cannot update this project status due to pending tasks");
@@ -592,6 +622,16 @@ class ProjectController extends Controller
                 'status_id' => $request->status,
             ]);
             $project->save();
+
+            $data = array();
+            $data['body'] = auth()->user()->name." commented on a project";
+            $data['project_id'] = $project->id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+
+            $this->createLog($data);
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Project Status updated successfully.');
         }
@@ -629,7 +669,9 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+
             $this->createLog($data);
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Staff Role updated successfully.');
         }
@@ -667,7 +709,10 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+
             $this->createLog($data);
+            $this->CreateNotification($data);
+
 
             return back()->with('success', 'Budget updated successfully.');
         }
@@ -736,7 +781,7 @@ class ProjectController extends Controller
                 
                 //'manager_id' => $request->manager,
                 //'creator_id' => auth()->user()->id,
-                //'status_id' => $this->pending
+                //'status_id' =>  config('pending')
             ]);
             $project->save();
             
@@ -746,7 +791,9 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+
             $this->createLog($data);
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Project Updated successfully.');
         }
@@ -766,13 +813,12 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
-    }
-    
+    } 
 
     public function completion($project_id)
     {
         $tasks = Task::where('project_id',$project_id)->get();
-        $completed = $tasks->where('status_id',$this->completed)->count();
+        $completed = $tasks->where('status_id',config('completed'))->count();
         $all_tasks = $tasks->count();
         $completion = ($completed == 0) ? 0 : ($completed/$all_tasks)*100;
         
@@ -795,4 +841,5 @@ class ProjectController extends Controller
         ]);
         return $fileurl;
     }
+
 }

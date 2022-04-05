@@ -85,11 +85,9 @@
                                             
                                             <div class="col-lg-4 col-sm-12 m-t-15 text-left">
                                                 
-                                            @role('Level 1|Level 2')
-                                                <button class="btn btn-raised btn-success adv_cust_mod_btn"
-                                                        data-toggle="modal" data-target="#modalCreate">Create New User
-                                                </button>
-                                                @endrole
+                                                @can('create staff')
+                                                <button class="btn btn-raised btn-success adv_cust_mod_btn" data-toggle="modal" data-target="#modalCreate">Create New User</button>
+                                                @endcan
 
                                                 <div class="modal fade" id="modalCreate" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">

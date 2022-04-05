@@ -8,50 +8,34 @@
         </p> -->
         
         <?php
-            $totalweeks = round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7);
+            // $totalweeks = round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7);
         ?>
 
         <div class="table-responsive text-nowrap overflow-auto ">
-            <table id="example1" class="table w-100">
-                <tbody>
-                        <tr>
-                            <th style="width:40%">
-                                <div>Name</div>
-                            </th>
-                            @for ($i = 1; $i <= $totalweeks; $i++ )
-                            <th>
-                                Week {{ $i }}
-                            </th>
-                            @endfor
-                        </tr>
+            
+        <table id="example1" class="table table-striped">
+            <tbody>
+                @foreach($project->notifications as $notification)
+                    <tr>
+                        <td>
 
-                        @foreach ($flots as $flot)
-                        <tr>
-                            <td>
-                                {{ $flot['name'] }}
-                            </td>
+                            @if ($notification->sub_task_id != NULL)
+                                {{ $comment->subtask->name  }}
+                            @elseif ($comment->task_id != NULL)
+                                {{ $comment->task->name  }}
+                            @else
+                                {{ $comment->project->name  }}
+                            @endif
+                            <br>
 
-                            @for ($i = 1; $i <= $flot['preoffset']; $i++ )
-                            <td>
-                                &nbsp;
-                            </td>
-                            @endfor
-
-                            @for ($i = 1; $i <= $flot['length']; $i++ )
-                            <td>
-                                <div class="badge badge-{{$flot['status_style']}} w-100">&nbsp;</div>
-                            </td>
-                            @endfor
-
-                            @for ($i = 1; $i <= $flot['postoffset']; $i++ )
-                            <td>
-                                &nbsp;
-                            </td>
-                            @endfor
-                        </tr>
-                        @endforeach
-                </tbody>
-            </table>
+                            {{ $notification->body }}<br>
+                            <b>{{ date('d M Y, h:ia', strtotime($notification->created_at)) }}</b>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        
         </div>
     </div>
 @stop

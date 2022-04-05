@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->unsignedBigInteger('mid')->nullable()->default(null);
 
             $table->string('name');
             $table->date('start')->nullable()->default(null);
@@ -30,6 +31,9 @@ class CreateTasksTable extends Migration
             $table->string('longitude')->nullable()->default(null);
             $table->string('latitude')->nullable()->default(null);
             
+            $table->unsignedBigInteger('group_id')->nullable()->default(null);
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('restrict');
+
             $table->unsignedBigInteger('executor_id')->nullable()->default(null);
             $table->foreign('executor_id')->references('id')->on('users')->onDelete('restrict');
 
@@ -39,8 +43,8 @@ class CreateTasksTable extends Migration
             $table->unsignedBigInteger('project_id')->nullable()->default(null);
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');
 
-            $table->unsignedBigInteger('parent')->nullable()->default(null);
-            $table->foreign('parent')->references('id')->on('tasks')->onDelete('restrict');
+            $table->unsignedBigInteger('parent_id')->nullable()->default(null);
+            $table->unsignedBigInteger('child_id')->nullable()->default(null);
 
             $table->unsignedBigInteger('preceedby')->nullable()->default(null);
             $table->unsignedBigInteger('succeedby')->nullable()->default(null);

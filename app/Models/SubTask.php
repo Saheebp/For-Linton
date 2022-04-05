@@ -18,6 +18,7 @@ class SubTask extends Model
         
         'start', 
         'end', 
+        'mid', 
         
         'longitude',
         'latitude',
@@ -28,8 +29,8 @@ class SubTask extends Model
         'group_id',  
         'status_id',
 
-        'preededby',
-        'succeeedby'
+        'preceedby',
+        'succeedby'
     ];
 
     public function executor() {
@@ -50,6 +51,14 @@ class SubTask extends Model
 
     public function task() {
         return $this->belongsTo(Project::class);
+    }
+
+    public function grandtasks() {
+        return $this->hasMany(GrandTask::class);
+    }
+
+    public function greattasks() {
+        return $this->hasMany(GreatTask::class);
     }
     
     public function resources() {

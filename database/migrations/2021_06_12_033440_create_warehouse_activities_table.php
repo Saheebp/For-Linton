@@ -31,6 +31,7 @@ class CreateWarehouseActivitiesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
 
             $table->string('project')->nullable()->default(null);
+            
             $table->unsignedBigInteger('project_id')->nullable()->default(null);
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');
         });

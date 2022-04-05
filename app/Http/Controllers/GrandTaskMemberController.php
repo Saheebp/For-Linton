@@ -2,17 +2,10 @@
 
 namespace App\Http\Controllers;
 
-//models
-use App\Models\Setting;
-use App\Models\Config;
-
+use App\Models\GrandTaskMember;
 use Illuminate\Http\Request;
 
-//traits
-// use App\Traits\AppStatus;
-// use App\Traits\CreateNotification;
-
-class SettingsController extends Controller
+class GrandTaskMemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,21 +14,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $billing = Config::where('category','billing')->get();
-        $customer = Config::where('category','customer')->get();
-        $order = Config::where('category','order')->get();
-        $referral = Config::where('category','referral')->get();
-        $payment = Config::where('category','payment')->get();
-        $product = Config::where('category','product')->get();
-
-        return view('admin.settings.index', [
-            'product' => $product,
-            'customer' => $customer,
-            'billing' => $billing,
-            'referral' => $referral,
-            'payment' => $payment,
-            'order' => $order
-        ]);
+        //
     }
 
     /**
@@ -62,10 +41,10 @@ class SettingsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\GrandTaskMember  $grandTaskMember
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(GrandTaskMember $grandTaskMember)
     {
         //
     }
@@ -73,10 +52,10 @@ class SettingsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\GrandTaskMember  $grandTaskMember
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(GrandTaskMember $grandTaskMember)
     {
         //
     }
@@ -85,10 +64,10 @@ class SettingsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\GrandTaskMember  $grandTaskMember
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, GrandTaskMember $grandTaskMember)
     {
         //
     }
@@ -96,10 +75,10 @@ class SettingsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\GrandTaskMember  $grandTaskMember
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(GrandTaskMember $grandTaskMember)
     {
         //
     }

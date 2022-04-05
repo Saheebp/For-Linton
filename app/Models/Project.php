@@ -70,6 +70,14 @@ class Project extends Model
         return $this->hasMany(SubTask::class);
     }
 
+    public function grandtasks() {
+        return $this->hasMany(GrandTask::class);
+    }
+
+    public function greattasks() {
+        return $this->hasMany(GreatTask::class);
+    }
+
     public function resources() {
         return $this->hasMany(Resource::class);
     }
@@ -88,6 +96,10 @@ class Project extends Model
 
     public function messages() {
         return $this->hasMany(Message::class);
+    }
+
+    public function notifications() {
+        return $this->hasMany(Notification::class);
     }
 
     public function logs() {

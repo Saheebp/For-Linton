@@ -10,6 +10,10 @@ use App\Models\Comment;
 
 use Illuminate\Http\Request;
 
+//traits
+// use App\Traits\AppStatus;
+// use App\Traits\CreateNotification;
+
 class SubTaskController extends Controller
 {
     /**
@@ -43,7 +47,7 @@ class SubTaskController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'budget' => 'required|string',
+            //'budget' => 'required|string',
         ]);
 
         $task = Task::find($request->task_id);
@@ -56,7 +60,7 @@ class SubTaskController extends Controller
             $subtask = SubTask::create([
                 'name' => $request->name,
                 'description' => $request->description,
-                'budget' => $request->budget,
+                //'budget' => $request->budget,
                 'start' => $request->start,
                 'end' => $request->end,
                 'project_id' => $request->project_id,
@@ -112,7 +116,7 @@ class SubTaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error Updating Sub Task");
         }
     }

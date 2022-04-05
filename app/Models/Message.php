@@ -16,7 +16,9 @@ class Message extends Model
         'creator_id',
         'receiver_id',
         'project_id',
-        'subtask_id',
+        'sub_task_id',
+        'grand_task_id',
+        'great_task_id',
         'resource_id',
         'status_id'        
     ];
@@ -36,6 +38,14 @@ class Message extends Model
 
     public function subtask() {
         return $this->belongsTo(SubTask::class);
+    }
+
+    public function grandtask() {
+        return $this->belongsTo(GrandTask::class);
+    }
+
+    public function greattask() {
+        return $this->belongsTo(GreatTask::class);
     }
 
     public function user() {

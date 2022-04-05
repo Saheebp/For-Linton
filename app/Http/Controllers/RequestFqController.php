@@ -66,7 +66,7 @@ class RequestFqController extends Controller
                 'end' => $request->end,
                 'user_id' => auth()->user()->id,
                 'department_id' => $request->department,
-                'status_id' => $this->pending,
+                'status_id' => config('pending'), 
                 'total_cost' => $request->cost
             ]);
             
@@ -141,7 +141,7 @@ class RequestFqController extends Controller
                 $quote = Quote::create([
                     'request_fq_id' => $request->request_fq_id,
                     'user_id' => $request->contractor_id,
-                    'status_id' => $this->pending
+                    'status_id' => config('pending')
                 ]);
                 
             }else{

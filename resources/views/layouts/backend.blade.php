@@ -454,10 +454,16 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
-                            <li class="@if(request()->is('users')) active @endif">
+                            <li>
                                 <a href="{{ route('users.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Manage Users
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('users.create') }}">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                    &nbsp; Create User
                                 </a>
                             </li>
                         </ul>

@@ -9,20 +9,8 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 
 use Auth;
 
-//traits
-use App\Traits\AppStatus;
-
 class InventoryImport implements ToCollection
 {
-    use AppStatus;
-
-    public $available;
-
-    public function __construct()
-    {
-        $this->available = $this->returnStatusId("Available");
-    }
-
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) 
@@ -34,7 +22,7 @@ class InventoryImport implements ToCollection
                 'created_by' => Auth::user()->id,
                 'batch_id' => NULL,
                 'image' => NULL,
-                'status_id' => $this->available,
+                'status_id' => config('available'),
                 'category_id' => NULL,
                 'inventory_id' => NULL
             ]);

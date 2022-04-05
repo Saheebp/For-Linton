@@ -98,6 +98,14 @@ class StatusSeeder extends Seeder
             [
                 'name' => 'Inactive',
                 'style' => 'danger'
+            ],
+            [
+                'name' => 'Read',
+                'style' => 'success'
+            ],
+            [
+                'name' => 'Unread',
+                'style' => 'warning'
             ]
         ];
 

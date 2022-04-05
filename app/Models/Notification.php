@@ -11,14 +11,18 @@ class Notification extends Model
 
     protected $fillable = [
         'body',
-        'tag',
+        // 'tag',
 
         'project_id',
         'task_id',
         'sub_task_id',
+        'grand_task_id',
+        'great_task_id',
+        'user_id',
+
         'resource_id',
-        'proc_request_id',
-        'proc_quote_id',
+        'request_fq_id',
+        'quote_id',
         'payment_id',
 
         'status_id'        
@@ -41,7 +45,31 @@ class Notification extends Model
         return $this->belongsTo(SubTask::class);
     }
 
-    public function creator() {
+    public function grandtask() {
+        return $this->belongsTo(GrandTask::class);
+    }
+
+    public function greattask() {
+        return $this->belongsTo(GreatTask::class);
+    }
+
+    public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function reource() {
+        return $this->belongsTo(Resource::class);
+    }
+
+    public function requestFq() {
+        return $this->belongsTo(ResourceFq::class);
+    }
+
+    public function quote() {
+        return $this->belongsTo(Quote::class);
+    }
+
+    public function payment() {
+        return $this->belongsTo(Payment::class);
     }
 }

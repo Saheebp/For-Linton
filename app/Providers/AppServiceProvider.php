@@ -72,5 +72,30 @@ class AppServiceProvider extends ServiceProvider
             $settings = Setting::all()->toArray();
             $view->with('settings', $settings['0']);
         });
+
+        config(['paid', $this->returnStatusId("Paid")]);
+        config(['unpaid', $this->returnStatusId("Unaid")]);
+        config(['declined', $this->returnStatusId("Declined")]);
+
+        config(['new' => $this->returnStatusId("New")]);
+        config(['in_progress' => $this->returnStatusId("In Progress")]);
+        config(['pending' => $this->returnStatusId("Pending")]);
+        config(['completed' => $this->returnStatusId("Completed")]);
+        config(['cancelled' => $this->returnStatusId("Cancelled")]);
+        config(['overdue' => $this->returnStatusId("Overdue")]);
+        config(['queried' => $this->returnStatusId("Queried")]);
+
+        config(['gold' => $this->returnStatusId("Gold")]);
+        config(['premium' => $this->returnStatusId("Premium")]);
+        
+        config(['unavailable' => $this->returnStatusId("Unavailable")]);
+        config(['available' => $this->returnStatusId("Available")]);
+
+        config(['active' => $this->returnStatusId("Active")]);
+        config(['inactive' => $this->returnStatusId("Inactive")]);
+
+        config(['open' => $this->returnStatusId("Open")]);
+        config(['closed' => $this->returnStatusId("Closed")]);
+        config(['accepted' => $this->returnStatusId("Accepted")]);
     }
 }

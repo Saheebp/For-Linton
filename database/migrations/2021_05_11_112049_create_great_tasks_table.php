@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubTasksTable extends Migration
+class CreateGreatTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSubTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_tasks', function (Blueprint $table) {
+        Schema::create('great_tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedBigInteger('mid')->nullable()->default(null);
@@ -39,6 +39,12 @@ class CreateSubTasksTable extends Migration
             $table->unsignedBigInteger('task_id')->nullable()->default(null);
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('restrict');
 
+            $table->unsignedBigInteger('sub_task_id')->nullable()->default(null);
+            $table->foreign('sub_task_id')->references('id')->on('sub_tasks')->onDelete('restrict');
+
+            $table->unsignedBigInteger('grand_task_id')->nullable()->default(null);
+            $table->foreign('grand_task_id')->references('id')->on('grand_tasks')->onDelete('restrict');
+
             $table->unsignedBigInteger('status_id')->nullable()->default(null);
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
             
@@ -60,6 +66,6 @@ class CreateSubTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_tasks');
+        Schema::dropIfExists('great_tasks');
     }
 }

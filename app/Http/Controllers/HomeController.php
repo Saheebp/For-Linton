@@ -33,7 +33,7 @@ class HomeController extends Controller
         if (auth()->user()->is_contractor == 'true') 
         {
             $quotes = Quote::where('user_id', auth()->user()->id)
-            ->where('status_id', $this->pending)->get();
+            ->where('status_id', config('pending'))->get();
             
             if ($quotes->isEmpty()) {
                 $status = 'closed';
@@ -54,7 +54,7 @@ class HomeController extends Controller
     public function documents()
     {
         $quotes = Quote::where('user_id', auth()->user()->id)
-            ->where('status_id', $this->pending)->get();
+            ->where('status_id', config('pending'))->get();
         
         if ($quotes->isEmpty()) {
             $status = 'closed';

@@ -158,13 +158,98 @@
                                 </div>
                             </div>
 
-                            @role('SuperUser')
-                            <button class="btn btn-sm btn-primary align-right" data-toggle="modal" data-target="#modalBioUpdate">Update Bio</button>
-                            
-                            <div class="modal fade" id="modalBioUpdate" role="dialog" aria-labelledby="modalLabelprimary">
+                                
+                            @can('update.password')
+                            <button class="btn btn-sm btn-primary align-right" data-toggle="modal" data-target="#modalPasswordUpdate">Update Password</button>
+                            @endcan
+                            <div class="modal fade" id="modalPasswordUpdate" role="dialog" aria-labelledby="modalLabelprimary">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
+                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Update Password for {{ $user->name }}</h4>
+                                        </div>
+                                        <div class="modal-body text-left">
+                                            <p class="p-2">
+                                            <form method="POST" action="{{ route('users.adminpasswordupdate') }}">
+                                            @csrf
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        
+                                                        <input hidden readonly value="{{ $user->id }}" name="id">
+                                                        
+                                                        <div class="col-12">
+                                                            <label for="subject1" class="col-form-label">
+                                                                Old Password
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-key"></i>
+                                                                </span>
+                                                                <input type="password" id="password" class="form-control" name="oldpassword">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="subject1" class="col-form-label">
+                                                                New Password
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-key"></i>
+                                                                </span>
+                                                                <input type="password" id="password" class="form-control" name="password">
+                                                            </div>
+                                                            @error('password')
+                                                                <div class="text-danger">{{ $errors->first('password') }}</div>
+                                                            @enderror
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="subject1" class="col-form-label">
+                                                                Confirm Password
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-key"></i>
+                                                                </span>
+                                                                <input type="password" id="password" class="form-control" name="password_confirmation">
+                                                            </div>
+                                                            @error('password_confirmation')
+                                                                <div class="text-danger">{{ $errors->first('password_confirmation') }}</div>
+                                                            @enderror
+                                                        </div>
+
+                                                        <!-- <div class="col-12">
+                                                            <label for="subject1" class="col-form-label">
+                                                                Staff Transaction Code
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-key"></i>
+                                                                </span>
+                                                                <input type="password" id="password" class="form-control" name="transcode">
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </p>
+                                        </div> 
+                                        <div class="modal-footer">
+                                            <button class="btn btn-md btn-outline-primary" type="submit">Save Changes</button>
+                                            <button class="btn btn-md btn-dark" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @can('update.staff')
+                            <button class="btn btn-sm btn-success align-right" data-toggle="modal" data-target="#modalBioUpdate">Update Bio</button>
+                            @endcan
+                            <div class="modal fade" id="modalBioUpdate" role="dialog" aria-labelledby="modalLabelprimary">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-success">
                                             <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Update Bio {{ $user->name }}</h4>
                                         </div>
                                         <div class="modal-body text-left">
@@ -242,7 +327,7 @@
                                             </p>
                                         </div> 
                                         <div class="modal-footer">
-                                            <button class="btn btn-md btn-success" type="submit">Save Changes</button>
+                                            <button class="btn btn-md btn-outline-success" type="submit">Save Changes</button>
                                             <button class="btn btn-md btn-dark" data-dismiss="modal">Close</button>
                                             </div>
                                         </form>
@@ -280,12 +365,13 @@
                                 </div>
                             </div>
 
+                            @can('manage.roles')
                             <button class="btn btn-sm btn-secondary align-right" data-toggle="modal" data-target="#modalRoleUpdate">Update Role</button>
-                            
+                            @endcan
                             <div class="modal fade" id="modalRoleUpdate" role="dialog" aria-labelledby="modalLabelprimary">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-primary">
+                                        <div class="modal-header bg-secondary">
                                             <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Update Role for {{ $user->name }}</h4>
                                         </div>
                                         <div class="modal-body text-left">
@@ -342,14 +428,101 @@
                                             </p>
                                         </div> 
                                         <div class="modal-footer">
-                                            <button class="btn btn-md btn-success" type="submit">Save Changes</button>
+                                            <button class="btn btn-md btn-outline-secondary" type="submit">Save Changes</button>
                                             <button class="btn btn-md btn-dark" data-dismiss="modal">Close</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            @endrole
+
+                            @can('manage permissions')
+                            <button class="btn btn-sm btn-dark align-right" data-toggle="modal" data-target="#modalPermissionUpdate">Update Permissions</button>
+                            @endcan
+                            <div class="modal fade" id="modalPermissionUpdate" role="dialog" aria-labelledby="modalLabelprimary">
+                                <div class="modal-dialog modal-md" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-dark">
+                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Update Permission for {{ $user->name }}</h4>
+                                        </div>
+                                        <div class="modal-body text-left">
+                                            <p class="p-2">
+                                            <div class="table-responsive">
+                                                <div class="table-responsive m-t-3">
+                                                    <form class="form-horizontal" action="{{ route('permissions.syncuserpermissions') }}" method="POST">
+                                                        @csrf
+
+                                                        <button class="btn btn-md btn-dark mt-2 mb-2 mr-2 float-right" data-dismiss="modal">Close</button>
+                                                        <button class="btn btn-outline-secondary m-2 float-right" type="submit">Sync Permissions</button>
+                                                    
+                                                        <input name="user_id" value="{{ $user->id }}" hidden>
+                                                        <table id="example1" class="display table table-stripped table-bordered">
+                                                            <thead>
+                                                            <tr>
+                                                                <th style="width:5%;">#</th>
+                                                                <th>Name</th>
+                                                                <th style="width:5%;">Status</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tag type="hidden" value="{{ $i=1 }}" >
+                                                                @foreach($permissions as $permission)
+                                                                <tr>
+                                                                    <td>{{ $i++."."}}</td>
+                                                                    <td>{{ $permission['name'] }} </td>
+                                                                    <td><input name="permissions[]" value="{{ $permission['name'] }}" type="checkbox" {{ $permission['status'] }} ></td>
+                                                                </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    
+                                                        <button class="btn btn-md btn-dark mt-2 mb-2 mr-2 float-right" data-dismiss="modal">Close</button>
+                                                        <button class="btn btn-outline-secondary m-2 float-right" type="submit">Sync Permissions</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </p>
+                                        </div> 
+                                        <!-- <div class="modal-footer">
+                                            <button class="btn btn-md btn-outline-dark" type="submit">Save Changes</button>
+                                            <button class="btn btn-md btn-dark" data-dismiss="modal">Close</button>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            @can('staff.disable')
+                            <button class="btn btn-sm btn-danger align-right" data-toggle="modal" data-target="#modalDelete">Deactivate User</button>
+                            @endcan
+                            <div class="modal fade" id="modalDelete" role="dialog" aria-labelledby="modalLabelprimary">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger">
+                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Deactivate {{ $user->name }}</h4>
+                                        </div>
+                                        <div class="modal-body text-left">
+                                            <p class="p-2">
+                                            <form method="POST" action="{{ route('users.disable') }}">
+                                            @csrf
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+
+                                                        <input hidden readonly value="{{ $user->id }}" name="id">
+                                                        <b style="font-size:18px;"> Are you sure you want to deactivate this user? </b>
+                                                        <br>Their records will still be on the system, but they will not be able to login and perform any operation.
+
+                                                    </div>
+                                                </div>
+                                            </p>
+                                        </div> 
+                                        <div class="modal-footer">
+                                            <button class="btn btn-md btn-outline-danger" type="submit">Deactivate User</button>
+                                            <button class="btn btn-md btn-dark" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             
                         </div>
 

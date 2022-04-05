@@ -54,7 +54,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'budget' => 'required|string'
+            //'budget' => 'required|string'
         ]);
         
         $project = Project::find($request->project_id);
@@ -67,11 +67,11 @@ class TaskController extends Controller
             $task = Task::create([
                 'name' => $request->name,
                 'description' => $request->description,
-                'budget' => $request->budget,
+                //'budget' => $request->budget,
                 'project_id' => $project->id,
                 'start' => $request->start,
                 'end' => $request->end,
-                'status_id' => $this->pending,
+                'status_id' => config('pending'),
                 'department_id' => $request->department_id,
                 'preceedby' => $request->preceedby,
                 'succeedby' => $request->succeedby,
@@ -84,6 +84,9 @@ class TaskController extends Controller
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
+
+            $data['tag'] = 'task created';
+            $this->CreateNotification($data);
 
             activity()
             ->performedOn($task)
@@ -137,7 +140,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'budget' => 'required|string',
+            //'budget' => 'required|string',
             'status' => 'required',
         ]);
 
@@ -146,11 +149,21 @@ class TaskController extends Controller
             $task->update([
                 'name' => $request->name,
                 'description' => $request->description,
-                'budget' => $request->budget,
+                //'budget' => $request->budget,
                 'owner' => $request->owner,
                 'status_id' => $request->status,
             ]);
             $task->save();
+
+            $data = array();
+            $data['body'] = auth()->user()->name." updated a Task";
+            //$data['project_id'] = $project->id;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            
+            $this->createLog($data);
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Task updated successfully.');
         }
@@ -177,7 +190,7 @@ class TaskController extends Controller
             //match coordinates with project coordinates
             //distance($lat1, $lon1, $lat2, $lon2, $unit)
             $distance_from_project_site = $this->distance($position->latitude, $position->longitude, $task->latitude, $task->latitude, "K");
-            dd($distance_from_project_site);
+            //dd($distance_from_project_site);
             if (1) {
                 # code...
             }
@@ -261,7 +274,7 @@ class TaskController extends Controller
     //             'budget' => $request->budget,
     //             'project_id' => $request->project_id,
     //             'parent' => $task->id,
-    //             'status_id' => $this->pending,
+    //             'status_id' => config('pending'),
     //             'preceedby' => ($request->preceedby == null) ? null : $request->preceedby,
     //             'succeedby' => ($request->succeedby == null) ? null : $request->succeedby,
     //         ]);
@@ -282,15 +295,18 @@ class TaskController extends Controller
                 'executor_id' => $request->executor
             ]);
             $task->save();
-            // $user = User::find($request->executor);
+            $user = User::find($request->executor);
 
-            // $data = array();
-            // $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name;
-            // $data['project_id'] = $task->project->id;
-            // $data['task_id'] = $task->id;
-            // $data['sub_task_id'] = NULL;
-            // $data['user_id'] = auth()->user()->id;
-            // $this->createLog($data);
+            $data = array();
+            $data['body'] = auth()->user()->name." started Task : ".$task->name;
+            $data['project_id'] = $task->id;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            $data['tag'] = 'task start';
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Task Position Updated successfully.');
         }
@@ -325,6 +341,9 @@ class TaskController extends Controller
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
 
+            $data['tag'] = 'added task member';
+            $this->CreateNotification($data);
+
             return back()->with('success', 'Team Member added successfully.');
         }
         catch (\Exception $e) 
@@ -349,6 +368,9 @@ class TaskController extends Controller
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
+            
+            $data['tag'] = 'removed task member';
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Team Member removed successfully.');
         }
@@ -380,6 +402,9 @@ class TaskController extends Controller
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
+            
+            $data['tag'] = 'task comment';
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Comment added successfully.');
         }
@@ -453,6 +478,9 @@ class TaskController extends Controller
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
             
+            $data['tag'] = 'upload task resource';
+            $this->CreateNotification($data);
+            
             return back()->with('success', 'Resource added successfully.');
         }
         catch (\Exception $e) 
@@ -515,6 +543,9 @@ class TaskController extends Controller
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
+
+            $data['tag'] = 'upload task resource';
+            $this->CreateNotification($data);
             
             return back()->with('success', 'Task added successfully.');
         }

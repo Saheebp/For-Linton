@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TaskMember extends Model
+class GrandTaskMember extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'task_id',
+        'grand_task_id',
         'user_id'
     ];
     
-    public function task() {
-        return $this->belongsTo(Task::class);
+    public function grandtask() {
+        return $this->belongsTo(GrandTask::class);
     }
     
     public function user() {

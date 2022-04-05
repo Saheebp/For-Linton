@@ -65,7 +65,7 @@ class WarehouseItemController extends Controller
                 'created_by' => Auth::user()->id,
                 'batch_id' => $request->batch,
                 'image' => $request->image,
-                'status_id' => $this->available,
+                'status_id' => config('available'),
                 'category_id' => $request->category,
             ]);
             
@@ -133,7 +133,7 @@ class WarehouseItemController extends Controller
 
             if ($item->available == 0) 
             {   
-                $item->status_id = $this->unavailable;
+                $item->status_id = config('unavailable');
                 $item->save();
                 return back()->with('error', 'Insufficient quantity available');
             }
@@ -155,7 +155,7 @@ class WarehouseItemController extends Controller
                 'created_by' => Auth::user()->id,
                 'batch_id' => $item->batch_id,
                 'image' => $item->image,
-                'status_id' => $this->available,
+                'status_id' => config('available'),
                 'category_id' => $item->category_id,
                 'inventory_id' => $inventory->id
             ]);

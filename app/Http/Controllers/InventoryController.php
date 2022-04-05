@@ -15,9 +15,6 @@ use Spatie\Activitylog\Models\Activity;
 use App\Imports\InventoryImport;
 use Maatwebsite\Excel\Facades\Excel;
 
-//traits
-use App\Traits\AppStatus;
-
 use Auth;
 
 class InventoryController extends Controller

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'address', 
         'avatar', 
         'status_id', 
+        'designation_id',
         'profile_update_status',
         'is_admin',
         // 'order_count',
@@ -65,10 +66,6 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     } 
     
-    public function subtasks() {
-        return $this->hasMany(SubTask::class);
-    }
-    
     public function resources() {
         return $this->hasMany(Resource::class);
     }
@@ -85,14 +82,26 @@ class User extends Authenticatable
         return $this->hasMany(RequestFq::class);
     }
 
-    public function tasks() {
-        return $this->hasMany(TaskMember::class);
-    }
-
     public function projects() {
         return $this->hasMany(ProjectMember::class);
     }
 
+    public function tasks() {
+        return $this->hasMany(TaskMember::class);
+    }
+
+    public function subtasks() {
+        return $this->hasMany(SubTaskMember::class);
+    }
+
+    public function grandtasks() {
+        return $this->hasMany(GrandTaskMember::class);
+    }
+
+    public function greattasks() {
+        return $this->hasMany(GreatSubTask::class);
+    }
+    
     public function quotes() {
         return $this->hasMany(Quote::class);
     }

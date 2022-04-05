@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
+//traits
+// use App\Traits\AppStatus;
+// use App\Traits\CreateNotification;
+
+
 class DepartmentController extends Controller
 {
     /**

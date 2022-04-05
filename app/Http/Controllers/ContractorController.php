@@ -17,6 +17,11 @@ use Spatie\Activitylog\Models\Activity;
 
 use Auth;
 
+//traits
+// use App\Traits\AppStatus;
+// use App\Traits\CreateNotification;
+
+
 class ContractorController extends Controller
 {
     /**

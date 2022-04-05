@@ -9,6 +9,8 @@ use App\Models\UserResource;
 use Illuminate\Http\Request;
 
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,11 +31,12 @@ class UserController extends Controller
         $designations = Designation::all();
         $roles = Role::all();
         $users = User::where('is_admin','true')->get();
+
         $nonsuper = $users->reject(function ($user, $key) {
-            return $user->hasRole('Level 1');
+            return $user->hasRole('Super User');
         });
 
-        if(auth()->user()->hasRole('Level 1'))
+        if(auth()->user()->hasRole('Super User'))
         {
             return view('admin.users.index', [
                 'users' => $users,
@@ -56,6 +59,25 @@ class UserController extends Controller
      */
     public function create()
     {
+        $designations = Designation::all();
+        $roles = Role::all();
+        
+        $nonsuper = $roles->reject(function ($user, $key) {
+            return $role->hasRole('Super User');
+        });
+
+        if(auth()->user()->hasRole('Super User'))
+        {
+            return view('admin.users.index', [
+                'roles' => $roles,
+                'designations' => $designations
+            ]);
+        }
+
+        return view('admin.users.index', [
+            'roles' => $nonsuper,
+            'designations' => $designations
+        ]);
         
         return view('admin.users.create');
     }
@@ -132,12 +154,27 @@ class UserController extends Controller
         $user = User::where('is_admin','true')->where('id', $id)->first();
         $logs = Activity::where('causer_id', $id)->orderBy('created_at', 'desc')->paginate(10);
         $roles = Role::all();
+
+        $permissions = Permission::all();
+        $display = array();
+        foreach($permissions as $permission)
+        {
+            $display[$permission->id]['id'] = $permission->id;
+            $display[$permission->id]['name'] = $permission->name;
+            
+            if($user->hasPermissionTo($permission['name'])) {
+                $display[$permission->id]['status'] = 'checked';
+            }else{
+                $display[$permission->id]['status'] = '';
+            }
+        }
         
         return view('admin.users.show', 
         [
             'user' => $user,
             'logs' => $logs,
             'roles' => $roles,
+            'permissions' => $display,
         ]);
     }
 

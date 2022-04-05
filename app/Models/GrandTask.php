@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class GrandTask extends Model
 {
     use HasFactory;
 
@@ -13,8 +13,8 @@ class Task extends Model
         'name', 
         'order',
         'description', 
-        'budget', 
-        'actual_cost',
+        //'budget', 
+        //'actual_cost',
         
         'start', 
         'end', 
@@ -25,8 +25,11 @@ class Task extends Model
         
         'executor_id',  
         'project_id',
+        'task_id',
+        'sub_task_id',
+
         'group_id',  
-        'status_id', 
+        'status_id',
 
         'preceedby',
         'succeedby'
@@ -48,32 +51,20 @@ class Task extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function subtasks() {
-        return $this->hasMany(SubTask::class);
+    public function task() {
+        return $this->belongsTo(Task::class);
     }
 
-    public function grandtasks() {
-        return $this->hasMany(GrandTask::class);
+    public function subtask() {
+        return $this->belongsTo(SubTask::class);
     }
 
     public function greattasks() {
         return $this->hasMany(GreatTask::class);
     }
-
+    
     public function resources() {
         return $this->hasMany(Resource::class);
-    }
-
-    public function parent() {
-        return $this->hasOne(Task::class);
-    }
-
-    public function children() {
-        return $this->hasMany(Task::class);
-    }
-
-    public function members() {
-        return $this->hasMany(TaskMember::class);
     }
 
     public function comments() {
@@ -83,7 +74,7 @@ class Task extends Model
     public function messages() {
         return $this->hasMany(Message::class);
     }
-    
+
     public function logs() {
         return $this->hasMany(Message::class);
     }

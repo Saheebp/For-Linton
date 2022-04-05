@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 
+//traits
+// use App\Traits\AppStatus;
+// use App\Traits\CreateNotification;
+
 class ResourceController extends Controller
 {
     /**
