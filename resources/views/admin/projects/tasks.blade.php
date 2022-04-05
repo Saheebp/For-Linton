@@ -335,6 +335,7 @@
                                             <table id="example1" class="table">
                                                 <thead>
                                                     <tr>
+                                                        <th style="width:5%;">Level</th>
                                                         <th style="width:5%;">Status</th>
                                                         <th style="width:35%;">Name</th>
                                                         <th style="width:10%;">Start</th>
@@ -354,7 +355,6 @@
                                                                 <span class="badge badge-{{ $subtask->status->style }}">{{ $subtask->status->name ?? '' }}</span>
                                                             </td>
                                                             <td class="text-left">
-                                                                <i class="fa fa-child" aria-hidden="true"></i>
                                                                 {{ $subtask->name ?? '' }}
                                                             </td>
                                                             <td>
