@@ -68,7 +68,7 @@
                     <div class="card">
                         <div class="text-right p-3">
                             
-                            @role('Level 1|Level 2|Level 3')
+                            @role('Super User|Level 1|Level 2|Level 3')
                                 
                                 @if ($project->status_id != $completed)
                                 <button class="btn btn-sm btn-outline-warning align-right mt-1" data-toggle="modal" data-target="#updateDetails">Update Details</button>
@@ -327,7 +327,7 @@
                                 </div>
                             @endrole
 
-                            @role('Level 1|Level 2|Level 3')
+                            @role('Super User|Level 1|Level 2|Level 3')
                                 
                                 @if ($project->status_id != $completed)
                                 <button class="btn btn-sm btn-outline-success align-right mt-1" data-toggle="modal" data-target="#updateBudget">Update Budget</button>
@@ -379,7 +379,7 @@
                                 </div>
                             @endrole
 
-                            @role('Level 1|Level 2|Level 3')
+                            @role('Super User|Level 1|Level 2|Level 3')
 
                                 @if ($project->status_id != $completed)
                                 <button class="btn btn-sm btn-outline-secondary align-right mt-1" data-toggle="modal" data-target="#manageProjectStatus">Manage Project</button>    
@@ -433,7 +433,7 @@
                                 </div>
                             @endrole
 
-                            @role('Level 1|Level 2|Level 3')
+                            @role('Super User|Level 1|Level 2|Level 3')
                                 @if ($project->status_id != $completed)
                                 <button class="btn btn-sm btn-outline-primary align-right mt-1" data-toggle="modal" data-target="#commentProject">Comment on Project</button>
                                 @endif
@@ -483,6 +483,80 @@
                                     </div>
                                 </div>
                                 
+                            @endrole
+
+                            @role('Super User|Level 1|Level 2|Level 3')
+                                <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateProject{{$project->id}}">Update Details</a>
+                                <div class="modal fade" id="updateProject{{$project->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                aria-hidden="true">
+                                    <div class="modal-dialog text-left" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="modalLabel">Update :<br>{{ $project->name}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <form class="form-horizontal" action="{{ route('projects.update', $project)}}" method="POST">
+                                            @csrf
+                                                <fieldset>
+                                                    <div class="modal-body">
+                                                        
+                                                        <div class="form-group row">
+                                                            <div class="col-12 mt-3">
+                                                                <label for="subject1" class="col-form-label">
+                                                                    Name
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="text" id="name" value="{{ $project->name }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
+                                                                </div>
+                                                                @error('name')
+                                                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-6 mt-3">
+                                                                <label End="subject1" class="col-form-label">
+                                                                    Start Date
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="date" id="start" value="{{ $project->start }}" class="form-control" name="start" required>
+                                                                </div>
+                                                                @error('start')
+                                                                    <span class="text-danger">{{ $errors->first('start') }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-lg-6 mt-3">
+                                                                <label End="subject1" class="col-form-label">
+                                                                    End Date
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <input type="date" id="end" value="{{ $project->end }}" class="form-control" name="end" required>
+                                                                </div>
+                                                                @error('end')
+                                                                    <span class="text-danger">{{ $errors->first('end') }}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-12">
+                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
+                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             @endrole
                         </div>
 

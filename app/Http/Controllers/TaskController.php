@@ -258,6 +258,31 @@ class TaskController extends Controller
         }
     }
 
+    public function updateTime(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'start' => 'required|string|max:255',
+            'end' => 'required|string|max:255',
+        ]);
+
+        try 
+        {
+            $task->update([
+                'start' => $request->start,
+                'end' => $request->end,
+            ]);
+            $task->save();
+
+            return back()->with('success', 'Task time updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Task time");
+        }
+    }
+
+    
+
     // public function createSubTask(Request $request, Task $task)
     // {
     //     $validated = $request->validate([

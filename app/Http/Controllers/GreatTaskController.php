@@ -82,4 +82,25 @@ class GreatTaskController extends Controller
     {
         //
     }
+
+    public function updateTime(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'cost' => 'required|string|max:255'
+        ]);
+
+        try 
+        {
+            $task->update([
+                'actual_cost' => $request->cost,
+            ]);
+            $task->save();
+
+            return back()->with('success', 'Task Cost updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Updating Task Cost");
+        }
+    }
 }

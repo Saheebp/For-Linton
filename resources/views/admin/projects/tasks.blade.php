@@ -335,6 +335,7 @@
                                             <table id="example1" class="table">
                                                 <thead>
                                                     <tr>
+                                                        <th style="width:5%;">Level</th>
                                                         <th style="width:5%;">Status</th>
                                                         <th style="width:35%;">Name</th>
                                                         <th style="width:10%;">Start</th>
@@ -354,7 +355,6 @@
                                                                 <span class="badge badge-{{ $subtask->status->style }}">{{ $subtask->status->name ?? '' }}</span>
                                                             </td>
                                                             <td class="text-left">
-                                                                <i class="fa fa-child" aria-hidden="true"></i>
                                                                 {{ $subtask->name ?? '' }}
                                                             </td>
                                                             <td>
@@ -526,6 +526,78 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubTask{{$subtask->id}}">Update</a>
+                                                                <div class="modal fade" id="updateSubTask{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title" id="modalLabel">Update :<br>{{ $subtask->name }}</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">×</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <form class="form-horizontal" action="{{ route('subtasks.update', $subtask)}}" method="POST">
+                                                                            @csrf
+                                                                                <fieldset>
+                                                                                    <div class="modal-body">
+                                                                                        
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-12 mt-3">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Name
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <input type="text" id="name" value="{{ $subtask->name }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
+                                                                                                </div>
+                                                                                                @error('name')
+                                                                                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                                                                @enderror
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-lg-6 mt-3">
+                                                                                                <label End="subject1" class="col-form-label">
+                                                                                                    Start Date
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <input type="date" id="start" value="{{ $subtask->start }}" class="form-control" name="start" required>
+                                                                                                </div>
+                                                                                                @error('start')
+                                                                                                    <span class="text-danger">{{ $errors->first('start') }}</span>
+                                                                                                @enderror
+                                                                                            </div>
+
+                                                                                            <div class="col-lg-6 mt-3">
+                                                                                                <label End="subject1" class="col-form-label">
+                                                                                                    End Date
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <input type="date" id="end" value="{{ $subtask->end }}" class="form-control" name="end" required>
+                                                                                                </div>
+                                                                                                @error('end')
+                                                                                                    <span class="text-danger">{{ $errors->first('end') }}</span>
+                                                                                                @enderror
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                    <div class="modal-footer">
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-lg-12">
+                                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
+                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </td>
 
                                                         </tr>
@@ -556,8 +628,8 @@
                                                                     &#8358;{{ number_format(floatval($grandtask->actual_cost), 2) }}
                                                                 </td> -->
                                                                 <td>
-                                                                    <!-- <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubSubTaskCost{{$grandtask->id}}">Cost</a>
-                                                                    <div class="modal fade" id="updateSubSubTaskCost{{$grandtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    <!-- <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateGrandTaskCost{{$grandtask->id}}">Cost</a>
+                                                                    <div class="modal fade" id="updateGrandTaskCost{{$grandtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
@@ -603,8 +675,8 @@
                                                                         </div>
                                                                     </div> -->
                                                                 
-                                                                    <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubSubTaskStatus{{$grandtask->id}}">Status</a>
-                                                                    <div class="modal fade" id="updateSubSubTaskStatus{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateGrandTaskStatus{{$grandtask->id}}">Status</a>
+                                                                    <div class="modal fade" id="updateGrandTaskStatus{{$grandtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
@@ -665,8 +737,8 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubSubTaskExecutor{{$grandtask->id}}">Assign</a>
-                                                                    <div class="modal fade" id="updateSubSubTaskExecutor{{$grandtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateGrandTaskExecutor{{$grandtask->id}}">Assign</a>
+                                                                    <div class="modal fade" id="updateGrandTaskExecutor{{$grandtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
@@ -694,6 +766,78 @@
                                                                                                         @endforeach
                                                                                                     </select>
                                                                                                     </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+
+                                                                                        <div class="modal-footer">
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
+                                                                                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </fieldset>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateGreatTask{{$grandtask->id}}">Update</a>
+                                                                    <div class="modal fade" id="updateGreatTask{{$grandtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title" id="modalLabel">Update :<br>{{ $grandtask->name}}</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form class="form-horizontal" action="{{ route('grandtasks.update', $grandtask)}}" method="POST">
+                                                                                @csrf
+                                                                                    <fieldset>
+                                                                                        <div class="modal-body">
+                                                                                            
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-12 mt-3">
+                                                                                                    <label for="subject1" class="col-form-label">
+                                                                                                        Name
+                                                                                                    </label>
+                                                                                                    <div class="input-group">
+                                                                                                        <input type="text" id="name" value="{{ $grandtask->name }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
+                                                                                                    </div>
+                                                                                                    @error('name')
+                                                                                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                                                                    @enderror
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-lg-6 mt-3">
+                                                                                                    <label End="subject1" class="col-form-label">
+                                                                                                        Start Date
+                                                                                                    </label>
+                                                                                                    <div class="input-group">
+                                                                                                        <input type="date" id="start" value="{{ $grandtask->start }}" class="form-control" name="start" required>
+                                                                                                    </div>
+                                                                                                    @error('start')
+                                                                                                        <span class="text-danger">{{ $errors->first('start') }}</span>
+                                                                                                    @enderror
+                                                                                                </div>
+
+                                                                                                <div class="col-lg-6 mt-3">
+                                                                                                    <label End="subject1" class="col-form-label">
+                                                                                                        End Date
+                                                                                                    </label>
+                                                                                                    <div class="input-group">
+                                                                                                        <input type="date" id="end" value="{{ $grandtask->end }}" class="form-control" name="end" required>
+                                                                                                    </div>
+                                                                                                    @error('end')
+                                                                                                        <span class="text-danger">{{ $errors->first('end') }}</span>
+                                                                                                    @enderror
                                                                                                 </div>
                                                                                             </div>
 
@@ -742,8 +886,8 @@
                                                                         &#8358;{{ number_format(floatval($greattask->actual_cost), 2) }}
                                                                     </td> -->
                                                                     <td>
-                                                                        <!-- <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubSubTaskCost{{$greattask->id}}">Cost</a>
-                                                                        <div class="modal fade" id="updateSubSubTaskCost{{$greattask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                        <!-- <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateGreatTaskCost{{$greattask->id}}">Cost</a>
+                                                                        <div class="modal fade" id="updateGreatTaskCost{{$greattask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                         aria-hidden="true">
                                                                             <div class="modal-dialog" role="document">
                                                                                 <div class="modal-content">
@@ -789,8 +933,8 @@
                                                                             </div>
                                                                         </div> -->
                                                                     
-                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubSubTaskStatus{{$greattask->id}}">Status</a>
-                                                                        <div class="modal fade" id="updateSubSubTaskStatus{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateGreatTaskStatus{{$greattask->id}}">Status</a>
+                                                                        <div class="modal fade" id="updateGreatTaskStatus{{$greattask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                         aria-hidden="true">
                                                                             <div class="modal-dialog" role="document">
                                                                                 <div class="modal-content">
@@ -851,8 +995,8 @@
                                                                             </div>
                                                                         </div>
 
-                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubSubTaskExecutor{{$greattask->id}}">Assign</a>
-                                                                        <div class="modal fade" id="updateSubSubTaskExecutor{{$greattask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateGreatTaskExecutor{{$greattask->id}}">Assign</a>
+                                                                        <div class="modal fade" id="updateGreatTaskExecutor{{$greattask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                         aria-hidden="true">
                                                                             <div class="modal-dialog" role="document">
                                                                                 <div class="modal-content">
@@ -880,6 +1024,78 @@
                                                                                                             @endforeach
                                                                                                         </select>
                                                                                                         </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+
+                                                                                            <div class="modal-footer">
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-lg-12">
+                                                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
+                                                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </fieldset>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateGreatTask{{$greattask->id}}">Update</a>
+                                                                        <div class="modal fade" id="updateGreatTask{{$greattask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                        aria-hidden="true">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title" id="modalLabel">Update :<br>{{$greattask->name}}</h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">×</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <form class="form-horizontal" action="{{ route('greattasks.update', $greattask)}}" method="POST">
+                                                                                    @csrf
+                                                                                        <fieldset>
+                                                                                            <div class="modal-body">
+                                                                                                
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-12 mt-3">
+                                                                                                        <label for="subject1" class="col-form-label">
+                                                                                                            Name
+                                                                                                        </label>
+                                                                                                        <div class="input-group">
+                                                                                                            <input type="text" id="name" value="{{ $greattask->name }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
+                                                                                                        </div>
+                                                                                                        @error('name')
+                                                                                                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                                                                        @enderror
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="form-group row">
+                                                                                                    <div class="col-lg-6 mt-3">
+                                                                                                        <label End="subject1" class="col-form-label">
+                                                                                                            Start Date
+                                                                                                        </label>
+                                                                                                        <div class="input-group">
+                                                                                                            <input type="date" id="start" value="{{ $greattask->start }}" class="form-control" name="start" required>
+                                                                                                        </div>
+                                                                                                        @error('start')
+                                                                                                            <span class="text-danger">{{ $errors->first('start') }}</span>
+                                                                                                        @enderror
+                                                                                                    </div>
+
+                                                                                                    <div class="col-lg-6 mt-3">
+                                                                                                        <label End="subject1" class="col-form-label">
+                                                                                                            End Date
+                                                                                                        </label>
+                                                                                                        <div class="input-group">
+                                                                                                            <input type="date" id="end" value="{{ $greattask->end }}" class="form-control" name="end" required>
+                                                                                                        </div>
+                                                                                                        @error('end')
+                                                                                                            <span class="text-danger">{{ $errors->first('end') }}</span>
+                                                                                                        @enderror
                                                                                                     </div>
                                                                                                 </div>
 

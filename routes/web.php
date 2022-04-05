@@ -209,6 +209,7 @@ Route::middleware('auth')->group(function() {
              Route::post('member/add/{project}', 'ProjectController@addMember')->name('addMember');
              Route::post('member/remove', 'ProjectController@removeMember')->name('removeMember');
              Route::post('member/updaterole', 'ProjectController@updateRole')->name('updateRole');
+             Route::post('time/update/{project}', 'ProjectController@updateTime')->name('updateTime');
 
              Route::post('member/updatebudget', 'ProjectController@updateBudget')->name('updateBudget');
              Route::post('member/updateInfo', 'ProjectController@updateInfo')->name('updateInfo');
@@ -239,6 +240,7 @@ Route::middleware('auth')->group(function() {
             
             Route::post('status/update/{task}', 'TaskController@updateStatus')->name('updateStatus');
             Route::post('cost/update/{task}', 'TaskController@updateCost')->name('updateCost');
+            Route::post('time/update/{task}', 'TaskController@updateTime')->name('updateTime');
 
             Route::post('comment', 'TaskController@comment')->name('comment');
             Route::post('comment/delete', 'TaskController@deleteComment')->name('deleteComment');
@@ -264,6 +266,7 @@ Route::middleware('auth')->group(function() {
             Route::post('executor/update/{subtask}', 'SubTaskController@updateExecutor')->name('updateExecutor');
             Route::post('status/update/{subtask}', 'SubTaskController@updateStatus')->name('updateStatus');
             Route::post('cost/update/{subtask}', 'SubTaskController@updateCost')->name('updateCost');
+            Route::post('time/update/{subtask}', 'SubTaskController@updateTime')->name('updateTime');
             Route::post('comment', 'SubTaskController@comment')->name('comment');
 
             Route::post('member/add/{subtask}', 'SubTaskController@addMember')->name('addMember');
@@ -279,12 +282,13 @@ Route::middleware('auth')->group(function() {
             Route::post('filter', 'GrandTaskController@filter')->name('filter');
             Route::post('search', 'GrandTaskController@search')->name('search');
 
-            Route::post('upload/resource/{subtask}', 'GrandTaskController@uploadResource')->name('upload');
+            Route::post('upload/resource/{grandtask}', 'GrandTaskController@uploadResource')->name('upload');
             Route::get('download/resource/{id}', 'GrandTaskController@download')->name('download');
 
-            Route::post('executor/update/{subtask}', 'GrandTaskController@updateExecutor')->name('updateExecutor');
-            Route::post('status/update/{subtask}', 'GrandTaskController@updateStatus')->name('updateStatus');
-            Route::post('cost/update/{subtask}', 'GrandTaskController@updateCost')->name('updateCost');
+            Route::post('executor/update/{grandtask}', 'GrandTaskController@updateExecutor')->name('updateExecutor');
+            Route::post('status/update/{grandtask}', 'GrandTaskController@updateStatus')->name('updateStatus');
+            Route::post('cost/update/{grandtask}', 'GrandTaskController@updateCost')->name('updateCost');
+            Route::post('time/update/{grandtask}', 'GrandTaskController@updateTime')->name('updateTime');
             Route::post('comment', 'GrandTaskController@comment')->name('comment');
 
             Route::post('member/add/{subtask}', 'GrandTaskController@addMember')->name('addMember');
@@ -293,23 +297,24 @@ Route::middleware('auth')->group(function() {
     });
 
     //Great tasks
-    Route::resource('subtasks', 'GreatTaskController');
-    Route::name('subtasks.')->group(function() {
-        Route::prefix('subtasks')->group(function() {
+    Route::resource('greattasks', 'GreatTaskController');
+    Route::name('greattasks.')->group(function() {
+        Route::prefix('greattasks')->group(function() {
             Route::get('/', 'GreatTaskController@index')->name('index');
             Route::post('filter', 'GreatTaskController@filter')->name('filter');
             Route::post('search', 'GreatTaskController@search')->name('search');
 
-            Route::post('upload/resource/{subtask}', 'GreatTaskController@uploadResource')->name('upload');
+            Route::post('upload/resource/{greattask}', 'GreatTaskController@uploadResource')->name('upload');
             Route::get('download/resource/{id}', 'GreatTaskController@download')->name('download');
 
-            Route::post('executor/update/{subtask}', 'GreatTaskController@updateExecutor')->name('updateExecutor');
-            Route::post('status/update/{subtask}', 'GreatTaskController@updateStatus')->name('updateStatus');
-            Route::post('cost/update/{subtask}', 'GreatTaskController@updateCost')->name('updateCost');
+            Route::post('executor/update/{greattask}', 'GreatTaskController@updateExecutor')->name('updateExecutor');
+            Route::post('status/update/{greattask}', 'GreatTaskController@updateStatus')->name('updateStatus');
+            Route::post('cost/update/{greattask}', 'GreatTaskController@updateCost')->name('updateCost');
+            Route::post('time/update/{greattask}', 'GreatTaskController@updateTime')->name('updateTime');
             Route::post('comment', 'GreatTaskController@comment')->name('comment');
 
-            Route::post('member/add/{subtask}', 'GreatTaskController@addMember')->name('addMember');
-            Route::post('member/remove/{subtask}', 'GreatTaskController@removeMember')->name('removeMember');
+            Route::post('member/add/{greattask}', 'GreatTaskController@addMember')->name('addMember');
+            Route::post('member/remove/{greattask}', 'GreatTaskController@removeMember')->name('removeMember');
         });
     });
 
