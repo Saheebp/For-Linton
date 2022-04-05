@@ -19,16 +19,16 @@ class SettingSeeder extends Seeder
     {
         //
         Setting::create([
-            'name' => 'POADIT',
+            'name' => 'POAADIT',
             'address' => 'Lagos, Nigeria',
             'phone1' => '00000000000',
             'phone2' => '00000000000',
-            'email' => 'help@poadit.com',
-            'web_url' => 'www.poadit.com',
-            'facebook_url' => 'www.facebook.com/poadit',
-            'instagram_url' => 'www.instagram.com/poadit',
-            'twitter_url' => 'www.twitter.com/poadit',
-            'youtube_url' => 'www.youtube.com/poadit',
+            'email' => 'help@poaadit.com',
+            'web_url' => 'www.poaadit.com',
+            'facebook_url' => 'www.facebook.com/poaadit',
+            'instagram_url' => 'www.instagram.com/poaadit',
+            'twitter_url' => 'www.twitter.com/poaadit',
+            'youtube_url' => 'www.youtube.com/poaadit',
         ]);
 
         // Config::create([
