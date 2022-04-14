@@ -16,6 +16,7 @@ class CreateTeamMembersTable extends Migration
         Schema::create('team_members', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unsignedBigInteger('grand_task_id')->nullable()->default(null);
             $table->foreign('grand_task_id')->references('id')->on('grand_tasks')->onDelete('restrict');

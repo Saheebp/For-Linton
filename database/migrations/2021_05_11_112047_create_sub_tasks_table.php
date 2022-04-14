@@ -16,6 +16,8 @@ class CreateSubTasksTable extends Migration
         Schema::create('sub_tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
+            
             $table->unsignedBigInteger('mid')->nullable()->default(null);
 
             $table->string('name');

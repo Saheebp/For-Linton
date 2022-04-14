@@ -17,11 +17,12 @@ class CreateInventoriesTable extends Migration
             
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('name')->nullable(false);
             $table->string('description')->nullable()->default(null);
 
-            $table->unsignedBigInteger('status_id')->default(13);
+            $table->unsignedBigInteger('status_id')->default(config('new'));
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
 
             $table->unsignedBigInteger('project_id')->nullable()->default(null);

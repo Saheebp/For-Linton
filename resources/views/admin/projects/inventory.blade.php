@@ -73,7 +73,7 @@
                 <tr>
                     <th style="width:40%;">Name </th>
                     <th style="width:10%;">Category</th>
-                    <th style="width:10%;">Quantity</th>
+                    <th style="width:10%;">Initial Quantity</th>
                     <th style="width:10%;">Available</th>
                     <th style="width:5%;">Status</th>
                     <th style="width:15%;" class="text-center" colspan="3">Action</th>
@@ -99,7 +99,9 @@
                             <span class="badge badge-{{$item->status->style }}">{{ $item->status->name }}</span>
                         </td>
                         <td>
+                            @if($item->status_id != $returned)
                             <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#DisburseItem{{ $item->id }}">Disburse</a>
+                            @endif
                             <div class="modal fade" id="DisburseItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                             aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -160,7 +162,9 @@
                             </div>
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return</a>
+                            @if($item->status_id != $returned)
+                            <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return to Inventory</a>
+                            @endif
                             <div class="modal fade" id="ReturnItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                             aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -198,7 +202,70 @@
                                                             Quantity
                                                         </label>
                                                         <div class="input-group">
-                                                            <input id="quantity" value="{{ old('quantity') }}" min="1"  class="form-control" name="quantity">
+                                                            <input id="quantity" value="{{ $item->quantity - $item->available }}" min="1"  class="form-control" name="quantity">
+                                                        </div>
+                                                        @error('quantity')
+                                                            <span class="text-danger">{{ $errors->first('quantity') }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Return</button>
+                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            @if($item->status_id != $returned)
+                            <a class="btn btn-sm btn-outline-secondary text-right" data-toggle="modal" data-target="#ReturnWarehouseItem{{ $item->id }}">Return to Warehouse</a>
+                            @endif
+                            <div class="modal fade" id="ReturnWarehouseItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                            aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modalLabel">Return {{ $item->name }} to Warehouse</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <form class="form-horizontal" action="{{ route('items.warehousereturn') }}" method="POST">
+                                        @csrf
+                                            <fieldset>
+                                                <div class="modal-body">
+                                                    
+                                                    <input value="{{ $item->id }}" hidden readonly name="inventory_item_id">
+                                                    <input value="{{ $project->inventory->id }}" hidden readonly name="inventory_id">
+                                                        
+                                                    <div class="col-12">
+                                                        <label for="subject1" class="col-form-label">
+                                                            Returned By
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" name="member" required>
+                                                                <option value="">-- Select Member --</option>
+                                                                @foreach ($project->members as $member)                                                                                                    
+                                                                <option value="{{ $member->user->id }}">{{ $member->user->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <label for="subject1" class="col-form-label">
+                                                            Quantity
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <input id="quantity" value="{{ $item->available }}" min="1" class="form-control" name="quantity">
                                                         </div>
                                                         @error('quantity')
                                                             <span class="text-danger">{{ $errors->first('quantity') }}</span>

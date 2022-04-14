@@ -14,6 +14,18 @@ use App\Http\Controllers;
 */
 Auth::routes();
 
+Route::get('send-mail', function () {
+   
+    $details = [
+        'title' => 'Mail from ItSolutionStuff.com',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\MyTestMail($details));
+   
+    dd("Email is Sent.");
+});
+
 Route::middleware('auth')->group(function() {
     
     //frontend
@@ -188,6 +200,7 @@ Route::middleware('auth')->group(function() {
             Route::post('search', 'InventoryItemController@search')->name('search');
             Route::post('disburse', 'InventoryItemController@disburse')->name('disburse');
             Route::post('return', 'InventoryItemController@return')->name('return');
+            Route::post('warehouse/return', 'InventoryItemController@returnToWareHouse')->name('warehousereturn');
             Route::post('upload/resource', 'InventoryItemController@uploadResource')->name('upload');
         });
     });
@@ -417,8 +430,6 @@ Route::middleware('auth')->group(function() {
      
         });
     });
-
-
 
     //accounts
     // Route::resource('accounts', 'AccountController');

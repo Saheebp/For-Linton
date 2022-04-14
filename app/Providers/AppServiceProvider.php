@@ -60,6 +60,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('open', $this->returnStatusId("Open"));
             $view->with('closed', $this->returnStatusId("Closed"));
             $view->with('accepted', $this->returnStatusId("Accepted"));
+            $view->with('returned', $this->returnStatusId("Returned"));
 
             if (Auth::check()) 
             {
@@ -99,5 +100,6 @@ class AppServiceProvider extends ServiceProvider
         config(['open' => $this->returnStatusId("Open")]);
         config(['closed' => $this->returnStatusId("Closed")]);
         config(['accepted' => $this->returnStatusId("Accepted")]);
+        config(['returned' => $this->returnStatusId("Returned")]);
     }
 }

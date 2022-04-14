@@ -16,7 +16,6 @@ class CreateGreatTaskMembersTable extends Migration
         Schema::create('great_task_members', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->unsignedBigInteger('great_task_id')->nullable()->default(null);
             $table->foreign('great_task_id')->references('id')->on('great_tasks')->onDelete('restrict');

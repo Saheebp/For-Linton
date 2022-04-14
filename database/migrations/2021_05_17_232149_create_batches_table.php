@@ -17,6 +17,7 @@ class CreateBatchesTable extends Migration
         {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('name')->nullable()->default(null);
         });

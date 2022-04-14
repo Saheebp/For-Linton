@@ -16,6 +16,7 @@ class CreateQuotesTable extends Migration
         Schema::create('quotes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');

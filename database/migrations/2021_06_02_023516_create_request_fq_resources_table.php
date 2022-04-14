@@ -16,6 +16,7 @@ class CreateRequestFqResourcesTable extends Migration
         Schema::create('request_fq_resources', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('name')->nullable()->default(null);
             $table->string('url')->nullable()->default(null);

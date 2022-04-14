@@ -157,7 +157,8 @@ class WarehouseItemController extends Controller
                 'image' => $item->image,
                 'status_id' => config('available'),
                 'category_id' => $item->category_id,
-                'inventory_id' => $inventory->id
+                'inventory_id' => $inventory->id,
+                'warehouse_item_id' => $item->id
             ]);
 
             $data = array();

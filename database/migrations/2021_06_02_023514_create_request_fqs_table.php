@@ -16,6 +16,7 @@ class CreateRequestFqsTable extends Migration
         Schema::create('request_fqs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('name')->nullable()->default(null);
             $table->string('subject')->nullable()->default(null);
