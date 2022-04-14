@@ -214,7 +214,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error Creating a Project");
         }
     }
@@ -282,7 +282,7 @@ class ProjectController extends Controller
     {
         try 
         {
-            $staff = User::all();
+            $staff = User::where('is_admin', 'true')->get();
             $designations = Designation::all();
             return view('admin.projects.team', [
                 'staff' => $staff,

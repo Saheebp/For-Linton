@@ -16,7 +16,6 @@ class CreateSubTaskMembersTable extends Migration
         Schema::create('sub_task_members', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->unsignedBigInteger('sub_task_id')->nullable()->default(null);
             $table->foreign('sub_task_id')->references('id')->on('sub_tasks')->onDelete('restrict');

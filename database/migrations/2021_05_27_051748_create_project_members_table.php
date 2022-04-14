@@ -16,7 +16,6 @@ class CreateProjectMembersTable extends Migration
         Schema::create('project_members', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->unsignedBigInteger('project_id')->nullable()->default(null);
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');

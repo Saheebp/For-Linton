@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class InventoryItem extends Model
 {
     use HasFactory, SoftDeletes;
@@ -21,13 +21,18 @@ class InventoryItem extends Model
         'batch_id',
         'category_id',
         'status_id',
-        'inventory_id'
-        //'expiry_date',
+        'inventory_id',
+        'warehouse_item_id'
     ];
     
     public function inventory()
     {
         return $this->belongsTo(Inventory::class);
+    }
+
+    public function warehouseItem()
+    {
+        return $this->belongsTo(WarehouseItem::class);
     }
     
     public function itemActivities(){

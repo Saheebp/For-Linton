@@ -77,7 +77,7 @@
                 </td>
 
                 <td class="text-left">
-                    {{ $member->designation->name ?? '' }}
+                    {{ $member->user->designation->name ?? '' }}
                 </td>
 
                 <td>

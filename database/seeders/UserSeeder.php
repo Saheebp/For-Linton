@@ -26,9 +26,21 @@ class UserSeeder extends Seeder
         ]);
         $super->assignRole('Super User');
 
-        $director = User::create([
-            'name' => 'Panlu Manchan',
-            'email' => 'md@poaadit.com',
+        $super = User::create([
+            'name' => 'Nasiru Sadiq',
+            'email' => 'nasirusadiq071@gmail.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11,  
+            'address' => '',
+            'phone' => '10000000001',
+            'is_admin' => 'true',
+            'designation_id' => 1
+        ]);
+        $super->assignRole('Super User');
+
+        $manager = User::create([
+            'name' => 'Bode Gbolade',
+            'email' => 'bodegbolade@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -36,119 +48,81 @@ class UserSeeder extends Seeder
             'is_admin' => 'true',
             'designation_id' => 1
         ]);
-        $director->assignRole('Level 1');
+        $manager->assignRole('Level 1');
 
-        $manager1 = User::create([
-            'name' => 'Pascal Edozie',
-            'email' => 'cfo@poaadit.com',
+        $hr = User::create([
+            'name' => 'HR',
+            'email' => 'info@poaadit.com',
             'designation_id' => 2,
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
             'phone' => '10000000003',
             'is_admin' => 'true',
-            'designation_id' => 1
+            'designation_id' => 2
         ]);
-        $manager1->assignRole('Level 2');
+        $hr->assignRole('Level 2');
 
-        $manager2 = User::create([
-            'name' => 'Sowore Tolulope',
-            'email' => 'pcm@poaadit.com',
+        $qs = User::create([
+            'name' => 'Lyd',
+            'email' => 'lydnangoka@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
             'phone' => '20000000001',
             'is_admin' => 'true',
-            'designation_id' => 1
+            'designation_id' => 5
         ]);
-        $manager2->assignRole('Level 3');
+        $qs->assignRole('Level 3');
 
-        $manager3 = User::create([
-            'name' => 'Dele Farhan',
-            'email' => 'po@poaadit.com',
+        $assarch = User::create([
+            'name' => 'Tosin Owoyemi',
+            'email' => 'tosinowoyemi@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
             'phone' => '20000000002',
             'is_admin' => 'true',
-            'designation_id' => 1
+            'designation_id' => 4
         ]);
-        $manager3->assignRole('Level 4');
+        $assarch->assignRole('Level 4');
 
-        $admin = User::create([
-            'name' => 'Chima Emeka',
-            'email' => 'pm@poaadit.com',
+        $assarch = User::create([
+            'name' => 'Damilola Ojo',
+            'email' => 'damilolaojo@poaadit.com',
+            'password' => Hash::make('12345678'),
+            'status_id' => 11,  
+            'address' => '',
+            'phone' => '20000000002',
+            'is_admin' => 'true',
+            'designation_id' => 4
+        ]);
+        $assarch->assignRole('Level 4');
+
+        $acct = User::create([
+            'name' => 'Daniel Salami',
+            'email' => 'daniel.salami@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
             'phone' => '20000000003',
             'is_admin' => 'true',
-            'designation_id' => 1
+            'designation_id' => 6
         ]);
-        $admin->assignRole('Level 5');
+        $acct->assignRole('Level 5');
 
-        $admin = User::create([
-            'name' => 'Dauda Khalid',
-            'email' => 'pm2@poaadit.com',
+        $engr = User::create([
+            'name' => 'afoketialobi',
+            'email' => 'afoketialobi@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
             'phone' => '20000000004',
             'is_admin' => 'true',
-            'designation_id' => 1
+            'designation_id' => 7
         ]);
-        $admin->assignRole('Level 3');
+        $engr->assignRole('Level 3');
 
-        $admin = User::create([
-            'name' => 'John Johnson',
-            'email' => 'pm3@poaadit.com',
-            'password' => Hash::make('12345678'),
-            'status_id' => 11,  
-            'address' => '',
-            'phone' => '20000000005',
-            'is_admin' => 'true',
-            'designation_id' => 1
-        ]);
-        $admin->assignRole('Level 3');
-
-        $agent = User::create([
-            'name' => 'Ahmed Ibrahim',
-            'email' => 'pe@poaadit.com',
-            'password' => Hash::make('12345678'),
-            'status_id' => 11, 
-            'address' => '',
-            'phone' => '20000000006',
-            'is_admin' => 'true',
-            'designation_id' => 1
-        ]);
-        $agent->assignRole('Level 3');
-
-        $agent = User::create([
-            'name' => 'Lawal Malik',
-            'email' => 'sm@lintonstarksmanager.com',
-            'password' => Hash::make('12345678'),
-            'status_id' => 11, 
-            'address' => '',
-            'phone' => '20000000007',
-            'is_admin' => 'true',
-            'designation_id' => 1
-        ]);
-        $agent->assignRole('Level 5');
-
-        $agent = User::create([
-            'name' => 'Bidemi Saheed',
-            'email' => 'qs@poaadit.com',
-            'password' => Hash::make('12345678'),
-            'status_id' => 11, 
-            'address' => '',
-            'phone' => '20000000008',
-            'is_admin' => 'true',
-            'designation_id' => 1
-        ]);
-        $agent->assignRole('Level 6');
-
-
-        
         $contractor = User::create([
             'name' => 'Nnamdi Ibe',
             'email' => 'endee09@gmail.com',

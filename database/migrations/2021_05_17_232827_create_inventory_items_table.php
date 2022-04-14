@@ -35,6 +35,9 @@ class CreateInventoryItemsTable extends Migration
             $table->unsignedBigInteger('inventory_id')->nullable();
             $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('restrict');
 
+            $table->unsignedBigInteger('warehouse_item_id')->nullable();
+            $table->foreign('warehouse_item_id')->references('id')->on('warehouse_items')->onDelete('restrict');
+
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
 

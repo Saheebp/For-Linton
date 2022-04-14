@@ -90,7 +90,7 @@
                                                 Project Name
                                             </label>
                                             <div class="input-group">
-                                                <input type="text" id="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
+                                                <input type="text" id="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name" required>
                                             </div>
                                             @error('name')
                                                 <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -102,7 +102,7 @@
                                                 Project Brief
                                             </label>
                                             <div class="input-group">
-                                                <textarea id="description" value="{{ old('title') }}" class="form-control" placeholder="" name="description"></textarea>
+                                                <textarea id="description" value="{{ old('title') }}" class="form-control" placeholder="" required name="description"></textarea>
                                             </div>
                                             @error('description')
                                                 <span class="text-danger">{{ $errors->first('description') }}</span>
@@ -114,7 +114,7 @@
                                                 Project Objective
                                             </label>
                                             <div class="input-group">
-                                                <textarea id="objective" value="{{ old('objective') }}" class="form-control" placeholder="" name="objective"></textarea>
+                                                <textarea id="objective" value="{{ old('objective') }}" class="form-control" placeholder="" name="objective" required></textarea>
                                             </div>
                                             @error('objective')
                                                 <span class="text-danger">{{ $errors->first('objective') }}</span>
@@ -150,7 +150,7 @@
                                                 Project Architectural Design
                                             </label>
                                             <div class="input-group">
-                                                <input type="file" id="architectural_design" value="{{ old('architectural_design') }}" class="form-control" placeholder="" name="architectural_design">
+                                                <input type="file" id="architectural_design" value="{{ old('architectural_design') }}" class="form-control" placeholder="" name="architectural_design" required>
                                             </div>
                                             @error('architectural_design')
                                                 <span class="text-danger">{{ $errors->first('architectural_design') }}</span>
@@ -162,7 +162,7 @@
                                                 Project Structural Design
                                             </label>
                                             <div class="input-group">
-                                                <input type="file" id="structural_design" value="{{ old('structural_design') }}" class="form-control" placeholder="" name="structural_design">
+                                                <input type="file" id="structural_design" value="{{ old('structural_design') }}" class="form-control" placeholder="" name="structural_design" required>
                                             </div>
                                             @error('structural_design')
                                                 <span class="text-danger">{{ $errors->first('structural_design') }}</span>
@@ -174,7 +174,7 @@
                                                 Project Bill of Quantities
                                             </label>
                                             <div class="input-group">
-                                                <input type="file" id="boquantities" value="{{ old('boquantities') }}" class="form-control" placeholder="" name="boquantities">
+                                                <input type="file" id="boquantities" value="{{ old('boquantities') }}" class="form-control" placeholder="" name="boquantities" required>
                                             </div>
                                             @error('boquantities')
                                                 <span class="text-danger">{{ $errors->first('boquantities') }}</span>
@@ -186,7 +186,7 @@
                                                 Program of Work
                                             </label>
                                             <div class="input-group">
-                                                <input type="file" id="powork" value="{{ old('powork') }}" class="form-control" placeholder="" name="powork">
+                                                <input type="file" id="powork" value="{{ old('powork') }}" class="form-control" placeholder="" name="powork" required>
                                             </div>
                                             @error('powork')
                                                 <span class="text-danger">{{ $errors->first('powork') }}</span>
@@ -198,7 +198,7 @@
                                                 Related Project Documents
                                             </label>
                                             <div class="input-group">
-                                                <input type="file" id="rpdocuments" value="{{ old('rpdocuments') }}" class="form-control" placeholder="" name="rpdocuments">
+                                                <input type="file" id="rpdocuments" value="{{ old('rpdocuments') }}" class="form-control" placeholder="" name="rpdocuments" required>
                                             </div>
                                             @error('rpdocuments')
                                                 <span class="text-danger">{{ $errors->first('rpdocuments') }}</span>
