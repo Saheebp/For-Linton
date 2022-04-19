@@ -53,4 +53,8 @@ class InventoryItem extends Model
         return $this->belongsTo(Status::class);
     }
 
+    public function requests()
+    {
+        return $this->hasMany(ItemRequest::class);
+    }
 }

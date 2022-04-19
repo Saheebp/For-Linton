@@ -214,7 +214,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            //dd($e);
+            dd($e);
             return back()->with('error', "Oops, Error Creating a Project");
         }
     }
@@ -543,7 +543,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            return back()->with('error', "Oops, Error adding Staff Project");
+            return back()->with('error', "Oops, Error adding Staff to Project");
         }
     }
     public function removeMember(Request $request)

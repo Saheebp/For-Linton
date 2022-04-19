@@ -110,6 +110,22 @@ class StatusSeeder extends Seeder
             [
                 'name' => 'Returned',
                 'style' => 'danger'
+            ],
+            [
+                'name' => 'Approved',
+                'style' => 'success'
+            ],
+            [
+                'name' => 'Declined',
+                'style' => 'danger'
+            ],
+            [
+                'name' => 'Updated',
+                'style' => 'success'
+            ],
+            [
+                'name' => 'Not Updated',
+                'style' => 'secondary'
             ]
         ];
 

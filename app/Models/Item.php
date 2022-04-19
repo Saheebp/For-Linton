@@ -35,9 +35,14 @@ class Item extends Model
         return $this->belongsTo(Inventory::class);
     }
 
-    public function Category()
+    public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(ItemRequest::class);
     }
 
     public function status() {

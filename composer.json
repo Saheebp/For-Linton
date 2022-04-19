@@ -20,7 +20,8 @@
         "spatie/laravel-activitylog": "^3.17",
         "spatie/laravel-permission": "^4.0",
         "stevebauman/location": "^6.3",
-        "Mailgun/Mailgun-php": "^1.0"
+        "Mailgun/Mailgun-php": "^1.0",
+        "sendgrid/sendgrid": "~7"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

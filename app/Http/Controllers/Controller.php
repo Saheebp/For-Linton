@@ -12,16 +12,13 @@ use App\Models\Status;
 use App\Models\Error;
 use App\Models\Log;
 use App\Models\User;
+use App\Mail\TestEmail;
 
-//traits
-use App\Traits\AppEmail;
-// use App\Traits\AppStatus;
+use Mail;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    use AppEmail;
 
     public function __construct()
     {
@@ -56,7 +53,9 @@ class Controller extends BaseController
             'payment_id' => $data['payment_id'] ?? NULL
         ]);
 
-        //$this->sendMail();
+        $data = ['message' => 'This is a test!'];
+        Mail::to('endee09@gmail.com')->send(new TestEmail($data));
+
     }
 
     function createErrorReport($user_id, $source, $description)
@@ -98,5 +97,4 @@ class Controller extends BaseController
         $user->assignRole('Level 7');
         return $user;
     }
-
 }
