@@ -66,38 +66,40 @@
         </div>
 
         @if ($project->resources->count() != 0)
-        <table id="example1" class="table table-striped">
-            <thead>
-                <tr>
-                    <th style="width:30%;">Name</th>
-                    <th style="width:10%;">Type</th>
-                    <th style="width:40%;">Description</th>
-                    <th style="width:15%;">File</th>
-                    <th style="width:5%;">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($project->resources as $resource)
+        <div class="table-responsive">
+            <table id="example1" class="table table-striped">
+                <thead>
                     <tr>
-                        <td class="text-left">
-                            {{ $resource->name ?? '' }}
-                        </td>
-                        <td style="width:10%;">
-                            {{ $resource->type ?? '' }}
-                        </td>
-                        <td style="width:40%;">
-                            {{ $resource->description ?? '' }}
-                        </td>
-                        <td>
-                            <a class="btn btn-sm btn-outline-secondary" href="{{ route('projects.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
-                        </td>
-                        <td style="width:5%;">
-                            <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
-                        </td>
+                        <th style="width:30%;">Name</th>
+                        <th style="width:10%;">Type</th>
+                        <th style="width:40%;">Description</th>
+                        <th style="width:15%;">File</th>
+                        <th style="width:5%;">Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($project->resources as $resource)
+                        <tr>
+                            <td class="text-left">
+                                {{ $resource->name ?? '' }}
+                            </td>
+                            <td style="width:10%;">
+                                {{ $resource->type ?? '' }}
+                            </td>
+                            <td style="width:40%;">
+                                {{ $resource->description ?? '' }}
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ route('projects.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
+                            </td>
+                            <td style="width:5%;">
+                                <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         @endif
     </div>
 @stop

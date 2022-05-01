@@ -308,42 +308,46 @@
                             
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <table id="example1" class="table table-striped">
-                                        <tbody>
-                                            <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
-                                            <tr>
-                                                <td><b>Objective: </b><br><tag class="">{{ $project->objective ?? '' }}</tag> </td>
-                                                <td><b>Budget: </b><br><tag class="">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>State: </b><br><span>{{ $project->state ?? '' }}</span></td>
-                                                <td><b>L.G.A: </b><br>{{ $project->lga ?? '' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Owner: </b><br>{{ $project->sponsor_name }}</td>
-                                                <td><b>Project Type: </b><br>{{ $project->type }} days</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table id="example1" class="table table-striped">
+                                            <tbody>
+                                                <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
+                                                <tr>
+                                                    <td><b>Objective: </b><br><tag class="">{{ $project->objective ?? '' }}</tag> </td>
+                                                    <td><b>Budget: </b><br><tag class="">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>State: </b><br><span>{{ $project->state ?? '' }}</span></td>
+                                                    <td><b>L.G.A: </b><br>{{ $project->lga ?? '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Owner: </b><br>{{ $project->sponsor_name }}</td>
+                                                    <td><b>Project Type: </b><br>{{ $project->type }} days</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <table id="example1" class="table table-striped">
-                                        <tbody>
-                                            <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
-                                            <tr>
-                                                <td><b>Start: </b><br><tag class="text-success">{{ date('d M Y', strtotime($project->start)) }}</tag> </td>
-                                                <td><b>End: </b><br><tag class="text-danger">{{ date('d M Y', strtotime($project->end)) }}</tag></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Project Status: </b><br><span class="badge badge-{{ $project->status->style }}">{{ $project->status->name ?? '' }}</span></td>
-                                                <td><b>Manager: </b><br>{{ $project->manager->name ?? '' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Remaining Days: </b><br>{{ round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 ) }} days</td>
-                                                <td><b>Project Completion </b><br> {{ number_format(floatval($completion), 0) }}%</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table id="example1" class="table table-striped">
+                                            <tbody>
+                                                <!-- <tr><td><b>Project ID: </b></td><td>{{ $project->id }}</td></tr> -->
+                                                <tr>
+                                                    <td><b>Start: </b><br><tag class="text-success">{{ date('d M Y', strtotime($project->start)) }}</tag> </td>
+                                                    <td><b>End: </b><br><tag class="text-danger">{{ date('d M Y', strtotime($project->end)) }}</tag></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Project Status: </b><br><span class="badge badge-{{ $project->status->style }}">{{ $project->status->name ?? '' }}</span></td>
+                                                    <td><b>Manager: </b><br>{{ $project->manager->name ?? '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Remaining Days: </b><br>{{ round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 ) }} days</td>
+                                                    <td><b>Project Completion </b><br> {{ number_format(floatval($completion), 0) }}%</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -448,171 +452,173 @@
                                                 </div>
                                             </div>
 
-                                            <table id="example1" class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:5%;">SNo</th>
-                                                        <th style="width:35%;">Name </th>
-                                                        <th style="width:20%;">Designation </th>
-                                                        <th style="width:20%;" colspan="3" class="text-right"> &nbsp;</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $i = 1; ?>
-                                                    @foreach($project->members as $member)
-                                                    <tr>
-                                                        <td class="text-left">
-                                                            {{ $i }}
-                                                        </td>
+                                            <div class="table-responsive">
+                                                <table id="example1" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width:5%;">SNo</th>
+                                                            <th style="width:35%;">Name </th>
+                                                            <th style="width:20%;">Designation </th>
+                                                            <th style="width:20%;" colspan="3" class="text-right"> &nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php $i = 1; ?>
+                                                        @foreach($project->members as $member)
+                                                        <tr>
+                                                            <td class="text-left">
+                                                                {{ $i }}
+                                                            </td>
 
-                                                        <td class="text-left">
-                                                            {{ $member->user->name ?? '' }}
-                                                        </td>
+                                                            <td class="text-left">
+                                                                {{ $member->user->name ?? '' }}
+                                                            </td>
 
-                                                        <td class="text-left">
-                                                            {{ $member->designation->name ?? '' }}
-                                                        </td>
+                                                            <td class="text-left">
+                                                                {{ $member->designation->name ?? '' }}
+                                                            </td>
 
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#SendPersonalMessageTo{{$member->id}}">Send Message</button>
-                                                            <div class="modal fade" id="SendPersonalMessageTo{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                            aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title" id="modalLabel">Send Message to {{$member->user->name}}</h4>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">×</span>
-                                                                            </button>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#SendPersonalMessageTo{{$member->id}}">Send Message</button>
+                                                                <div class="modal fade" id="SendPersonalMessageTo{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title" id="modalLabel">Send Message to {{$member->user->name}}</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">×</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <form class="form-horizontal" action="{{ route('messages.store') }}" method="POST">
+                                                                            @csrf
+                                                                                
+                                                                                <input name="project_id" value="{{ $project->id }}" hidden readonly>
+                                                                                <input name="receiver" value="{{ $member->user->id }}" hidden readonly> 
+
+                                                                                <fieldset>
+                                                                                    <div class="modal-body">
+                                                                                        
+                                                                                        <div class="col-12">
+                                                                                            <label for="subject1" class="col-form-label">
+                                                                                                Message
+                                                                                            </label>
+                                                                                            <div class="input-group">
+                                                                                                <textarea id="body" value="{{ old('body') }}" class="form-control" placeholder="" name="body"></textarea>
+                                                                                            </div>
+                                                                                            @error('body')
+                                                                                                <span class="text-danger">{{ $errors->first('body') }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="modal-footer">
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-lg-12">
+                                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
+                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            </form>
                                                                         </div>
-                                                                        <form class="form-horizontal" action="{{ route('messages.store') }}" method="POST">
-                                                                        @csrf
-                                                                            
-                                                                            <input name="project_id" value="{{ $project->id }}" hidden readonly>
-                                                                            <input name="receiver" value="{{ $member->user->id }}" hidden readonly> 
-
-                                                                            <fieldset>
-                                                                                <div class="modal-body">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#changeMemberRole{{$member->id}}">Change Role</button>
+                                                                <div class="modal fade" id="changeMemberRole{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title" id="modalLabel">Update Role for {{$member->user->name}}</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">×</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <form class="form-horizontal" action="{{ route('projects.updateRole')}}" method="POST">
+                                                                            @csrf
+                                                                                <fieldset>
+                                                                                    <div class="modal-body">
                                                                                     
+                                                                                    <input name="member" value="{{$member->id}}" hidden readonly>
+                                                                                    <input name="project" value="{{$project->id}}" hidden readonly>
+
                                                                                     <div class="col-12">
                                                                                         <label for="subject1" class="col-form-label">
-                                                                                            Message
+                                                                                            Designation
                                                                                         </label>
                                                                                         <div class="input-group">
-                                                                                            <textarea id="body" value="{{ old('body') }}" class="form-control" placeholder="" name="body"></textarea>
+                                                                                            <span class="input-group-addon">
+                                                                                                <i class="fa fa-home"></i>
+                                                                                            </span>
+                                                                                            <select class="form-control col-12" name="designation">
+                                                                                                <option value=""> -- Select Designation --</option>
+                                                                                                @foreach($designations as $designation)
+                                                                                                <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
                                                                                         </div>
-                                                                                        @error('body')
-                                                                                            <span class="text-danger">{{ $errors->first('body') }}</span>
-                                                                                        @enderror
                                                                                     </div>
-                                                                                </div>
+                                                                                    </div>
 
-                                                                                <div class="modal-footer">
-                                                                                    <div class="form-group row">
-                                                                                        <div class="col-lg-12">
-                                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
-                                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                    <div class="modal-footer">
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-lg-12">
+                                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
+                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </fieldset>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#changeMemberRole{{$member->id}}">Change Role</button>
-                                                            <div class="modal fade" id="changeMemberRole{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                            aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title" id="modalLabel">Update Role for {{$member->user->name}}</h4>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">×</span>
-                                                                            </button>
+                                                                                </fieldset>
+                                                                            </form>
                                                                         </div>
-                                                                        <form class="form-horizontal" action="{{ route('projects.updateRole')}}" method="POST">
-                                                                        @csrf
-                                                                            <fieldset>
-                                                                                <div class="modal-body">
-                                                                                
-                                                                                <input name="member" value="{{$member->id}}" hidden readonly>
-                                                                                <input name="project" value="{{$project->id}}" hidden readonly>
-
-                                                                                <div class="col-12">
-                                                                                    <label for="subject1" class="col-form-label">
-                                                                                        Designation
-                                                                                    </label>
-                                                                                    <div class="input-group">
-                                                                                        <span class="input-group-addon">
-                                                                                            <i class="fa fa-home"></i>
-                                                                                        </span>
-                                                                                        <select class="form-control col-12" name="designation">
-                                                                                            <option value=""> -- Select Designation --</option>
-                                                                                            @foreach($designations as $designation)
-                                                                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
-                                                                                            @endforeach
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                                </div>
-
-                                                                                <div class="modal-footer">
-                                                                                    <div class="form-group row">
-                                                                                        <div class="col-lg-12">
-                                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
-                                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </fieldset>
-                                                                        </form>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
 
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#removeMemberFromTeam{{$member->id}}">Remove</button>
-                                                            <div class="modal fade" id="removeMemberFromTeam{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                            aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title" id="modalLabel">Remove {{$member->user->name}} from Project</h4>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">×</span>
-                                                                            </button>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#removeMemberFromTeam{{$member->id}}">Remove</button>
+                                                                <div class="modal fade" id="removeMemberFromTeam{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title" id="modalLabel">Remove {{$member->user->name}} from Project</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">×</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <form class="form-horizontal" action="#" method="POST">
+                                                                            @csrf
+                                                                                <fieldset>
+                                                                                    <div class="modal-body">
+                                                                                        
+                                                                                    </div>
+
+                                                                                    <div class="modal-footer">
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-lg-12">
+                                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Remove</button>
+                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            </form>
                                                                         </div>
-                                                                        <form class="form-horizontal" action="#" method="POST">
-                                                                        @csrf
-                                                                            <fieldset>
-                                                                                <div class="modal-body">
-                                                                                    
-                                                                                </div>
-
-                                                                                <div class="modal-footer">
-                                                                                    <div class="form-group row">
-                                                                                        <div class="col-lg-12">
-                                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Remove</button>
-                                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </fieldset>
-                                                                        </form>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <?php $i=$i+1; ?>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                            </td>
+                                                        </tr>
+                                                        <?php $i=$i+1; ?>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
 
                                         <div class="tab-pane p-3 active" id="tab2">
@@ -1522,26 +1528,28 @@
                                             </p> -->
 
                                             @if ($project->logs->count() != 0)
-                                            <table id="example1" class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:20%;">Date</th>
-                                                        <th style="width:80%;">Activity</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($project->logs as $log)
+                                            <div class="table-responsive">
+                                                <table id="example1" class="table table-striped">
+                                                    <thead>
                                                         <tr>
-                                                            <td class="text-left">
-                                                                {{ date('d M Y, H:ia', strtotime($log->created_at)) }}
-                                                            </td>
-                                                            <td style="width:10%;">
-                                                                {{ $log->body ?? '' }}
-                                                            </td>
+                                                            <th style="width:20%;">Date</th>
+                                                            <th style="width:80%;">Activity</th>
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($project->logs as $log)
+                                                            <tr>
+                                                                <td class="text-left">
+                                                                    {{ date('d M Y, H:ia', strtotime($log->created_at)) }}
+                                                                </td>
+                                                                <td style="width:10%;">
+                                                                    {{ $log->body ?? '' }}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             @endif
 
                                         </div>
@@ -1659,38 +1667,40 @@
                                             </div>
 
                                             @if ($project->resources->count() != 0)
-                                            <table id="example1" class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:30%;">Name</th>
-                                                        <th style="width:10%;">Type</th>
-                                                        <th style="width:40%;">Description</th>
-                                                        <th style="width:15%;">File</th>
-                                                        <th style="width:5%;">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($project->resources as $resource)
+                                            <div class="table-responsive">
+                                                <table id="example1" class="table table-striped">
+                                                    <thead>
                                                         <tr>
-                                                            <td class="text-left">
-                                                                {{ $resource->name ?? '' }}
-                                                            </td>
-                                                            <td style="width:10%;">
-                                                                {{ $resource->type ?? '' }}
-                                                            </td>
-                                                            <td style="width:40%;">
-                                                                {{ $resource->description ?? '' }}
-                                                            </td>
-                                                            <td>
-                                                                <a class="btn btn-sm btn-outline-secondary" href="{{ route('projects.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
-                                                            </td>
-                                                            <td style="width:5%;">
-                                                                <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
-                                                            </td>
+                                                            <th style="width:30%;">Name</th>
+                                                            <th style="width:10%;">Type</th>
+                                                            <th style="width:40%;">Description</th>
+                                                            <th style="width:15%;">File</th>
+                                                            <th style="width:5%;">Action</th>
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($project->resources as $resource)
+                                                            <tr>
+                                                                <td class="text-left">
+                                                                    {{ $resource->name ?? '' }}
+                                                                </td>
+                                                                <td style="width:10%;">
+                                                                    {{ $resource->type ?? '' }}
+                                                                </td>
+                                                                <td style="width:40%;">
+                                                                    {{ $resource->description ?? '' }}
+                                                                </td>
+                                                                <td>
+                                                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('projects.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
+                                                                </td>
+                                                                <td style="width:5%;">
+                                                                    <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             @endif
                                         </div>
 
@@ -1756,81 +1766,83 @@
                                             
                                             <h4 class="card-title">Budget Allocation</h4>
 
-                                            <table id="example1" class="table table-striped table-bordered bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>SNo</th>
-                                                        <th>Task Name</th>
-                                                        <th style="width:20%;">Budget</th>
-                                                        <th style="width:20%;">Actual Cost </th>
-                                                        <th style="width:20%;">Variance</th>
-                                                        <th style="width:5%;">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $i = 1; ?>
-                                                    @foreach($project->tasks as $task)
-                                                        <tr class="bg-secondary text-white">
-                                                            <td class="text-left">
-                                                                {{ $i }}
-                                                            </td>
-                                                            <td class="text-left">
-                                                                {{ $task->name ?? '' }}
-                                                            </td>
-                                                            <td>
-                                                                &#8358;{{ number_format(floatval($task->budget), 2) }}
-                                                            </td>
-                                                            <td>
-                                                                &#8358;{{ number_format(floatval($task->subtasks->sum('actual_cost')), 2) }}
-                                                            </td>
-                                                            <td>
-                                                                &#8358;{{ number_format(floatval($task->budget - $task->subtasks->sum('actual_cost')), 2) }}
-                                                            </td>
-                                                            <td class="bg-white">
-                                                                <span class="badge badge-{{ $task->status->style }}">{{ $task->status->name ?? '' }}</span>
-                                                            </td>
-                                                        </tr>
+                                            <div class="table-responsive">
+                                                <table id="example1" class="table table-striped table-bordered bordered">
+                                                    <thead>
                                                         <tr>
-                                                            <td class="" colspan="6">
-                                                                <h5><b>Sub Tasks</b></h5>
-                                                                <table id="example1" class="table table-striped">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Task Name</th>
-                                                                            <th style="width:20%;">Budget</th>
-                                                                            <th style="width:20%;">Actual Cost </th>
-                                                                            <th style="width:20%;">Variance</th>
-                                                                            <th style="width:5%;">Status</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        @foreach($task->subtasks as $subtask)
-                                                                            <tr>
-                                                                                <td class="text-left">
-                                                                                    {{ $subtask->name ?? '' }}
-                                                                                </td>
-                                                                                <td>
-                                                                                    &#8358;{{ number_format(floatval($subtask->budget), 2) }}
-                                                                                </td>
-                                                                                <td>
-                                                                                    &#8358;{{ number_format(floatval($subtask->actual_cost), 2) }}
-                                                                                </td>
-                                                                                <td>
-                                                                                    &#8358;{{ number_format(floatval($subtask->budget - $subtask->actual_cost), 2) }}
-                                                                                </td>
-                                                                                <td>
-                                                                                    <span class="badge badge-{{ $subtask->status->style }}">{{ $subtask->status->name ?? '' }}</span>
-                                                                                </td>
-                                                                            </tr>
-                                                                        @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
+                                                            <th>SNo</th>
+                                                            <th>Task Name</th>
+                                                            <th style="width:20%;">Budget</th>
+                                                            <th style="width:20%;">Actual Cost </th>
+                                                            <th style="width:20%;">Variance</th>
+                                                            <th style="width:5%;">Status</th>
                                                         </tr>
-                                                        <?php $i=$i+1; ?>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php $i = 1; ?>
+                                                        @foreach($project->tasks as $task)
+                                                            <tr class="bg-secondary text-white">
+                                                                <td class="text-left">
+                                                                    {{ $i }}
+                                                                </td>
+                                                                <td class="text-left">
+                                                                    {{ $task->name ?? '' }}
+                                                                </td>
+                                                                <td>
+                                                                    &#8358;{{ number_format(floatval($task->budget), 2) }}
+                                                                </td>
+                                                                <td>
+                                                                    &#8358;{{ number_format(floatval($task->subtasks->sum('actual_cost')), 2) }}
+                                                                </td>
+                                                                <td>
+                                                                    &#8358;{{ number_format(floatval($task->budget - $task->subtasks->sum('actual_cost')), 2) }}
+                                                                </td>
+                                                                <td class="bg-white">
+                                                                    <span class="badge badge-{{ $task->status->style }}">{{ $task->status->name ?? '' }}</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="" colspan="6">
+                                                                    <h5><b>Sub Tasks</b></h5>
+                                                                    <table id="example1" class="table table-striped">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Task Name</th>
+                                                                                <th style="width:20%;">Budget</th>
+                                                                                <th style="width:20%;">Actual Cost </th>
+                                                                                <th style="width:20%;">Variance</th>
+                                                                                <th style="width:5%;">Status</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach($task->subtasks as $subtask)
+                                                                                <tr>
+                                                                                    <td class="text-left">
+                                                                                        {{ $subtask->name ?? '' }}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &#8358;{{ number_format(floatval($subtask->budget), 2) }}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &#8358;{{ number_format(floatval($subtask->actual_cost), 2) }}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &#8358;{{ number_format(floatval($subtask->budget - $subtask->actual_cost), 2) }}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <span class="badge badge-{{ $subtask->status->style }}">{{ $subtask->status->name ?? '' }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <?php $i=$i+1; ?>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
                                         </div>
 
@@ -1839,211 +1851,213 @@
                                             <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
 
-                                            <table id="example1" class="">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:40%;">Name </th>
-                                                        <th style="width:10%;">Category</th>
-                                                        <th style="width:10%;">Quantity</th>
-                                                        <th style="width:10%;">Available</th>
-                                                        <th style="width:5%;">Status</th>
-                                                        <th style="width:15%;" class="text-center" colspan="3">Action</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    @foreach($project->inventory->items as $item)
+                                            <div class="table-responsive">
+                                                <table id="example1" class="">
+                                                    <thead>
                                                         <tr>
-                                                            <td>
-                                                                {{ $item->name}}
-                                                            </td>
-                                                            <td>
-                                                                {{ $item->category->name ?? '' }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $item->quantity ?? '' }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $item->available ?? '' }}
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-{{$item->status->style }}">{{ $item->status->name }}</span>
-                                                            </td>
-                                                            <td>
-                                                                <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#DisburseItem{{ $item->id }}">Disburse</a>
-                                                                <div class="modal fade" id="DisburseItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                                aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title" id="modalLabel">Disburse {{ $item->name }}</h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">×</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <form class="form-horizontal" action="{{ route('items.disburse') }}" method="POST">
-                                                                            @csrf
-                                                                                <fieldset>
-                                                                                    <div class="modal-body">
-                                                                                        
-                                                                                        <input value="{{ $item->id }}" hidden readonly name="inventory_item_id">
-                                                                                        <input value="{{ $project->inventory->id }}" hidden readonly name="inventory_id">
-                                                                                            
-                                                                                        <div class="col-12">
-                                                                                            <label for="subject1" class="col-form-label">
-                                                                                                Received By
-                                                                                            </label>
-                                                                                            <div class="input-group">
-                                                                                                <select class="form-control" name="member" required>
-                                                                                                    <option value="">-- Select Member --</option>
-                                                                                                    @foreach ($members as $member)                                                                                                    
-                                                                                                    <option value="{{ $member->user->id }}">{{ $member->user->name }}</option>
-                                                                                                    @endforeach
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="col-12">
-                                                                                            <label for="subject1" class="col-form-label">
-                                                                                                Quantity
-                                                                                            </label>
-                                                                                            <div class="input-group">
-                                                                                                <input id="quantity" value="{{ old('quantity') ?? $item->available }}" min="1" max="{{ $item->available }}"  class="form-control" name="quantity">
-                                                                                            </div>
-                                                                                            @error('quantity')
-                                                                                                <span class="text-danger">{{ $errors->first('quantity') }}</span>
-                                                                                            @enderror
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="modal-footer">
-                                                                                        <div class="form-group row">
-                                                                                            <div class="col-lg-12">
-                                                                                                <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Allocate</button>
-                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </fieldset>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return</a>
-                                                                <div class="modal fade" id="ReturnItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                                aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title" id="modalLabel">Return {{ $item->name }}</h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">×</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <form class="form-horizontal" action="{{ route('items.return') }}" method="POST">
-                                                                            @csrf
-                                                                                <fieldset>
-                                                                                    <div class="modal-body">
-                                                                                        
-                                                                                        <input value="{{ $item->id }}" hidden readonly name="inventory_item_id">
-                                                                                        <input value="{{ $project->inventory->id }}" hidden readonly name="inventory_id">
-                                                                                            
-                                                                                        <div class="col-12">
-                                                                                            <label for="subject1" class="col-form-label">
-                                                                                                Returned By
-                                                                                            </label>
-                                                                                            <div class="input-group">
-                                                                                                <select class="form-control" name="member" required>
-                                                                                                    <option value="">-- Select Member --</option>
-                                                                                                    @foreach ($members as $member)                                                                                                    
-                                                                                                    <option value="{{ $member->user->id }}">{{ $member->user->name }}</option>
-                                                                                                    @endforeach
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="col-12">
-                                                                                            <label for="subject1" class="col-form-label">
-                                                                                                Quantity
-                                                                                            </label>
-                                                                                            <div class="input-group">
-                                                                                                <input id="quantity" value="{{ old('quantity') }}" min="1"  class="form-control" name="quantity">
-                                                                                            </div>
-                                                                                            @error('quantity')
-                                                                                                <span class="text-danger">{{ $errors->first('quantity') }}</span>
-                                                                                            @enderror
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="modal-footer">
-                                                                                        <div class="form-group row">
-                                                                                            <div class="col-lg-12">
-                                                                                                <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Return</button>
-                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </fieldset>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#ItemHistory{{ $item->id }}">History</a>
-                                                                <div class="modal fade" id="ItemHistory{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                                aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title" id="modalLabel">{{ $item->name}} disburse/Refund History</h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">×</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-
-                                                                                <table id="example1" class="table table-striped">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th style="width:10%;">Action </th>
-                                                                                            <th style="width:40%;">Disburser</th>
-                                                                                            <th style="width:40%;">Receiver</th>
-                                                                                            <th style="width:10%;">Quantity</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody>
-                                                                                        @foreach($item->itemActivities as $activity)
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    {{ $activity->type}}
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    {{ $activity->user->name ?? '' }}<br>
-                                                                                                    <tag style="font-size:10px;">{{ $activity->created_at }}</tag>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    {{ $activity->receiver->name ?? '' }}
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    {{ $activity->quantity ?? '' }}
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        @endforeach
-                                                                                    </tbody>
-                                                                                </table>
-                                                                                
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                            <th style="width:40%;">Name </th>
+                                                            <th style="width:10%;">Category</th>
+                                                            <th style="width:10%;">Quantity</th>
+                                                            <th style="width:10%;">Available</th>
+                                                            <th style="width:5%;">Status</th>
+                                                            <th style="width:15%;" class="text-center" colspan="3">Action</th>
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        @foreach($project->inventory->items as $item)
+                                                            <tr>
+                                                                <td>
+                                                                    {{ $item->name}}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $item->category->name ?? '' }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $item->quantity ?? '' }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $item->available ?? '' }}
+                                                                </td>
+                                                                <td>
+                                                                    <span class="badge badge-{{$item->status->style }}">{{ $item->status->name }}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#DisburseItem{{ $item->id }}">Disburse</a>
+                                                                    <div class="modal fade" id="DisburseItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title" id="modalLabel">Disburse {{ $item->name }}</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form class="form-horizontal" action="{{ route('items.disburse') }}" method="POST">
+                                                                                @csrf
+                                                                                    <fieldset>
+                                                                                        <div class="modal-body">
+                                                                                            
+                                                                                            <input value="{{ $item->id }}" hidden readonly name="inventory_item_id">
+                                                                                            <input value="{{ $project->inventory->id }}" hidden readonly name="inventory_id">
+                                                                                                
+                                                                                            <div class="col-12">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Received By
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <select class="form-control" name="member" required>
+                                                                                                        <option value="">-- Select Member --</option>
+                                                                                                        @foreach ($members as $member)                                                                                                    
+                                                                                                        <option value="{{ $member->user->id }}">{{ $member->user->name }}</option>
+                                                                                                        @endforeach
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="col-12">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Quantity
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <input id="quantity" value="{{ old('quantity') ?? $item->available }}" min="1" max="{{ $item->available }}"  class="form-control" name="quantity">
+                                                                                                </div>
+                                                                                                @error('quantity')
+                                                                                                    <span class="text-danger">{{ $errors->first('quantity') }}</span>
+                                                                                                @enderror
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="modal-footer">
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Allocate</button>
+                                                                                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </fieldset>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return</a>
+                                                                    <div class="modal fade" id="ReturnItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title" id="modalLabel">Return {{ $item->name }}</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form class="form-horizontal" action="{{ route('items.return') }}" method="POST">
+                                                                                @csrf
+                                                                                    <fieldset>
+                                                                                        <div class="modal-body">
+                                                                                            
+                                                                                            <input value="{{ $item->id }}" hidden readonly name="inventory_item_id">
+                                                                                            <input value="{{ $project->inventory->id }}" hidden readonly name="inventory_id">
+                                                                                                
+                                                                                            <div class="col-12">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Returned By
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <select class="form-control" name="member" required>
+                                                                                                        <option value="">-- Select Member --</option>
+                                                                                                        @foreach ($members as $member)                                                                                                    
+                                                                                                        <option value="{{ $member->user->id }}">{{ $member->user->name }}</option>
+                                                                                                        @endforeach
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="col-12">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Quantity
+                                                                                                </label>
+                                                                                                <div class="input-group">
+                                                                                                    <input id="quantity" value="{{ old('quantity') }}" min="1"  class="form-control" name="quantity">
+                                                                                                </div>
+                                                                                                @error('quantity')
+                                                                                                    <span class="text-danger">{{ $errors->first('quantity') }}</span>
+                                                                                                @enderror
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="modal-footer">
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Return</button>
+                                                                                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </fieldset>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#ItemHistory{{ $item->id }}">History</a>
+                                                                    <div class="modal fade" id="ItemHistory{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                    aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title" id="modalLabel">{{ $item->name}} disburse/Refund History</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+
+                                                                                    <table id="example1" class="table table-striped">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th style="width:10%;">Action </th>
+                                                                                                <th style="width:40%;">Disburser</th>
+                                                                                                <th style="width:40%;">Receiver</th>
+                                                                                                <th style="width:10%;">Quantity</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            @foreach($item->itemActivities as $activity)
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        {{ $activity->type}}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{ $activity->user->name ?? '' }}<br>
+                                                                                                        <tag style="font-size:10px;">{{ $activity->created_at }}</tag>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{ $activity->receiver->name ?? '' }}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{ $activity->quantity ?? '' }}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            @endforeach
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
                                         </div>
 
@@ -2052,29 +2066,31 @@
                                             <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
 
-                                            <table id="example1" class="table table-striped">
-                                        
-                                                <tbody>
-                                                    @foreach($project->comments as $comment)
-                                                        <tr>
-                                                            <td>
-                                                            {{ $comment->creator->name  }} commented on 
+                                            <div class="table-responsive">
+                                                <table id="example1" class="table table-striped">
+                                            
+                                                    <tbody>
+                                                        @foreach($project->comments as $comment)
+                                                            <tr>
+                                                                <td>
+                                                                {{ $comment->creator->name  }} commented on 
 
-                                                            @if ($comment->sub_task_id != NULL)
-                                                                {{ $comment->subtask->name  }}
-                                                            @elseif ($comment->task_id != NULL)
-                                                                {{ $comment->task->name  }}
-                                                            @else
-                                                                {{ $comment->project->name  }}
-                                                            @endif
-                                                            <br>
-                                                            {{ $comment->body }}<br>
-                                                            <b>{{ date('d M Y, h:ia', strtotime($comment->created_at)) }}</b>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                                @if ($comment->sub_task_id != NULL)
+                                                                    {{ $comment->subtask->name  }}
+                                                                @elseif ($comment->task_id != NULL)
+                                                                    {{ $comment->task->name  }}
+                                                                @else
+                                                                    {{ $comment->project->name  }}
+                                                                @endif
+                                                                <br>
+                                                                {{ $comment->body }}<br>
+                                                                <b>{{ date('d M Y, h:ia', strtotime($comment->created_at)) }}</b>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
                                         </div>
 
@@ -2083,29 +2099,31 @@
                                             <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
 
-                                            <table id="example1" class="table table-striped">
-                                        
-                                                <tbody>
-                                                    <!-- @foreach($project->comments as $comment)
-                                                        <tr>
-                                                            <td>
-                                                            {{ $comment->creator->name  }} commented on 
+                                            <div class="table-responsive">
+                                                <table id="example1" class="table table-striped">
+                                            
+                                                    <tbody>
+                                                        <!-- @foreach($project->comments as $comment)
+                                                            <tr>
+                                                                <td>
+                                                                {{ $comment->creator->name  }} commented on 
 
-                                                            @if ($comment->sub_task_id != NULL)
-                                                                {{ $comment->subtask->name  }}
-                                                            @elseif ($comment->task_id != NULL)
-                                                                {{ $comment->task->name  }}
-                                                            @else
-                                                                {{ $comment->project->name  }}
-                                                            @endif
-                                                            <br>
-                                                            {{ $comment->body }}<br>
-                                                            <b>{{ date('d M Y, h:ia', strtotime($comment->created_at)) }}</b>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach -->
-                                                </tbody>
-                                            </table>
+                                                                @if ($comment->sub_task_id != NULL)
+                                                                    {{ $comment->subtask->name  }}
+                                                                @elseif ($comment->task_id != NULL)
+                                                                    {{ $comment->task->name  }}
+                                                                @else
+                                                                    {{ $comment->project->name  }}
+                                                                @endif
+                                                                <br>
+                                                                {{ $comment->body }}<br>
+                                                                <b>{{ date('d M Y, h:ia', strtotime($comment->created_at)) }}</b>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
                                         </div>
                                     </div>

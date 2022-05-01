@@ -21,6 +21,7 @@ use App\Models\ProjectMember;
 
 use Stevebauman\Location\Facades\Location;
 use Geocoder;
+use Mail;
 
 use App\Imports\PowImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -538,14 +539,22 @@ class ProjectController extends Controller
 
             $this->createLog($data);
             $this->CreateNotification($data);
+            //$this->sendMail($data);
 
             return back()->with('success', 'Staff added to project successfully.');
         }
         catch (\Exception $e) 
         {
-            return back()->with('error', "Oops, Error adding Staff Project");
+            dd($e);
+            return back()->with('error', "Oops, Error adding Staff to Project");
         }
     }
+    public function sendMail(Array $data){
+        
+        $input = ['message' => 'This is a test!'];
+        Mail::to('pm@lintonstarksmanager.com')->send(new TestEmail($input));
+    }
+
     public function removeMember(Request $request)
     {
         try 
@@ -614,6 +623,27 @@ class ProjectController extends Controller
 
         if ($tasks != null) {
             return back()->with('error', "Oops, You cannot update this project status due to pending tasks");
+        }
+
+        $subtasks = SubTask::where('project_id',$request->project_id)
+        ->where('status_id', '!=', config('completed'))->get();
+
+        if ($subtasks != null) {
+            return back()->with('error', "Oops, You cannot update this project status due to pending sub tasks");
+        }
+
+        $grandtasks = GrandTask::where('project_id',$request->project_id)
+        ->where('status_id', '!=', config('completed'))->get();
+
+        if ($grandtasks != null) {
+            return back()->with('error', "Oops, You cannot update this project status due to pending grand tasks");
+        }
+
+        $greattasks = GreatTask::where('project_id',$request->project_id)
+        ->where('status_id', '!=', config('completed'))->get();
+
+        if ($greattasks != null) {
+            return back()->with('error', "Oops, You cannot update this project status due to pending grand tasks");
         }
 
         try 

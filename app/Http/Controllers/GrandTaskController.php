@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GreatTask;
 use App\Models\GrandTask;
+
 use Illuminate\Http\Request;
 
 class GrandTaskController extends Controller
@@ -102,6 +104,48 @@ class GrandTaskController extends Controller
         catch (\Exception $e) 
         {
             return back()->with('error', "Oops, Error Updating Task Cost");
+        }
+    }
+
+    public function updateStatus(Request $request, GrandTask $grandtask)
+    {
+        
+        $validated = $request->validate([
+            'status' => 'required|string|max:255'
+        ]);
+        
+        $greattasks = GreatTask::where('grand_task_id',$grandtask->id)
+        ->where('status_id', '!=', config('completed'))->get();
+        
+        if (!$greattasks->isEmpty()) {
+            return back()->with('error', "Oops, You cannot update this project status due to pending great tasks");
+        }
+
+        try 
+        {
+            $grandtask->update([
+                'status_id' => $request->status,
+            ]);
+            $grandtask->save();
+
+            $data = array();
+            $data['body'] = auth()->user()->name." Updated status of a Task(grand)";
+            $data['project_id'] = NULL;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['grand_task_id'] = $grandtask->id;
+            $data['great_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+
+            $this->createLog($data);
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Task Status updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            dd($e);
+            return back()->with('error', "Oops, Error Updating Task Status");
         }
     }
 }

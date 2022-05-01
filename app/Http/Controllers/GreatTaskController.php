@@ -83,7 +83,7 @@ class GreatTaskController extends Controller
         //
     }
 
-    public function updateTime(Request $request, Task $task)
+    public function updateTime(Request $request, GreatTask $greattask)
     {
         $validated = $request->validate([
             'cost' => 'required|string|max:255'
@@ -91,16 +91,50 @@ class GreatTaskController extends Controller
 
         try 
         {
-            $task->update([
+            $greattask->update([
                 'actual_cost' => $request->cost,
             ]);
-            $task->save();
+            $greattask->save();
 
             return back()->with('success', 'Task Cost updated successfully.');
         }
         catch (\Exception $e) 
         {
             return back()->with('error', "Oops, Error Updating Task Cost");
+        }
+    }
+
+    public function updateStatus(Request $request, GreatTask $greattask)
+    {
+        $validated = $request->validate([
+            'status' => 'required|string|max:255'
+        ]);
+        
+        try 
+        {
+            $greattask->update([
+                'status_id' => $request->status,
+            ]);
+            $greattask->save();
+
+            $data = array();
+            $data['body'] = auth()->user()->name." Updated status of a Task(grand)";
+            $data['project_id'] = NULL;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['grand_task_id'] = NULL;
+            $data['great_task_id'] = $greattask->id;
+            $data['user_id'] = auth()->user()->id;
+
+            $this->createLog($data);
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Task Status updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            //dd($e);
+            return back()->with('error', "Oops, Error Updating Task Status");
         }
     }
 }

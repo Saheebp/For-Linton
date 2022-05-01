@@ -12,16 +12,15 @@ use App\Models\Status;
 use App\Models\Error;
 use App\Models\Log;
 use App\Models\User;
+use App\Mail\TestEmail;
 
-//traits
-use App\Traits\AppEmail;
-// use App\Traits\AppStatus;
+use Illuminate\Http\Request;
+
+use Mail;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    use AppEmail;
 
     public function __construct()
     {
@@ -56,7 +55,11 @@ class Controller extends BaseController
             'payment_id' => $data['payment_id'] ?? NULL
         ]);
 
-        //$this->sendMail();
+        $data = ['message' => 'This is a test!'];
+        //Mail::to('john@example.com')->send(new TestEmail($data));
+
+        return true;
+
     }
 
     function createErrorReport($user_id, $source, $description)
@@ -99,4 +102,9 @@ class Controller extends BaseController
         return $user;
     }
 
+    function sendEmail(array $data)
+    {
+        $data = ['message' => 'This is a test!'];
+        Mail::to('john@example.com')->send(new TestEmail($data));
+    }
 }

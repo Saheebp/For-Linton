@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Inventory;
+use App\Models\ItemRequest;
+
 use App\Models\InventoryItem;
 use App\Models\InventoryActivity;
 use App\Models\WarehouseItem;
@@ -117,9 +119,39 @@ class InventoryItemController extends Controller
             ->performedOn($item)
             ->causedBy(auth()->user())
             ->withProperties(['Item' => $item->id])
-            ->log(auth()->user()->name.' Disbursed '.$request->quality.' units of '.$item->name.' to '.$receiver->name );
+            ->log(auth()->user()->name.' Disbursed '.$request->quantity.' units of '.$item->name.' to '.$receiver->name );
 
             return back()->with('success', 'Item disbursed successfully');
+
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function itemRequest(Request $request)
+    {
+        try
+        {
+            $item = InventoryItem::find($request->inventory_item_id);
+
+            $item_request = ItemRequest::create([
+                'name' => $request->name,
+                'quantity' => $request->quantity,
+                'purpose' => $request->purpose,
+                'user_id' => Auth::user()->id,
+                'inventory_id' => $request->inventory_id,
+                'inventory_item_id' => $request->inventory_item_id,
+                'status_id' => config('pending'),
+            ]);
+
+            
+            activity()
+            ->performedOn($item)
+            ->causedBy(auth()->user())
+            ->withProperties(['Item' => $item->id])
+            ->log(auth()->user()->name.' Requested for '.$request->quantity.' units of '.$item->name );
+
+            return back()->with('success', 'Item Request was successful');
 
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
@@ -160,7 +192,7 @@ class InventoryItemController extends Controller
             ->performedOn($item)
             ->causedBy(auth()->user())
             ->withProperties(['Item' => $item->id])
-            ->log(auth()->user()->name.' Returned '.$request->quality.' units of '.$item->name.' to '.$receiver->name );
+            ->log(auth()->user()->name.' Returned '.$request->quantity.' units of '.$item->name.' to '.$receiver->name );
 
             return back()->with('success', 'Item disbursed successfully');
 
@@ -216,7 +248,7 @@ class InventoryItemController extends Controller
             ->performedOn($warehouse_item)
             ->causedBy(auth()->user())
             ->withProperties(['Item' => $warehouse_item->id])
-            ->log(auth()->user()->name.' Returned '.$request->quality.' units of '.$warehouse_item->name.' to warehouse');
+            ->log(auth()->user()->name.' Returned '.$request->quantity.' units of '.$warehouse_item->name.' to warehouse');
 
             return back()->with('success', 'Item Returned successfully');
 

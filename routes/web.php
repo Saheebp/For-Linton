@@ -14,17 +14,7 @@ use App\Http\Controllers;
 */
 Auth::routes();
 
-Route::get('send-mail', function () {
-   
-    $details = [
-        'title' => 'Mail from ItSolutionStuff.com',
-        'body' => 'This is for testing email using smtp'
-    ];
-   
-    \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\MyTestMail($details));
-   
-    dd("Email is Sent.");
-});
+Route::get('mail/send-grid', [ProjectController::class, 'sendMail']);
 
 Route::middleware('auth')->group(function() {
     
@@ -199,45 +189,46 @@ Route::middleware('auth')->group(function() {
             Route::post('filter', 'InventoryItemController@filter')->name('filter');
             Route::post('search', 'InventoryItemController@search')->name('search');
             Route::post('disburse', 'InventoryItemController@disburse')->name('disburse');
+            Route::post('request', 'InventoryItemController@itemRequest')->name('requests');
             Route::post('return', 'InventoryItemController@return')->name('return');
             Route::post('warehouse/return', 'InventoryItemController@returnToWareHouse')->name('warehousereturn');
             Route::post('upload/resource', 'InventoryItemController@uploadResource')->name('upload');
         });
     });
 
-     //projects
-     Route::resource('projects', 'ProjectController');
-     Route::name('projects.')->group(function() {
-         Route::prefix('projects')->group(function() {
-             Route::get('/', 'ProjectController@index')->name('index');
-             Route::post('filter', 'ProjectController@filter')->name('filter');
-             Route::post('search', 'ProjectController@search')->name('search');
-             
-             Route::post('status/update/{project}', 'ProjectController@updateStatus')->name('updateStatus');
-             Route::post('upload/resource/{project}', 'ProjectController@uploadResource')->name('upload');
-             Route::get('download/resource/{id}', 'ProjectController@download')->name('download');
- 
-             Route::post('comment', 'ProjectController@comment')->name('comment');
- 
-             Route::post('member/add/{project}', 'ProjectController@addMember')->name('addMember');
-             Route::post('member/remove', 'ProjectController@removeMember')->name('removeMember');
-             Route::post('member/updaterole', 'ProjectController@updateRole')->name('updateRole');
-             Route::post('time/update/{project}', 'ProjectController@updateTime')->name('updateTime');
+    //projects
+    Route::resource('projects', 'ProjectController');
+    Route::name('projects.')->group(function() {
+        Route::prefix('projects')->group(function() {
+            Route::get('/', 'ProjectController@index')->name('index');
+            Route::post('filter', 'ProjectController@filter')->name('filter');
+            Route::post('search', 'ProjectController@search')->name('search');
+            
+            Route::post('status/update/{project}', 'ProjectController@updateStatus')->name('updateStatus');
+            Route::post('upload/resource/{project}', 'ProjectController@uploadResource')->name('upload');
+            Route::get('download/resource/{id}', 'ProjectController@download')->name('download');
 
-             Route::post('member/updatebudget', 'ProjectController@updateBudget')->name('updateBudget');
-             Route::post('member/updateInfo', 'ProjectController@updateInfo')->name('updateInfo');
-             
-             Route::get('team/{project}', 'ProjectController@team')->name('team');
-             Route::get('tasks/{project}', 'ProjectController@tasks')->name('tasks');
-             Route::get('activity/{project}', 'ProjectController@activity')->name('activity');
-             Route::get('timeline/{project}', 'ProjectController@timeline')->name('timeline');
-             Route::get('resources/{project}', 'ProjectController@resources')->name('resources');
-             Route::get('budget/{project}', 'ProjectController@budget')->name('budget');
-             Route::get('inventory/{project}', 'ProjectController@inventory')->name('inventory');
-             Route::get('comments/{project}', 'ProjectController@comments')->name('comments');
-             Route::get('notification/{project}', 'ProjectController@notifications')->name('notifications');
-         });
-     });
+            Route::post('comment', 'ProjectController@comment')->name('comment');
+
+            Route::post('member/add/{project}', 'ProjectController@addMember')->name('addMember');
+            Route::post('member/remove', 'ProjectController@removeMember')->name('removeMember');
+            Route::post('member/updaterole', 'ProjectController@updateRole')->name('updateRole');
+            Route::post('time/update/{project}', 'ProjectController@updateTime')->name('updateTime');
+
+            Route::post('member/updatebudget', 'ProjectController@updateBudget')->name('updateBudget');
+            Route::post('member/updateInfo', 'ProjectController@updateInfo')->name('updateInfo');
+            
+            Route::get('team/{project}', 'ProjectController@team')->name('team');
+            Route::get('tasks/{project}', 'ProjectController@tasks')->name('tasks');
+            Route::get('activity/{project}', 'ProjectController@activity')->name('activity');
+            Route::get('timeline/{project}', 'ProjectController@timeline')->name('timeline');
+            Route::get('resources/{project}', 'ProjectController@resources')->name('resources');
+            Route::get('budget/{project}', 'ProjectController@budget')->name('budget');
+            Route::get('inventory/{project}', 'ProjectController@inventory')->name('inventory');
+            Route::get('comments/{project}', 'ProjectController@comments')->name('comments');
+            Route::get('notification/{project}', 'ProjectController@notifications')->name('notifications');
+        });
+    });
 
     //tasks
     Route::resource('tasks', 'TaskController');
@@ -370,9 +361,7 @@ Route::middleware('auth')->group(function() {
             Route::post('status/update/{quote}', 'QuoteController@updateStatus')->name('updateStatus');
             Route::get('download/{id}', 'QuoteController@download')->name('download');
         });
-    });
-        
-    
+    });  
 
     //payments
     Route::resource('payments', 'PaymentController');
@@ -384,17 +373,17 @@ Route::middleware('auth')->group(function() {
         });
     });
 
-     //messaging
-     Route::resource('messages', 'MessageController');
-     Route::name('messages.')->group(function() {
-         Route::prefix('messages')->group(function() {
-             Route::get('/', 'MessageController@index')->name('index');
-             Route::post('filter', 'MessageController@filter')->name('filter');
-             Route::post('search', 'MessageController@search')->name('search');
-         });
-     });
+    //messaging
+    Route::resource('messages', 'MessageController');
+    Route::name('messages.')->group(function() {
+        Route::prefix('messages')->group(function() {
+            Route::get('/', 'MessageController@index')->name('index');
+            Route::post('filter', 'MessageController@filter')->name('filter');
+            Route::post('search', 'MessageController@search')->name('search');
+        });
+    });
 
-      //payments
+    //payments
     Route::resource('reports', 'ReportController');
     Route::name('reports.')->group(function() {
         Route::prefix('reports')->group(function() {
