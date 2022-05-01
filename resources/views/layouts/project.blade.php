@@ -330,10 +330,10 @@
                             @role('Super User|Level 1|Level 2|Level 3')
                                 
                                 @if ($project->status_id != $completed)
-                                <button class="btn btn-sm btn-outline-success align-right mt-1" data-toggle="modal" data-target="#updateBudget">Update Budget</button>
+                                <!-- <button class="btn btn-sm btn-outline-success align-right mt-1" data-toggle="modal" data-target="#updateBudget">Update Budget</button> -->
                                 @endif
 
-                                <div class="modal fade" id="updateBudget" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                <!-- <div class="modal fade" id="updateBudget" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -376,7 +376,7 @@
                                             </form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             @endrole
 
                             @role('Super User|Level 1|Level 2|Level 3')
@@ -412,6 +412,8 @@
                                                             <option value="{{ $pending }}">In Progress</option>
                                                             <option value="{{ $queried }}">Queried</option>
                                                             <option value="{{ $completed }}">Completed</option>
+                                                            <option value="{{ $inactive }}">Deactivate</option>
+                                                            <option value="{{ $active }}">Activate</option>
                                                         </select>
                                                         </div>
                                                     </div>
@@ -486,8 +488,8 @@
                             @endrole
 
                             @role('Super User|Level 1|Level 2|Level 3')
-                                <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateProject{{$project->id}}">Update Details</a>
-                                <div class="modal fade" id="updateProject{{$project->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                <!-- <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateProject{{$project->id}}">Update Details</a> -->
+                                <!-- <div class="modal fade" id="updateProject{{$project->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
                                     <div class="modal-dialog text-left" role="document">
                                         <div class="modal-content">
@@ -556,7 +558,7 @@
                                             </form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             @endrole
                         </div>
 

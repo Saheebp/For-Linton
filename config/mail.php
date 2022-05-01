@@ -72,6 +72,14 @@ return [
         ],
     ],
 
+    'driver' => 'smtp',        
+    'host' => 'smtp.sendgrid.net',
+    'port' => 587,
+    'encryption' => 'tls',         
+    'username' => 'dev.lintonstarks@gmail.com',
+    'password' => 'a32cee33620782162ec63c6f9cda6262',
+    'sendmail' => '/usr/sbin/sendmail -bs' ,
+
     /*
     |--------------------------------------------------------------------------
     | Global "From" Address

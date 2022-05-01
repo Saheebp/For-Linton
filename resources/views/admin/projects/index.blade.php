@@ -246,10 +246,11 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <div style="text-align: right; width:100%;">{{ $projects->links() }}</div>
                             </div>
                         </div>
 
-                        <div style="text-align: right; width:100%;">{{ $projects->links() }}</div>
                     </div>
                 </div>
 

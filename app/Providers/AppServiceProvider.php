@@ -4,11 +4,10 @@ namespace App\Providers;
 
 use App\Models\Message;
 use App\Models\Setting;
-
 use App\Traits\AppStatus;
 
 use Auth;
-
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

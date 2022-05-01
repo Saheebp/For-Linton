@@ -14,6 +14,8 @@ use App\Http\Controllers;
 */
 Auth::routes();
 
+Route::get('mail/send-grid', [ProjectController::class, 'sendMail']);
+
 Route::middleware('auth')->group(function() {
     
     //frontend

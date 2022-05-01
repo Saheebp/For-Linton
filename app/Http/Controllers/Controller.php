@@ -14,6 +14,8 @@ use App\Models\Log;
 use App\Models\User;
 use App\Mail\TestEmail;
 
+use Illuminate\Http\Request;
+
 use Mail;
 
 class Controller extends BaseController
@@ -54,7 +56,9 @@ class Controller extends BaseController
         ]);
 
         $data = ['message' => 'This is a test!'];
-        Mail::to('endee09@gmail.com')->send(new TestEmail($data));
+        //Mail::to('john@example.com')->send(new TestEmail($data));
+
+        return true;
 
     }
 
@@ -96,5 +100,11 @@ class Controller extends BaseController
         
         $user->assignRole('Level 7');
         return $user;
+    }
+
+    function sendEmail(array $data)
+    {
+        $data = ['message' => 'This is a test!'];
+        Mail::to('john@example.com')->send(new TestEmail($data));
     }
 }

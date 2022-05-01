@@ -182,14 +182,13 @@ class TaskController extends Controller
 
         try 
         {
-            
             //if project is physical
             //get gps coordinates
-            $position = Location::get();
+            //$position = Location::get();
 
             //match coordinates with project coordinates
             //distance($lat1, $lon1, $lat2, $lon2, $unit)
-            $distance_from_project_site = $this->distance($position->latitude, $position->longitude, $task->latitude, $task->latitude, "K");
+            //$distance_from_project_site = $this->distance($position->latitude, $position->longitude, $task->latitude, $task->latitude, "K");
             //dd($distance_from_project_site);
             if (1) {
                 # code...
@@ -221,18 +220,30 @@ class TaskController extends Controller
             }
 
             //notify project manager
-
             $task->update([
                 'status_id' => $request->status,
-                'latitude' => $position->latitude,
-                'longitude' => $position->longitude,
+                //'latitude' => $position->latitude,
+                //'longitude' => $position->longitude,
             ]);
             $task->save();
+
+            $data = array();
+            $data['body'] = auth()->user()->name." Updated status of a Task";
+            $data['project_id'] = NULL;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['grand_task_id'] = NULL;
+            $data['great_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+
+            $this->createLog($data);
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Task Status updated successfully.');
         }
         catch (\Exception $e) 
         {
+            dd($e);
             return back()->with('error', "Oops, Error Updating Task Status");
         }
     }
@@ -465,7 +476,6 @@ class TaskController extends Controller
         }
     }
 
-
     public function uploadResource(Request $request, Task $task)
     {
         $validated = $request->validate([
@@ -528,8 +538,7 @@ class TaskController extends Controller
             return back()->with('error', "Oops, Unable to download resource, check connection");
         }
     }
-
-    
+ 
     public function uploadDetails(Request $request, Task $task)
     {
         $validated = $request->validate([
@@ -592,8 +601,8 @@ class TaskController extends Controller
         //
     }
 
-    function distance($lat1, $lon1, $lat2, $lon2, $unit) {
-
+    function distance($lat1, $lon1, $lat2, $lon2, $unit) 
+    {
         $theta = $lon1 - $lon2;
         $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
         $dist = acos($dist);
@@ -608,5 +617,7 @@ class TaskController extends Controller
         } else {
             return $miles;
         }
-      }
+    }
+
+    
 }

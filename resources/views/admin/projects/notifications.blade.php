@@ -11,35 +11,33 @@
             // $totalweeks = round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 / 7);
         ?>
 
-        <div class="table-responsive text-nowrap overflow-auto ">
-            
-        <table id="example1" class="table table-striped">
-            <tbody>
-                @foreach($project->notifications as $notification)
-                    <tr>
-                        <td>
+        <div class="table-responsive text-nowrap overflow-auto ">    
+            <table id="example1" class="table table-striped">
+                <tbody>
+                    @foreach($project->notifications as $notification)
+                        <tr>
+                            <td>
 
-                            @if ($notification->project_id != NULL)
-                                <span class="badge badge-secondary">project</span>
-                            @elseif ($notification->task_id != NULL)
-                                <span class="badge badge-secondary">task</span>
-                            @elseif ($notification->sub_task_id != NULL)
-                                <span class="badge badge-secondary">sub task</span>
-                            @elseif ($notification->grand_task_id != NULL)
-                                <span class="badge badge-secondary">grand</span>
-                            @elseif ($notification->great_task_id != NULL)
-                                <span class="badge badge-secondary">great</span>
-                            @endif
-                            <br>
+                                @if ($notification->project_id != NULL)
+                                    <span class="badge badge-secondary">project</span>
+                                @elseif ($notification->task_id != NULL)
+                                    <span class="badge badge-secondary">task</span>
+                                @elseif ($notification->sub_task_id != NULL)
+                                    <span class="badge badge-secondary">sub task</span>
+                                @elseif ($notification->grand_task_id != NULL)
+                                    <span class="badge badge-secondary">grand</span>
+                                @elseif ($notification->great_task_id != NULL)
+                                    <span class="badge badge-secondary">great</span>
+                                @endif
+                                <br>
 
-                            {{ $notification->body }}<br>
-                            <b>{{ date('d M Y, h:ia', strtotime($notification->created_at)) }}</b>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        
+                                {{ $notification->body }}<br>
+                                <b>{{ date('d M Y, h:ia', strtotime($notification->created_at)) }}</b>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @stop

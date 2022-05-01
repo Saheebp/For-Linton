@@ -8,26 +8,28 @@
         </p> -->
 
         @if ($project->logs->count() != 0)
-        <table id="example1" class="table table-striped">
-            <thead>
-                <tr>
-                    <th style="width:20%;">Date</th>
-                    <th style="width:80%;">Activity</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($project->logs as $log)
+        <div class="table-responsive">
+            <table id="example1" class="table table-striped">
+                <thead>
                     <tr>
-                        <td class="text-left">
-                            {{ date('d M Y, H:ia', strtotime($log->created_at)) }}
-                        </td>
-                        <td style="width:10%;">
-                            {{ $log->body ?? '' }}
-                        </td>
+                        <th style="width:20%;">Date</th>
+                        <th style="width:80%;">Activity</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($project->logs as $log)
+                        <tr>
+                            <td class="text-left">
+                                {{ date('d M Y, H:ia', strtotime($log->created_at)) }}
+                            </td>
+                            <td style="width:10%;">
+                                {{ $log->body ?? '' }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         @endif
 
     </div>
