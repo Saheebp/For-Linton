@@ -71,7 +71,7 @@ class SubTaskController extends Controller
             ]);
 
             $data = array();
-            $data['body'] = auth()->user()->name." created a Sub Task : ".$request->name.", Details: ".$request->start."-".$request->end;
+            $data['body'] = auth()->user()->name." created a Sub Task : ".$request->name.", Details: ".$request->start."-".$request->end." on Project : ".$subtask->project->id."[".$subtask->project->name."]";
             $data['project_id'] = $request->project_id;
             $data['task_id'] = $request->task_id;
             $data['sub_task_id'] = $subtask->id;
@@ -103,7 +103,7 @@ class SubTaskController extends Controller
             $user = User::find($request->member);
 
             $data = array();
-            $data['body'] = auth()->user()->name." added ".$user->name." as executor for Sub Task : ".$subtask->name;
+            $data['body'] = auth()->user()->name." added ".$user->name." as executor for Sub Task : ".$subtask->name." on Project : ".$subtask->project->id."[".$subtask->project->name."]";
             $data['project_id'] = NULL;
             $data['task_id'] = $subtask->task->id;
             $data['sub_task_id'] = $subtask->id;

@@ -72,13 +72,13 @@ return [
         ],
     ],
 
-    'driver' => 'smtp',        
-    'host' => 'smtp.sendgrid.net',
-    'port' => 587,
-    'encryption' => 'tls',         
-    'username' => 'dev.lintonstarks@gmail.com',
-    'password' => 'a32cee33620782162ec63c6f9cda6262',
-    'sendmail' => '/usr/sbin/sendmail -bs' ,
+    // 'driver' => 'smtp',        
+    // 'host' => 'smtp.sendgrid.net',
+    // 'port' => 587,
+    // 'encryption' => 'tls',         
+    // 'username' => 'dev.lintonstarks@gmail.com',
+    // 'password' => 'a32cee33620782162ec63c6f9cda6262',
+    // 'sendmail' => '/usr/sbin/sendmail -bs' ,
 
     /*
     |--------------------------------------------------------------------------
@@ -92,8 +92,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@lintonstarksmanager.com'),
+        'name' => env('MAIL_FROM_NAME', 'Project Manager'),
     ],
 
     /*

@@ -55,8 +55,16 @@ class Controller extends BaseController
             'payment_id' => $data['payment_id'] ?? NULL
         ]);
 
-        $data = ['message' => 'This is a test!'];
-        //Mail::to('john@example.com')->send(new TestEmail($data));
+        $user = User::find($data['user_id']);
+        $details = [
+            'title' => 'Notification from Project Manager',
+            'header' => $data['header'],
+            'body' => $data['body'],
+            'footer' => $data['footer']
+        ];
+
+        \Mail::to('dev.lintonstarks@gmail.com')->send(new \App\Mail\AppMail($details));
+        //\Mail::to($user->email)->send(new \App\Mail\AppMail($details));
 
         return true;
 
