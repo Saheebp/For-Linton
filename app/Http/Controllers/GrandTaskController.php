@@ -117,7 +117,7 @@ class GrandTaskController extends Controller
         $greattasks = GreatTask::where('grand_task_id',$grandtask->id)
         ->where('status_id', '!=', config('completed'))->get();
         
-        dd($greattasks);
+        //dd($greattasks);
         
         if (!$greattasks->isEmpty()) {
             return back()->with('error', "Oops, You cannot update this Task status due to pending great tasks");
