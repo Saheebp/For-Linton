@@ -117,8 +117,10 @@ class GrandTaskController extends Controller
         $greattasks = GreatTask::where('grand_task_id',$grandtask->id)
         ->where('status_id', '!=', config('completed'))->get();
         
+        dd($greattasks);
+        
         if (!$greattasks->isEmpty()) {
-            return back()->with('error', "Oops, You cannot update this project status due to pending great tasks");
+            return back()->with('error', "Oops, You cannot update this Task status due to pending great tasks");
         }
 
         try 
@@ -129,7 +131,7 @@ class GrandTaskController extends Controller
             $grandtask->save();
 
             $data = array();
-            $data['body'] = auth()->user()->name." Updated status of a Task(grand) | ".$grandtask->name." on Project : ".$grandtask->project->id."[".$grandtask->project->name."]";
+            $data['body'] = auth()->user()->name." Updated status of a Task(grand) | ".$grandtask->name." on Project : ".$grandtask->project->id." [".$grandtask->project->name."]";
             $data['project_id'] = NULL;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;

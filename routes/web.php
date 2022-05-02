@@ -14,16 +14,6 @@ use App\Http\Controllers;
 */
 Auth::routes();
 
-Route::get('send-mail', function () {
-    $details = [
-        'title' => 'Mail from lintonstarksmanager.com',
-        'body' => 'This is for testing email using smtp'
-    ];
-
-    \Mail::to('endee09@gmail.com')->send(new \App\Mail\AppMail($details));
-    dd("Email is Sent.");
-});
-
 Route::middleware('auth')->group(function() {
     
     //frontend
@@ -209,6 +199,8 @@ Route::middleware('auth')->group(function() {
     Route::name('projects.')->group(function() {
         Route::prefix('projects')->group(function() {
             Route::get('/', 'ProjectController@index')->name('index');
+
+            Route::get('/filter/type/{status?}', 'ProjectController@indexFilter')->name('indexFilter');
             Route::post('filter', 'ProjectController@filter')->name('filter');
             Route::post('search', 'ProjectController@search')->name('search');
             
