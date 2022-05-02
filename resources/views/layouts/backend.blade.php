@@ -336,7 +336,7 @@
 
                     @role('Super User|Level 1|Level 2|Level 3|Level 4|Level 5')
                     <li class="@if(request()->is('projects')) active @endif">
-                        <a href=#">
+                        <a href="#">
                             <i class="fa fa-tasks"></i>
                             <span class="link-title menu_hide">&nbsp; Projects</span>
                             <span class="fa arrow menu_hide"></span>
