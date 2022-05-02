@@ -78,7 +78,7 @@ class TaskController extends Controller
             ]);
 
             $data = array();
-            $data['body'] = auth()->user()->name." created a Task : ".$request->name.", running from ".$request->start." to ".$request->end." on Project : ".$task->project->id."[".$task->project->name."]";
+            $data['body'] = auth()->user()->name." created a Task : ".$request->name.", running from ".$request->start." to ".$request->end." on Project : ".$task->project->id." [".$task->project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -156,7 +156,7 @@ class TaskController extends Controller
             $task->save();
 
             $data = array();
-            $data['body'] = auth()->user()->name." updated a Task ".$task->name." on Project : ".$task->project->id."[".$task->project->name."]";
+            $data['body'] = auth()->user()->name." updated a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."]";
             //$data['project_id'] = $project->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -228,7 +228,7 @@ class TaskController extends Controller
             $task->save();
 
             $data = array();
-            $data['body'] = auth()->user()->name." Updated status of a Task ".$task->name." on Project : ".$task->project->id."[".$task->project->name."]";
+            $data['body'] = auth()->user()->name." Updated status of a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."]";
             $data['project_id'] = NULL;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -332,7 +332,7 @@ class TaskController extends Controller
             $user = User::find($request->executor);
 
             $data = array();
-            $data['body'] = auth()->user()->name." started Task : ".$task->name.", on Project : ".$task->project->id."[".$task->project->name."]";
+            $data['body'] = auth()->user()->name." started Task : ".$task->name.", on Project : ".$task->project->id." [".$task->project->name."]";
             $data['project_id'] = $task->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -368,7 +368,7 @@ class TaskController extends Controller
             $user = User::find($request->member);
             
             $data = array();
-            $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name." on Project : ".$task->project->id."[".$task->project->name."]";
+            $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name." on Project : ".$task->project->id." [".$task->project->name."]";
             $data['project_id'] = $task->project->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -396,7 +396,7 @@ class TaskController extends Controller
             $user = User::find($request->member);
             
             $data = array();
-            $data['body'] = auth()->user()->name." removed ".$user->name." from Task : ".$task->name." on Project : ".$task->project->id."[".$task->project->name."]";
+            $data['body'] = auth()->user()->name." removed ".$user->name." from Task : ".$task->name." on Project : ".$task->project->id." [".$task->project->name."]";
             $data['project_id'] = $task->project->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -430,7 +430,7 @@ class TaskController extends Controller
             ]);
 
             $data = array();
-            $data['body'] = auth()->user()->name." commented on ".$comment->task->name." on Project : ".$comment->project->id."[".$comment->project->name."]";
+            $data['body'] = auth()->user()->name." commented on ".$comment->task->name." on Project : ".$comment->project->id." [".$comment->project->name."]";
             $data['project_id'] = $comment->project_id;
             $data['task_id'] = $comment->task_id;
             $data['sub_task_id'] = NULL;

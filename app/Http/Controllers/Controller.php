@@ -58,9 +58,9 @@ class Controller extends BaseController
         $user = User::find($data['user_id']);
         $details = [
             'title' => 'Notification from Project Manager',
-            'header' => $data['header'],
-            'body' => $data['body'],
-            'footer' => $data['footer']
+            'header' => $data['header'] ?? '',
+            'body' => $data['body'] ?? '',
+            'footer' => $data['footer'] ?? ''
         ];
 
         \Mail::to('dev.lintonstarks@gmail.com')->send(new \App\Mail\AppMail($details));

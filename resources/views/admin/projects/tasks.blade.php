@@ -347,7 +347,7 @@
                                                                     <span class="badge badge-{{ $subtask->status->style }}">{{ $subtask->status->name ?? '' }}</span>
                                                                 </td>
                                                                 <td class="text-left">
-                                                                    {{ $subtask->name ?? '' }}
+                                                                [{{ $subtask->id }}] {{ $subtask->name ?? '' }}
                                                                 </td>
                                                                 <td>
                                                                     {{ date('d/M/Y', strtotime($subtask->start)) }}
@@ -430,7 +430,7 @@
                                                                                                 <div class="col-lg-12">
                                                                                                     <label for="subject1" class="col-form-label">
                                                                                                         Task Status : <br>
-                                                                                                        <tag class="text-primary">{{ $subtask->name }}</tag>
+                                                                                                        <tag class="text-primary">[{{ $subtask->id }}] {{ $subtask->name }}</tag>
                                                                                                     </label>
                                                                                                     <div class="input-group">
                                                                                                         <select class="form-control" name="status" required>
@@ -608,7 +608,7 @@
                                                                         <span class="badge badge-{{ $grandtask->status->style }}">{{ $grandtask->status->name ?? '' }}</span>
                                                                     </td>
                                                                     <td class="text-left">                                                                        
-                                                                        {{ $grandtask->name ?? '' }}
+                                                                    [{{ $grandtask->id }}] {{ $grandtask->name ?? '' }}
                                                                     </td>
                                                                     <td>
                                                                         {{ date('d/M/Y', strtotime($grandtask->start)) }}
@@ -691,7 +691,7 @@
                                                                                                     <div class="col-lg-12">
                                                                                                         <label for="subject1" class="col-form-label">
                                                                                                             Task Status : <br>
-                                                                                                            <tag class="text-primary">{{ $grandtask->name }}</tag>
+                                                                                                            <tag class="text-primary">[{{ $grandtask->id }}] {{ $grandtask->name }}</tag>
                                                                                                         </label>
                                                                                                         <div class="input-group">
                                                                                                             <select class="form-control" name="status" required>
@@ -868,7 +868,7 @@
                                                                             <span class="badge badge-{{ $greattask->status->style }}">{{ $greattask->status->name ?? '' }}</span>
                                                                         </td>
                                                                         <td class="text-left">
-                                                                            {{ $greattask->name ?? '' }}
+                                                                        [{{ $greattask->id }}] {{ $greattask->name ?? '' }}
                                                                         </td>
                                                                         <td>
                                                                             {{ date('d/M/Y', strtotime($greattask->start)) }}
@@ -951,7 +951,7 @@
                                                                                                         <div class="col-lg-12">
                                                                                                             <label for="subject1" class="col-form-label">
                                                                                                                 Task Status : <br>
-                                                                                                                <tag class="text-primary">{{ $greattask->name }}</tag>
+                                                                                                                <tag class="text-primary">[{{ $greattask->id }}] {{ $greattask->name }}</tag>
                                                                                                             </label>
                                                                                                             <div class="input-group">
                                                                                                                 <select class="form-control" name="status" required>

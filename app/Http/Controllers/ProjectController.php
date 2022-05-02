@@ -41,12 +41,24 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( $status = null)
     {
-        //
-        $projects = Project::orderBy('created_at', 'desc')->paginate(10);
+        $projects = Project::orderBy('created_at', 'desc')->paginate(20);
+        $all_projects = Project::all();
         
         return view('admin.projects.index', [
+            'all_projects' => $all_projects,
+            'projects' => $projects,
+        ]);
+    }
+
+    public function indexFilter($status)
+    {
+        $projects = Project::where('status_id',$status)->orderBy('created_at', 'desc')->paginate(10);
+        $all_projects = Project::all();
+        
+        return view('admin.projects.index', [
+            'all_projects' => $all_projects,
             'projects' => $projects,
         ]);
     }
@@ -467,7 +479,7 @@ class ProjectController extends Controller
             }
             
             $data = array();
-            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension." to Project : ".$project->id."[".$project->name."]";
+            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension." to Project : ".$project->id." [".$project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -531,7 +543,7 @@ class ProjectController extends Controller
             $user = User::find($request->member);
 
             $data = array();
-            $data['body'] = auth()->user()->name." added ".$user->name." to Project : ".$project->id."[".$project->name."]";
+            $data['body'] = auth()->user()->name." added ".$user->name." to Project : ".$project->id." [".$project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -561,7 +573,7 @@ class ProjectController extends Controller
             $member->delete();
             
             $data = array();
-            $data['body'] = auth()->user()->name." removed ".$user->name." from Project : ".$project->id."[".$project->name."]";
+            $data['body'] = auth()->user()->name." removed ".$user->name." from Project : ".$project->id." [".$project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -590,7 +602,7 @@ class ProjectController extends Controller
             ]);
 
             $data = array();
-            $data['body'] = auth()->user()->name." commented on a Project : ".$project->id."[".$project->name."]";
+            $data['body'] = auth()->user()->name." commented on a Project : ".$project->id." [".$project->name."]";
             $data['project_id'] = $comment->project_id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
