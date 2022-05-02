@@ -14,7 +14,15 @@ use App\Http\Controllers;
 */
 Auth::routes();
 
-Route::get('mail/send-grid', [ProjectController::class, 'sendMail']);
+Route::get('send-mail', function () {
+    $details = [
+        'title' => 'Mail from lintonstarksmanager.com',
+        'body' => 'This is for testing email using smtp'
+    ];
+
+    \Mail::to('endee09@gmail.com')->send(new \App\Mail\AppMail($details));
+    dd("Email is Sent.");
+});
 
 Route::middleware('auth')->group(function() {
     

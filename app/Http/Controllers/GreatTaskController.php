@@ -118,7 +118,7 @@ class GreatTaskController extends Controller
             $greattask->save();
 
             $data = array();
-            $data['body'] = auth()->user()->name." Updated status of a Task(grand)";
+            $data['body'] = auth()->user()->name." Updated status of a Task(great) ".$greattask->name." on Project : ".$greattask->project->id."[".$greattask->project->name."]";
             $data['project_id'] = NULL;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;

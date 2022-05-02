@@ -467,7 +467,7 @@ class ProjectController extends Controller
             }
             
             $data = array();
-            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension;
+            $data['body'] = auth()->user()->name." uploaded a resource ".$request->name.", Details: ".$fileextension." to Project : ".$project->id."[".$project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -531,7 +531,7 @@ class ProjectController extends Controller
             $user = User::find($request->member);
 
             $data = array();
-            $data['body'] = auth()->user()->name." added ".$user->name." to Project : ".$project->name;
+            $data['body'] = auth()->user()->name." added ".$user->name." to Project : ".$project->id."[".$project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -539,21 +539,16 @@ class ProjectController extends Controller
 
             $this->createLog($data);
             $this->CreateNotification($data);
-            //$this->sendMail($data);
 
             return back()->with('success', 'Staff added to project successfully.');
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error adding Staff to Project");
         }
     }
-    public function sendMail(Array $data){
-        
-        $input = ['message' => 'This is a test!'];
-        Mail::to('pm@lintonstarksmanager.com')->send(new TestEmail($input));
-    }
+    
 
     public function removeMember(Request $request)
     {
@@ -566,7 +561,7 @@ class ProjectController extends Controller
             $member->delete();
             
             $data = array();
-            $data['body'] = auth()->user()->name." removed ".$user->name." from Project : ".$project->name;
+            $data['body'] = auth()->user()->name." removed ".$user->name." from Project : ".$project->id."[".$project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -595,7 +590,7 @@ class ProjectController extends Controller
             ]);
 
             $data = array();
-            $data['body'] = auth()->user()->name." commented on a project";
+            $data['body'] = auth()->user()->name." commented on a Project : ".$project->id."[".$project->name."]";
             $data['project_id'] = $comment->project_id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -654,7 +649,7 @@ class ProjectController extends Controller
             $project->save();
 
             $data = array();
-            $data['body'] = auth()->user()->name." commented on a project";
+            $data['body'] = auth()->user()->name." commented on a project : ".$project->id."[".$project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -694,7 +689,7 @@ class ProjectController extends Controller
             //$user = User::find($request->member);
 
             $data = array();
-            $data['body'] = auth()->user()->name." updated ".$ProjectMember->user->name."'s role to ".$designation->name;
+            $data['body'] = auth()->user()->name." updated ".$ProjectMember->user->name."'s role to ".$designation->name." on Project : ".$project->id."[".$project->name."]";
             $data['project_id'] = $request->project;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -734,7 +729,7 @@ class ProjectController extends Controller
             }
             
             $data = array();
-            $data['body'] = auth()->user()->name." updated ".$project->name."'s budget to ".$request->budget;
+            $data['body'] = auth()->user()->name." updated ".$project->name."'s budget to ".$request->budget." on Project : ".$project->id."[".$project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
