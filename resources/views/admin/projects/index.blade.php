@@ -54,67 +54,133 @@
         <div class="inner bg-container">
             <div class="card">
                 <div class="card-body m-t-35">
+                    
                     <div class="row widget_countup">
                         
-                        <div class="col-12 col-sm-6 col-xl-3 media_max_573">
-                            <div id="top_widget2">
-
-                                <div class="">
-                                    <div class="bg-white text-warning b_r_5 section_border">
-                                        <div class="p-t-l-r-15">
-                                            <div id="widget_countup22">{{ $projects->where('status_id', $pending)->count() }}</div>
-                                            <div>Pending Projects</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
                         <div class="col-12 col-sm-6 col-xl-3">
                             <div id="top_widget1">
+                                <!-- <div class="front">
+                                    <div class="bg-primary p-d-15 b_r_5">
+                                        <div class="float-right m-t-5">
+                                            <i class="fa fa-users"></i>
+                                        </div>
+                                        <div class="user_font">Customers</div>
+                                        <div id="widget_countup1">3,250</div>
+                                        <div class="tag-white">
+                                            <span id="percent_count1">85</span>%
+                                        </div>
+                                        <div class="previous_font">Yearly Users stats</div>
+                                    </div>
+                                </div> -->
                                 
                                 <div class="">
-                                    <div class="bg-white text-primary text-white b_r_5 section_border">
-                                        <div class="p-t-l-r-15">
-                                            <div id="widget_countup12">{{ $projects->where('status_id', $queried)->count() }}</div>
-                                            <div>Queried Projects</div>
+                                    <a class="text-dark" href="{{ route('projects.index') }}">
+                                        <div class="bg-white text-primary text-white b_r_5 section_border">
+                                            <div class="p-t-l-r-15">
+                                                <div id="widget_countup12">{{ $projects->where('status_id', $new)->count() }}</div>
+                                                <div>New Projects</div>
+                                            </div>
+                                            <div>&nbsp;</div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-
+        
+                        <div class="col-12 col-sm-6 col-xl-3 media_max_573">
+                            <div id="top_widget2">
+                                <!-- <div class="front">
+                                    <div class="bg-success p-d-15 b_r_5">
+                                        <div class="float-right m-t-5">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </div>
+                                        <div class="user_font">Income</div>
+                                        <div id="widget_countup2">1,140</div>
+                                        <div class="tag-white">
+                                            <span id="percent_count2">60</span>%
+                                        </div>
+                                        <div class="previous_font">Sales per month</div>
+                                    </div>
+                                </div> -->
+        
+                                <div class="">
+                                    <a class="text-dark" href="{{ route('projects.index') }}">
+                                        <div class="bg-white text-warning b_r_5 section_border">
+                                            <div class="p-t-l-r-15">
+                                                <div id="widget_countup22">{{ $projects->where('status_id', $pending)->count() }}</div>
+                                                <div>Pending Projects</div>
+                                            </div>
+                                            <div>&nbsp;</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+        
+                        </div>
+        
                         <div class="col-12 col-sm-6 col-xl-3 media_max_1199">
                             <div id="top_widget3">
-                                
-                                <div class="">
-                                    <div class="bg-white text-dark b_r_5 section_border">
-                                        <div class="p-t-l-r-15">
-                                            <div id="widget_countup12"> {{ $projects->where('status_id', $completed)->count() }}</div>
-                                            <div>Completed Projects</div>
+                                <!-- <div class="front">
+                                    <div class="bg-warning p-d-15 b_r_5">
+                                        <div class="float-right m-t-5">
+                                            <i class="fa fa-comments-o"></i>
                                         </div>
+                                        <div class="user_font">Bookings</div>
+                                        <div id="widget_countup3">85</div>
+                                        <div class="tag-white ">
+                                            <span id="percent_count3">30</span>%
+                                        </div>
+                                        <div class="previous_font">Monthly comments</div>
                                     </div>
+                                </div> -->
+        
+                                <div class="">
+                                    <a class="text-dark" href="{{ route('projects.index') }}">
+                                        <div class="bg-white text-dark b_r_5 section_border">
+                                            <div class="p-t-l-r-15">
+                                                <div id="widget_countup12"> {{ $projects->where('status_id', $completed)->count() }}</div>
+                                                <div>Completed Projects</div>
+                                            </div>
+                                            <div>&nbsp;</div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
-
+        
                         </div>
-
+        
                         <div class="col-12 col-sm-6 col-xl-3 media_max_1199">
                             <div id="top_widget4">
-                                
-                                <div class="">
-                                    <div class="bg-white text-danger b_r_5 section_border">
-                                        <div class="p-t-l-r-15">
-                                            <div id="widget_countup12"> {{ $projects->where('status_id', $overdue)->count() }}</div>
-                                            <div>Overdue Projects</div>
+                                <!-- <div class="front">
+                                    <div class="bg-danger p-d-15 b_r_5">
+                                        <div class="float-right m-t-5">
+                                            <i class="fa fa-star-o"></i>
                                         </div>
+                                        <div class="user_font">Rating</div>
+                                        <div id="widget_countup4">8</div>
+                                        <div class="tag-white">
+                                            <span id="percent_count4">80</span>%
+                                        </div>
+                                        <div class="previous_font">This month ratings </div>
                                     </div>
+                                </div> -->
+        
+                                <div class="">
+                                    <a class="text-dark" href="{{ route('projects.index') }}">
+                                        <div class="bg-white text-danger b_r_5 section_border">
+                                            <div class="p-t-l-r-15">
+                                                <div id="widget_countup12"> {{ $projects->where('status_id', $overdue)->count() }}</div>
+                                                <div>Overdue Projects</div>
+                                            </div>
+                                            <div>&nbsp;</div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
-
+        
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

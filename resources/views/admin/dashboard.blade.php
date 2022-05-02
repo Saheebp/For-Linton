@@ -48,12 +48,15 @@
                         </div> -->
                         
                         <div class="">
-                            <div class="bg-white text-primary text-white b_r_5 section_border">
-                                <div class="p-t-l-r-15">
-                                    <div id="widget_countup12">{{ $projects->where('status_id', $new)->count() }}</div>
-                                    <div>New Projects</div>
+                            <a class="text-dark" href="{{ route('projects.index') }}">
+                                <div class="bg-white text-primary text-white b_r_5 section_border">
+                                    <div class="p-t-l-r-15">
+                                        <div id="widget_countup12">{{ $projects->where('status_id', $new)->count() }}</div>
+                                        <div>New Projects</div>
+                                    </div>
+                                    <div>&nbsp;</div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -75,12 +78,15 @@
                         </div> -->
 
                         <div class="">
-                            <div class="bg-white text-warning b_r_5 section_border">
-                                <div class="p-t-l-r-15">
-                                    <div id="widget_countup22">{{ $projects->where('status_id', $pending)->count() }}</div>
-                                    <div>Pending Projects</div>
+                            <a class="text-dark" href="{{ route('projects.index') }}">
+                                <div class="bg-white text-warning b_r_5 section_border">
+                                    <div class="p-t-l-r-15">
+                                        <div id="widget_countup22">{{ $projects->where('status_id', $pending)->count() }}</div>
+                                        <div>Pending Projects</div>
+                                    </div>
+                                    <div>&nbsp;</div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
 
@@ -103,12 +109,15 @@
                         </div> -->
 
                         <div class="">
-                            <div class="bg-white text-dark b_r_5 section_border">
-                                <div class="p-t-l-r-15">
-                                    <div id="widget_countup12"> {{ $projects->where('status_id', $completed)->count() }}</div>
-                                    <div>Completed Projects</div>
+                            <a class="text-dark" href="{{ route('projects.index') }}">
+                                <div class="bg-white text-dark b_r_5 section_border">
+                                    <div class="p-t-l-r-15">
+                                        <div id="widget_countup12"> {{ $projects->where('status_id', $completed)->count() }}</div>
+                                        <div>Completed Projects</div>
+                                    </div>
+                                    <div>&nbsp;</div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
 
@@ -131,12 +140,15 @@
                         </div> -->
 
                         <div class="">
-                            <div class="bg-white text-danger b_r_5 section_border">
-                                <div class="p-t-l-r-15">
-                                    <div id="widget_countup12"> {{ $projects->where('status_id', $overdue)->count() }}</div>
-                                    <div>Overdue Projects</div>
+                            <a class="text-dark" href="{{ route('projects.index') }}">
+                                <div class="bg-white text-danger b_r_5 section_border">
+                                    <div class="p-t-l-r-15">
+                                        <div id="widget_countup12"> {{ $projects->where('status_id', $overdue)->count() }}</div>
+                                        <div>Overdue Projects</div>
+                                    </div>
+                                    <div>&nbsp;</div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
 
