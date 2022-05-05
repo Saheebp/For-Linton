@@ -30,6 +30,8 @@ class HomeController extends Controller
     public function dashboard()
     {
         $projects = Project::all();
+        $all_projects = Project::all();
+
         if (auth()->user()->is_contractor == 'true') 
         {
             $quotes = Quote::where('user_id', auth()->user()->id)
@@ -47,6 +49,7 @@ class HomeController extends Controller
             ]);
         }
         return view('admin.dashboard', [
+            'all_projects' => $all_projects,
             'projects' => $projects
         ]);
     }

@@ -902,4 +902,31 @@ class ProjectController extends Controller
         return $fileurl;
     }
 
+    public function sendReminderMember(Request $request, Project $project)
+    {
+        try 
+        {
+            $member = ProjectMember::find($request->member);
+            $project = Project::find($request->project);
+            $user = User::find($member->user_id);
+
+            $data = array();
+            $data['body'] = auth()->user()->name." sent a reminder to ".$user->name." on Project : ".$project->id." [".$project->name."]";
+            $data['project_id'] = $project->id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+
+            $this->createLog($data);
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Reminder sent successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            //dd($e);
+            return back()->with('error', "Oops, Error Sending reminder");
+        }
+    }
+
 }

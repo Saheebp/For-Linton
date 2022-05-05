@@ -133,8 +133,38 @@ class GreatTaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            //dd($e);
             return back()->with('error', "Oops, Error Updating Task Status");
+        }
+    }
+
+    public function sendReminderMember(Request $request, GreatTask $greattask)
+    {
+        try 
+        {
+            $member = ProjectMember::find($request->member);
+            $grandtask = GreatTask::find($request->greattask);
+            $user = User::find($member->user_id);
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." sent a reminder to ".$user->name." on Task : ".$greattask->id." [".$greattask->name."]";
+            $data['project_id'] = NULL;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['grand_task_id'] = NULL;
+            $data['great_task_id'] = $greattask->id;
+
+            $data['user_id'] = auth()->user()->id;
+
+            $this->createLog($data);
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Reminder sent successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            //dd($e);
+            return back()->with('error', "Oops, Error Sending reminder");
         }
     }
 }
