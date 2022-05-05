@@ -208,6 +208,7 @@ Route::middleware('auth')->group(function() {
             Route::post('upload/resource/{project}', 'ProjectController@uploadResource')->name('upload');
             Route::get('download/resource/{id}', 'ProjectController@download')->name('download');
 
+            Route::get('reminder/send/{project}', 'ProjectController@sendReminderMember')->name('reminder');
             Route::post('comment', 'ProjectController@comment')->name('comment');
 
             Route::post('member/add/{project}', 'ProjectController@addMember')->name('addMember');
@@ -241,6 +242,7 @@ Route::middleware('auth')->group(function() {
             
             Route::post('upload/resource/{task}', 'TaskController@uploadResource')->name('upload');
             Route::get('download/resource/{id}', 'TaskController@download')->name('download');
+            Route::get('reminder/send/{task}', 'TaskController@sendReminderMember')->name('reminder');
             
             Route::post('status/update/{task}', 'TaskController@updateStatus')->name('updateStatus');
             Route::post('cost/update/{task}', 'TaskController@updateCost')->name('updateCost');
@@ -266,6 +268,7 @@ Route::middleware('auth')->group(function() {
 
             Route::post('upload/resource/{subtask}', 'SubTaskController@uploadResource')->name('upload');
             Route::get('download/resource/{id}', 'SubTaskController@download')->name('download');
+            Route::get('reminder/send/{subtask}', 'SubTaskController@sendReminderMember')->name('reminder');
 
             Route::post('executor/update/{subtask}', 'SubTaskController@updateExecutor')->name('updateExecutor');
             Route::post('status/update/{subtask}', 'SubTaskController@updateStatus')->name('updateStatus');
@@ -288,6 +291,7 @@ Route::middleware('auth')->group(function() {
 
             Route::post('upload/resource/{grandtask}', 'GrandTaskController@uploadResource')->name('upload');
             Route::get('download/resource/{id}', 'GrandTaskController@download')->name('download');
+            Route::get('reminder/send/{grandtask}', 'GrandController@sendReminderMember')->name('reminder');
 
             Route::post('executor/update/{grandtask}', 'GrandTaskController@updateExecutor')->name('updateExecutor');
             Route::post('status/update/{grandtask}', 'GrandTaskController@updateStatus')->name('updateStatus');
@@ -310,6 +314,7 @@ Route::middleware('auth')->group(function() {
 
             Route::post('upload/resource/{greattask}', 'GreatTaskController@uploadResource')->name('upload');
             Route::get('download/resource/{id}', 'GreatTaskController@download')->name('download');
+            Route::get('reminder/send/{greattask}', 'GreatTaskController@sendReminderMember')->name('reminder');
 
             Route::post('executor/update/{greattask}', 'GreatTaskController@updateExecutor')->name('updateExecutor');
             Route::post('status/update/{greattask}', 'GreatTaskController@updateStatus')->name('updateStatus');

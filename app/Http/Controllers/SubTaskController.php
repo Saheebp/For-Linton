@@ -247,4 +247,31 @@ class SubTaskController extends Controller
     {
         //
     }
+
+    public function sendReminderMember(Request $request, SubTask $subtask)
+    {
+        try 
+        {
+            $member = ProjectMember::find($request->member);
+            $subtask = SubTask::find($request->subtask);
+            $user = User::find($member->user_id);
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." sent a reminder to ".$user->name." on Task : ".$subtask->id." [".$subtask->name."]";
+            $data['project_id'] = NULL;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = $subtask->id;
+            $data['user_id'] = auth()->user()->id;
+
+            $this->createLog($data);
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Reminder sent successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            //dd($e);
+            return back()->with('error', "Oops, Error Sending reminder");
+        }
+    }
 }
