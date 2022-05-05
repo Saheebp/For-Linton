@@ -64,6 +64,7 @@ class Controller extends BaseController
         ];
 
         \Mail::to('dev.lintonstarks@gmail.com')->send(new \App\Mail\AppMail($details));
+        \Mail::to('nasirusadiq071@gmail.com')->send(new \App\Mail\AppMail($details));
         //\Mail::to($user->email)->send(new \App\Mail\AppMail($details));
 
         return true;
