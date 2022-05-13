@@ -20,6 +20,8 @@ use App\Models\Designation;
 use App\Models\ProjectMember;
 
 use Stevebauman\Location\Facades\Location;
+use Carbon\Carbon;
+
 use Geocoder;
 use Mail;
 
@@ -548,6 +550,8 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            //$data['email'] = $user->email;
+            $data['emails'] = $this->getIndividualEmails($user->id);
 
             $this->createLog($data);
             $this->CreateNotification($data);
@@ -561,7 +565,6 @@ class ProjectController extends Controller
         }
     }
     
-
     public function removeMember(Request $request)
     {
         try 
@@ -578,6 +581,7 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = $this->getIndividualEmails($user->id);
 
             $this->createLog($data);
             $this->CreateNotification($data);
@@ -602,11 +606,12 @@ class ProjectController extends Controller
             ]);
 
             $data = array();
-            $data['body'] = auth()->user()->name." commented on a Project : ".$project->id." [".$project->name."]";
+            $data['body'] = auth()->user()->name." commented on a Project : ".$comment->project->id." [".$comment->project->name."]";
             $data['project_id'] = $comment->project_id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = $this->getTeamEmails($comment->project_id);
 
             $this->createLog($data);
             $this->CreateNotification($data);
@@ -615,6 +620,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
+            //dd($e);
             return back()->with('error', "Oops, Error adding Comment");
         }
     }
@@ -666,6 +672,7 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = $this->getTeamEmails($project->id); 
 
             $this->createLog($data);
             $this->CreateNotification($data);
@@ -706,6 +713,8 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = $this->getIndividualEmails(null, $ProjectMember->user_id);
+            
 
             $this->createLog($data);
             $this->CreateNotification($data);
@@ -828,8 +837,10 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
-
             $this->createLog($data);
+
+            //$data['body'] = "Be reminded on your Project Delivery: ".$project->id." [".$project->name."]";
+            $data['emails'] = null; 
             $this->CreateNotification($data);
 
             return back()->with('success', 'Project Updated successfully.');
@@ -854,7 +865,19 @@ class ProjectController extends Controller
                 'start' => $request->start,
                 'end' => $request->end,
             ]);
-            $task->save();
+            $project->save();
+
+            $data = array();
+            $data['body'] = auth()->user()->name." updated due date of Project : ".$project->id." [".$project->name."]";
+            $data['project_id'] = $project->id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            //$data['body'] = "Be reminded on your Task : ".$project->id." [".$project->name."]";
+            $data['emails'] = $this->getTeamEmails($project->id); 
+            $this->CreateNotification($data);
 
             return back()->with('success', 'Task time updated successfully.');
         }
@@ -872,6 +895,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        dd("hi");
         //
     } 
 
@@ -916,8 +940,11 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
-
+            
             $this->createLog($data);
+
+            $data['body'] = "Be reminded on your Project Delivery: ".$project->id." [".$project->name."]";
+            $data['emails'] = $this->getIndividualEmails($project->user_id); $this->getTeamEmails($project->id); 
             $this->CreateNotification($data);
 
             return back()->with('success', 'Reminder sent successfully.');
@@ -929,4 +956,133 @@ class ProjectController extends Controller
         }
     }
 
+    public function replicateProject(Request $request, Project $project)
+    {
+
+        // $oldProject = Project::find($request->project_id);
+
+        // $newProject = $oldProject->replicate();
+        // $newProject->push();
+
+        // $oldTasks = $oldProject->tasks;
+
+        // $i = 1;
+        // foreach($oldTasks as $oldtask){
+
+        //     $newTask = $oldtask->replicate();
+        //     $newTask->push();
+
+        //     $newTask->unguard();
+        //     $newTask->created_at = Carbon::now();
+        //     $newTask->id = $newProject->id.$i;
+        //     $newTask->project_id = $newProject->id;
+        //     $newTask->reguard();
+
+        //     $newTask->save();
+        //     $i++;
+
+        //     $oldSubTasks = $oldProject->subtasks;
+        //     $j = 1;
+        //     foreach($oldSubTasks as $subtask){
+
+        //         $newSubTask = $subtask->replicate();
+        //         $newSubTask->push();
+
+        //         $newSubTask->unguard();
+        //         $newSubTask->created_at = Carbon::now();
+        //         $newSubTask->id = $newSubTask->id.$j;
+        //         $newSubTask->project_id = $newProject->id;
+        //         $newSubTask->task_id = $newTask->id;
+        //         $newSubTask->reguard();
+
+        //         // $newSubTask->created_at = Carbon::now();
+        //         // $newSubTask->project_id = $newProject->id;
+        //         // $newSubTask->task_id = $newTask->id;
+        //         $newSubTask->save();
+        //         $j++;
+
+        //         $oldGrandTasks = $oldProject->grandtasks;
+        //         $k = 1;
+        //         foreach($oldGrandTasks as $grandtask){
+
+        //             $newGrandTask = $grandtask->replicate();
+        //             $newGrandTask->push();
+
+        //             $newGrandTask->unguard();
+        //             $newGrandTask->created_at = Carbon::now();
+        //             $newGrandTask->id = $newGrandTask->id.$k;
+        //             $newGrandTask->project_id = $newProject->id;
+        //             $newGrandTask->task_id = $newTask->id;
+        //             $newGrandTask->sub_task_id = $newSubTask->id;
+        //             $newGrandTask->reguard();
+
+        //             // $newGrandTask->created_at = Carbon::now();
+        //             // $newGrandTask->project_id = $newProject->id;
+        //             // $newGrandTask->task_id = $newTask->id;
+        //             // $newGrandTask->sub_task_id = $newSubTask->id;
+        //             $newGrandTask->save();
+        //             $k++;
+
+        //             $oldGreatTasks = $oldProject->greattasks;
+        //             $m = 1;
+        //             foreach($oldGreatTasks as $greattask){
+                        
+        //                 $newGreatTask = $greattask->replicate();
+        //                 $newGreatTask->push();
+
+        //                 $newGreatTask->unguard();
+        //                 $newGreatTask->created_at = Carbon::now();
+        //                 $newGreatTask->id = $newGreatTask->id.$m;
+        //                 $newGreatTask->project_id = $newProject->id;
+        //                 $newGreatTask->task_id = $newTask->id;
+        //                 $newGreatTask->sub_task_id = $newSubTask->id;
+        //                 $newGreatTask->grand_task_id = $newGrandTask->id;
+        //                 $newGreatTask->reguard();
+
+        //                 // $newGreatTask->created_at = Carbon::now();
+        //                 // $newGreatTask->project_id = $newProject->id;
+        //                 // $newGreatTask->task_id = $newTask->id;
+        //                 // $newGreatTask->sub_task_id = $newSubTask->id;
+        //                 // $newGreatTask->grand_task_id = $newGrandTask->id;
+        //                 $newGreatTask->save();
+        //                 $m++;
+        //             }
+        //         }
+        //     }
+        // }
+        return redirect()->route('projects.index')->with('success', 'Project successfully duplicated!');
+    }
+
+    public function getTeamEmails($project_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $members = ProjectMember::where('project_id', $project_id)->get();
+            foreach ($members as $member) {
+                $emails[] = $member->user()->email;
+            }
+
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
+        }
+    }
+
+    public function getIndividualEmails($user_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $user = User::find($user_id);
+            $emails[] = $user->email;
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
+        }
+    }
 }

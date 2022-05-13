@@ -228,6 +228,8 @@ Route::middleware('auth')->group(function() {
             Route::get('inventory/{project}', 'ProjectController@inventory')->name('inventory');
             Route::get('comments/{project}', 'ProjectController@comments')->name('comments');
             Route::get('notification/{project}', 'ProjectController@notifications')->name('notifications');
+
+            Route::post('replicate/{project}', 'ProjectController@replicateProject')->name('replicateProject');
         });
     });
 

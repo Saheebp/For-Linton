@@ -86,6 +86,7 @@ class TaskController extends Controller
             $this->createLog($data);
 
             $data['tag'] = 'task created';
+            $data['emails'] = null; 
             $this->CreateNotification($data);
 
             activity()
@@ -161,8 +162,11 @@ class TaskController extends Controller
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
-            
+
             $this->createLog($data);
+
+            //$data['body'] = "Be reminded on your Project Delivery: ".$project->id." [".$project->name."]";
+            $data['emails'] = $this->getTeamEmails($task->id); 
             $this->CreateNotification($data);
 
             return back()->with('success', 'Task updated successfully.');
@@ -235,8 +239,9 @@ class TaskController extends Controller
             $data['grand_task_id'] = NULL;
             $data['great_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
-
             $this->createLog($data);
+
+            $data['emails'] = $this->getTeamEmails($task->id); 
             $this->CreateNotification($data);
 
             return back()->with('success', 'Task Status updated successfully.');
@@ -339,7 +344,9 @@ class TaskController extends Controller
             $data['user_id'] = auth()->user()->id;
             $this->createLog($data);
 
+            $data['emails'] = $this->getIndividualEmails($user->id);
             $data['tag'] = 'task start';
+
             $this->CreateNotification($data);
 
             return back()->with('success', 'Task Position Updated successfully.');
@@ -376,6 +383,8 @@ class TaskController extends Controller
             $this->createLog($data);
 
             $data['tag'] = 'added task member';
+
+            $data['emails'] = $this->getIndividualEmails($user_id); 
             $this->CreateNotification($data);
 
             return back()->with('success', 'Team Member added successfully.');
@@ -401,8 +410,9 @@ class TaskController extends Controller
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
-            $this->createLog($data);
+            $data['emails'] = null; 
             
+            $this->createLog($data);
             $data['tag'] = 'removed task member';
             $this->CreateNotification($data);
 
@@ -435,6 +445,8 @@ class TaskController extends Controller
             $data['task_id'] = $comment->task_id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = $this->getTeamEmails($comment->task_id); 
+
             $this->createLog($data);
             
             $data['tag'] = 'task comment';
@@ -463,6 +475,7 @@ class TaskController extends Controller
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = null; 
             $this->createLog($data);
 
             return back()->with('success', 'Comment deleted successfully.');
@@ -509,6 +522,8 @@ class TaskController extends Controller
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = $this->getTeamEmails($task_id);
+
             $this->createLog($data);
             
             $data['tag'] = 'upload task resource';
@@ -574,6 +589,8 @@ class TaskController extends Controller
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = $this->getTeamEmails($task->id); 
+
             $this->createLog($data);
 
             $data['tag'] = 'upload task resource';
@@ -596,6 +613,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        dd("hi");
         //
     }
 
@@ -641,6 +659,38 @@ class TaskController extends Controller
         {
             //dd($e);
             return back()->with('error', "Oops, Error Sending reminder");
+        }
+    }
+
+    public function getTeamEmails($task_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $members = TaskMember::where('task_id', $task_id)->get();
+            foreach ($members as $member) {
+                $emails[] = $member->user()->email;
+            }
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
+        }
+    }
+
+    public function getIndividualEmails($user_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $user = User::find($user_id);
+            $emails[] = $user->email;
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
         }
     }
 }
