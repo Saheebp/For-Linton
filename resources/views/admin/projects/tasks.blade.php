@@ -1246,10 +1246,10 @@
                         <p class="p-2">
                             <button class="btn btn-sm btn-outline-primary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{$task->id}}">Update Task Status</button>
                             <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTask{{$task->id}}">Update Task info</button>
-                            <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#deleteTaskFromProject{{$task->id}}">Delete this Task</button>
+                            <!-- <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#deleteTaskFromProject{{$task->id}}">Delete this Task</button> -->
                             <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addMemberToTask{{$task->id}}">Add Member to Task</button>
                             <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addResourceToTask{{ $task->id }}">Add Resource</button>
-                            <button class="btn btn-sm btn-outline-dark float-right m-1" data-toggle="modal" data-target="#addSubTaskToTask{{$task->id}}">Add Sub Task</button>
+                            <button class="btn btn-sm btn-outline-dark float-right m-1" data-toggle="modal" data-target="#addSubTaskToTask{{$task->id}}">Add New Sub Task</button>
                             
                             <div class="modal fade" id="updateTaskStatus{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                             aria-hidden="true">

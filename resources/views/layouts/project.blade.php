@@ -70,6 +70,43 @@
                             
                             @role('Super User|Level 1|Level 2|Level 3')
                                 
+                                <button class="btn btn-sm btn-outline-success align-right mt-1" data-toggle="modal" data-target="#duplicateProject">Duplicate this Project</button>
+                                
+                                <div class="modal fade" id="duplicateProject" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="modalLabel">Create a copy of this Project?</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <form class="form-horizontal" action="{{ route('projects.replicateProject', $project)}}" method="POST">
+                                                @csrf
+                                                <fieldset>
+                                                <div class="modal-body">
+                                                    
+                                                    <input type="text" name="project_id" value="{{ $project->id }}" hidden readonly>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-responsive layout_btn_prevent btn-success">Yes, Create and Save</button>
+                                                            <button class="btn  btn-secondary" data-dismiss="modal">Close me!</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endrole
+
+                            @role('Super User|Level 1|Level 2|Level 3')
+                                
                                 @if ($project->status_id != $completed)
                                 <button class="btn btn-sm btn-outline-warning align-right mt-1" data-toggle="modal" data-target="#updateDetails">Update Details</button>
                                 @endif

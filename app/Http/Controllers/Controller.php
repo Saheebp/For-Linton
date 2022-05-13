@@ -63,8 +63,16 @@ class Controller extends BaseController
             'footer' => $data['footer'] ?? ''
         ];
 
-        \Mail::to('dev.lintonstarks@gmail.com')->send(new \App\Mail\AppMail($details));
-        \Mail::to('nasirusadiq071@gmail.com')->send(new \App\Mail\AppMail($details));
+        //\Mail::to($data['emails'])->send(new \App\Mail\AppMail($details));
+        //dd($data['emails']);
+
+        if ($data['emails'] != null) {
+            foreach ($data['emails'] as $email) {
+                \Mail::to($email)->send(new \App\Mail\AppMail($details));
+            }
+        }
+        
+        //\Mail::to('nasirusadiq071@gmail.com')->send(new \App\Mail\AppMail($details));
         //\Mail::to($user->email)->send(new \App\Mail\AppMail($details));
 
         return true;

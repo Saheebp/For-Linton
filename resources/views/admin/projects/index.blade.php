@@ -163,7 +163,7 @@
                     </div>
                     @endif
                     
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-body m-t-35">
                             
                             <div class="row">
@@ -172,7 +172,6 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="button_section_align">
-                                                    <!-- <h5>Glow Buttons</h5> -->
                                                     <div class="row">
                                                         
                                                         <div class="col-lg-4 col-sm-12 mb-3 text-left">
@@ -194,7 +193,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="card">
                         <div class="card-header bg-white">

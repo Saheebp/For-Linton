@@ -126,6 +126,7 @@ class GreatTaskController extends Controller
             $data['great_task_id'] = $greattask->id;
             $data['user_id'] = auth()->user()->id;
 
+            $data['emails'] = $this->getTeamEmails($greattask->id);
             $this->createLog($data);
             $this->CreateNotification($data);
 
@@ -153,10 +154,11 @@ class GreatTaskController extends Controller
             $data['sub_task_id'] = NULL;
             $data['grand_task_id'] = NULL;
             $data['great_task_id'] = $greattask->id;
-
             $data['user_id'] = auth()->user()->id;
-
             $this->createLog($data);
+
+            $data['body'] = "Be reminded on your Task : ".$greattask->id." [".$greattask->name."]";
+            $data['emails'] = $this->getIndividualEmails($user->id);
             $this->CreateNotification($data);
 
             return back()->with('success', 'Reminder sent successfully.');
@@ -165,6 +167,38 @@ class GreatTaskController extends Controller
         {
             //dd($e);
             return back()->with('error', "Oops, Error Sending reminder");
+        }
+    }
+
+    public function getTeamEmails($great_task_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $members = GreatTaskMember::where('great_task_id', $great_task_id)->get();
+            foreach ($members as $member) {
+                $emails[] = $member->user()->email;
+            }
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
+        }
+    }
+
+    public function getIndividualEmails($user_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $user = User::find($user_id);
+            $emails[] = $user->email;
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
         }
     }
 }

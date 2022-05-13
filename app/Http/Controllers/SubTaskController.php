@@ -76,7 +76,10 @@ class SubTaskController extends Controller
             $data['task_id'] = $request->task_id;
             $data['sub_task_id'] = $subtask->id;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = null;
+
             $this->createLog($data);
+            $this->CreateNotification($data);
             
             activity()
             ->performedOn($subtask)
@@ -108,7 +111,10 @@ class SubTaskController extends Controller
             $data['task_id'] = $subtask->task->id;
             $data['sub_task_id'] = $subtask->id;
             $data['user_id'] = auth()->user()->id;
+            
+            $data['emails'] = $this->getIndividualEmails($user->id);
             $this->createLog($data);
+            $this->CreateNotification($data);
             
             $subtask->save();
             
@@ -245,7 +251,7 @@ class SubTaskController extends Controller
      */
     public function destroy(SubTask $subTask)
     {
-        //
+        //dd("hi");
     }
 
     public function sendReminderMember(Request $request, SubTask $subtask)
@@ -272,6 +278,38 @@ class SubTaskController extends Controller
         {
             //dd($e);
             return back()->with('error', "Oops, Error Sending reminder");
+        }
+    }
+
+    public function getTeamEmails($sub_task_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $members = SubTaskMember::where('sub_task_id', $sub_task_id)->get();
+            foreach ($members as $member) {
+                $emails[] = $member->user()->email;
+            }
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
+        }
+    }
+
+    public function getIndividualEmails($user_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $user = User::find($user_id);
+            $emails[] = $user->email;
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
         }
     }
 }
