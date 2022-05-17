@@ -188,7 +188,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="pr-1 pl-1">
+                            <!-- <td class="pr-1 pl-1">
                                 @if($item->status_id != $returned)
                                 <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return to Inventory</a>
                                 @endif
@@ -250,7 +250,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td>
+                            </td> -->
                             <td class="pr-1 pl-1">
                                 @if($item->status_id != $returned)
                                 <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnWarehouseItem{{ $item->id }}">Return to Warehouse</a>
