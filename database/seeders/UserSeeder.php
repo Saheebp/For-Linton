@@ -16,8 +16,7 @@ class UserSeeder extends Seeder
     {
         $super = User::create([
             'name' => 'Super User',
-            //'email' => 'super@poaadit.com',
-            'email' => 'kingsleyibe09@gmail.com',
+            'email' => 'super@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -29,8 +28,7 @@ class UserSeeder extends Seeder
 
         $super = User::create([
             'name' => 'Nasiru Sadiq',
-            //'email' => 'nasirusadiq071@gmail.com',
-            'email' => 'ibennamdik@gmail.com',
+            'email' => 'nasirusadiq071@gmail.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -42,8 +40,7 @@ class UserSeeder extends Seeder
 
         $manager = User::create([
             'name' => 'Bode Gbolade',
-            //'email' => 'bodegbolade@poaadit.com',
-            'email' => 'endee09@gmail.com',
+            'email' => 'bodegbolade@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -55,8 +52,7 @@ class UserSeeder extends Seeder
 
         $hr = User::create([
             'name' => 'HR',
-            'email' => 'dev.lintonstarks@gmail.com',
-            //'email' => 'info@poaadit.com',
+            'email' => 'info@poaadit.com',
             'designation_id' => 2,
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
@@ -81,8 +77,7 @@ class UserSeeder extends Seeder
 
         $assarch = User::create([
             'name' => 'Tosin Owoyemi',
-            //'email' => 'tosinowoyemi@poaadit.com',
-            'email' => 'gnorizon@gmail.com',
+            'email' => 'tosinowoyemi@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -94,8 +89,7 @@ class UserSeeder extends Seeder
 
         $assarch = User::create([
             'name' => 'Damilola Ojo',
-            //'email' => 'damilolaojo@poaadit.com',
-            'email' => 'gnorizonconsults@gmail.com',
+            'email' => 'damilolaojo@poaadit.com',
             'password' => Hash::make('12345678'),
             'status_id' => 11,  
             'address' => '',
@@ -131,7 +125,7 @@ class UserSeeder extends Seeder
 
         $contractor = User::create([
             'name' => 'Nnamdi Ibe',
-            'email' => 'endee109@gmail.com',
+            'email' => 'endee09@gmail.com',
             'password' => Hash::make('123456'),
             'phone' =>'00000000005',
             'address' => 'Zaramaganda rayfield rd',
