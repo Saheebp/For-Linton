@@ -109,70 +109,13 @@
         </div>
     </div>
 
-    <button class="btn btn-raised btn-sm btn-outline-primary mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalTaskUpload">Upload Task Doc </button>
-    <div class="modal fade" id="modalTaskUpload" role="dialog" aria-labelledby="modalLabelprimary">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalLabel">Upload and Create Task</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <form class="form-horizontal" action="{{ route('tasks.uploadDetails', $project)}}" method="POST" enctype="multipart/form-data">
-                @csrf
-                    <fieldset>
-                        <div class="modal-body">
-                            
-                            <div class="form-group row">
-                                <div class="col-lg-12">
-                                    <div class="input-group mb-1">
-                                        <input class="form-control col-12" type="file" name="file">
-                                    </div>
-                                </div>
-                            
-                                <!-- <div class="col-lg-12">
-                                    <label for="subject1" class="col-form-label">
-                                        Task Title
-                                    </label>
-                                    <div class="input-group mb-1">
-                                        <input class="form-control col-12" type="text" name="name">
-                                    </div>
-                                </div>
-                    
-                                <div class="col-lg-12">
-                                    <label for="subject1" class="col-form-label">
-                                        Task Description
-                                    </label>
-                                    <div class="input-group mb-1">
-                                        <input class="form-control col-12" type="text" name="description">
-                                    </div>
-                                </div> -->
-                            </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <div class="form-group row">
-                                <div class="col-lg-12">
-                                    <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Create</button>
-                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-    </div>
-    
-    <button class="btn btn-raised btn-sm btn-outline-secondary mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalCommentCreate">Add a Comment </button>
+    <button class="btn btn-raised btn-sm btn-outline-secondary mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalCommentCreate">Comment on a Task </button>
     <div class="modal fade" id="modalCommentCreate" role="dialog" aria-labelledby="modalLabelprimary">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 
                 <div class="modal-header bg-secondary">
-                    <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">COmment</h4>
+                    <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Comment</h4>
                 </div>
                 
                 <form class="form-horizontal" action="{{ route('tasks.comment') }}" method="POST">
@@ -249,6 +192,7 @@
                 <div id="card-data-one{{$task->id}}" class="card-collapse collapse">
                     <div class="card-body m-t-20">
                         
+                    @if($task->status_id != $inactive)
                         <div class="table-responsive">
                             <table class="table table-hover" style="width:100%;">
                                 <tbody>
@@ -268,6 +212,7 @@
                                             </p>
                                         </td>
                                     </tr>
+
                                     <tr>
                                         <td>
                                             <tag class="text-primary text-bold">Depends on :</tag>
@@ -537,7 +482,7 @@
                                                                                     <fieldset>
                                                                                         <div class="modal-body">
 
-                                                                                            <input name="subtask_id" value="{{ $subtask->id }}" hidden readonly>
+                                                                                            <input name="sub_task_id" value="{{ $subtask->id }}" hidden readonly>
                                                                                             <div class="form-group row">
                                                                                                 <div class="col-12 mt-3">
                                                                                                     <label for="subject1" class="col-form-label">
@@ -686,6 +631,7 @@
                                                                                         <fieldset>
                                                                                             <div class="modal-body">
                                                                                                 
+                                                                                            <input name="grand_task_id" value="{{ $grandtask->id }}" hidden readonly>
                                                                                                 <div class="form-group row">
 
                                                                                                     <div class="col-lg-12">
@@ -750,6 +696,7 @@
                                                                                         <fieldset>
                                                                                             <div class="modal-body">
                                                                                                 
+                                                                                            <input name="grand_task_id" value="{{ $grandtask->id }}" hidden readonly>
                                                                                                 <div class="form-group row">
                                                                                                     <div class="col-lg-12">
                                                                                                         <label for="subject1" class="col-form-label">
@@ -793,12 +740,13 @@
                                                                                             <span aria-hidden="true">×</span>
                                                                                         </button>
                                                                                     </div>
-                                                                                    <form class="form-horizontal" action="{{ route('grandtasks.update', $grandtask)}}" method="POST">
+                                                                                    <form class="form-horizontal" action="{{ route('grandtasks.update')}}" method="POST">
                                                                                     @csrf
                                                                                         <fieldset>
                                                                                             <div class="modal-body">
                                                                                                 
-                                                                                                <div class="form-group row">
+                                                                                            <input name="grand_task_id" value="{{ $grandtask->id }}" hidden readonly>
+                                                                                            <div class="form-group row">
                                                                                                     <div class="col-12 mt-3">
                                                                                                         <label for="subject1" class="col-form-label">
                                                                                                             Name
@@ -946,6 +894,7 @@
                                                                                             <fieldset>
                                                                                                 <div class="modal-body">
                                                                                                     
+                                                                                                    <input name="great_task_id" value="{{ $greattask->id }}" hidden readonly>
                                                                                                     <div class="form-group row">
                                                                                                         
                                                                                                         <div class="col-lg-12">
@@ -1010,6 +959,7 @@
                                                                                             <fieldset>
                                                                                                 <div class="modal-body">
                                                                                                     
+                                                                                                    <input name="great_task_id" value="{{ $greattask->id }}" hidden readonly>
                                                                                                     <div class="form-group row">
                                                                                                         <div class="col-lg-12">
                                                                                                             <label for="subject1" class="col-form-label">
@@ -1053,11 +1003,12 @@
                                                                                                 <span aria-hidden="true">×</span>
                                                                                             </button>
                                                                                         </div>
-                                                                                        <form class="form-horizontal" action="{{ route('greattasks.update', $greattask)}}" method="POST">
+                                                                                        <form class="form-horizontal" action="{{ route('greattasks.update')}}" method="POST">
                                                                                         @csrf
                                                                                             <fieldset>
                                                                                                 <div class="modal-body">
                                                                                                     
+                                                                                                    <input name="great_task_id" value="{{ $greattask->id }}" hidden readonly>
                                                                                                     <div class="form-group row">
                                                                                                         <div class="col-12 mt-3">
                                                                                                             <label for="subject1" class="col-form-label">
@@ -1239,445 +1190,519 @@
                                             </p>
                                         </td>
                                     </tr>
+
+                                    <tr>
+                                        <td>
+                                           
+                                            <p class="p-2 text-left responsive">
+                                                <button class="btn btn-sm btn-outline-primary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{$task->id}}">Update Task Status</button>
+                                                <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTask{{$task->id}}">Update Task info</button>
+                                                <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#deleteTaskFromProject{{$task->id}}">Deactivate this Task</button>
+                                                <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addMemberToTask{{$task->id}}">Add Member to Task</button>
+                                                <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addResourceToTask{{ $task->id }}">Add Resource</button>
+                                                <button class="btn btn-sm btn-outline-dark float-right m-1" data-toggle="modal" data-target="#addSubTaskToTask{{$task->id}}">Add New Sub Task</button>
+                                                
+                                                <div class="modal fade" id="updateTaskStatus{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Update Status: {{ $task->name }}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <form class="form-horizontal" action="{{ route('tasks.updateStatus', $task)}}" method="POST" enctype="multipart/form-data">
+                                                            @csrf
+                                                                <fieldset>
+                                                                    <div class="modal-body">
+                                                                        
+                                                                        <div class="form-group row">
+                                                                            
+                                                                            <div class="col-lg-12">
+                                                                                <label for="subject1" class="col-form-label">
+                                                                                    Task Status : <br>
+                                                                                    <tag class="text-primary">{{ $task->name }}</tag>
+                                                                                </label>
+                                                                                <div class="input-group">
+                                                                                    <select class="form-control" name="status" required>
+                                                                                        <option value="">-- Select Status --</option>
+                                                                                        <option value="{{ $completed }}">Completed</option>
+                                                                                        <option value="{{ $in_progress }}">In Progress</option>
+                                                                                        <option value="{{ $queried }}">Queried</option>
+                                                                                        <option value="{{ $inactive }}">Deactivate</option>
+                                                                                        <option value="{{ $active }}">Activate</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-lg-12">
+                                                                                <label for="subject1" class="col-form-label">
+                                                                                    Captured Image
+                                                                                </label>
+                                                                                <div class="input-group">
+                                                                                    <input type="file" accept="image/*" id="captured_image" value="{{ old('captured_image') }}" class="@error('captured_image') is-invalid @enderror form-control" placeholder="" name="captured_image">
+                                                                                </div>
+                                                                                @error('captured_image')
+                                                                                    <span class="text-danger">{{ $errors->first('captured_image') }}</span>
+                                                                                @enderror
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-12">
+                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
+                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="updateTask{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Update : {{ $task->name }}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <form class="form-horizontal" action="{{ route('tasks.update', $task)}}" method="POST">
+                                                            @csrf
+                                                                <fieldset>
+                                                                    <div class="modal-body">
+                                                                        
+                                                                        <div class="form-group row">
+                                                                            <div class="col-12 mt-3">
+                                                                                <label for="subject1" class="col-form-label">
+                                                                                    Name
+                                                                                </label>
+                                                                                <div class="input-group">
+                                                                                    <input type="text" id="name" value="{{ $task->name }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
+                                                                                </div>
+                                                                                @error('name')
+                                                                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                                                @enderror
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-6 mt-3">
+                                                                                <label End="subject1" class="col-form-label">
+                                                                                    Start Date
+                                                                                </label>
+                                                                                <div class="input-group">
+                                                                                    <input type="date" id="start" value="{{ $task->start }}" class="form-control" name="start" required>
+                                                                                </div>
+                                                                                @error('start')
+                                                                                    <span class="text-danger">{{ $errors->first('start') }}</span>
+                                                                                @enderror
+                                                                            </div>
+
+                                                                            <div class="col-lg-6 mt-3">
+                                                                                <label End="subject1" class="col-form-label">
+                                                                                    End Date
+                                                                                </label>
+                                                                                <div class="input-group">
+                                                                                    <input type="date" id="end" value="{{ $task->end }}" class="form-control" name="end" required>
+                                                                                </div>
+                                                                                @error('end')
+                                                                                    <span class="text-danger">{{ $errors->first('end') }}</span>
+                                                                                @enderror
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-group row">
+                                                                            
+                                                                            <!-- <div class="col-lg-12">
+                                                                                <label for="subject1" class="col-form-label">
+                                                                                    Task Status
+                                                                                </label>
+                                                                                <div class="input-group">
+                                                                                    <select class="form-control" name="status" required>
+                                                                                        <option value="">-- Select Status --</option>
+                                                                                        <option value="{{ $completed }}">Completed</option>
+                                                                                        <option value="{{ $in_progress }}">In Progress</option>
+                                                                                        <option value="{{ $queried }}">Queried</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div> -->
+
+                                                                            <div class="col-lg-12">
+                                                                                <label for="subject1" class="col-form-label">
+                                                                                    Captured Image
+                                                                                </label>
+                                                                                <div class="input-group">
+                                                                                    <input type="file" accept="image/*" id="captured_image" value="{{ old('captured_image') }}" class="@error('captured_image') is-invalid @enderror form-control" placeholder="" name="captured_image">
+                                                                                </div>
+                                                                                @error('captured_image')
+                                                                                    <span class="text-danger">{{ $errors->first('captured_image') }}</span>
+                                                                                @enderror
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-12">
+                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
+                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="modal fade" id="deleteTaskFromProject{{$task->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Delete {{$task->name}} from Project</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <form class="form-horizontal" action="{{ route('tasks.disableTask', $task)}}" method="POST">
+                                                            @csrf
+                                                                <fieldset>
+                                                                <input name="task_id" value="{{ $task->id }}" hidden readonly>
+                                                                    <div class="modal-body">
+                                                                        
+                                                                        <div class="col-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Are you sure you want to delete the sub Task and its sub tasks?
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-12">
+                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-danger">Yes, Delete</button>
+                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="addMemberToTask{{$task->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Add Member to Task : <br>{{ $task->name }}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <form class="form-horizontal" action="{{ route('tasks.addMember', $task)}}" method="POST">
+                                                            @csrf
+                                                            <fieldset>
+                                                                <div class="modal-body">
+                                                                    
+                                                                    <input type="text" name="task_id" value="{{ $task->id }}" hidden readonly>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Select New Team Member
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <select class="form-control" name="member" required>
+                                                                                <option value="">-- Select Member --</option>
+                                                                                @foreach ($project->members as $member)                                                                                                    
+                                                                                <option value="{{ $member->user_id }}">{{ $member->user->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Select Role on Project
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                            <select class="form-control" name="member" required>
+                                                                                <option value="">-- Select Role --</option>
+                                                                                @foreach ($designations as $designation)                                                                                                    
+                                                                                <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-12">
+                                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Submit</button>
+                                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="addResourceToTask{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Add Resource to : <br>{{ $task->name }}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <form class="form-horizontal" action="{{ route('tasks.upload', $task)}}" method="POST" enctype="multipart/form-data">
+                                                            @csrf
+                                                                <fieldset>
+                                                                    <div class="modal-body">
+                                                                        
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-12">
+                                                                                <div class="input-group mb-1">
+                                                                                    <input class="form-control col-12" type="file" name="file">
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                            <div class="col-lg-12">
+                                                                                <label for="subject1" class="col-form-label">
+                                                                                    File Name
+                                                                                </label>
+                                                                                <div class="input-group mb-1">
+                                                                                    <input class="form-control col-12" type="text" name="name">
+                                                                                </div>
+                                                                            </div>
+                                                                
+                                                                            <div class="col-lg-12">
+                                                                                <label for="subject1" class="col-form-label">
+                                                                                    File Description
+                                                                                </label>
+                                                                                <div class="input-group mb-1">
+                                                                                    <input class="form-control col-12" type="text" name="description">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-12">
+                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Save</button>
+                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="addSubTaskToTask{{$task->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Add Sub Task to {{ $task->name }}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <form method="POST" action="{{ route('subtasks.store') }}">
+                                                                <div class="modal-body">
+
+                                                                    <input name="project_id" value="{{ $project->id }}" hidden readonly> 
+                                                                    <input name="task_id" value="{{ $task->id }}" hidden readonly> 
+
+                                                                    @csrf
+                                                                    <div class="form-group row">
+                                                                        
+                                                                        <div class="col-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                            Sub Task Name
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <input type="text" id="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
+                                                                            </div>
+                                                                            @error('name')
+                                                                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <!-- <div class="col-lg-6">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Budget
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <input type="number" id="budget" value="{{ old('budget') }}" class="form-control" min="0" name="budget">
+                                                                            </div>
+                                                                            @error('budget')
+                                                                                <span class="text-danger">{{ $errors->first('budget') }}</span>
+                                                                            @enderror
+                                                                        </div> -->
+
+                                                                        <div class="col-lg-6">
+                                                                            <label End="subject1" class="col-form-label">
+                                                                                Start Date
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <input type="date" id="end" class="form-control" name="start"  min="{{ $task->start }}" max="{{ $task->end }}" required>
+                                                                            </div>
+                                                                            @error('duedate')
+                                                                                <span class="text-danger">{{ $errors->first('duedate') }}</span>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <label End="subject1" class="col-form-label">
+                                                                                End Date
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <input type="date" id="end" class="form-control" min="{{ $task->start }}" max="{{ $task->end }}" name="end" required>
+                                                                            </div>
+                                                                            @error('end')
+                                                                                <span class="text-danger">{{ $errors->first('end') }}</span>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="col-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Description
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <textarea id="description" value="{{ old('description') }}" class="form-control" placeholder="" name="description"></textarea>
+                                                                            </div>
+                                                                            @error('description')
+                                                                                <span class="text-danger">{{ $errors->first('description') }}</span>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="col-6">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Depends on
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <select class="form-control col-12" name="preceedby">
+                                                                                    <option value=""> -- Select Task --</option>
+                                                                                    @foreach($project->tasks as $task)
+                                                                                    <option value="{{ $task->id }}">{{ $task->name }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                            @error('preceedby')
+                                                                                <span class="text-danger">{{ $errors->first('preceedby') }}</span>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>                                                                    
+                                                                </div> 
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
+                                                                    <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </p>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
+                    @else
 
-                        <p class="p-2">
-                            <button class="btn btn-sm btn-outline-primary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{$task->id}}">Update Task Status</button>
-                            <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTask{{$task->id}}">Update Task info</button>
-                            <!-- <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#deleteTaskFromProject{{$task->id}}">Delete this Task</button> -->
-                            <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addMemberToTask{{$task->id}}">Add Member to Task</button>
-                            <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addResourceToTask{{ $task->id }}">Add Resource</button>
-                            <button class="btn btn-sm btn-outline-dark float-right m-1" data-toggle="modal" data-target="#addSubTaskToTask{{$task->id}}">Add New Sub Task</button>
-                            
-                            <div class="modal fade" id="updateTaskStatus{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                            aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="modalLabel">Update Status: {{ $task->name }}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <form class="form-horizontal" action="{{ route('tasks.updateStatus', $task)}}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                            <fieldset>
-                                                <div class="modal-body">
-                                                    
-                                                    <div class="form-group row">
-                                                        
-                                                        <div class="col-lg-12">
-                                                            <label for="subject1" class="col-form-label">
-                                                                Task Status : <br>
-                                                                <tag class="text-primary">{{ $task->name }}</tag>
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <select class="form-control" name="status" required>
-                                                                    <option value="">-- Select Status --</option>
-                                                                    <option value="{{ $completed }}">Completed</option>
-                                                                    <option value="{{ $in_progress }}">In Progress</option>
-                                                                    <option value="{{ $queried }}">Queried</option>
-                                                                    <option value="{{ $inactive }}">Deactivate</option>
-                                                                    <option value="{{ $active }}">Activate</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-12">
-                                                            <label for="subject1" class="col-form-label">
-                                                                Captured Image
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <input type="file" accept="image/*" id="captured_image" value="{{ old('captured_image') }}" class="@error('captured_image') is-invalid @enderror form-control" placeholder="" name="captured_image">
-                                                            </div>
-                                                            @error('captured_image')
-                                                                <span class="text-danger">{{ $errors->first('captured_image') }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-12">
-                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
-                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
+                    Task has been disabled, contents unavailable!
+                    <button class="btn btn-sm btn-outline-primary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{$task->id}}">Update Task Status</button>
+                    <div class="modal fade" id="updateTaskStatus{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                    aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="modalLabel">Update Status: {{ $task->name }}</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
                                 </div>
-                            </div>
-
-                            <div class="modal fade" id="updateTask{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                            aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="modalLabel">Update : {{ $task->name }}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <form class="form-horizontal" action="{{ route('tasks.update', $task)}}" method="POST">
-                                        @csrf
-                                            <fieldset>
-                                                <div class="modal-body">
-                                                    
-                                                    <div class="form-group row">
-                                                        <div class="col-12 mt-3">
-                                                            <label for="subject1" class="col-form-label">
-                                                                Name
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <input type="text" id="name" value="{{ $task->name }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
-                                                            </div>
-                                                            @error('name')
-                                                                <span class="text-danger">{{ $errors->first('name') }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-6 mt-3">
-                                                            <label End="subject1" class="col-form-label">
-                                                                Start Date
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <input type="date" id="start" value="{{ $task->start }}" class="form-control" name="start" required>
-                                                            </div>
-                                                            @error('start')
-                                                                <span class="text-danger">{{ $errors->first('start') }}</span>
-                                                            @enderror
-                                                        </div>
-
-                                                        <div class="col-lg-6 mt-3">
-                                                            <label End="subject1" class="col-form-label">
-                                                                End Date
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <input type="date" id="end" value="{{ $task->end }}" class="form-control" name="end" required>
-                                                            </div>
-                                                            @error('end')
-                                                                <span class="text-danger">{{ $errors->first('end') }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group row">
-                                                        
-                                                        <!-- <div class="col-lg-12">
-                                                            <label for="subject1" class="col-form-label">
-                                                                Task Status
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <select class="form-control" name="status" required>
-                                                                    <option value="">-- Select Status --</option>
-                                                                    <option value="{{ $completed }}">Completed</option>
-                                                                    <option value="{{ $in_progress }}">In Progress</option>
-                                                                    <option value="{{ $queried }}">Queried</option>
-                                                                </select>
-                                                            </div>
-                                                        </div> -->
-
-                                                        <div class="col-lg-12">
-                                                            <label for="subject1" class="col-form-label">
-                                                                Captured Image
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <input type="file" accept="image/*" id="captured_image" value="{{ old('captured_image') }}" class="@error('captured_image') is-invalid @enderror form-control" placeholder="" name="captured_image">
-                                                            </div>
-                                                            @error('captured_image')
-                                                                <span class="text-danger">{{ $errors->first('captured_image') }}</span>
-                                                            @enderror
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-12">
-                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
-                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="modal fade" id="deleteTaskFromProject{{$task->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                            aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="modalLabel">Delete {{$task->name}} from Project</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <form class="form-horizontal" action="#" method="POST">
-                                        @csrf
-                                            <fieldset>
-                                                <div class="modal-body">
-                                                    
-                                                    <div class="col-12">
-                                                        <label for="subject1" class="col-form-label">
-                                                            Are you sure you want to delete the sub Task and its sub tasks?
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-12">
-                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-danger">Yes, Delete</button>
-                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal fade" id="addMemberToTask{{$task->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                            aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="modalLabel">Add Member to Task : <br>{{ $task->name }}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <form class="form-horizontal" action="{{ route('tasks.addMember', $task)}}" method="POST">
-                                        @csrf
-                                        <fieldset>
-                                            <div class="modal-body">
-                                                
-                                                <input type="text" name="task_id" value="{{ $task->id }}" hidden readonly>
-                                                <div class="form-group row">
-                                                    <div class="col-lg-12">
-                                                        <label for="subject1" class="col-form-label">
-                                                            Select New Team Member
-                                                        </label>
-                                                        <div class="input-group">
-                                                        <select class="form-control" name="member" required>
-                                                            <option value="">-- Select Member --</option>
-                                                            @foreach ($project->members as $member)                                                                                                    
-                                                            <option value="{{ $member->user_id }}">{{ $member->user->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <div class="col-lg-12">
-                                                        <label for="subject1" class="col-form-label">
-                                                            Select Role on Project
-                                                        </label>
-                                                        <div class="input-group">
-                                                        <select class="form-control" name="member" required>
-                                                            <option value="">-- Select Role --</option>
-                                                            @foreach ($designations as $designation)                                                                                                    
-                                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <div class="form-group row">
-                                                    <div class="col-lg-12">
-                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Submit</button>
-                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal fade" id="addResourceToTask{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                            aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="modalLabel">Add Resource to : <br>{{ $task->name }}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <form class="form-horizontal" action="{{ route('tasks.upload', $task)}}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                            <fieldset>
-                                                <div class="modal-body">
-                                                    
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-12">
-                                                            <div class="input-group mb-1">
-                                                                <input class="form-control col-12" type="file" name="file">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                        <div class="col-lg-12">
-                                                            <label for="subject1" class="col-form-label">
-                                                                File Name
-                                                            </label>
-                                                            <div class="input-group mb-1">
-                                                                <input class="form-control col-12" type="text" name="name">
-                                                            </div>
-                                                        </div>
+                                <form class="form-horizontal" action="{{ route('tasks.updateStatus', $task)}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                    <fieldset>
+                                        <div class="modal-body">
                                             
-                                                        <div class="col-lg-12">
-                                                            <label for="subject1" class="col-form-label">
-                                                                File Description
-                                                            </label>
-                                                            <div class="input-group mb-1">
-                                                                <input class="form-control col-12" type="text" name="description">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-12">
-                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Save</button>
-                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                        </div>
+                                            <div class="form-group row">
+                                                
+                                                <div class="col-lg-12">
+                                                    <label for="subject1" class="col-form-label">
+                                                        Task Status : <br>
+                                                        <tag class="text-primary">{{ $task->name }}</tag>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <select class="form-control" name="status" required>
+                                                            <option value="">-- Select Status --</option>
+                                                            <option value="{{ $completed }}">Completed</option>
+                                                            <option value="{{ $in_progress }}">In Progress</option>
+                                                            <option value="{{ $queried }}">Queried</option>
+                                                            <option value="{{ $inactive }}">Deactivate</option>
+                                                            <option value="{{ $pending }}">Activate</option>
+                                                        </select>
                                                     </div>
                                                 </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="modal fade" id="addSubTaskToTask{{$task->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                            aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="modalLabel">Add Sub Task to {{ $task->name }}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <form method="POST" action="{{ route('subtasks.store') }}">
-                                            <div class="modal-body">
-
-                                                <input name="project_id" value="{{ $project->id }}" hidden readonly> 
-                                                <input name="task_id" value="{{ $task->id }}" hidden readonly> 
-
-                                                @csrf
-                                                <div class="form-group row">
-                                                    
-                                                    <div class="col-12">
-                                                        <label for="subject1" class="col-form-label">
-                                                           Sub Task Name
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <input type="text" id="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror form-control" placeholder="" name="name">
-                                                        </div>
-                                                        @error('name')
-                                                            <span class="text-danger">{{ $errors->first('name') }}</span>
-                                                        @enderror
+                                                <!-- <div class="col-lg-12">
+                                                    <label for="subject1" class="col-form-label">
+                                                        Captured Image
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input type="file" accept="image/*" id="captured_image" value="{{ old('captured_image') }}" class="@error('captured_image') is-invalid @enderror form-control" placeholder="" name="captured_image">
                                                     </div>
-
-                                                    <!-- <div class="col-lg-6">
-                                                        <label for="subject1" class="col-form-label">
-                                                            Budget
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <input type="number" id="budget" value="{{ old('budget') }}" class="form-control" min="0" name="budget">
-                                                        </div>
-                                                        @error('budget')
-                                                            <span class="text-danger">{{ $errors->first('budget') }}</span>
-                                                        @enderror
-                                                    </div> -->
-
-                                                    <div class="col-lg-6">
-                                                        <label End="subject1" class="col-form-label">
-                                                            Start Date
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <input type="date" id="end" class="form-control" name="start"  min="{{ $task->start }}" max="{{ $task->end }}" required>
-                                                        </div>
-                                                        @error('duedate')
-                                                            <span class="text-danger">{{ $errors->first('duedate') }}</span>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <label End="subject1" class="col-form-label">
-                                                            End Date
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <input type="date" id="end" class="form-control" min="{{ $task->start }}" max="{{ $task->end }}" name="end" required>
-                                                        </div>
-                                                        @error('end')
-                                                            <span class="text-danger">{{ $errors->first('end') }}</span>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="col-12">
-                                                        <label for="subject1" class="col-form-label">
-                                                            Description
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <textarea id="description" value="{{ old('description') }}" class="form-control" placeholder="" name="description"></textarea>
-                                                        </div>
-                                                        @error('description')
-                                                            <span class="text-danger">{{ $errors->first('description') }}</span>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="col-6">
-                                                        <label for="subject1" class="col-form-label">
-                                                            Depends on
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <select class="form-control col-12" name="preceedby">
-                                                                <option value=""> -- Select Task --</option>
-                                                                @foreach($project->tasks as $task)
-                                                                <option value="{{ $task->id }}">{{ $task->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        @error('preceedby')
-                                                            <span class="text-danger">{{ $errors->first('preceedby') }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>                                                                    
-                                            </div> 
-                                            <div class="modal-footer">
-                                                <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
-                                                <button class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                    @error('captured_image')
+                                                        <span class="text-danger">{{ $errors->first('captured_image') }}</span>
+                                                    @enderror
+                                                </div> -->
                                             </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
 
-                        </p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <div class="form-group row">
+                                                <div class="col-lg-12">
+                                                    <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
+                                                    <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                     </div>
                 </div>
             </div>

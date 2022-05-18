@@ -221,11 +221,17 @@ class ProjectController extends Controller
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
+            $data['emails'] = $this->getIndividualEmails($request->manager);
 
             $this->createLog($data);
-            $this->CreateNotification($data);
+            $statusreport = $this->CreateNotification($data);
 
-            return redirect()->route('projects.index')->with('success', 'Project and Inventory created successfully.');
+            $message = 'Project and Inventory created successfully, Notifications sent';
+            if($statusreport == false){
+                $message = 'Project and Inventory created successfully.';
+            }
+
+            return redirect()->route('projects.index')->with('success', $message);
         }
         catch (\Exception $e) 
         {
@@ -458,9 +464,10 @@ class ProjectController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
+            'file' => 'required|mimes:csv,txt,xlx,xls,xlsx,pdf,jpg,png,docx,doc|max:2048'
         ]);
 
+        
         try 
         {
             if ($request->file('file')->isValid()) 
@@ -700,6 +707,7 @@ class ProjectController extends Controller
                 $ProjectMember->update([
                     'designation_id' => $request->designation
                 ]);
+                $ProjectMember->save();
                 
             }else{
                 return back()->with('error', "Oops, Record not found");
@@ -708,7 +716,7 @@ class ProjectController extends Controller
             //$user = User::find($request->member);
 
             $data = array();
-            $data['body'] = auth()->user()->name." updated ".$ProjectMember->user->name."'s role to ".$designation->name." on Project : ".$project->id."[".$project->name."]";
+            $data['body'] = auth()->user()->name." updated ".$ProjectMember->user->name."'s role to ".$designation->name." on Project : ".$ProjectMember->project->id."[".$ProjectMember->project->name."]";
             $data['project_id'] = $request->project;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -777,6 +785,7 @@ class ProjectController extends Controller
      */
     public function updateInfo(Request $request)
     {
+        
         $validated = $request->validate([
             //'manager' => 'required|string',
 
@@ -787,19 +796,21 @@ class ProjectController extends Controller
             'start' => 'required|string|max:255',
             'end' => 'required|string|max:255',
             
-            'nature' => 'required|string|max:255',
+            //'nature' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             //'funding_source' => 'required|string|max:255',
             //'budget' => 'required|string|max:255',
     
-            'sponsor_name' => 'required|string|max:255',
-            'sponsor_email' => 'required|string|max:255',
-            'sponsor_phone' => 'required|string|max:255',
+            // 'sponsor_name' => 'required|string|max:255',
+            // 'sponsor_email' => 'required|string|max:255',
+            // 'sponsor_phone' => 'required|string|max:255',
     
             'state' => 'required|string|max:255',
             'lga' => 'required|string|max:255',
             'address' => 'required|string|max:255',
         ]);
+
+        //dd($request);
 
         try 
         {
@@ -814,12 +825,12 @@ class ProjectController extends Controller
                 
                 'nature' => $request->nature,
                 'type' => $request->type,
-                'funding_source' => $request->funding_source,
+                // 'funding_source' => $request->funding_source,
                 //'budget' => $request->budget,
 
-                'sponsor_name' => $request->sponsor_name,
-                'sponsor_email' => $request->sponsor_email,
-                'sponsor_phone' => $request->sponsor_phone,
+                // 'sponsor_name' => $request->sponsor_name,
+                // 'sponsor_email' => $request->sponsor_email,
+                // 'sponsor_phone' => $request->sponsor_phone,
 
                 'state' => $request->state,
                 'lga' => $request->lga,
@@ -944,7 +955,7 @@ class ProjectController extends Controller
             $this->createLog($data);
 
             $data['body'] = "Be reminded on your Project Delivery: ".$project->id." [".$project->name."]";
-            $data['emails'] = $this->getIndividualEmails($project->user_id); $this->getTeamEmails($project->id); 
+            $data['emails'] = $this->getIndividualEmails($project->user_id);
             $this->CreateNotification($data);
 
             return back()->with('success', 'Reminder sent successfully.');

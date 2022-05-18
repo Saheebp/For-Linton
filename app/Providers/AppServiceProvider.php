@@ -37,7 +37,9 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('paid', $this->returnStatusId("Paid"));
             $view->with('unpaid', $this->returnStatusId("Unaid"));
+            $view->with('approved', $this->returnStatusId("Approved"));
             $view->with('declined', $this->returnStatusId("Declined"));
+            $view->with('disabled', $this->returnStatusId("Disabled"));
 
             $view->with('new', $this->returnStatusId("New"));
             $view->with('in_progress', $this->returnStatusId("In Progress"));
@@ -79,6 +81,11 @@ class AppServiceProvider extends ServiceProvider
         config(['paid', $this->returnStatusId("Paid")]);
         config(['unpaid', $this->returnStatusId("Unaid")]);
         config(['declined', $this->returnStatusId("Declined")]);
+        config(['disabled', $this->returnStatusId("Disabled")]);
+
+
+        config(['approved', $this->returnStatusId("Approved")]);
+        config(['declined', $this->returnStatusId("declined")]);
 
         config(['new' => $this->returnStatusId("New")]);
         config(['in_progress' => $this->returnStatusId("In Progress")]);

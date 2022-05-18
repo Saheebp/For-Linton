@@ -69,9 +69,46 @@ class GrandTaskController extends Controller
      * @param  \App\Models\GrandTask  $grandTask
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GrandTask $grandTask)
+    public function update(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'start' => 'required|string|max:255',
+            'end' => 'required|string|max:255',
+        ]);
+
+        try 
+        {
+            $grandTask = GrandTask::find($request->grand_task_id);
+            $grandTask->update([
+                'name' => $request->name,
+                'start' => $request->start,
+                'end' => $request->end
+            ]);
+            $grandTask->save();
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." updated Task ".$grandTask->name."| starting: ".$grandTask->start." and ending: ".$grandTask->end;
+            $data['project_id'] = NULL;
+            $data['task_id'] = NULL;
+            $data['grand_task_id'] = $grandTask->id;
+            $data['great_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            //$data['body'] = "Be reminded on your Project Delivery: ".$project->id." [".$project->name."]";
+            $data['emails'] = null; 
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Sub Task Updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            dd($e);
+            return back()->with('error', "Oops, Error Updating a Sub Task");
+        }
+
     }
 
     /**

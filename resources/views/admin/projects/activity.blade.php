@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($project->logs as $log)
+                    @foreach($project->logs->sortByDesc('created_at') as $log)
                         <tr>
                             <td class="text-left">
                                 {{ date('d M Y, H:ia', strtotime($log->created_at)) }}

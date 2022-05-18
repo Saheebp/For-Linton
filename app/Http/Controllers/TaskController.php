@@ -492,7 +492,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,png,docx,doc|max:2048'
+            'file' => 'required|mimes:csv,txt,xlx,xls,xlsx,pdf,jpg,png,docx,doc|max:2048'
         ]);
 
         try 
@@ -522,7 +522,7 @@ class TaskController extends Controller
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
-            $data['emails'] = $this->getTeamEmails($task_id);
+            $data['emails'] = $this->getTeamEmails($task->id);
 
             $this->createLog($data);
             
@@ -611,10 +611,36 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function disableTask(Request $request, Task $task)
     {
-        dd("hi");
-        //
+        try 
+        {
+            $task = Task::find($request->task_id);
+            $task->update([
+                'status_id' => config('inactive'),
+            ]);
+            $task->save();
+
+            $data = array();
+            $data['body'] = auth()->user()->name." Disabled a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."]";
+            $data['project_id'] = NULL;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['grand_task_id'] = NULL;
+            $data['great_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            $data['emails'] = $this->getTeamEmails($task->id); 
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Task disabled successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            //dd($e);
+            return back()->with('error', "Oops, Error disabling Task");
+        }
     }
 
     function distance($lat1, $lon1, $lat2, $lon2, $unit) 

@@ -10,11 +10,11 @@
             <table id="example1" class="table">
                 <thead>
                     <tr>
-                        <th style="width:10%;">Date </th>
+                        <th style="width:25%;">Date </th>
                         <th style="width:20%;">Name </th>
-                        <th style="width:40%;">Purpose</th>
+                        <th style="width:30%;">Purpose</th>
                         <th style="width:10%;">Quantity</th>
-                        <th style="width:10%;">Status</th>
+                        <th style="width:5%;">Status</th>
                         <th style="width:10%;" class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -49,11 +49,12 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <form class="form-horizontal" action="#" method="POST">
+                                            <form class="form-horizontal" action="{{ route('items.approve') }}" method="POST">
                                             @csrf
                                                 <fieldset>
                                                     <div class="modal-body">
                                                         
+                                                        <input value="{{ $request->id }}" hidden readonly name="request_id">
                                                         <input value="{{ $request->inventory_item_id }}" hidden readonly name="inventory_item_id">
                                                         <input value="{{ $project->inventory->id }}" hidden readonly name="inventory_id">
                                                             
@@ -62,10 +63,10 @@
                                                                 Action
                                                             </label>
                                                             <div class="input-group">
-                                                                <select class="form-control" name="member" required>
+                                                                <select class="form-control" name="status" required>
                                                                     <option value="">-- Select --</option>
-                                                                    <option value="{{ $approve }}">{{ $approve }}</option>
-                                                                    <option value="{{ $unapprove }}">{{ $unapprove }}</option>
+                                                                    <option value="{{ $approved }}">Approved</option>
+                                                                    <option value="{{ $declined }}">Declined</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -74,7 +75,7 @@
                                                     <div class="modal-footer">
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
-                                                                <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Allocate</button>
+                                                                <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Submit</button>
                                                                 <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
                                                             </div>
                                                         </div>
@@ -188,9 +189,10 @@
                                     </div>
                                 </div>
                             </td>
-                            <!-- <td class="pr-1 pl-1">
-                                @if($item->status_id != $returned)
-                                <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return to Inventory</a>
+                            
+                            <td class="pr-1 pl-1">
+                                @if($item->status_id != $returned && $item->quantity != $item->available)
+                                <a class="btn btn-sm btn-outline-info text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return to Inventory</a>
                                 @endif
                                 <div class="modal fade" id="ReturnItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
@@ -250,7 +252,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td> -->
+                            </td>
+
                             <td class="pr-1 pl-1">
                                 @if($item->status_id != $returned)
                                 <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnWarehouseItem{{ $item->id }}">Return to Warehouse</a>

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\ItemRequest;
+use App\Models\Item;
+use App\Models\User;
+use App\Models\Project;
+use App\Models\Inventory;
+use App\Models\InventoryItem;
 use Illuminate\Http\Request;
 
 class ItemRequestController extends Controller
@@ -81,5 +86,77 @@ class ItemRequestController extends Controller
     public function destroy(ItemRequest $itemRequest)
     {
         //
+    }
+
+    public function approve(Request $request)
+    {
+        $validated = $request->validate([
+            'status' => 'required|string|max:255'
+        ]);
+        
+        try 
+        {
+            $itemRequest = ItemRequest::where('id',$request->request_id)->first();
+            $item = InventoryItem::where('id',$request->inventory_item_id)->first();
+            $inventory = Inventory::where('id',$request->inventory_id)->first();
+
+            $itemRequest->update([
+                'status_id' => $request->status,
+            ]);
+            $itemRequest->save();
+
+            $data = array();
+            $data['body'] = auth()->user()->name." Updated status of a request for ".$item->name." on Project : ".$inventory->name;
+            $data['project_id'] = $inventory->project->id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['grand_task_id'] = NULL;
+            $data['great_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+
+            $data['emails'] = $this->getIndividualEmails($inventory->project->manager->id); 
+            $this->createLog($data);
+            $this->CreateNotification($data);
+
+
+            return back()->with('success', 'Request Status updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            dd($e);
+            return back()->with('error', "Oops, Error Updating Request Status");
+        }
+    }
+
+    public function getTeamEmails($grand_task_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $members = ProjectMember::where('project_id', $project_id)->get();
+            foreach ($members as $member) {
+                $emails[] = $member->user()->email;
+            }
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
+        }
+    }
+
+    public function getIndividualEmails($user_id)
+    {
+        try 
+        {
+            $emails = Array();
+            $user = User::find($user_id);
+            $emails[] = $user->email;
+            return $emails;
+        }
+        catch (\Exception $e) 
+        {
+            return false;
+        }
     }
 }

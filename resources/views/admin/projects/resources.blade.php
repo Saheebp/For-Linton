@@ -23,29 +23,40 @@
                         <fieldset>
                             <div class="modal-body">
                                 
+                                <input name="project_id" value="{{ $project->id }}" hidden readonly>
+                                                                                                
                                 <div class="form-group row">
                                     <div class="col-lg-12">
                                         <div class="input-group mb-1">
-                                            <input class="form-control col-12" type="file" name="file" required>
+                                            <input class="form-control col-12" type="file" name="file">
                                         </div>
+                                        @error('file')
+                                            <span class="text-danger">{{ $errors->first('file') }}</span>
+                                        @enderror
                                     </div>
                                 
                                     <div class="col-lg-12">
                                         <label for="subject1" class="col-form-label">
-                                            File Name
+                                            Document Name
                                         </label>
                                         <div class="input-group mb-1">
-                                            <input class="form-control col-12" type="text" name="name" required>
+                                            <input class="form-control col-12" type="text" name="name">
                                         </div>
+                                        @error('name')
+                                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                                        @enderror
                                     </div>
                         
                                     <div class="col-lg-12">
                                         <label for="subject1" class="col-form-label">
-                                            File Description
+                                            Document Description
                                         </label>
                                         <div class="input-group mb-1">
-                                            <input class="form-control col-12" type="text" name="description" required>
+                                            <input class="form-control col-12" type="text" name="description">
                                         </div>
+                                        @error('description')
+                                            <span class="text-danger">{{ $errors->first('description') }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -54,7 +65,7 @@
                             <div class="modal-footer">
                                 <div class="form-group row">
                                     <div class="col-lg-12">
-                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Save</button>
+                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Create</button>
                                         <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
                                     </div>
                                 </div>

@@ -164,4 +164,6 @@ class InventoryController extends Controller
             return back()->with('error', "Oops, Error adding Items to Inventory");
         }
     }
+
+    
 }

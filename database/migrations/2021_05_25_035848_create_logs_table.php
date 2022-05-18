@@ -29,6 +29,12 @@ class CreateLogsTable extends Migration
             $table->unsignedBigInteger('sub_task_id')->nullable();
             $table->foreign('sub_task_id')->references('id')->on('sub_tasks')->onDelete('restrict');
 
+            $table->unsignedBigInteger('grand_task_id')->nullable()->default(null);
+            $table->foreign('grand_task_id')->references('id')->on('grand_tasks')->onDelete('restrict');
+
+            $table->unsignedBigInteger('great_task_id')->nullable()->default(null);
+            $table->foreign('great_task_id')->references('id')->on('great_tasks')->onDelete('restrict');
+
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });

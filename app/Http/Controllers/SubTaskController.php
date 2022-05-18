@@ -240,7 +240,45 @@ class SubTaskController extends Controller
      */
     public function update(Request $request, SubTask $subTask)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'start' => 'required|string|max:255',
+            'end' => 'required|string|max:255',
+        ]);
+
+        try 
+        {
+            //dd($request);
+            $subtask = SubTask::find($request->sub_task_id);
+            $subtask->update([
+
+                'name' => $request->name,
+                'start' => $request->start,
+                'end' => $request->end
+            ]);
+            $subtask->save();
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." updated Task ".$subtask->name."| starting: ".$subtask->start." and ending: ".$subtask->end;
+            $data['project_id'] = NULL;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = $subtask->id;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            //$data['body'] = "Be reminded on your Project Delivery: ".$project->id." [".$project->name."]";
+            $data['emails'] = null; 
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Project Updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            //dd($e);
+            return back()->with('error', "Oops, Error Updating a Project");
+        }
+
     }
 
     /**

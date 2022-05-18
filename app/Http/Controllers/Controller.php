@@ -9,9 +9,11 @@ use Illuminate\Routing\Controller as BaseController;
 
 use App\Models\Notification;
 use App\Models\Status;
-use App\Models\Error;
 use App\Models\Log;
 use App\Models\User;
+
+use App\Models\ErrorReport;
+
 use App\Mail\TestEmail;
 
 use Illuminate\Http\Request;
@@ -39,49 +41,59 @@ class Controller extends BaseController
 
     function CreateNotification(array $data)
     {
-        $notification = Notification::create([
-            'body' => $data['body'], 
-            // 'tag' => $data['tag'],
-            'status_id' => config('pending'),
+        try 
+        {
+            $notification = Notification::create([
+                'body' => $data['body'], 
+                // 'tag' => $data['tag'],
+                'status_id' => config('pending'),
 
-            'project_id' => $data['project_id'] ?? NULL,
-            'task_id' => $data['task_id'] ?? NULL,
-            'sub_task_id' => $data['sub_task_id'] ?? NULL,
-            'user_id' => $data['user_id'] ?? NULL,
+                'project_id' => $data['project_id'] ?? NULL,
+                'task_id' => $data['task_id'] ?? NULL,
+                'sub_task_id' => $data['sub_task_id'] ?? NULL,
+                'grand_task_id' => $data['grand_task_id'] ?? NULL,
+                'great_task_id' => $data['great_task_id'] ?? NULL,
+                'user_id' => $data['user_id'] ?? NULL,
 
-            'resource_id' => $data['resource_id'] ?? NULL,
-            'request_fq_id' => $data['request_fq_id'] ?? NULL,
-            'quote_id' => $data['quote_id'] ?? NULL,
-            'payment_id' => $data['payment_id'] ?? NULL
-        ]);
+                'resource_id' => $data['resource_id'] ?? NULL,
+                'request_fq_id' => $data['request_fq_id'] ?? NULL,
+                'quote_id' => $data['quote_id'] ?? NULL,
+                'payment_id' => $data['payment_id'] ?? NULL
+            ]);
 
-        $user = User::find($data['user_id']);
-        $details = [
-            'title' => 'Notification from Project Manager',
-            'header' => $data['header'] ?? '',
-            'body' => $data['body'] ?? '',
-            'footer' => $data['footer'] ?? ''
-        ];
+            $user = User::find($data['user_id']);
+            $details = [
+                'title' => 'Notification from Project Manager',
+                'header' => $data['header'] ?? '',
+                'body' => $data['body'] ?? '',
+                'footer' => $data['footer'] ?? ''
+            ];
 
-        //\Mail::to($data['emails'])->send(new \App\Mail\AppMail($details));
-        //dd($data['emails']);
+            //\Mail::to($data['emails'])->send(new \App\Mail\AppMail($details));
+            //dd($data['emails']);
 
-        if ($data['emails'] != null) {
-            foreach ($data['emails'] as $email) {
-                \Mail::to($email)->send(new \App\Mail\AppMail($details));
+            if ($data['emails'] != null) {
+                foreach ($data['emails'] as $email) {
+                    $statusreport = \Mail::to($email)->send(new \App\Mail\AppMail($details));
+                }
             }
-        }
-        
-        //\Mail::to('nasirusadiq071@gmail.com')->send(new \App\Mail\AppMail($details));
-        //\Mail::to($user->email)->send(new \App\Mail\AppMail($details));
+            
+            //\Mail::to('nasirusadiq071@gmail.com')->send(new \App\Mail\AppMail($details));
+            //\Mail::to($user->email)->send(new \App\Mail\AppMail($details));
 
-        return true;
+            return true;
+        }
+        catch (\Exception $e) 
+        {
+            $this->createErrorReport(auth()->user()->id, 'Emails', $e->getMessage());
+            return false;
+        }
 
     }
 
     function createErrorReport($user_id, $source, $description)
     {
-        Error::create([
+        ErrorReport::create([
             'source' => $source,
             'user_id' => $user_id,
             'description' => $description,
@@ -95,6 +107,8 @@ class Controller extends BaseController
             'project_id' => $data['project_id'] ?? NULL,
             'task_id' => $data['task_id'] ?? NULL,
             'sub_task_id' => $data['sub_task_id'] ?? NULL,
+            'grand_task_id' => $data['grand_task_id'] ?? NULL,
+            'great_task_id' => $data['great_task_id'] ?? NULL,
             'user_id' => $data['user_id'] ?? NULL,
         ]);
         return true;

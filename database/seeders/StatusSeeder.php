@@ -28,7 +28,7 @@ class StatusSeeder extends Seeder
                 'style' => 'dark'
             ],
             [
-                'name' => 'Declined',
+                'name' => 'Disabled',
                 'style' => 'secondary'
             ],
             [

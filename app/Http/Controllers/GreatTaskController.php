@@ -67,9 +67,46 @@ class GreatTaskController extends Controller
      * @param  \App\Models\GreatTask  $greatTask
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GreatTask $greatTask)
+    public function update(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'start' => 'required|string|max:255',
+            'end' => 'required|string|max:255',
+        ]);
+
+        try 
+        {
+            $greatTask = GreatTask::find($request->great_task_id);
+            $greatTask->update([
+                'name' => $request->name,
+                'start' => $request->start,
+                'end' => $request->end
+            ]);
+            $greatTask->save();
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." updated Task ".$greatTask->name."| starting: ".$greatTask->start." and ending: ".$greatTask->end;
+            $data['project_id'] = NULL;
+            $data['task_id'] = NULL;
+            $data['grand_task_id'] = NULL;
+            $data['great_task_id'] = $greatTask->id;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            //$data['body'] = "Be reminded on your Project Delivery: ".$project->id." [".$project->name."]";
+            $data['emails'] = null; 
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Task Updated successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            //dd($e);
+            return back()->with('error', "Oops, Error Updating a Task");
+        }
+
     }
 
     /**

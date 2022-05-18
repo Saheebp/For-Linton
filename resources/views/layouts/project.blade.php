@@ -68,7 +68,7 @@
                     <div class="card">
                         <div class="text-right p-3">
                             
-                            @role('Super User|Level 1|Level 2|Level 3')
+                            <!-- @role('Super User|Level 1|Level 2|Level 3')
                                 
                                 <button class="btn btn-sm btn-outline-success align-right mt-1" data-toggle="modal" data-target="#duplicateProject">Duplicate this Project</button>
                                 
@@ -103,12 +103,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endrole
+                            @endrole -->
 
                             @role('Super User|Level 1|Level 2|Level 3')
                                 
                                 @if ($project->status_id != $completed)
-                                <button class="btn btn-sm btn-outline-warning align-right mt-1" data-toggle="modal" data-target="#updateDetails">Update Details</button>
+                                <button class="btn btn-sm btn-outline-warning align-right mt-1" data-toggle="modal" data-target="#updateDetails">Edit Project</button>
                                 @endif
 
                                 <div class="modal fade" id="updateDetails" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -116,7 +116,7 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title" id="modalLabel">Update Details of Project</h4>
+                                                <h4 class="modal-title" id="modalLabel">Edit Details of Project</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
@@ -188,7 +188,7 @@
                                                                 @enderror
                                                             </div>
 
-                                                            <div class="col-12">
+                                                            <!-- <div class="col-12">
                                                                 <label for="subject1" class="col-form-label">
                                                                     Project Nature
                                                                 </label>
@@ -198,7 +198,7 @@
                                                                 @error('nature')
                                                                     <span class="text-danger">{{ $errors->first('nature') }}</span>
                                                                 @enderror
-                                                            </div>
+                                                            </div> -->
 
                                                             <div class="col-12">
                                                                 <label for="subject1" class="col-form-label">
@@ -241,7 +241,7 @@
                                                                 @enderror
                                                             </div> -->
 
-                                                            <div class="col-12">
+                                                            <!-- <div class="col-12">
                                                                 <label for="subject1" class="col-form-label">
                                                                     Sponsor Name
                                                                 </label>
@@ -275,7 +275,7 @@
                                                                 @error('sponsor_phone')
                                                                     <span class="text-danger">{{ $errors->first('sponsor_phone') }}</span>
                                                                 @enderror
-                                                            </div>
+                                                            </div> -->
                                                             
                                                             <div class="col-lg-6">
                                                                 <label for="subject1" class="col-form-label">
@@ -596,6 +596,76 @@
                                         </div>
                                     </div>
                                 </div> -->
+                            @endrole
+
+                            @role('Super User|Level 1|Level 2|Level 3')
+                            <!-- <button class="btn btn-raised btn-sm btn-outline-info mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalTaskUpload">Upload Project Document </button>
+                            <div class="modal fade text-left" id="modalTaskUpload" role="dialog" aria-labelledby="modalLabelprimary">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modalLabel">Upload Project Document</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <form class="form-horizontal" action="{{ route('projects.upload', $project)}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                            <fieldset>
+                                                <div class="modal-body">
+                                                    
+                                                    <input name="project_id" value="{{ $project->id }}" hidden readonly>
+                                                                                                                    
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-12">
+                                                            <div class="input-group mb-1">
+                                                                <input class="form-control col-12" type="file" name="file">
+                                                            </div>
+                                                            @error('file')
+                                                                <span class="text-danger">{{ $errors->first('file') }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    
+                                                        <div class="col-lg-12">
+                                                            <label for="subject1" class="col-form-label">
+                                                                Document Name
+                                                            </label>
+                                                            <div class="input-group mb-1">
+                                                                <input class="form-control col-12" type="text" name="name">
+                                                            </div>
+                                                            @error('name')
+                                                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                            @enderror
+                                                        </div>
+                                            
+                                                        <div class="col-lg-12">
+                                                            <label for="subject1" class="col-form-label">
+                                                                Document Description
+                                                            </label>
+                                                            <div class="input-group mb-1">
+                                                                <input class="form-control col-12" type="text" name="description">
+                                                            </div>
+                                                            @error('description')
+                                                                <span class="text-danger">{{ $errors->first('description') }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Upload & Create</button>
+                                                            <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> -->
                             @endrole
                         </div>
 
