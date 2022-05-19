@@ -239,13 +239,13 @@
                                         <div class="row">
                                             
                                             <div class="col-12 m-t-15">
-                                                <!-- @role('SuperUser|Director|Admin')
+                                                <!-- @role('Super User|Level 1|Level 2|Level 3')
                                                 <button class="btn btn-sm btn-raised m-t-2 btn-success adv_cust_mod_btn"
                                                         data-toggle="modal" data-target="#createInventory">Create Inventory
                                                 </button>
                                                 @endrole -->
 
-                                                @role('SuperUser|Director|Admin')
+                                                @role('Super User|Level 1|Level 2|Level 3')
                                                 <button class="btn btn-sm btn-raised m-t-2 btn-warning adv_cust_mod_btn"
                                                         data-toggle="modal" data-target="#createItem">Add New Item
                                                 </button>
