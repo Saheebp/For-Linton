@@ -239,10 +239,10 @@
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 m-t-1 text-left">
 
-                                    @role('Level 1|Level 2|Level 3')
-                                    <!-- <button class="btn btn-sm btn-raised m-t-2 btn-warning adv_cust_mod_btn"
+                                    @role('Super User|Level 1|Level 2|Level 3')
+                                    <button class="btn btn-sm btn-raised m-t-2 btn-warning adv_cust_mod_btn"
                                             data-toggle="modal" data-target="#createItem">Add New Inventory
-                                    </button> -->
+                                    </button>
                                     @endrole
                                     
                                     <div class="modal fade" id="createItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -284,7 +284,7 @@
                                                                 Related Project
                                                                 </label>
                                                                 <div class="input-group">
-                                                                    <select class="form-control" name="category" required>
+                                                                    <select class="form-control" name="project" required>
                                                                         <option value="">-- Select Project --</option>
                                                                         @foreach ($projects as $project)
                                                                             <option value="{{ $project->id }}">{{ $project->name }}</option>

@@ -84,7 +84,7 @@
                             
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 m-t-1 text-left">
-                                @role('Level 1|Level 2|Level 3')
+                                @role('Super User|Level 1|Level 2|Level 3')
                                 <button class="btn btn-sm btn-raised m-t-2 btn-secondary adv_cust_mod_btn"
                                         data-toggle="modal" data-target="#createBatch">New Batch
                                 </button>
