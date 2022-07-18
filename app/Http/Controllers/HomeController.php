@@ -7,12 +7,15 @@ use App\Notifications\ContactUs;
 use Notification;
 
 use App\Models\User;
+use App\Models\Task;
 use App\Models\Project;
 use App\Models\Quote;
 use App\Models\RequestFq;
+use App\Models\InventoryActivity;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class HomeController extends Controller
 {
@@ -31,6 +34,34 @@ class HomeController extends Controller
     {
         $projects = Project::all();
         $all_projects = Project::all();
+        $tasks = Task::all();
+        $users = User::where('name','!=','Super User')->get();
+        $inventory_history = InventoryActivity::all();
+
+        $chart_options = [
+            'chart_title' => 'Projects by Completion',
+            'report_type' => 'group_by_relationship',
+            'relationship_name' => 'status',
+            'model' => 'App\Models\Project',
+            'group_by_field' => 'name',
+            'chart_type' => 'pie',
+            'filter_field' => 'created_at',
+            'filter_period' => 'month', // show users only registered this month
+        ];
+        $chart1 = new LaravelChart($chart_options);
+        
+        
+        $chart_options = [
+            'chart_title' => 'Projects by Completion',
+            'report_type' => 'group_by_relationship',
+            'relationship_name' => 'status',
+            'model' => 'App\Models\Project',
+            'group_by_field' => 'name',
+            'chart_type' => 'pie',
+            'filter_field' => 'created_at',
+            'filter_period' => 'month', // show users only registered this month
+        ];
+        $chart2 = new LaravelChart($chart_options);
 
         if (auth()->user()->is_contractor == 'true') 
         {
@@ -50,7 +81,12 @@ class HomeController extends Controller
         }
         return view('admin.dashboard', [
             'all_projects' => $all_projects,
-            'projects' => $projects
+            'inventory_history' => $inventory_history,
+            'projects' => $projects,
+            'users' => $users,
+            'tasks' => $tasks,
+            'chart1' => $chart1,
+            'chart2' => $chart2
         ]);
     }
 

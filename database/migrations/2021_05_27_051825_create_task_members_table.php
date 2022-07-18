@@ -22,6 +22,9 @@ class CreateTaskMembersTable extends Migration
             
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+
+            $table->unsignedBigInteger('status_id')->nullable()->default(null);
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
         });
     }
 

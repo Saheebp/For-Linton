@@ -157,7 +157,7 @@ class TaskController extends Controller
             $task->save();
 
             $data = array();
-            $data['body'] = auth()->user()->name." updated a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."]";
+            $data['body'] = auth()->user()->name." updated a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."], starting ".$task->start." and ending ".$task->end;
             //$data['project_id'] = $project->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -232,7 +232,7 @@ class TaskController extends Controller
             $task->save();
 
             $data = array();
-            $data['body'] = auth()->user()->name." Updated status of a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."]";
+            $data['body'] = auth()->user()->name." Updated status of a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."], starting ".$task->start." and ending ".$task->end;
             $data['project_id'] = NULL;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -337,7 +337,7 @@ class TaskController extends Controller
             $user = User::find($request->executor);
 
             $data = array();
-            $data['body'] = auth()->user()->name." started Task : ".$task->name.", on Project : ".$task->project->id." [".$task->project->name."]";
+            $data['body'] = auth()->user()->name." started Task : ".$task->name.", on Project : ".$task->project->id." [".$task->project->name."] starting ".$task->start." and ending ".$task->end;
             $data['project_id'] = $task->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -375,7 +375,7 @@ class TaskController extends Controller
             $user = User::find($request->member);
             
             $data = array();
-            $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name." on Project : ".$task->project->id." [".$task->project->name."]";
+            $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name." on Project : ".$task->project->id." [".$task->project->name."], starting ".$task->start." and ending ".$task->end;
             $data['project_id'] = $task->project->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
@@ -384,14 +384,65 @@ class TaskController extends Controller
 
             $data['tag'] = 'added task member';
 
-            $data['emails'] = $this->getIndividualEmails($user_id); 
+            $data['button'] = true;
+            $data['action'] = 'declinelink';
+
+            $data['emails'] = $this->getIndividualEmails($user->id); 
+
             $this->CreateNotification($data);
 
             return back()->with('success', 'Team Member added successfully.');
         }
         catch (\Exception $e) 
         {
-            return back()->with('error', "Oops, Error Updating Task");
+            //dd($e);
+            return back()->with('error', "Oops, Error Adding member to Task");
+        }
+    }
+
+    public function acceptDecline($user_id, $task_id)
+    {
+        try 
+        {
+            $member = TaskMember::where('task_id',$task->id)->where('user_id',$request->member)->first();
+            $existing = TaskMember::where('task_id',$task->id)->where('user_id',$request->member)->first();
+
+
+            if ($existing == NULL) {
+                TaskMember::create([
+                    'task_id' => $task->id,
+                    'user_id' => $request->member
+                ]);
+                
+            }else{
+                return back()->with('error', "Oops, That Staff is already on that team");
+            }
+            
+            $user = User::find($request->member);
+            
+            $data = array();
+            $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name." on Project : ".$task->project->id." [".$task->project->name."], starting ".$task->start." and ending ".$task->end;
+            $data['project_id'] = $task->project->id;
+            $data['task_id'] = $task->id;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
+
+            $data['tag'] = 'added task member';
+
+            $data['buttonaccept'] = 'approve';
+            $data['buttondecline'] = 'approve';
+
+            $data['emails'] = $this->getIndividualEmails($user->id); 
+
+            $this->CreateNotification($data);
+
+            return back()->with('success', 'Team Member added successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            //dd($e);
+            return back()->with('error', "Oops, Error Adding member to Task");
         }
     }
 
@@ -661,30 +712,33 @@ class TaskController extends Controller
         }
     }
 
-    public function sendReminderMember(Request $request, Task $task)
+    public function sendReminderMember(Request $request)
     {
         try 
         {
-            $member = ProjectMember::find($request->member);
-            $task = Task::find($request->task);
-            $user = User::find($member->user_id);
+            //$member = ProjectMember::find($request->member);
+            $task = Task::find($request->id);
+            //$user = User::find($member->user_id);
             
             $data = array();
-            $data['body'] = auth()->user()->name." sent a reminder to ".$user->name." on Task : ".$task->id." [".$task->name."]";
+            $data['body'] = auth()->user()->name." sent a reminder to team members on Task : ".$task->id." [".$task->name."], starting ".$task->start." and ending ".$task->end;
             $data['project_id'] = NULL;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
 
             $this->createLog($data);
-            $this->CreateNotification($data);
 
-            return back()->with('success', 'Reminder sent successfully.');
+            $data['body'] = "Be reminded on your Task : ".$task->id." [".$task->name."]";
+            $data['emails'] = $this->getTeamEmails($task->id);
+            $this->CreateNotification($data);
+            
+            return back()->with('success', 'Reminder sent successfully to Task Members.');
         }
         catch (\Exception $e) 
         {
             //dd($e);
-            return back()->with('error', "Oops, Error Sending reminder");
+            return back()->with('error', "Oops, Error Sending reminder to Task Members");
         }
     }
 

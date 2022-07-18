@@ -941,12 +941,12 @@ class ProjectController extends Controller
     {
         try 
         {
-            $member = ProjectMember::find($request->member);
+            //$member = ProjectMember::find($request->member);
             $project = Project::find($request->project);
-            $user = User::find($member->user_id);
+            //$user = User::find($member->user_id);
 
             $data = array();
-            $data['body'] = auth()->user()->name." sent a reminder to ".$user->name." on Project : ".$project->id." [".$project->name."]";
+            $data['body'] = auth()->user()->name." sent a reminder to team members on Project : ".$project->id." [".$project->name."]";
             $data['project_id'] = $project->id;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;

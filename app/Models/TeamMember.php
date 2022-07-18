@@ -12,7 +12,8 @@ class TeamMember extends Model
     protected $fillable = [
         'project_id',
         'task_id',
-        'user_id'
+        'user_id',
+        'status_id'
     ];
     
     public function task() {
@@ -25,5 +26,9 @@ class TeamMember extends Model
     
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
     }
 }

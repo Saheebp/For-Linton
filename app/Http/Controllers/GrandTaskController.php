@@ -168,7 +168,7 @@ class GrandTaskController extends Controller
             $grandtask->save();
 
             $data = array();
-            $data['body'] = auth()->user()->name." Updated status of a Task(grand) | ".$grandtask->name." on Project : ".$grandtask->project->id." [".$grandtask->project->name."]";
+            $data['body'] = auth()->user()->name." Updated status of a Task(grand) | ".$grandtask->name." on Project : ".$grandtask->project->id." [".$grandtask->project->name."], starting ".$grandtask->start." and ending ".$grandtask->end;
             $data['project_id'] = NULL;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -190,16 +190,16 @@ class GrandTaskController extends Controller
         }
     }
 
-    public function sendReminderMember(Request $request, GrandTask $grandtask)
+    public function sendReminderMember(Request $request)
     {
         try 
         {
-            $member = ProjectMember::find($request->member);
-            $grandtask = GrandTask::find($request->grandtask);
-            $user = User::find($member->user_id);
+            //$member = ProjectMember::find($request->member);
+            $grandtask = GrandTask::find($request->id);
+            //$user = User::find($member->user_id);
             
             $data = array();
-            $data['body'] = auth()->user()->name." sent a reminder to ".$user->name." on Task : ".$grandtask->id." [".$grandtask->name."]";
+            $data['body'] = auth()->user()->name." sent a reminder to team members on Task : ".$grandtask->id." [".$grandtask->name."], starting ".$grandtask->start." and ending ".$grandtask->end;
             $data['project_id'] = NULL;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = NULL;
@@ -207,17 +207,18 @@ class GrandTaskController extends Controller
             $data['great_task_id'] = NULL;
 
             $data['user_id'] = auth()->user()->id;
-
-            $data['emails'] = $this->getIndividualEmails($user->id);
             $this->createLog($data);
-            $this->CreateNotification($data);
 
-            return back()->with('success', 'Reminder sent successfully.');
+            $data['body'] = "Be reminded on your Task : ".$grandtask->id." [".$grandtask->name."]";
+            $data['emails'] = $this->getTeamEmails($grandtask->id);
+            $this->CreateNotification($data);
+            
+            return back()->with('success', 'Reminder sent successfully to Task Members.');
         }
         catch (\Exception $e) 
         {
             //dd($e);
-            return back()->with('error', "Oops, Error Sending reminder");
+            return back()->with('error', "Oops, Error Sending reminder to Task Members");
         }
     }
 

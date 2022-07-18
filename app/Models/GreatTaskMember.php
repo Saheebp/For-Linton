@@ -11,7 +11,8 @@ class GreatTaskMember extends Model
 
     protected $fillable = [
         'great_task_id',
-        'user_id'
+        'user_id',
+        'status_id'
     ];
     
     public function greattask() {
@@ -20,5 +21,9 @@ class GreatTaskMember extends Model
     
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
     }
 }

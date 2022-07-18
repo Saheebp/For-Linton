@@ -106,7 +106,7 @@ class SubTaskController extends Controller
             $user = User::find($request->member);
 
             $data = array();
-            $data['body'] = auth()->user()->name." added ".$user->name." as executor for Sub Task : ".$subtask->name." on Project : ".$subtask->project->id." [".$subtask->project->name."]";
+            $data['body'] = auth()->user()->name." added ".$user->name." as executor for Sub Task : ".$subtask->name." on Project : ".$subtask->project->id." [".$subtask->project->name."], starting ".$subtask->start." and ending ".$subtask->end;
             $data['project_id'] = NULL;
             $data['task_id'] = $subtask->task->id;
             $data['sub_task_id'] = $subtask->id;
@@ -138,6 +138,7 @@ class SubTaskController extends Controller
             $subtask->update([
                 'status_id' => $request->status,
             ]);
+            
             $subtask->save();
 
             return back()->with('success', 'Sub Task Status updated successfully.');
@@ -292,30 +293,33 @@ class SubTaskController extends Controller
         //dd("hi");
     }
 
-    public function sendReminderMember(Request $request, SubTask $subtask)
+    public function sendReminderMember(Request $request)
     {
         try 
         {
-            $member = ProjectMember::find($request->member);
-            $subtask = SubTask::find($request->subtask);
-            $user = User::find($member->user_id);
+            //$member = ProjectMember::find($request->member);
+            $subtask = SubTask::find($request->id);
+            //$user = User::find($member->user_id);
             
             $data = array();
-            $data['body'] = auth()->user()->name." sent a reminder to ".$user->name." on Task : ".$subtask->id." [".$subtask->name."]";
+            $data['body'] = auth()->user()->name." sent a reminder to team members on Task : ".$subtask->id." [".$subtask->name."], starting ".$subtask->start." and ending ".$subtask->end;
             $data['project_id'] = NULL;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = $subtask->id;
             $data['user_id'] = auth()->user()->id;
 
             $this->createLog($data);
+
+            $data['body'] = "Be reminded on your Task : ".$subtask->id." [".$subtask->name."]";
+            $data['emails'] = $this->getTeamEmails($subtask->id);
             $this->CreateNotification($data);
 
-            return back()->with('success', 'Reminder sent successfully.');
+            return back()->with('success', 'Reminder sent successfully to Task Members.');
         }
         catch (\Exception $e) 
         {
             //dd($e);
-            return back()->with('error', "Oops, Error Sending reminder");
+            return back()->with('error', "Oops, Error Sending reminder to Task Members");
         }
     }
 

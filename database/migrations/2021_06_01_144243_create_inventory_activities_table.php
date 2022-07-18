@@ -32,6 +32,9 @@ class CreateInventoryActivitiesTable extends Migration
 
             $table->unsignedBigInteger('receiver_id')->nullable()->default(null);
             $table->foreign('receiver_id')->references('id')->on('users')->onDelete('restrict');
+
+            $table->date('return_date')->nullable()->default(null);
+            
         });
     }
 

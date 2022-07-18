@@ -7,7 +7,7 @@
         <h4 class="card-title" style="margin-bottom:30px; margin-top:30px;">Inventory Requests</h4>
         <!-- <p class="card-text">Items available for this project</p> -->
         <div class="table-responsive">
-            <table id="example1" class="table">
+            <table id="example1" class="table bg-primary text-white">
                 <thead>
                     <tr>
                         <th style="width:25%;">Date </th>
@@ -98,7 +98,7 @@
         <div class="table-responsive">
             <table id="example1" class="table">
                 <thead>
-                    <tr>
+                    <tr class="bg-secondary text-white">
                         <th style="width:40%;">Name </th>
                         <th style="width:10%;">Category</th>
                         <th style="width:10%;">Quantity</th>
@@ -148,6 +148,18 @@
                                                         <input value="{{ $item->id }}" hidden readonly name="inventory_item_id">
                                                         <input value="{{ $project->inventory->id }}" hidden readonly name="inventory_id">
                                                             
+                                                        <div class="col-lg-12 mt-3">
+                                                            <label End="subject1" class="col-form-label">
+                                                                Return Date
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <input type="date" id="return_date" class="form-control" name="return_date" required>
+                                                            </div>
+                                                            @error('return_date')
+                                                                <span class="text-danger">{{ $errors->first('return_date') }}</span>
+                                                            @enderror
+                                                        </div>
+
                                                         <div class="col-12">
                                                             <label for="subject1" class="col-form-label">
                                                                 Received By

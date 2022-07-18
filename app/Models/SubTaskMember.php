@@ -11,7 +11,8 @@ class SubTaskMember extends Model
 
     protected $fillable = [
         'sub_task_id',
-        'user_id'
+        'user_id',
+        'status_id'
     ];
     
     public function subtask() {
@@ -20,5 +21,9 @@ class SubTaskMember extends Model
     
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
     }
 }

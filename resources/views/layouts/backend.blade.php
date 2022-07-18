@@ -27,7 +27,7 @@
 
 <body class="body fixedNav_position fixedMenu_left">
 
-<div class="preloader" style=" position: fixed;
+<!-- <div class="preloader" style=" position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -44,7 +44,7 @@
             z-index: 999999">
         <img src="{{ asset('admin/img/logo.png') }}" style=" width: 100px;" alt="loading...">
     </div>
-</div>
+</div> -->
 <div id="wrap">
     <div id="top" class="fixed">
         <!-- .navbar -->

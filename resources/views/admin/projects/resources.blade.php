@@ -84,7 +84,7 @@
                         <th style="width:30%;">Name</th>
                         <th style="width:10%;">Type</th>
                         <th style="width:40%;">Description</th>
-                        <th style="width:15%;">File</th>
+                        <th style="width:5%;">File</th>
                         <th style="width:5%;">Action</th>
                     </tr>
                 </thead>

@@ -16,7 +16,8 @@ class InventoryActivity extends Model
         'receiver_id',
         'inventory_id',
         'inventory_item_id',
-        'type'
+        'type',
+        'return_date'
     ];
     
     public function inventory()

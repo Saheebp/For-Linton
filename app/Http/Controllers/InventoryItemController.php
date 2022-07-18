@@ -106,7 +106,8 @@ class InventoryItemController extends Controller
                 'receiver_id' => $request->member,
                 'user_id' => Auth::user()->id,
                 'inventory_id' => $request->inventory_id,
-                'inventory_item_id' => $request->inventory_item_id
+                'inventory_item_id' => $request->inventory_item_id,
+                'return_date' => $request->return_date
             ]);
 
             $inventory_item = InventoryItem::find($request->inventory_item_id);

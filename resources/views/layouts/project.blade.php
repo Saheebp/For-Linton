@@ -414,6 +414,7 @@
                                         </div>
                                     </div>
                                 </div> -->
+                                
                             @endrole
 
                             @role('Super User|Level 1|Level 2|Level 3')
@@ -473,6 +474,7 @@
                             @endrole
 
                             @role('Super User|Level 1|Level 2|Level 3')
+
                                 @if ($project->status_id != $completed)
                                 <button class="btn btn-sm btn-outline-primary align-right mt-1" data-toggle="modal" data-target="#commentProject">Comment on Project</button>
                                 @endif

@@ -146,6 +146,15 @@
                       <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:300;line-height:20px;text-align:left;color:#000000;">{{ $details['body'] ?? '' }}.</div>
                     </td>
                   </tr>
+                  @if($data['action'] == 'true')
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                      <div> 
+                        <a class="btn btn-sm btn-success" href="{{ $data['button'] }}">Accept</a>
+                      </div>
+                    </td>
+                  </tr>
+                  @endif
                   <!-- <tr>
                     <td align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                       <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">

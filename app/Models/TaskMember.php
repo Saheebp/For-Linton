@@ -11,7 +11,8 @@ class TaskMember extends Model
 
     protected $fillable = [
         'task_id',
-        'user_id'
+        'user_id',
+        'status_id'
     ];
     
     public function task() {
@@ -20,5 +21,9 @@ class TaskMember extends Model
     
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
     }
 }

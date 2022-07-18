@@ -66,6 +66,8 @@ class Controller extends BaseController
                 'title' => 'Notification from Project Manager',
                 'header' => $data['header'] ?? '',
                 'body' => $data['body'] ?? '',
+                'action' => $data['action'] ?? false,
+                'button' => $data['button'] ?? '',
                 'footer' => $data['footer'] ?? ''
             ];
 
@@ -77,6 +79,12 @@ class Controller extends BaseController
                     $statusreport = \Mail::to($email)->send(new \App\Mail\AppMail($details));
                 }
             }
+
+            //send sms with booking status 
+            $receiver = $user->phone;
+            $sender = "PManager";
+            $message = $data['body'] ?? '';
+            $this->sendsms($receiver, $sender, $message);
             
             //\Mail::to('nasirusadiq071@gmail.com')->send(new \App\Mail\AppMail($details));
             //\Mail::to($user->email)->send(new \App\Mail\AppMail($details));
