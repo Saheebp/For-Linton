@@ -72,7 +72,7 @@ class Controller extends BaseController
             ];
 
             //\Mail::to($data['emails'])->send(new \App\Mail\AppMail($details));
-            \Mail::to('dev.lintonstarks@gmail.com')->send(new \App\Mail\AppMail($details));
+            \Mail::to('ibennamdik@gmail.com')->send(new \App\Mail\AppMail($details));
             //dd($data['emails']);
 
             // if ($data['emails'] != null) {
