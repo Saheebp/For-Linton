@@ -67,10 +67,11 @@ class Controller extends BaseController
                 'header' => $data['header'] ?? '',
                 'body' => $data['body'] ?? '',
                 'action' => $data['action'] ?? false,
-                'button' => $data['button'] ?? '',
-                'footer' => $data['footer'] ?? ''
+                'button' => $data['button'] ?? null,
+                'footer' => $data['footer'] ?? null
             ];
 
+            
             //\Mail::to($data['emails'])->send(new \App\Mail\AppMail($details));
             \Mail::to('ibennamdik@gmail.com')->send(new \App\Mail\AppMail($details));
             //dd($data['emails']);
@@ -82,10 +83,10 @@ class Controller extends BaseController
             // }
 
             //send sms with booking status 
-            $receiver = $user->phone;
-            $sender = "PManager";
-            $message = $details['body'] ?? '';
-            $this->sendsms($receiver, $sender, $message);
+            // $receiver = $user->phone;
+            // $sender = "PManager";
+            // $message = $details['body'] ?? '';
+            // $this->sendsms($receiver, $sender, $message);
             
             //\Mail::to('nasirusadiq071@gmail.com')->send(new \App\Mail\AppMail($details));
             //\Mail::to($user->email)->send(new \App\Mail\AppMail($details));
