@@ -95,7 +95,7 @@ class Controller extends BaseController
         }
         catch (\Exception $e) 
         {
-            dd($e->getMessage()." on line ".$e->getLine());
+            //dd($e->getMessage()." on line ".$e->getLine());
             $this->createErrorReport(auth()->user()->id, 'Emails', $e->getMessage());
             return false;
         }
