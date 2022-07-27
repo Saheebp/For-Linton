@@ -560,7 +560,7 @@ class ProjectController extends Controller
             //$data['email'] = $user->email;
             $data['emails'] = $this->getIndividualEmails($user->id);
 
-            $data['action'] = true;
+            $data['action'] = 'true';
             $data['button'] = "Accept invitation";
 
             $this->createLog($data);

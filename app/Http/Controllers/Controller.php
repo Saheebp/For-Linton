@@ -66,7 +66,7 @@ class Controller extends BaseController
                 'title' => 'Notification from Project Manager',
                 'header' => $data['header'] ?? '',
                 'body' => $data['body'] ?? '',
-                'action' => $data['action'] ?? false,
+                'action' => $data['action'] ?? 'false',
                 'button' => $data['button'] ?? null,
                 'footer' => $data['footer'] ?? null
             ];
