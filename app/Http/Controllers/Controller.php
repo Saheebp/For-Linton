@@ -40,7 +40,7 @@ class Controller extends BaseController
     // }
 
     function CreateNotification(array $data)
-    {
+    { 
         try 
         {
             $notification = Notification::create([
@@ -84,7 +84,7 @@ class Controller extends BaseController
             //send sms with booking status 
             $receiver = $user->phone;
             $sender = "PManager";
-            $message = $data['body'] ?? '';
+            $message = $details['body'] ?? '';
             $this->sendsms($receiver, $sender, $message);
             
             //\Mail::to('nasirusadiq071@gmail.com')->send(new \App\Mail\AppMail($details));
@@ -94,6 +94,7 @@ class Controller extends BaseController
         }
         catch (\Exception $e) 
         {
+            dd($e->getMessage()." on line ".$e->getLine());
             $this->createErrorReport(auth()->user()->id, 'Emails', $e->getMessage());
             return false;
         }

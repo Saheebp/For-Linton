@@ -146,11 +146,11 @@
                       <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:300;line-height:20px;text-align:left;color:#000000;">{{ $details['body'] ?? '' }}.</div>
                     </td>
                   </tr>
-                  @if($data['action'] == 'true')
+                  @if($details['action'] == 'true')
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                       <div> 
-                        <a class="btn btn-sm btn-success" href="{{ $data['button'] }}">Accept</a>
+                        <a class="btn btn-sm btn-success" href="{{ $details['button'] }}">Accept</a>
                       </div>
                     </td>
                   </tr>

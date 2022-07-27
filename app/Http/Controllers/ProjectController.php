@@ -567,7 +567,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            //dd($e);
+            dd($e->getMessage()." on line ".$e->getLine());
             return back()->with('error', "Oops, Error adding Staff to Project");
         }
     }
@@ -597,7 +597,7 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            //dd($e);
+            dd($e->getMessage()." on line ".$e->getLine());
             return back()->with('error', "Oops, Error removing member from Project");
         }
     }
