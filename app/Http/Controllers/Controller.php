@@ -72,13 +72,14 @@ class Controller extends BaseController
             ];
 
             //\Mail::to($data['emails'])->send(new \App\Mail\AppMail($details));
+            \Mail::to('dev.lintonstarks@gmail.com')->send(new \App\Mail\AppMail($details));
             //dd($data['emails']);
 
-            if ($data['emails'] != null) {
-                foreach ($data['emails'] as $email) {
-                    $statusreport = \Mail::to($email)->send(new \App\Mail\AppMail($details));
-                }
-            }
+            // if ($data['emails'] != null) {
+            //     foreach ($data['emails'] as $email) {
+            //         $statusreport = \Mail::to($email)->send(new \App\Mail\AppMail($details));
+            //     }
+            // }
 
             //send sms with booking status 
             $receiver = $user->phone;
