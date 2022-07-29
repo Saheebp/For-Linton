@@ -7,7 +7,7 @@
         <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p> -->
 
-        <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
+        <button class="btn btn-raised float-right btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
             data-toggle="modal" data-target="#modalUploadResource">Upload Resource
         </button>
         
@@ -76,6 +76,9 @@
             </div>
         </div>
 
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        
         @if ($project->resources->count() != 0)
         <div class="table-responsive">
             <table id="example1" class="table table-striped">

@@ -5,7 +5,7 @@
     <a class="btn btn-sm btn-outline-success float-right mt-1" href="{{ route('projects.tasks.print', $project) }}">Print Summary</a>
     <h4 class="card-title" style="margin-bottom:30px; margin-top:30px;">Project Tasks & Processes</h4>
     
-    <button class="btn btn-raised btn-sm btn-outline-success mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalTaskCreate">Add New Task </button>
+    <button class="btn btn-raised btn-sm btn-outline-success float-right mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalTaskCreate">Add New Task </button>
     <div class="modal fade" id="modalTaskCreate" role="dialog" aria-labelledby="modalLabelprimary">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -109,7 +109,7 @@
         </div>
     </div>
 
-    <button class="btn btn-raised btn-sm btn-outline-secondary mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalCommentCreate">Comment on a Task </button>
+    <button class="btn btn-raised float-right btn-sm btn-outline-secondary mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalCommentCreate">Comment on a Task </button>
     <div class="modal fade" id="modalCommentCreate" role="dialog" aria-labelledby="modalLabelprimary">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -173,6 +173,9 @@
 
     <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </p> -->
+    
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
     
     <div class="m-t-10 accordian_alignment">
         <div id="accordion" role="tablist" aria-multiselectable="true">
