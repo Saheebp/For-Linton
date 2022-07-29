@@ -641,33 +641,41 @@ class ProjectController extends Controller
             'status' => 'required|string|max:255'
         ]);
         
-        $tasks = Task::where('project_id',$request->project_id)
-        ->where('status_id', '!=', config('completed'))->get();
+        
+        //dd($request->status == config('active'));
 
-        if ($tasks != null) {
-            return back()->with('error', "Oops, You cannot update this project status due to pending tasks");
+        if ($request->status != config('inactive') && $request->status != config('active') ) {
+
+            //user is updating status, do checks, but dont check if they want to deactivate project
+            $tasks = Task::where('project_id',$request->project_id)
+            ->whereNotIn('status_id', [ config('completed'), config('inactive') ])->get();
+
+            if (!$tasks->isEmpty()) { 
+                return back()->with('error', "Oops, You cannot update this project status due to pending tasks");
+            }
+
+            // $subtasks = SubTask::where('project_id',$request->project_id)
+            // ->where('status_id', '!=', config('completed'))->get();
+
+            // if ($subtasks != null) {
+            //     return back()->with('error', "Oops, You cannot update this project status due to pending sub tasks");
+            // }
+
+            // $grandtasks = GrandTask::where('project_id',$request->project_id)
+            // ->where('status_id', '!=', config('completed'))->get();
+
+            // if ($grandtasks != null) {
+            //     return back()->with('error', "Oops, You cannot update this project status due to pending grand tasks");
+            // }
+
+            // $greattasks = GreatTask::where('project_id',$request->project_id)
+            // ->where('status_id', '!=', config('completed'))->get();
+
+            // if ($greattasks != null) {
+            //     return back()->with('error', "Oops, You cannot update this project status due to pending grand tasks");
+            // }
         }
-
-        $subtasks = SubTask::where('project_id',$request->project_id)
-        ->where('status_id', '!=', config('completed'))->get();
-
-        if ($subtasks != null) {
-            return back()->with('error', "Oops, You cannot update this project status due to pending sub tasks");
-        }
-
-        $grandtasks = GrandTask::where('project_id',$request->project_id)
-        ->where('status_id', '!=', config('completed'))->get();
-
-        if ($grandtasks != null) {
-            return back()->with('error', "Oops, You cannot update this project status due to pending grand tasks");
-        }
-
-        $greattasks = GreatTask::where('project_id',$request->project_id)
-        ->where('status_id', '!=', config('completed'))->get();
-
-        if ($greattasks != null) {
-            return back()->with('error', "Oops, You cannot update this project status due to pending grand tasks");
-        }
+        
 
         try 
         {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GreatTask;
+use App\Models\GreatTaskMember;
 use Illuminate\Http\Request;
 
 class GreatTaskController extends Controller
