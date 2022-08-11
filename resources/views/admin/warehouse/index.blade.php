@@ -528,58 +528,84 @@
                                 <table class="table table-striped table-bordered bordered">
                                     <thead>
                                         <tr>
-                                            <th style="width:3%;">ID</th>
                                             <th style="width:30%;">Name</th>
+                                            <th style="width:3%;">Item&nbsp;ID</th>
+                                            <th style="width:3%;">Batch&nbsp;ID</th>
                                             <th style="width:5%;">Quantity</th>
                                             <th style="width:5%;">Available</th>
                                             <th style="width:5%;">Status</th>
-                                            <th style="width:25%;">Action</th>
+                                            <th style="width:20%;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($items as $item)
                                         <tr>
-                                            <td>WH{{ $item->id }}</td>
                                             <td>{{ $item->name }}</td>
+                                            <td>WH{{ $item->id }}</td>
+                                            <td>{{ $item->batch->name }}</td>
                                             <td>{{ $item->quantity }}</td>
                                             <td>{{ $item->available }}</td>
                                             <td><span class="badge badge-{{ $item->status->style }}">{{ $item->status->name }}</span></td>
                                             <td>
-                                                <a class="btn btn-outline-warning btn-sm text-right" data-toggle="modal" data-target="#modalDetails{{$item->id}}">Manage</a>&nbsp;&nbsp;
                                                 <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateProject{{ $item->id }}">Disburse</a>
                                                 <a class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#modalDelete{{ $item->id }}">Delete</a>
                                                 <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#modalHistory{{ $item->id }}">History</a>
+                                                <a class="btn btn-outline-warning btn-sm text-right" data-toggle="modal" data-target="#modalDetails{{$item->id}}">Manage Item</a>&nbsp;&nbsp;
                                                 
                                                 
                                                 <div class="modal fade" id="modalDetails{{$item->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <div class="modal-header bg-primary">
-                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary"> [Item ID: {{ $item->id }}]</h4>
+                                                            <div class="modal-header bg-warning">
+                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary"> Manage Details for : <br>{{ $item->name }}</h4>
                                                             </div>
+
+                                                            <form method="POST" action="{{ route('warehouseitem.update', $item->id) }}">
+                                                            @csrf
                                                             <div class="modal-body">
                                                                 <p class="p-2">
                                                                     <table width="100%">
+                                                                        <input value="{{ $item->id }}" name="id" hidden readonly >
                                                                         <tr>
                                                                             <td><b>Name:</b></td>
-                                                                            <td>{{ $item->name }}</td>
+                                                                            <td><input type="text" class="form-control" min="1" value="{{$item->name}}" name="name" required></td>
                                                                         </tr>
                                                                         
                                                                         <tr>
                                                                             <td><b>Available Qty:</b></td>
-                                                                            <td>{{ $item->quantity }}</td>
+                                                                            <td><input type="number" step="1" id="quantity" class="form-control" min="1" value="{{ $item->quantity }}" name="quantity" required></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td><b>Category:</b></td>
-                                                                            <td>{{ $item->category->name }}</td>
+                                                                            <td>
+                                                                                <select class="form-control" name="category" required>
+                                                                                    <option value="">-- Select Category --</option>
+                                                                                    @foreach ($categories as $category)                                                                                                    
+                                                                                    <option @if($category->id == $item->category_id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td><b>Batch:</b></td>
-                                                                            <td>{{ $item->batch->name }}</td>
+                                                                            <td>
+                                                                                <select class="form-control" name="batch" required>
+                                                                                    <option value="">-- Select Batch --</option>
+                                                                                    @foreach ($batches as $batch)                                                                                                    
+                                                                                    <option @if($batch->id == $item->batch_id) selected @endif value="{{ $batch->id }}">{{ $batch->name }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td><b>Item Status:</b></td>
-                                                                            <td><span class="text-{{ $item->status->style }}">{{ $item->status->name }}</span></td>
+                                                                            <td>
+                                                                                <select class="form-control" name="status" required>
+                                                                                    <option value="">-- Select Status --</option>
+                                                                                    <option @if($item->status_id == $available) selected @endif value="{{ $available }}">Available</option>
+                                                                                    <option @if($item->status_id == $unavailable) selected @endif value="{{ $unavailable }}">Unavailable</option>
+                                                                                </select>
+                                                                            </td>
                                                                         </tr>
                                                                     </table>
                                                                 </p>
@@ -589,11 +615,12 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-12">
                                                                         
-                                                                        <a class="btn btn-sm btn-warning text-white mt-1" data-toggle="modal" data-target="#modalDelete{{$item->id}}">Delete</a>&nbsp;&nbsp;
-                                                                        <button class="btn btn-sm btn-white text-dark mt-1" data-dismiss="modal">Close</button>
+                                                                        <button class="btn btn-sm btn-white text-dark mt-1" data-dismiss="modal">Close</button>&nbsp;&nbsp;
+                                                                        <button class="btn btn-sm btn-warning text-white mt-1" type="submit">Save Changes</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -666,8 +693,8 @@
                                                                     <div class="modal-footer">
                                                                         <div class="form-group row">
                                                                             <div class="col-lg-12">
-                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Allocate</button>
                                                                                 <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Allocate</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -685,8 +712,10 @@
                                                                 <h4 class="modal-title" id="modalLabel">Item History : {{$item->name}}</h4>
                                                                 <p class="p-2">
                                                             </div>
+                                                            
 
                                                             <div class="modal-body">
+
                                                                 <table id="example1" class="table table-striped">
                                                                     <thead>
                                                                         <tr>
@@ -697,7 +726,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        @foreach($item->itemActivities as $activity)
+                                                                        @foreach($item->activities as $activity)
                                                                             <tr>
                                                                                 <td>
                                                                                     {{ $activity->type}}

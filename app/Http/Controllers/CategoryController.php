@@ -102,6 +102,23 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         //
+        $validate = $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        try
+        {
+            $category = Category::find($request->id);
+
+            $category->name =  $request->get('name');
+            $category->save();
+
+            return back()->with('success', 'Update successful');
+
+        } catch (\Exception $e) {
+            //dd($e);
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -113,5 +130,28 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    public function delete(Request $request)
+    {
+        try
+        {
+            
+            $category = Category::find($request->id);
+            
+            if ($category != null) 
+            {
+                $category->delete();
+                return back()->with('success', 'Deleted successfully');
+            }
+            else
+            {
+                return back()->with('error', 'Item not found');
+            }
+
+        } catch (\Exception $e) {
+            //dd($e);
+            return back()->with('error', 'This item cannot be deleted at the moment, it may have active intventory items attached to it');
+        }
     }
 }

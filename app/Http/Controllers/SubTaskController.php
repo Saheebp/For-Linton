@@ -108,7 +108,7 @@ class SubTaskController extends Controller
 
             $data = array();
             $data['body'] = auth()->user()->name." added ".$user->name." as executor for Sub Task : ".$subtask->name." on Project : ".$subtask->project->id." [".$subtask->project->name."], starting ".$subtask->start." and ending ".$subtask->end;
-            $data['project_id'] = NULL;
+            $data['project_id'] = $subtask->project->id ?? null;
             $data['task_id'] = $subtask->task->id;
             $data['sub_task_id'] = $subtask->id;
             $data['user_id'] = auth()->user()->id;
@@ -263,7 +263,7 @@ class SubTaskController extends Controller
             
             $data = array();
             $data['body'] = auth()->user()->name." updated Task ".$subtask->name."| starting: ".$subtask->start." and ending: ".$subtask->end;
-            $data['project_id'] = NULL;
+            $data['project_id'] = $subtask->project->id ?? null;
             $data['task_id'] = NULL;
             $data['sub_task_id'] = $subtask->id;
             $data['user_id'] = auth()->user()->id;
@@ -304,9 +304,11 @@ class SubTaskController extends Controller
             
             $data = array();
             $data['body'] = auth()->user()->name." sent a reminder to team members on Task : ".$subtask->id." [".$subtask->name."], starting ".$subtask->start." and ending ".$subtask->end;
-            $data['project_id'] = NULL;
-            $data['task_id'] = NULL;
+            
+            $data['project_id'] = $subtask->project->id ?? null;
+            $data['task_id'] = $task->project->id ?? null;
             $data['sub_task_id'] = $subtask->id;
+            
             $data['user_id'] = auth()->user()->id;
 
             $this->createLog($data);

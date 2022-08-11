@@ -101,10 +101,10 @@ class WarehouseItemController extends Controller
             'project' => 'required|string|max:255',
             'quantity' => 'required|numeric',
         ]);
-
-        $project = Project::find($request->project);
+        
         $item = WarehouseItem::find($request->item);
-
+        $project = Project::find($request->project);
+        
         if ($item->available > $request->quantity) 
         {
             return view('admin.warehouse.allocate', [
@@ -147,6 +147,10 @@ class WarehouseItemController extends Controller
             $item->save();
             
             $inventory = Inventory::where('project_id',$project->id)->first();
+            if ($inventory == NULL) {
+                return redirect()->route('warehouse.index')->with('error', 'Target inventory not found, please create an inventory for the target Project');
+            }
+            
             InventoryItem::create([
                 'name' => $item->name,
                 'quantity' => $request->quantity, 
@@ -207,7 +211,31 @@ class WarehouseItemController extends Controller
      */
     public function update(Request $request, WarehouseItem $WarehouseItem)
     {
-        //
+        $validate = $request->validate([
+            'name' => 'required|string|max:255',
+            'quantity' => 'required|numeric',
+            'category' => 'required|numeric',
+            'batch' => 'required|numeric',
+            'status' => 'required|numeric'
+        ]);
+
+        try
+        {
+            $WarehouseItem = WareHouseItem::find($request->id);
+
+            $WarehouseItem->name =  $request->get('name');
+            $WarehouseItem->quantity = $request->get('quantity');
+            $WarehouseItem->category_id = $request->get('category');
+            $WarehouseItem->batch_id = $request->get('batch');
+            $WarehouseItem->status_id = $request->get('status');
+            $WarehouseItem->save();
+
+            return back()->with('success', 'Update successful');
+
+        } catch (\Exception $e) {
+            //dd($e);
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -219,5 +247,35 @@ class WarehouseItemController extends Controller
     public function destroy(WarehouseItem $WarehouseItem)
     {
         //
+    }
+
+
+     /**
+     * Remove the specified resource from available items.
+     *
+     * @param  \App\Models\WarehouseItem  $WarehouseItem
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request, WarehouseItem $WarehouseItem)
+    {
+        try
+        {
+            
+            $WarehouseItem = WareHouseItem::find($request->id);
+            
+            if ($WarehouseItem != null && $WarehouseItem->quantity != $WarehouseItem->available) 
+            {
+                $WarehouseItem->delete();
+                return back()->with('success', 'Deleted successfully');
+            }
+            else
+            {
+                return back()->with('error', 'Item not found or some of this item category is currently disbursed');
+            }
+
+        } catch (\Exception $e) {
+            //dd($e);
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

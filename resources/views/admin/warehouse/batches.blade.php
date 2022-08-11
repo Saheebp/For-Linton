@@ -125,8 +125,9 @@
                                                 <div class="modal-footer">
                                                     <div class="form-group row">
                                                         <div class="col-lg-12">
-                                                            <button class="btn btn-responsive layout_btn_prevent btn-primary">Save & Create</button>
                                                             <button class="btn  btn-secondary" data-dismiss="modal">Close me!</button>
+                                                            <button class="btn btn-responsive layout_btn_prevent btn-primary">Save & Create</button>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -159,7 +160,7 @@
                                 <table class="table table-striped table-bordered bordered">
                                     <thead>
                                         <tr>
-                                            <th style="width:3%;">ID</th>
+                                            <!-- <th style="width:3%;">ID</th> -->
                                             <th style="width:20%;">Name</th>
                                             <th style="width:5%;">Action</th>
                                         </tr>
@@ -167,27 +168,119 @@
                                     <tbody>
                                         @foreach($batches as $batch)
                                         <tr>
-                                            <td>{{ $batch->id }}</td>
+                                            <!-- <td>{{ $batch->id }}</td> -->
                                             <td>{{ $batch->name }}</td>
                                             <td>
-                                                <a class="btn btn-secondary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$batch->id}}">delete</a>&nbsp;&nbsp;
-                                                
+                                                <a class="btn btn-sm btn-outline-danger text-danger text-white mt-1" data-toggle="modal" data-target="#modalDelete{{$batch->id}}">Delete</a>&nbsp;&nbsp;
+                                                <a class="btn btn-outline-primary text-primary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$batch->id}}">Update</a>&nbsp;&nbsp;
+                                                    
+                              
+                                                <div class="modal fade" id="modalDelete{{$batch->id}}" role="dialog" aria-labelledby="modalLabelprimary">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-danger">
+                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">{{ $batch->name }}</h4>
+                                                            </div>
+                                                            <form method="POST" action="{{ route('batches.delete') }}">
+                                                            @csrf
+
+                                                            <input value="{{ $batch->id }}" name="id" hidden readonly >
+                                                            <div class="modal-body">
+                                                                <h3 class="p-5 text-center">
+                                                                    Are you sure you want to Delete this item?
+                                                                </h3>
+                                                            </div> 
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-sm btn-outline-dark" data-dismiss="modal">Close</button>
+                                                                <button class="btn btn-sm btn-danger" type="submit">Yes, Delete Batch</button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="modal fade" id="modalDetails{{$batch->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <div class="modal-header bg-primary">
-                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Delete Batch</h4>
+                                                            <div class="modal-header bg-warning">
+                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary"> Manage Details for : <br>{{ $batch->name }}</h4>
                                                             </div>
+
+                                                            <form method="POST" action="{{ route('batches.update', $batch->id) }}">
+                                                            @csrf
                                                             <div class="modal-body">
-                                                                
+                                                                <p class="p-2">
+                                                                    <table width="100%">
+                                                                        <input value="{{ $batch->id }}" name="id" hidden readonly >
+                                                                        <tr>
+                                                                            <td><b>Name:</b></td>
+                                                                            <td><input type="text" class="form-control" min="1" value="{{$batch->name}}" name="name" required></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </p>
                                                             </div> 
                                                             
                                                             <div class="modal-footer container-fluid">
                                                                 <div class="row">
                                                                     <div class="col-lg-12">
                                                                         
-                                                                        <a class="btn btn-sm btn-warning text-white mt-1" data-toggle="modal" data-target="#modalDelete{{$batch->id}}">Delete</a>&nbsp;&nbsp;
+                                                                        <button class="btn btn-sm btn-white text-dark mt-1" data-dismiss="modal">Close</button>&nbsp;&nbsp;
+                                                                        <button class="btn btn-sm btn-warning text-white mt-1" type="submit">Save Changes</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="modal fade" id="modalDetails{{$batch->id}}" role="dialog" aria-labelledby="modalLabelprimary">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-primary">
+                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Update Batch</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                        
+                                                                <!-- Name input-->
+                                                                <div class="form-group row m-t-25">
+                                                                    <div class="col-lg-12">
+                                                                        <label for="date" class="col-form-label">
+                                                                            Name
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                            <input type="text" class="form-control" id="name" value="{{ $batch->name }}" name="name">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- <div class="form-group row m-t-25">
+                                                                    <div class="col-lg-12">
+                                                                        <label for="date" class="col-form-label">
+                                                                            Description
+                                                                        </label>
+                                                                        <div class="input-group">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                            <input type="text" class="form-control" id="name" value="{{ $batch->description }}" name="description">
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                            
+                                                            <div class="modal-footer container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        
                                                                         <button class="btn btn-sm btn-white text-dark mt-1" data-dismiss="modal">Close</button>
+                                                                        <button class="btn btn-sm btn-responsive mt-1 layout_btn_prevent btn-primary">Save Changes</button>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>

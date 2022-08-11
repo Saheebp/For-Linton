@@ -34,7 +34,7 @@ class WarehouseItem extends Model
         return $this->belongsTo(Warehouse::class);
     }
 
-    public function itemActivities(){
+    public function activities(){
         return $this->hasMany(WarehouseActivity::class);
     }
 

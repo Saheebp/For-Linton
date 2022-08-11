@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function() {
     Route::get('print/project/timeline/{project}', 'PrintController@printTimeline')->name('projects.timeline.print');
     Route::get('print/project/resources/{project}', 'PrintController@printResources')->name('projects.resources.print');
     Route::get('print/project/inventory/{project}', 'PrintController@printInventory')->name('projects.inventory.print');
-    Route::get('print/project/notification/{project}', 'PrintController@printNotification')->name('projects.notification.print');
+    Route::get('print/project/notification/{project}/{filter?}', 'PrintController@printNotification')->name('projects.notification.print');
     
     //users
     Route::resource('users', 'UserController')->except('edit');
@@ -130,6 +130,8 @@ Route::middleware('auth')->group(function() {
             Route::get('/', 'CategoryController@index')->name('index');
             Route::post('filter', 'CategoryController@filter')->name('filter');
             Route::post('search', 'CategoryController@search')->name('search');
+            Route::post('delete', 'CategoryController@delete')->name('delete');
+            Route::post('update', 'CategoryController@update')->name('update');
         });
     });
 
@@ -140,6 +142,8 @@ Route::middleware('auth')->group(function() {
             Route::get('/', 'BatchController@index')->name('index');
             Route::post('filter', 'BatchController@filter')->name('filter');
             Route::post('search', 'BatchController@search')->name('search');
+            Route::post('delete', 'BatchController@delete')->name('delete');
+            Route::post('update', 'BatchController@update')->name('update');
         });
     });
 
@@ -161,6 +165,8 @@ Route::middleware('auth')->group(function() {
             Route::get('/', 'WarehouseItemController@index')->name('index');
             Route::post('filter', 'WarehouseItemController@filter')->name('filter');
             Route::post('search', 'WarehouseItemController@search')->name('search');
+            Route::post('update/{item_id}', 'WarehouseItemController@update')->name('update');
+            Route::post('delete', 'WarehouseItemController@delete')->name('delete');
             Route::post('upload/resource', 'WarehouseItemController@uploadResource')->name('upload');
             Route::post('allocate/preview', 'WarehouseItemController@allocatePreview')->name('allocate.preview');
             Route::post('allocate', 'WarehouseItemController@allocate')->name('allocate.save');
@@ -227,7 +233,8 @@ Route::middleware('auth')->group(function() {
             Route::get('budget/{project}', 'ProjectController@budget')->name('budget');
             Route::get('inventory/{project}', 'ProjectController@inventory')->name('inventory');
             Route::get('comments/{project}', 'ProjectController@comments')->name('comments');
-            Route::get('notification/{project}', 'ProjectController@notifications')->name('notifications');
+            Route::get('notification//{project}/{filter?}', 'ProjectController@notifications')->name('notifications');
+
 
             Route::post('replicate/{project}', 'ProjectController@replicateProject')->name('replicateProject');
         });

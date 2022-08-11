@@ -17,6 +17,7 @@ use App\Models\Resource;
 use App\Models\Status;
 use App\Models\State;
 use App\Models\Designation;
+use App\Models\Notification;
 use App\Models\ProjectMember;
 
 use Stevebauman\Location\Facades\Location;
@@ -444,13 +445,26 @@ class ProjectController extends Controller
         }
     }
 
-    public function notifications(Project $project)
+    public function notifications(Project $project, $filter = NULL)
     {
+        
         try 
         {
+            $notifications = null;
+
+            if ($filter == 'oldest') {
+                $notifications = Notification::orderBy('created_at', 'desc')->paginate(30);
+            }
+            
+            if ($filter == 'latest'){
+                $notifications = Notification::orderBy('created_at', 'asc')->paginate(30);
+            }
+
             return view('admin.projects.notifications', [
                 'project' => $project,
-                'tabnot' => 'active'
+                'tabnot' => 'active',
+                'notifications' => $notifications,
+                'filter' => $filter
             ]);
         }
         catch (\Exception $e) 
@@ -917,7 +931,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        dd("hi");
         //
     } 
 

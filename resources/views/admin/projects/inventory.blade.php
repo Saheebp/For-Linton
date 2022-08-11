@@ -4,8 +4,81 @@
     <div class="tab-pane p-3" id="tab7">
         <a class="btn btn-sm btn-outline-success float-right mt-1" href="{{ route('projects.inventory.print', $project) }}">Print Summary</a>
         
+        @if($project->inventory == null)
+            No inventory found for this project! 
+
+            @role('Super User|Level 1|Level 2|Level 3')
+            <a class="text-success"
+                    data-toggle="modal" data-target="#createItem">Create New Inventory
+            </a>
+
+        @endrole
+        
+        <div class="modal fade" id="createItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalLabel">Create A New Inventory</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+
+                    <form class="form-horizontal" action="{{ route('inventories.store') }}" method="POST">
+                        @csrf
+                        <fieldset>
+                        <div class="modal-body">
+                            
+                            <input value="{{ $project->id}}" name="project" hidden readonly>
+                            
+                            <!-- Name input-->
+                            <div class="form-group row m-t-25">
+                                <div class="col-lg-12">
+                                    <label for="date" class="col-form-label">
+                                        Inventory Name
+                                    </label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                        <input type="text" class="form-control" id="name" placeholder="" name="name">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="form-group row m-t-25">
+                                <div class="col-12">
+                                    <label for="subject1" class="col-form-label">
+                                        Description
+                                    </label>
+                                    <div class="input-group">
+                                        <textarea type="text" name="description" id="subject1" class="form-control" placeholder="Subject"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <button class="btn  btn-secondary" data-dismiss="modal">Close, Don't Create!</button>
+                                    <button class="btn btn-responsive layout_btn_prevent btn-primary">Save & Create</button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @else
         <h4 class="card-title" style="margin-bottom:30px; margin-top:30px;">Inventory Requests</h4>
         <!-- <p class="card-text">Items available for this project</p> -->
+
         <div class="table-responsive">
             <table id="example1" class="table bg-primary text-white">
                 <thead>
@@ -457,6 +530,7 @@
                 </tbody>
             </table>
         </div>
+        @endif
 
     </div>
 @stop

@@ -26,7 +26,7 @@ class WarehouseController extends Controller
     public function index()
     {
         //
-        $items = WarehouseItem::orderBy('created_at', 'desc')->paginate(10);
+        $items = WarehouseItem::orderBy('created_at', 'asc')->paginate(10);
         $statuses = Status::all();
         $categories = Category::all();
         $batches = Batch::all();

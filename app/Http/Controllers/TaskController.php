@@ -158,7 +158,7 @@ class TaskController extends Controller
 
             $data = array();
             $data['body'] = auth()->user()->name." updated a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."], starting ".$task->start." and ending ".$task->end;
-            //$data['project_id'] = $project->id;
+            $data['project_id'] = $task->project->id ?? null;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['user_id'] = auth()->user()->id;
@@ -205,6 +205,13 @@ class TaskController extends Controller
                 //return message specifies that task has been completed
                 //save camera image
                 //get gps coordinates
+
+                $sub_tasks = SubTask::where('task_id',$task->id)
+                ->whereNotIn('status_id', [ config('completed'), config('inactive') ])->get();
+
+                if (!$sub_tasks->isEmpty()) { 
+                    return back()->with('error', "Oops, You cannot update this Task status due to pending sub tasks");
+                }
             }
 
             if ($request->status == 'queried') {
@@ -233,7 +240,7 @@ class TaskController extends Controller
 
             $data = array();
             $data['body'] = auth()->user()->name." Updated status of a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."], starting ".$task->start." and ending ".$task->end;
-            $data['project_id'] = NULL;
+            $data['project_id'] = $task->project->id;
             $data['task_id'] = $task->id;
             $data['sub_task_id'] = NULL;
             $data['grand_task_id'] = NULL;

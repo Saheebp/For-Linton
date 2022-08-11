@@ -187,8 +187,35 @@
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->description }}</td>
                                             <td>
-                                                <a class="btn btn-secondary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$category->id}}">Manage</a>&nbsp;&nbsp;
                                                 
+                                                <a class="btn btn-sm btn-outline-danger text-danger text-white mt-1" data-toggle="modal" data-target="#modalDelete{{$category->id}}">Delete</a>&nbsp;&nbsp;
+                                                <a class="btn btn-outline-secondary text-secondary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$category->id}}">Update</a>&nbsp;&nbsp;
+                                                    
+                              
+                                                <div class="modal fade" id="modalDelete{{$category->id}}" role="dialog" aria-labelledby="modalLabelprimary">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-danger">
+                                                                <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">{{ $category->name }}</h4>
+                                                            </div>
+                                                            <form method="POST" action="{{ route('categories.delete') }}">
+                                                            @csrf
+
+                                                            <input value="{{ $category->id }}" name="id" hidden readonly >
+                                                            <div class="modal-body">
+                                                                <h3 class="p-5 text-center">
+                                                                    Are you sure you want to Delete this item?
+                                                                </h3>
+                                                            </div> 
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-sm btn-outline-dark" data-dismiss="modal">Close</button>
+                                                                <button class="btn btn-sm btn-danger" type="submit">Yes, Delete Category</button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="modal fade" id="modalDetails{{$category->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
@@ -231,9 +258,9 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-12">
                                                                         
-                                                                        <a class="btn btn-sm btn-success text-white mt-1" data-toggle="modal" data-target="#modalDelete{{$category->id}}">Save</a>&nbsp;&nbsp;
-                                                                        <button class="btn btn-responsive layout_btn_prevent btn-danger">Delete</button>
                                                                         <button class="btn btn-sm btn-white text-dark mt-1" data-dismiss="modal">Close</button>
+                                                                        <button class="btn btn-sm btn-responsive mt-1 layout_btn_prevent btn-danger">Save Changes</button>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -767,7 +767,7 @@
                                             <a class="nav-link {{ $tabcom ?? ''}}" href="{{ route('projects.comments', $project->id) }}"  >Comments</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link {{ $tabnot ?? ''}}" href="{{ route('projects.notifications', $project->id) }}" >Notifications</a>
+                                            <a class="nav-link {{ $tabnot ?? ''}}" href="{{ route('projects.notifications', [$project->id, 'latest']) }}" >Notifications</a>
                                         </li>
                                     </ul>
                                 </div>

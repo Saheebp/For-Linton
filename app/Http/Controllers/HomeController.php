@@ -46,7 +46,7 @@ class HomeController extends Controller
             'group_by_field' => 'name',
             'chart_type' => 'pie',
             'filter_field' => 'created_at',
-            'filter_period' => 'month', // show users only registered this month
+            'filter_period' => 'year', // show users only registered this month
         ];
         $chart1 = new LaravelChart($chart_options);
         
@@ -86,7 +86,7 @@ class HomeController extends Controller
             'users' => $users,
             'tasks' => $tasks,
             'chart1' => $chart1,
-            'chart2' => $chart2
+            //'chart2' => $chart2
         ]);
     }
 

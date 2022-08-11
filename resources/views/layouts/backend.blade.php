@@ -58,7 +58,7 @@
                         <i class="fa fa-bars"></i>
                     </span>
                 </div>
-                <div class="top_search_box d-none d-md-flex">
+                <!-- <div class="top_search_box d-none d-md-flex">
                     <form class="header_input_search">
                         <input type="text" placeholder="Search" name="search">
                         <button type="submit">
@@ -66,12 +66,12 @@
                         </button>
                         <div class="overlay"></div>
                     </form>
-                </div>
+                </div> -->
                 <div class="topnav dropdown-menu-right">
-                    <div class="btn-group small_device_search" data-toggle="modal"
+                    <!-- <div class="btn-group small_device_search" data-toggle="modal"
                          data-target="#search_modal">
                         <i class="fa fa-search text-primary"></i>
-                    </div>
+                    </div> -->
                     <div class="btn-group">
                         <div class="notifications no-bg">
                             <a class="btn btn-default btn-sm messages" data-toggle="dropdown" id="messages_section"> <i
@@ -254,13 +254,13 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="btn-group">
+                    <!-- <div class="btn-group">
                         <div class="notifications request_section no-bg">
                             <a class="btn btn-default btn-sm messages" id="request_btn"> <i
                                     class="fa fa-sliders" aria-hidden="true"></i>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="btn-group">
                         <div class="user-settings no-bg">
                             <button type="button" class="btn btn-default no-bg micheal_btn" data-toggle="dropdown">

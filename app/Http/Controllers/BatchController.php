@@ -19,7 +19,7 @@ class BatchController extends Controller
      */
     public function index()
     {
-        $batches = Batch::orderBy('created_at', 'desc')->paginate(10);
+        $batches = Batch::orderBy('id', 'desc')->paginate(10);
         
         return view('admin.warehouse.batches', [
             'batches' => $batches,
@@ -94,6 +94,23 @@ class BatchController extends Controller
     public function update(Request $request, Batch $batch)
     {
         //
+        $validate = $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        try
+        {
+            $batch = Batch::find($request->id);
+
+            $batch->name =  $request->get('name');
+            $batch->save();
+
+            return back()->with('success', 'Update successful');
+
+        } catch (\Exception $e) {
+            //dd($e);
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -105,5 +122,28 @@ class BatchController extends Controller
     public function destroy(Batch $batch)
     {
         //
+    }
+
+    public function delete(Request $request)
+    {
+        try
+        {
+            
+            $batch = Batch::find($request->id);
+            
+            if ($batch != null) 
+            {
+                $batch->delete();
+                return back()->with('success', 'Deleted successfully');
+            }
+            else
+            {
+                return back()->with('error', 'Item not found');
+            }
+
+        } catch (\Exception $e) {
+            //dd($e);
+            return back()->with('error', 'This item cannot be deleted at the moment, it may have active intventory items attached to it');
+        }
     }
 }

@@ -280,15 +280,10 @@
 
 @section('footer_scripts')
 {!! $chart1->renderChartJsLibrary() !!}
-{!! $chart2->renderChartJsLibrary() !!}
-
 {!! $chart1->renderJs() !!}
-{!! $chart2->renderJs() !!}
 @stop
 
 @section('javascript')
 {!! $chart1->renderChartJsLibrary() !!}
-
 {!! $chart1->renderJs() !!}
-{!! $chart2->renderJs() !!}
 @endsection

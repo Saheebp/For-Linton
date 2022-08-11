@@ -128,8 +128,9 @@
                                         <input name="project" value="{{ $project->id }}" hidden readonly>
                                         <input name="item" value="{{ $item->id }}" hidden readonly>
                                         <input name="quantity" value="{{ $quantity }}" hidden readonly>
+                                        <a class="btn btn-lg btn-outline-secondary text-secondary" href="{{ route('warehouse.index') }}">No, Don't Allocate</a>
                                         <button class="btn btn-lg btn-responsive layout_btn_prevent btn-success">Yes, Allocate</button>
-                                        <a class="btn btn-lg btn-secondary" href="{{ route('warehouse.index') }}">Cancel</a>
+                                        
                                     </form>
                                 </div>
                             </div>
