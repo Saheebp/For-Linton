@@ -453,11 +453,11 @@ class ProjectController extends Controller
             $notifications = null;
 
             if ($filter == 'oldest') {
-                $notifications = Notification::orderBy('created_at', 'desc')->paginate(30);
+                $notifications = Notification::orderBy('created_at', 'asc')->paginate(30);
             }
             
             if ($filter == 'latest'){
-                $notifications = Notification::orderBy('created_at', 'asc')->paginate(30);
+                $notifications = Notification::orderBy('created_at', 'desc')->paginate(30);
             }
 
             return view('admin.projects.notifications', [

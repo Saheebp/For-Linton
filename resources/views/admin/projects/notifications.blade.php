@@ -19,7 +19,7 @@
 
             <table id="example1" class="table table-striped">
                 <tbody>
-                    @foreach($project->notifications as $notification)
+                    @foreach($notifications as $notification)
                     <tr>
                         <td>
                             @if ($notification->project_id != NULL)
