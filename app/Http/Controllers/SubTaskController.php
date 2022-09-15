@@ -109,7 +109,7 @@ class SubTaskController extends Controller
             $data = array();
             $data['body'] = auth()->user()->name." added ".$user->name." as executor for Sub Task : ".$subtask->name." on Project : ".$subtask->project->id." [".$subtask->project->name."], starting ".$subtask->start." and ending ".$subtask->end;
             $data['project_id'] = $subtask->project->id ?? null;
-            $data['task_id'] = $subtask->task->id;
+            $data['task_id'] = $subtask->task_id;
             $data['sub_task_id'] = $subtask->id;
             $data['user_id'] = auth()->user()->id;
             
@@ -123,7 +123,7 @@ class SubTaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            //dd($e);
+            dd($e);
             return back()->with('error', "Oops, Error Updating Sub Task");
         }
     }

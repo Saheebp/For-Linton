@@ -415,8 +415,8 @@
                                                                                             <div class="modal-footer">
                                                                                                 <div class="form-group row">
                                                                                                     <div class="col-lg-12">
-                                                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
-                                                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update Status</button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -464,8 +464,8 @@
                                                                                             <div class="modal-footer">
                                                                                                 <div class="form-group row">
                                                                                                     <div class="col-lg-12">
-                                                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
-                                                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Assign to Task</button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -1895,8 +1895,8 @@
                                             <div class="modal-footer">
                                                 <div class="form-group row">
                                                     <div class="col-lg-12">
-                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
-                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update Status</button>
                                                     </div>
                                                 </div>
                                             </div>
