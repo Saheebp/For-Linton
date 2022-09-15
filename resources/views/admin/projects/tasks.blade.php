@@ -1239,60 +1239,66 @@
 
                                         <tr>
                                             <td>
-                                            <tag class="text-primary text-bold">Team :</tag>
-                                                <p class="text-justify">
-                                                    <?php $i = 1; ?>
-                                                    @foreach($task->members as $member)
-                                                        {{ $i }}. {{ $member->user->name  }} 
+                                                <tag class="text-primary text-bold">Team :</tag>
+                                                <table width="100%">
+                                                    <body>
+                                                        <?php $i = 1; ?>
+                                                        @foreach($task->members as $member)
+                                                        <tr>
+                                                            <td width="5%">{{ $i }}</td>
+                                                            <td width="25%">{{ $member->user->name  }}</td>
+                                                            <td>
+                                                                <a class="btn btn-sm btn-outline-warning float-right" data-toggle="modal" data-target="#removeFromTask{{$member->id}}">Remove from Task</a>
+                                                                <div class="modal fade" id="removeFromTask{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                                aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title" id="modalLabel">Remove {{ $member->user->name  }} from, <br>{{$task->name}}</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">×</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <form class="form-horizontal" action="{{ route('tasks.removeMember', $task)}}" method="POST">
+                                                                            @csrf
 
-                                                        <a class="btn btn-sm btn-outline-warning float-right" data-toggle="modal" data-target="#removeFromTask{{$member->id}}">Remove from Task</a>
-                                                        <div class="modal fade" id="removeFromTask{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                                        aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title" id="modalLabel">Remove {{ $member->user->name  }} from, <br>{{$task->name}}</h4>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">×</span>
-                                                                        </button>
+                                                                                <input name="member" value="{{$member->id}}" hidden readonly>
+                                                                                <input name="task" value="{{$task->id}}" hidden readonly>
+                                                                            
+                                                                                <fieldset>
+                                                                                    <div class="modal-body">
+                                                                                        
+                                                                                        <div class="form-group row">
+                                                                                            
+                                                                                            <div class="col-lg-12">
+                                                                                                <label for="subject1" class="col-form-label">
+                                                                                                    Are you sure you want to remove this member from this task?
+                                                                                                </label>
+                                                                                                <input hidden readonly type="text" value="{{ $member->user->id }}" name="member">
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                    <div class="modal-footer">
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-lg-12">
+                                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Remove</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
-                                                                    <form class="form-horizontal" action="{{ route('tasks.removeMember', $task)}}" method="POST">
-                                                                    @csrf
-
-                                                                        <input name="member" value="{{$member->id}}" hidden readonly>
-                                                                        <input name="task" value="{{$task->id}}" hidden readonly>
-                                                                    
-                                                                        <fieldset>
-                                                                            <div class="modal-body">
-                                                                                
-                                                                                <div class="form-group row">
-                                                                                    
-                                                                                    <div class="col-lg-12">
-                                                                                        <label for="subject1" class="col-form-label">
-                                                                                            Are you sure you want to remove this member from this task?
-                                                                                        </label>
-                                                                                        <input hidden readonly type="text" value="{{ $member->user->id }}" name="member">
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-
-                                                                            <div class="modal-footer">
-                                                                                <div class="form-group row">
-                                                                                    <div class="col-lg-12">
-                                                                                        <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Update</button>
-                                                                                        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </fieldset>
-                                                                    </form>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <?php $i=$i+1; ?>
-                                                    @endforeach
-                                                </p>
+                                                            </td>
+                                                            <?php $i=$i+1; ?>
+                                                        </tr>
+                                                        @endforeach
+                                                    </body>
+                                                </table>
                                             </td>
                                         </tr>
 
