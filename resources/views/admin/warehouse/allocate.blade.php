@@ -74,14 +74,14 @@
                             
                             <div class="row">
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 mx-auto">
                                     
-                                    <h3><tag class="text-capitalize text-success">Item</tag></h3>
+                                    <h3><tag class="text-capitalize text-primary">Item to Disburse</tag></h3>
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
                                             
                                             <tr>
-                                                <td><b>Item: </b></td> <td><tag>{{ $item->name ?? '' }}</tag></td>
+                                                <td width="35%"><b>Item: </b></td> <td><tag>{{ $item->name ?? '' }}</tag></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Category: </b></td> <td><tag>{{ $item->category->name ?? '' }}</tag></td>
@@ -97,14 +97,12 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
 
-                                <div class="col-lg-6">
-                                    <h3><tag class="text-capitalize text-success">Project</tag></h3>
+                                    <h3 class="mt-5"><tag class="text-capitalize text-success">Receiving Project</tag></h3>
                                     <table id="example1" class="display table table-stripped table-bordered">
                                         <tbody>
                                             <tr>
-                                                <td><b>Title: </b></td> <td><tag class="text-success">{{ $project->name ?? '' }}</tag> </td>
+                                                <td width="35%"><b>Title: </b></td> <td><tag class="text-success">{{ $project->name ?? '' }}</tag> </td>
                                             </tr>
                                             <!-- <tr>
                                                 <td><b>Budget: </b></td> <td><tag class="text-danger">&#8358;{{ number_format(floatval($project->budget), 2) }}</tag></td>
@@ -123,16 +121,21 @@
                                             </tr> -->
                                         </tbody>
                                     </table>
-                                    <form action="{{ route('warehouseitem.allocate.save') }}" method="POST">
-                                    @csrf
-                                        <input name="project" value="{{ $project->id }}" hidden readonly>
-                                        <input name="item" value="{{ $item->id }}" hidden readonly>
-                                        <input name="quantity" value="{{ $quantity }}" hidden readonly>
-                                        <a class="btn btn-lg btn-outline-secondary text-secondary" href="{{ route('warehouse.index') }}">No, Don't Allocate</a>
-                                        <button class="btn btn-lg btn-responsive layout_btn_prevent btn-success">Yes, Allocate</button>
-                                        
-                                    </form>
+                                    
+                                    <div class="text-right">
+                                        <form action="{{ route('warehouseitem.allocate.save') }}" method="POST">
+                                        @csrf
+                                            <input name="project" value="{{ $project->id }}" hidden readonly>
+                                            <input name="item" value="{{ $item->id }}" hidden readonly>
+                                            <input name="quantity" value="{{ $quantity }}" hidden readonly>
+                                            <a class="btn btn-lg btn-outline-secondary text-secondary" href="{{ route('warehouse.index') }}">No, Don't Allocate</a>
+                                            <button class="btn btn-lg btn-responsive layout_btn_prevent btn-success">Yes, Allocate</button>
+                                            
+                                        </form>
+                                    </div>
+                                    
                                 </div>
+
                             </div>
                         </div>
                     </div>

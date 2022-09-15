@@ -97,6 +97,7 @@ class WarehouseItemController extends Controller
 
     public function allocatePreview(Request $request)
     {
+
         $validate = $request->validate([
             'project' => 'required|string|max:255',
             'quantity' => 'required|numeric',
@@ -105,7 +106,7 @@ class WarehouseItemController extends Controller
         $item = WarehouseItem::find($request->item);
         $project = Project::find($request->project);
         
-        if ($item->available > $request->quantity) 
+        if ($item->available >= $request->quantity) 
         {
             return view('admin.warehouse.allocate', [
                 'item' => $item,

@@ -685,7 +685,7 @@
                                                                                 Quantity
                                                                             </label>
                                                                             <div class="input-group">
-                                                                                <input type="number" step="1" id="quantity" class="form-control" min="1" max="{{$item->available}}" name="quantity" required>
+                                                                                <input type="number" step="1" id="quantity" class="form-control" min="1" max="{{$item->available}}" value="{{$item->available}}" name="quantity" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -693,7 +693,7 @@
                                                                     <div class="modal-footer">
                                                                         <div class="form-group row">
                                                                             <div class="col-lg-12">
-                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
                                                                                 <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Allocate</button>
                                                                             </div>
                                                                         </div>

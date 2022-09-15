@@ -220,6 +220,7 @@
                                                         
                                                         <input value="{{ $item->id }}" hidden readonly name="inventory_item_id">
                                                         <input value="{{ $project->inventory->id }}" hidden readonly name="inventory_id">
+                                                        <input value="{{ $item->available }}" hidden readonly name="qty_available">
                                                             
                                                         <div class="col-lg-12 mt-3">
                                                             <label End="subject1" class="col-form-label">
@@ -249,7 +250,7 @@
 
                                                         <div class="col-12">
                                                             <label for="subject1" class="col-form-label">
-                                                                Quantity
+                                                                Quantity 
                                                             </label>
                                                             <div class="input-group">
                                                                 <input id="quantity" value="{{ old('quantity') ?? $item->available }}" min="1" max="{{ $item->available }}"  class="form-control" name="quantity">
@@ -263,8 +264,8 @@
                                                     <div class="modal-footer">
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
-                                                                <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Allocate</button>
-                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">No, Close</button>
+                                                                <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Disburse</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -327,8 +328,8 @@
                                                     <div class="modal-footer">
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
+                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
                                                                 <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Return</button>
-                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -391,8 +392,8 @@
                                                     <div class="modal-footer">
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
+                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
                                                                 <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Return</button>
-                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -463,8 +464,8 @@
                                                     <div class="modal-footer">
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
+                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
                                                                 <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Yes, Return</button>
-                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
                                                             </div>
                                                         </div>
                                                     </div>

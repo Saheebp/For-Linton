@@ -8,6 +8,7 @@ use App\Models\ItemRequest;
 
 use App\Models\InventoryItem;
 use App\Models\InventoryActivity;
+use App\Models\WarehouseActivity;
 use App\Models\WarehouseItem;
 
 use Illuminate\Http\Request;
@@ -96,6 +97,18 @@ class InventoryItemController extends Controller
 
     public function disburse(Request $request)
     {
+        $validate = $request->validate([
+            'inventory_item_id' => 'required|numeric',
+            'inventory_id' => 'required|numeric',
+            'member' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'return_date' => 'required|date', 
+        ]);
+
+        if ($request->quantity > $request->qty_available) {
+            return back()->with('error', 'Item quantity specified for disburse, exceeds available quantity');
+        }
+
         try
         {
             $receiver = User::find($request->member);
@@ -189,11 +202,21 @@ class InventoryItemController extends Controller
             ]);
             $inventory_item->save();
             
+            $activity = auth()->user()->name.' Returned '.$request->quantity.' units of '.$item->name.' to '.$receiver->name;
+
             activity()
             ->performedOn($item)
             ->causedBy(auth()->user())
             ->withProperties(['Item' => $item->id])
-            ->log(auth()->user()->name.' Returned '.$request->quantity.' units of '.$item->name.' to '.$receiver->name );
+            ->log($activity);
+
+            $data = array();
+            $data['body'] = $activity;
+            $data['project_id'] = $inventory_item->inventory->project_id;
+            $data['task_id'] = NULL;
+            $data['sub_task_id'] = NULL;
+            $data['user_id'] = auth()->user()->id;
+            $this->createLog($data);
 
             return back()->with('success', 'Item disbursed successfully');
 
@@ -250,6 +273,16 @@ class InventoryItemController extends Controller
             ->causedBy(auth()->user())
             ->withProperties(['Item' => $warehouse_item->id])
             ->log(auth()->user()->name.' Returned '.$request->quantity.' units of '.$warehouse_item->name.' to warehouse');
+
+            WarehouseActivity::create([
+                'type' => 'return',
+                'quantity' => $request->quantity,
+                'project' => $inventory->project->name,
+                'project_id' => $inventory->project_id,
+                'user_id' => Auth::user()->id,
+                'warehouse_id' => $inventory_item->warehouseItem->warehouse_id,
+                'warehouse_item_id' => $inventory_item->warehouse_item_id
+            ]);
 
             return back()->with('success', 'Item Returned successfully');
 

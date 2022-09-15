@@ -77,7 +77,7 @@
                     
                     <div class="card">
                         <div class="card-header bg-white">
-                            <i class="fa fa-table"></i> Create Project
+                            <i class="fa fa-table"></i> Create New User
                         </div>
                         <div class="card-body m-t-35">
                             <div class="col-lg-6  col-md-8  col-sm-12 mx-auto">
