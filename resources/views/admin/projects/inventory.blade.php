@@ -152,8 +152,8 @@
                                                     <div class="modal-footer">
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
-                                                                <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Submit</button>
-                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button class="btn btn-sm btn-responsive text-white layout_btn_prevent btn-success">Update Request</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -316,17 +316,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-12">
-                                                            <label for="subject1" class="col-form-label">
-                                                                Quantity
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <input id="quantity" value="{{ $item->quantity - $item->available }}" min="1"  class="form-control" name="quantity">
-                                                            </div>
-                                                            @error('quantity')
-                                                                <span class="text-danger">{{ $errors->first('quantity') }}</span>
-                                                            @enderror
-                                                        </div>
+                                                        <input value="{{ $item->quantity - $item->available }}" min="1"  hidden readonly name="quantity">
                                                     </div>
 
                                                     <div class="modal-footer">
