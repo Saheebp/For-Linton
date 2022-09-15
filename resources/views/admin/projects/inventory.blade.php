@@ -80,13 +80,14 @@
         <!-- <p class="card-text">Items available for this project</p> -->
 
         <div class="table-responsive">
-            <table id="example1" class="table bg-primary text-white">
-                <thead>
+            <table id="example1" class="table">
+                <thead class="bg-primary text-white">
                     <tr>
-                        <th style="width:25%;">Date </th>
-                        <th style="width:20%;">Name </th>
+                        <th style="width:20%;">Date </th>
+                        <th style="width:15%;">Name </th>
+                        <th style="width:20%;">Item </th>
                         <th style="width:30%;">Purpose</th>
-                        <th style="width:10%;">Quantity</th>
+                        <th style="width:5%;">Quantity</th>
                         <th style="width:5%;">Status</th>
                         <th style="width:10%;" class="text-center">Action</th>
                     </tr>
@@ -100,6 +101,9 @@
                             </td>
                             <td>
                                 {{ $request->user->name}}
+                            </td>
+                            <td>
+                                {{ $request->inventoryItem->name }}
                             </td>
                             <td>
                                 {{ $request->purpose ?? '' }}
