@@ -95,7 +95,9 @@
                                 <form class="form-horizontal" action="{{ route('permissions.syncrolepermissions') }}" method="POST">
                                     @csrf
 
+                                    @can('permissions.manage')
                                     <button class="btn btn-success m-3 float-right" type="submit">Sync Permissions</button>
+                                    @endcan
                                     
                                     <input name="role_id" value="{{ $role_id }}" hidden>
                                     <table id="example1" class="display table table-stripped table-bordered">
@@ -118,9 +120,7 @@
                                         </tbody>
                                     </table>
 
-                                    <button class="btn btn-success m-3 float-right" type="submit">Sync Permissions</button>
-                                    
-                                    @can('permissions.roleupdate')
+                                    @can('permissions.manage')
                                     <button class="btn btn-success m-3 float-right" type="submit">Sync Permissions</button>
                                     @endcan
                                 </form>

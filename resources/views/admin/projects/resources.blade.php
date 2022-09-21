@@ -7,9 +7,11 @@
         <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p> -->
 
+        @can('projects.resource.create')
         <button class="btn btn-raised float-right btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
             data-toggle="modal" data-target="#modalUploadResource">Upload Resource
         </button>
+        @endcan
         
         <div class="modal fade" id="modalUploadResource" role="dialog" aria-labelledby="modalLabelprimary">
             <div class="modal-dialog" role="document">
@@ -104,10 +106,15 @@
                                 {{ $resource->description ?? '' }}
                             </td>
                             <td>
+                                @can('projects.resource.download')
                                 <a class="btn btn-sm btn-outline-secondary" href="{{ route('projects.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
+                                @can
+
                             </td>
                             <td style="width:5%;">
+                                @can('projects.resource.delete')
                                 <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

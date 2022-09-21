@@ -84,11 +84,11 @@
                             
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 m-t-1 text-left">
-                                @role('Super User|Level 1|Level 2|Level 3')
+                                @can('batch.create')
                                 <button class="btn btn-sm btn-raised m-t-2 btn-secondary adv_cust_mod_btn"
                                         data-toggle="modal" data-target="#createBatch">New Batch
                                 </button>
-                                @endrole
+                                @endcan
 
                                 <div class="modal fade" id="createBatch" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                     aria-hidden="true">
@@ -171,9 +171,13 @@
                                             <!-- <td>{{ $batch->id }}</td> -->
                                             <td>{{ $batch->name }}</td>
                                             <td>
+                                            @can('batch.delete')
                                                 <a class="btn btn-sm btn-outline-danger text-danger text-white mt-1" data-toggle="modal" data-target="#modalDelete{{$batch->id}}">Delete</a>&nbsp;&nbsp;
+                                            @endcan
+
+                                            @can('batch.update')
                                                 <a class="btn btn-outline-primary text-primary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$batch->id}}">Update</a>&nbsp;&nbsp;
-                                                    
+                                            @endcan      
                               
                                                 <div class="modal fade" id="modalDelete{{$batch->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
@@ -233,7 +237,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
 
 
                                                 <div class="modal fade" id="modalDetails{{$batch->id}}" role="dialog" aria-labelledby="modalLabelprimary">

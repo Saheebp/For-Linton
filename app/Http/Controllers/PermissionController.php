@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,7 +84,6 @@ class PermissionController extends Controller
 
     public function syncUserPermissions(Request $request)
     {
-        dd('here');
         $user = User::find($request->user_id);
         $user->syncPermissions($request->permissions);
         

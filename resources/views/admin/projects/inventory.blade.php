@@ -7,74 +7,73 @@
         @if($project->inventory == null)
             No inventory found for this project! 
 
-            @role('Super User|Level 1|Level 2|Level 3')
+            @can('inventory.create')
             <a class="text-success"
-                    data-toggle="modal" data-target="#createItem">Create New Inventory
+                data-toggle="modal" data-target="#createItem">Create New Inventory
             </a>
-
-        @endrole
+            @endcan
         
-        <div class="modal fade" id="createItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="modalLabel">Create A New Inventory</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
+            <div class="modal fade" id="createItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modalLabel">Create A New Inventory</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
 
-                    <form class="form-horizontal" action="{{ route('inventories.store') }}" method="POST">
-                        @csrf
-                        <fieldset>
-                        <div class="modal-body">
-                            
-                            <input value="{{ $project->id}}" name="project" hidden readonly>
-                            
-                            <!-- Name input-->
-                            <div class="form-group row m-t-25">
-                                <div class="col-lg-12">
-                                    <label for="date" class="col-form-label">
-                                        Inventory Name
-                                    </label>
-                                    <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
-                                        <input type="text" class="form-control" id="name" placeholder="" name="name">
+                        <form class="form-horizontal" action="{{ route('inventories.store') }}" method="POST">
+                            @csrf
+                            <fieldset>
+                            <div class="modal-body">
+                                
+                                <input value="{{ $project->id}}" name="project" hidden readonly>
+                                
+                                <!-- Name input-->
+                                <div class="form-group row m-t-25">
+                                    <div class="col-lg-12">
+                                        <label for="date" class="col-form-label">
+                                            Inventory Name
+                                        </label>
+                                        <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                            <input type="text" class="form-control" id="name" placeholder="" name="name">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="form-group row m-t-25">
+                                    <div class="col-12">
+                                        <label for="subject1" class="col-form-label">
+                                            Description
+                                        </label>
+                                        <div class="input-group">
+                                            <textarea type="text" name="description" id="subject1" class="form-control" placeholder="Subject"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                                 
                             </div>
-                            
-                            <div class="form-group row m-t-25">
-                                <div class="col-12">
-                                    <label for="subject1" class="col-form-label">
-                                        Description
-                                    </label>
-                                    <div class="input-group">
-                                        <textarea type="text" name="description" id="subject1" class="form-control" placeholder="Subject"></textarea>
+
+                            <div class="modal-footer">
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        <button class="btn  btn-secondary" data-dismiss="modal">Close, Don't Create!</button>
+                                        <button class="btn btn-responsive layout_btn_prevent btn-primary">Save & Create</button>
+                                        
                                     </div>
                                 </div>
                             </div>
-                            
-                        </div>
-
-                        <div class="modal-footer">
-                            <div class="form-group row">
-                                <div class="col-lg-12">
-                                    <button class="btn  btn-secondary" data-dismiss="modal">Close, Don't Create!</button>
-                                    <button class="btn btn-responsive layout_btn_prevent btn-primary">Save & Create</button>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        </fieldset>
-                    </form>
+                            </fieldset>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
         @else
         <h4 class="card-title" style="margin-bottom:30px; margin-top:30px;">Inventory Requests</h4>
         <!-- <p class="card-text">Items available for this project</p> -->
@@ -115,7 +114,10 @@
                                 <span class="badge badge-{{ $request->status->style }}">{{ $request->status->name }}</span>
                             </td>
                             <td class="pr-1 pl-1">
+                                @can('inventory.item.release')
                                 <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#manageRequest{{ $request->id }}">Manage</a>
+                                @endcan
+                                
                                 <div class="modal fade" id="manageRequest{{ $request->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -205,8 +207,13 @@
                             </td>
                             <td class="pr-1 pl-1">
                                 @if($item->status_id != $returned)
-                                <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#DisburseItem{{ $item->id }}">Disburse</a>
+                                
+                                    @can('inventory.item.disburse')
+                                    <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#DisburseItem{{ $item->id }}">Disburse</a>
+                                    @endcan
+
                                 @endif
+                                
                                 <div class="modal fade" id="DisburseItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -282,7 +289,11 @@
                             
                             <td class="pr-1 pl-1">
                                 @if($item->status_id != $returned && $item->quantity != $item->available)
-                                <a class="btn btn-sm btn-outline-info text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return to Inventory</a>
+                                
+                                    @can('inventory.item.return')
+                                    <a class="btn btn-sm btn-outline-info text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return to Inventory</a>
+                                    @endcan
+
                                 @endif
                                 <div class="modal fade" id="ReturnItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
@@ -336,7 +347,11 @@
 
                             <td class="pr-1 pl-1">
                                 @if($item->status_id != $returned)
+
+                                @can('inventory.item.return')
                                 <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnWarehouseItem{{ $item->id }}">Return to Warehouse</a>
+                                @endcan
+
                                 @endif
                                 <div class="modal fade" id="ReturnWarehouseItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
@@ -399,7 +414,11 @@
                             </td>
 
                             <td class="pr-1 pl-1">
+                                
+                                @can('inventory.item.request')
                                 <a class="btn btn-sm btn-outline-secondary text-right" data-toggle="modal" data-target="#ItemRequest{{ $item->id }}">Item Request</a>
+                                @endcan
+
                                 <div class="modal fade" id="ItemRequest{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -471,7 +490,11 @@
                             </td>
 
                             <td class="pr-1 pl-1">
+                                
+                                @can('inventory.item.history')
                                 <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#ItemHistory{{ $item->id }}">History</a>
+                                @endcan
+
                                 <div class="modal fade" id="ItemHistory{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
                                     <div class="modal-dialog" role="document">

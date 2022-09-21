@@ -5,7 +5,11 @@
     <a class="btn btn-sm btn-outline-success float-right mt-1" href="{{ route('projects.tasks.print', $project) }}">Print Summary</a>
     <h4 class="card-title" style="margin-bottom:30px; margin-top:30px;">Project Tasks & Processes</h4>
     
+
+    @can('tasks.create')
     <button class="btn btn-raised btn-sm btn-outline-success float-right mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalTaskCreate">Add New Task </button>
+    @endcan
+
     <div class="modal fade" id="modalTaskCreate" role="dialog" aria-labelledby="modalLabelprimary">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -109,7 +113,10 @@
         </div>
     </div>
 
+    @can('tasks.comment')
     <button class="btn btn-raised float-right btn-sm btn-outline-secondary mt-3 mb-3 adv_cust_mod_btn" data-toggle="modal" data-target="#modalCommentCreate">Comment on a Task </button>
+    @endcan
+
     <div class="modal fade" id="modalCommentCreate" role="dialog" aria-labelledby="modalLabelprimary">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -255,10 +262,16 @@
                                                                         {{ $resource->description ?? '' }}
                                                                     </td>
                                                                     <td>
+                                                                        @can('tasks.resource.download')
                                                                         <a class="btn btn-sm btn-outline-secondary" href="{{ route('tasks.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>  
+                                                                        @endcan
+
                                                                     </td>
                                                                     <td style="width:5%;">
+                                                                        @can('tasks.resource.delete')
                                                                         <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
+                                                                        @endcan
+                                                                        
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

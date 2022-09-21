@@ -365,10 +365,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group mt-5">
+                                        <div class="form-group mt-5">
                                             <div class="row">
                                                 <div class="col-lg-6 offset-md-3">
+                                                    @can('projects.create')
                                                     <input type="submit" value="Save and Create" class="btn btn-success btn-block login_button">
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>

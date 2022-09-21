@@ -139,7 +139,9 @@
                                         <td>{{ $item->available }}</td>
                                         <td><span class="badge badge-{{ $item->status->style }}">{{ $item->status->name }}</span></td>
                                         <td>
+                                            @can('inventory.update')
                                             <a class="btn btn-secondary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$item->id}}">Manage</a>&nbsp;&nbsp;
+                                            @endcan
                                             
                                             <div class="modal fade" id="modalDetails{{$item->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                 <div class="modal-dialog" role="document">

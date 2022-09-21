@@ -245,11 +245,11 @@
                                                 </button> -->
                                                 @endrole
 
-                                                @role('Super User|Level 1|Level 2|Level 3')
+                                                @can('inventory.item.create')
                                                 <button class="btn btn-sm btn-raised m-t-2 btn-warning adv_cust_mod_btn"
                                                         data-toggle="modal" data-target="#createItem">Add New Item
                                                 </button>
-                                                @endrole
+                                                @endcan
                                                 
                                                 <div class="modal fade" id="createItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                     aria-hidden="true">
@@ -387,13 +387,13 @@
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 m-t-1 text-left">
 
-                                    @role('Level 1|Level 2|Level 3')
+                                    @can('inventory.item.create')
                                     <button class="btn btn-sm btn-raised m-t-2 btn-primary adv_cust_mod_btn"
-                                            data-toggle="modal" data-target="#createCategory">New Warehouse Item
+                                            data-toggle="modal" data-target="#createItem">New Warehouse Item
                                     </button>
-                                    @endrole
+                                    @endcan
 
-                                    <div class="modal fade" id="createCategory" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                    <div class="modal fade" id="createItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                         aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -547,11 +547,21 @@
                                             <td>{{ $item->available }}</td>
                                             <td><span class="badge badge-{{ $item->status->style }}">{{ $item->status->name }}</span></td>
                                             <td>
+                                                @can('inventory.item.disburse')
                                                 <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#allocateProject{{ $item->id }}">Disburse</a>
+                                                @endcan
+
+                                                @can('inventory.item.delete')
                                                 <a class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#modalDelete{{ $item->id }}">Delete</a>
+                                                @endcan
+
+                                                @can('inventory.item.history')
                                                 <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#modalHistory{{ $item->id }}">History</a>
+                                                @endcan
+
+                                                @can('inventory.item.update')
                                                 <a class="btn btn-outline-warning btn-sm text-right" data-toggle="modal" data-target="#modalDetails{{$item->id}}">Manage Item</a>&nbsp;&nbsp;
-                                                
+                                                @endcan
                                                 
                                                 <div class="modal fade" id="modalDetails{{$item->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">

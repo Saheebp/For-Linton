@@ -76,7 +76,10 @@
                     <div class="card">
                         <div class="text-right p-3">
 
+                            @can('staff.update.password')
                             <button class="btn btn-sm btn-success align-right" data-toggle="modal" data-target="#modalPasswordUpdate">Update Password</button>
+                            @endcan
+
                             <div class="modal fade" id="modalPasswordUpdate" role="dialog" aria-labelledby="modalLabelprimary">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -159,7 +162,7 @@
                             </div>
 
                                 
-                            @can('update.password')
+                            @can('staff.update.password')
                             <button class="btn btn-sm btn-primary align-right" data-toggle="modal" data-target="#modalPasswordUpdate">Update Password</button>
                             @endcan
                             <div class="modal fade" id="modalPasswordUpdate" role="dialog" aria-labelledby="modalLabelprimary">
@@ -335,7 +338,7 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-sm btn-warning align-right" data-toggle="modal" data-target="#modalCodeReset">Reset Transaction Code</button>
+                            <!-- <button class="btn btn-sm btn-warning align-right" data-toggle="modal" data-target="#modalCodeReset">Reset Transaction Code</button>
                             <div class="modal fade" id="modalCodeReset" role="dialog" aria-labelledby="modalLabelprimary">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -363,9 +366,9 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            @can('manage.roles')
+                            @can('roles.manage')
                             <button class="btn btn-sm btn-secondary align-right" data-toggle="modal" data-target="#modalRoleUpdate">Update Role</button>
                             @endcan
                             <div class="modal fade" id="modalRoleUpdate" role="dialog" aria-labelledby="modalLabelprimary">
@@ -436,7 +439,7 @@
                                 </div>
                             </div>
 
-                            @can('manage permissions')
+                            @can('permissions.manage')
                             <button class="btn btn-sm btn-dark align-right" data-toggle="modal" data-target="#modalPermissionUpdate">Update Permissions</button>
                             @endcan
                             <div class="modal fade" id="modalPermissionUpdate" role="dialog" aria-labelledby="modalLabelprimary">

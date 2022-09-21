@@ -84,11 +84,11 @@
                             
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 m-t-1 text-left">
-                                    @role('Super User|Level 1|Level 2|Level 3')
+                                    @can('categories.create')
                                     <button class="btn btn-sm btn-raised m-t-2 btn-primary adv_cust_mod_btn"
                                             data-toggle="modal" data-target="#createCategory">New Category
                                     </button>
-                                    @endrole
+                                    @endcan
 
                                     <div class="modal fade" id="createCategory" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                         aria-hidden="true">
@@ -152,7 +152,7 @@
                                 </div>
 
 
-                                <div class="col-lg-6 col-sm-12 m-t-1 text-right">
+                                <!-- <div class="col-lg-6 col-sm-12 m-t-1 text-right">
                                     <form method="POST" action="{{ route('categories.search') }}">
                                     @csrf
 
@@ -167,7 +167,7 @@
                                             </div>
                                         </div>
                                     </form>
-                                </div>
+                                </div> -->
                             </div>
                             
                             <div class="table-responsive">
@@ -188,10 +188,14 @@
                                             <td>{{ $category->description }}</td>
                                             <td>
                                                 
+                                            @can('categories.delete')
                                                 <a class="btn btn-sm btn-outline-danger text-danger text-white mt-1" data-toggle="modal" data-target="#modalDelete{{$category->id}}">Delete</a>&nbsp;&nbsp;
+                                            @endcan
+
+                                            @can('categories.update')
                                                 <a class="btn btn-outline-secondary text-secondary btn-sm text-white" data-toggle="modal" data-target="#modalDetails{{$category->id}}">Update</a>&nbsp;&nbsp;
-                                                    
-                              
+                                            @endcan
+                                            
                                                 <div class="modal fade" id="modalDelete{{$category->id}}" role="dialog" aria-labelledby="modalLabelprimary">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">

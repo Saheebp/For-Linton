@@ -257,7 +257,9 @@
                                             <!-- <td>&#8358;{{ number_format(floatval($project->budget), 2) }}</td> -->
                                             <td>{{ $project->state }}, {{ $project->lga }}</td>
                                             <td>
+                                                @can('projects.view')
                                                 <a class="btn btn-dark btn-sm text-white  align-left" href="{{ route('projects.tasks', $project->id) }}">Manage</a>
+                                                @endcan
                                             </td>
                                         </tr>
                                         @endforeach

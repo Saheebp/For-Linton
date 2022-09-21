@@ -85,7 +85,7 @@
                                             
                                             <div class="col-lg-4 col-sm-12 m-t-15 text-left">
                                                 
-                                                @can('create staff')
+                                                @can('staff.create')
                                                 <button class="btn btn-raised btn-success adv_cust_mod_btn" data-toggle="modal" data-target="#modalCreate">Create New User</button>
                                                 @endcan
 
@@ -244,7 +244,9 @@
                                             <td>{!! str_replace( array('"','[',']'), ' ', $user->roles->pluck('name')) !!}</td>
                                             <!-- <td><span class="badge badge-{{ $user->status->style }}">{{ $user->status->name }}</span></td> -->
                                             <td>
+                                                @can('staff.view')
                                                 <a class="btn btn-secondary btn-sm text-white" href="{{ route('users.show', $user->id) }}">Manage User</a>
+                                                @endcan
                                             </td>
                                         </tr>
                                         @endforeach

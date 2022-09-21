@@ -326,15 +326,17 @@
                     <hr/>
                 </div>
                 <ul id="menu">
+                    @can('manage dashboard')
                     <li class="@if(request()->is('home')) active @endif">
                         <a href="{{ route('home') }}">
                             <i class="fa fa-home"></i>
                             <span class="link-title menu_hide">&nbsp;Dashboard</span>
                         </a>
                     </li>
+                    @endcan
 
 
-                    @role('Super User|Level 1|Level 2|Level 3|Level 4|Level 5')
+                    @can('projects.menu')
                     <li class="@if(request()->is('projects')) active @endif">
                         <a href="#">
                             <i class="fa fa-tasks"></i>
@@ -342,32 +344,37 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
+                            @can('projects.view')
                             <li>
                                 <a href="{{ route('projects.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; View Projects
                                 </a>
                             </li>
+                            @endcan
+
+                            @can('projects.create')
                             <li>
                                 <a href="{{ route('projects.create') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Create New Project
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
-                    @endrole
+                    @endcan
 
-                    @role('Super User|Level 1|Level 2|Level 3|Level 4|Level 5')
+                    @can('tasks.menu')
                     <!-- <li class="dropdown_menu">
                         <a href="{{ route('tasks.index') }}">
                             <i class="fa fa-history"></i>
                             <span class="link-title menu_hide">&nbsp; Tasks</span>
                         </a>
                     </li> -->
-                    @endrole
+                    @endcan
 
-                    @role('Super User|Level 1|Level 2|Level 3|Level 4|Level 5')
+                    <!-- @can('procurement.menu')
                     <li class="dropdown_menu @if(request()->is('requests')) active @endif">
                         <a href="#">
                             <i class="fa fa-download"></i>
@@ -389,9 +396,9 @@
                             </li>
                         </ul>
                     </li>
-                    @endrole
+                    @endrole -->
 
-                    @role('Super User|Level 1|Level 2|Level 3|Level 4|Level 5')
+                    @can('warehouse.menu')
                     <li class="dropdown_menu @if(request()->is('warehouse')) active @endif">
                         
                         <a href="#">
@@ -400,53 +407,64 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
+                            @can('inventory.menu')
                             <li>
                                 <a href="{{ route('warehouse.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Items
                                 </a>
                             </li>
+                            @endcan
+
+                            @can('categories.menu')
                             <li class="@if(request()->is('categories')) active @endif">
                                 <a href="{{ route('categories.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Categories
                                 </a>
                             </li>
+                            @endcan
+
+                            @can('batches.menu')
                             <li class="@if(request()->is('batches')) active @endif">
                                 <a href="{{ route('batches.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Batches
                                 </a>
                             </li>
+                            @endcan
+
+                            @can('inventories.menu')
                             <li class="@if(request()->is('inventories')) active @endif">
                                 <a href="{{ route('inventories.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Inventories
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
-                    @endrole
+                    @endcan
 
-                    @role('Super User|Level 1|Level 2|Level 3|Level 4|Level 5')
+                    @can('messaging.menu')
                     <li class="@if(request()->is('messages')) active @endif">
                         <a href="{{ route('messages.index') }}">
                             <i class="fa fa-envelope"></i>
                             <span class="link-title menu_hide">&nbsp; Messaging</span>
                         </a>
                     </li>
-                    @endrole
+                    @endcan
 
-                    @role('Super User|Level 1|Level 2|Level 3|Level 4|Level 5')
-                    <!-- <li class="@if(request()->is('reports')) active @endif">
+                    <!-- @can('reports.menu')
+                    <li class="@if(request()->is('reports')) active @endif">
                         <a href="{{ route('reports.index') }}">
                             <i class="fa fa-bar-chart"></i>
                             <span class="link-title menu_hide">&nbsp; Reports & Analytics</span>
                         </a>
-                    </li> -->
-                    @endrole
+                    </li>
+                    @endrole -->
 
-                    @role('Super User|Level 1|Level 2|Level 3')
+                    @can('staff.menu')
                     <li class="dropdown_menu @if(request()->is('admin')) active @endif">
                         <a href="{{ route('admin.home') }}">
                             <i class="fa fa-users"></i>
@@ -454,23 +472,28 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                         <ul>
+                            @can('staff.update')
                             <li>
                                 <a href="{{ route('users.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Manage Users
                                 </a>
                             </li>
+                            @endcan
+
+                            @can('staff.create')
                             <li>
                                 <a href="{{ route('users.create') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
                                     &nbsp; Create User
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
-                    @endrole
+                    @endcan
 
-                    @role('Super User|Level 1|Level 2|Level 3')
+                    @can('logs.menu')
                     <li class="@if(request()->is('logs')) active @endif">
                         <a href="{{ route('logs.index') }}">
                             <i class="fa fa-history"></i>
@@ -478,9 +501,9 @@
                             <span class="fa arrow menu_hide"></span>
                         </a>
                     </li>
-                    @endrole
+                    @endcan
 
-                    @role('Super User|Level 1')
+                    @can('permissions.menu')
                     <li class="dropdown_menu @if(request()->is('admin')) active @endif">
                         <a href="{{ route('permissions.index') }}">
                             <i class="fa fa-shield"></i>
@@ -502,10 +525,10 @@
                             </li>
                         </ul> -->
                     </li>
-                    @endrole
+                    @endcan
 
-                    @role('Super User|Level 1|Level 2|Level 3')
-                    <!-- <li class="dropdown_menu">
+                    <!-- @can('reports.menu')
+                    <li class="dropdown_menu">
                         <a href="{{ route('admin.home') }}">
                             <i class="fa fa-file"></i>
                             <span class="link-title menu_hide">&nbsp; Reports</span>
@@ -519,18 +542,18 @@
                                 </a>
                             </li>
                         </ul>
-                    </li> -->
-                    @endrole
+                    </li>
+                    @endcan -->
 
-                    @role('Super User|Level 1|Level 2|Level 3')
-                    <!-- <li class="">
+                    <!-- @can('settings.menu')
+                    <li class="">
                         <a href="{{ route('settings.index') }}">
                             <i class="fa fa-cogs"></i>
                             <span class="link-title menu_hide">&nbsp; Settings</span>
                             <span class="fa arrow menu_hide"></span>
                         </a>
-                    </li> -->
-                    @endrole
+                    </li>
+                    @endcan -->
                 </ul>
                 <!-- /#menu -->
             </div>

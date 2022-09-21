@@ -7,7 +7,10 @@
     <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </p> -->
 
+    @can('projects.team.addremove')
     <button class="btn btn-sm btn-secondary float-right m-1  mb-3" data-toggle="modal" data-target="#addMemberToProject">Add Member</button>
+    @endcan
+
     <div class="modal fade" id="addMemberToProject" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -85,7 +88,10 @@
                     </td>
 
                     <td>
+                        @can('projects.team.message')
                         <button class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#SendPersonalMessageTo{{$member->id}}">Send Message</button>
+                        @endcan
+
                         <div class="modal fade" id="SendPersonalMessageTo{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                         aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -134,7 +140,10 @@
                     </td>
                     
                     <td>
+                        @can('projects.team.role')
                         <button class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#changeMemberRole{{$member->id}}">Change Role</button>
+                        @endcan
+
                         <div class="modal fade" id="changeMemberRole{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                         aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -187,7 +196,10 @@
                     </td>
 
                     <td>
+                        @can('projects.team.addremove')
                         <button class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#removeMemberFromTeam{{$member->id}}">Remove</button>
+                        @endcan
+                        
                         <div class="modal fade" id="removeMemberFromTeam{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                         aria-hidden="true">
                             <div class="modal-dialog" role="document">

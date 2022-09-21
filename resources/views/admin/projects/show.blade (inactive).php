@@ -123,7 +123,11 @@
                             @role('Super User|Level 1|Level 2|Level 3')
 
                                 @if ($project->status_id != $completed)
+                                
+                                @can('projects.view')
                                 <button class="btn btn-sm btn-secondary align-right mt-1" data-toggle="modal" data-target="#manageProjectStatus">Manage Project</button>    
+                                @endcan
+
                                 @endif
                                 
                                 <div class="modal fade" id="manageProjectStatus" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -176,7 +180,11 @@
 
                             @role('Super User|Level 1|Level 2|Level 3')
                                 @if ($project->status_id != $completed)
+                                
+                                @can('projects.comment')
                                 <button class="btn btn-sm btn-primary align-right mt-1" data-toggle="modal" data-target="#commentProject">Comment on Project</button>
+                                @endcan
+
                                 @endif
 
                                 <div class="modal fade" id="commentProject" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -226,7 +234,11 @@
                             @endrole
 
                             @role('Super User|Level 1|Level 2|Level 3')
+                                
+                                @can('projects.update')
                                 <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateProject{{$project->id}}">Update</a>
+                                @endcan
+
                                 <div class="modal fade" id="updateProject{{$project->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                 aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -403,8 +415,11 @@
                                             <h4 class="card-title">Project Team Members</h4>
                                             <!-- <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
-
+                                            
+                                            @can('projects.team.addremove')
                                             <button class="btn btn-sm btn-secondary float-left m-1  mb-3" data-toggle="modal" data-target="#addMemberToProject">Add Member</button>
+                                            @endcan
+
                                             <div class="modal fade" id="addMemberToProject" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
@@ -479,7 +494,10 @@
                                                             </td>
 
                                                             <td>
+                                                                @can('projects.team.message')
                                                                 <button class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#SendPersonalMessageTo{{$member->id}}">Send Message</button>
+                                                                @endcan
+
                                                                 <div class="modal fade" id="SendPersonalMessageTo{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                 aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
@@ -528,7 +546,11 @@
                                                             </td>
                                                             
                                                             <td>
+
+                                                                @can('projects.team.role')
                                                                 <button class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#changeMemberRole{{$member->id}}">Change Role</button>
+                                                                @endcan
+
                                                                 <div class="modal fade" id="changeMemberRole{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                 aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
@@ -581,7 +603,10 @@
                                                             </td>
 
                                                             <td>
+                                                                @can('projects.team.addremove')
                                                                 <button class="btn btn-sm btn-outline-danger text-right" data-toggle="modal" data-target="#removeMemberFromTeam{{$member->id}}">Remove</button>
+                                                                @endcan
+
                                                                 <div class="modal fade" id="removeMemberFromTeam{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                 aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
@@ -624,13 +649,18 @@
                                         <div class="tab-pane p-3 active" id="tab2">
                                             <h4 class="card-title m-b-3">Project Tasks & Processes</h4>
                                             
+
+                                            @can('tasks.create')
                                             <button class="btn btn-raised btn-sm btn-outline-success mt-3 mb-3 adv_cust_mod_btn"
                                                 data-toggle="modal" data-target="#modalTaskCreate">Add New Task
                                             </button>
+                                            @endcan
 
+                                            @can('tasks.comment')
                                             <button class="btn btn-raised btn-sm btn-outline-secondary mt-3 mb-3 adv_cust_mod_btn"
                                                 data-toggle="modal" data-target="#modalCommentCreate">Add a Comment
                                             </button>
+                                            @endcan
                                             
                                             <div class="modal fade" id="modalTaskCreate" role="dialog" aria-labelledby="modalLabelprimary">
                                                 <div class="modal-dialog" role="document">
@@ -740,7 +770,7 @@
                                                     <div class="modal-content">
                                                         
                                                         <div class="modal-header bg-secondary">
-                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">COmment</h4>
+                                                            <h4 class="modal-title text-white text-uppercase" id="modalLabelprimary">Comment</h4>
                                                         </div>
                                                         
                                                         <form class="form-horizontal" action="{{ route('tasks.comment') }}" method="POST">
@@ -872,10 +902,14 @@
                                                                                                         {{ $resource->description ?? '' }}
                                                                                                     </td>
                                                                                                     <td>
+                                                                                                        @can('project.resource.download')
                                                                                                         <a class="btn btn-sm btn-outline-secondary" href="{{ route('tasks.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>  
+                                                                                                        @endcan
                                                                                                     </td>
                                                                                                     <td style="width:5%;">
+                                                                                                        @can('tasks.delete')
                                                                                                         <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
+                                                                                                        @endcan
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             @endforeach
@@ -972,7 +1006,10 @@
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     
+                                                                                                        @can('projects.update')
                                                                                                         <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubTaskStatus{{$subtask->id}}">Status</a>
+                                                                                                        @endcan
+
                                                                                                         <div class="modal fade" id="updateSubTaskStatus{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                                                         aria-hidden="true">
                                                                                                             <div class="modal-dialog" role="document">
@@ -998,7 +1035,9 @@
                                                                                                                                         <div class="input-group">
                                                                                                                                             <select class="form-control" name="status" required>
                                                                                                                                                 <option value="">-- Select Status --</option>
+                                                                                                                                                @can('projects.complete')
                                                                                                                                                 <option value="{{ $completed }}">Completed</option>
+                                                                                                                                                @endcan
                                                                                                                                                 <option value="{{ $in_progress }}">In Progress</option>
                                                                                                                                                 <option value="{{ $queried }}">Queried</option>
                                                                                                                                             </select>
@@ -1022,7 +1061,10 @@
                                                                                                             </div>
                                                                                                         </div>
 
+                                                                                                        @can('tasks.assign')
                                                                                                         <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateSubTaskExecutor{{$subtask->id}}">Assign</a>
+                                                                                                        @endcan
+
                                                                                                         <div class="modal fade" id="updateSubTaskExecutor{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                                                         aria-hidden="true">
                                                                                                             <div class="modal-dialog" role="document">
@@ -1088,16 +1130,21 @@
                                                                                     @foreach($task->members as $member)
                                                                                         {{ $i }}. {{ $member->user->name  }} 
 
+                                                                                        @can('projects.team.addremove')
                                                                                         <a class="btn btn-sm btn-outline-warning float-right" data-toggle="modal" data-target="#removeFromTask{{$member->id}}">remove</a>
+                                                                                        @endcan
+
                                                                                         <div class="modal fade" id="removeFromTask{{$member->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                                         aria-hidden="true">
                                                                                             <div class="modal-dialog" role="document">
                                                                                                 <div class="modal-content">
                                                                                                     <div class="modal-header">
                                                                                                         <h4 class="modal-title" id="modalLabel">Remove {{ $member->user->name  }} from, <br>{{$task->name}}</h4>
+                                                                                                        
                                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                             <span aria-hidden="true">×</span>
                                                                                                         </button>
+                                                                                                        
                                                                                                     </div>
                                                                                                     <form class="form-horizontal" action="{{ route('tasks.removeMember', $task)}}" method="POST">
                                                                                                     @csrf
@@ -1145,7 +1192,11 @@
                                                                                 <p class="text-justify">
                                                                                     @foreach($task->comments as $comment)
                                                                                         <b>{{ $comment->creator->name  }}</b>
+                                                                                        
+                                                                                        @can('projects.comment')
                                                                                         <a class="btn btn-sm btn-outline-danger float-right" data-toggle="modal" data-target="#deleteCommentFromSubTask{{$subtask->id}}">remove</a>
+                                                                                        @endcan
+
                                                                                         <div class="modal fade" id="deleteCommentFromSubTask{{$subtask->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                                         aria-hidden="true">
                                                                                             <div class="modal-dialog" role="document">
@@ -1196,11 +1247,26 @@
                                                                 </table>
 
                                                                 <p class="p-2">
+                                                                
+                                                                    @can('tasks.update')
                                                                     <button class="btn btn-sm btn-outline-secondary float-right m-1" data-toggle="modal" data-target="#updateTaskStatus{{$task->id}}">Update Status</button>
+                                                                    @endcan
+
+                                                                    @can('tasks.delete')
                                                                     <button class="btn btn-sm btn-outline-danger float-right m-1" data-toggle="modal" data-target="#deleteTaskFromProject{{$task->id}}">Delete this Task</button>
+                                                                    @endcan
+                                                                    
+                                                                    @can('tasks.team.addremove')
                                                                     <button class="btn btn-sm btn-outline-warning float-right m-1" data-toggle="modal" data-target="#addMemberToTask{{$task->id}}">Add Member to Task</button>
+                                                                    @endcan
+                                                                    
+                                                                    @can('tasks.resource.comment')
                                                                     <button class="btn btn-sm btn-outline-success float-right m-1" data-toggle="modal" data-target="#addResourceToTask{{ $task->id }}">Add Resource</button>
+                                                                    @endcan
+                                                                    
+                                                                    @can('tasks.create')
                                                                     <button class="btn btn-sm btn-outline-dark float-right m-1" data-toggle="modal" data-target="#addSubTaskToTask{{$task->id}}">Add Sub Task</button>
+                                                                    @endcan
                                                                     
                                                                     <div class="modal fade" id="updateTaskStatus{{ $task->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
@@ -1608,9 +1674,11 @@
                                             <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             </p> -->
 
+                                            @can('projects.resource.create')
                                             <button class="btn btn-raised btn-sm btn-secondary mt-3 mb-3 adv_cust_mod_btn"
                                                 data-toggle="modal" data-target="#modalUploadResource">Upload Resource
                                             </button>
+                                            @endcan
                                             
                                             <div class="modal fade" id="modalUploadResource" role="dialog" aria-labelledby="modalLabelprimary">
                                                 <div class="modal-dialog" role="document">
@@ -1691,10 +1759,17 @@
                                                                     {{ $resource->description ?? '' }}
                                                                 </td>
                                                                 <td>
+                                                                @can('projects.resource.download')
                                                                     <a class="btn btn-sm btn-outline-secondary" href="{{ route('projects.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
+                                                                @endcan
+
                                                                 </td>
                                                                 <td style="width:5%;">
+
+                                                                @can('projects.resource.delete')
                                                                     <a class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i> Delete</a>
+                                                                @endcan
+
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -1883,7 +1958,10 @@
                                                                     <span class="badge badge-{{$item->status->style }}">{{ $item->status->name }}</span>
                                                                 </td>
                                                                 <td>
+                                                                    @can('inventory.item.release')
                                                                     <a class="btn btn-sm btn-outline-success text-right" data-toggle="modal" data-target="#DisburseItem{{ $item->id }}">Disburse</a>
+                                                                    @endcan
+
                                                                     <div class="modal fade" id="DisburseItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
@@ -1944,7 +2022,10 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
+                                                                    @can('inventory.item.return')
                                                                     <a class="btn btn-sm btn-outline-warning text-right" data-toggle="modal" data-target="#ReturnItem{{ $item->id }}">Return</a>
+                                                                    @endcan
+
                                                                     <div class="modal fade" id="ReturnItem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
@@ -2005,7 +2086,10 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
+
+                                                                    @can('inventory.item.history')
                                                                     <a class="btn btn-sm btn-outline-primary text-right" data-toggle="modal" data-target="#ItemHistory{{ $item->id }}">History</a>
+                                                                    @endcan
                                                                     <div class="modal fade" id="ItemHistory{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
                                                                     aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
