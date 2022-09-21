@@ -108,7 +108,7 @@
                             <td>
                                 @can('projects.resource.download')
                                 <a class="btn btn-sm btn-outline-secondary" href="{{ route('projects.download', $resource->id)}}"><i class="fa fa-download"></i> Download</a>
-                                @can
+                                @endcan
 
                             </td>
                             <td style="width:5%;">

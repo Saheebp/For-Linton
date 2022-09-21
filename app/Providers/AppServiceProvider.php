@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Models\Message;
 use App\Models\Setting;
+
 use App\Traits\AppStatus;
+use App\Traits\AppConfig;
 
 use Auth;
 use Illuminate\Pagination\Paginator;
@@ -12,6 +14,8 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    use AppConfig;
     /**
      * Register any application services.
      *
@@ -64,6 +68,12 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('accepted', $this->returnStatusId("Accepted"));
             $view->with('returned', $this->returnStatusId("Returned"));
+
+            $view->with('notifs_count', $this->newNotificationCount());
+            $view->with('new_notifs', $this->newNotifications());
+
+            $view->with('message_count', $this->newMessageCount());
+            $view->with('new_messages', $this->newMessages());
 
             if (Auth::check()) 
             {

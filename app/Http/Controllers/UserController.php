@@ -134,7 +134,7 @@ class UserController extends Controller
             ->withProperties(['User' => $user->id])
             ->log(auth()->user()->name.' Created : '.$user->name );
 
-            return back()->with('success', 'User added successfully.');
+            return redirect()->route('users.index')->with('success', 'User added successfully.');
         } 
         catch (\Exception $e) 
         {

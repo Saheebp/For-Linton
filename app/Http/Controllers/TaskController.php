@@ -368,18 +368,18 @@ class TaskController extends Controller
     {
         try 
         {
-            $existing = TaskMember::where('task_id',$task->id)->where('user_id',$request->member)->first();
-            if ($existing == NULL) {
+            $user = User::find($request->member);
+            $task = Task::find($request->task_id);
+            
+            if (TaskMember::where('task_id', $task->id)->where('user_id', $user->id)->exists()) {
+                return back()->with('error', "Oops, That Staff is already on that team");
+            }else{
                 TaskMember::create([
                     'task_id' => $task->id,
-                    'user_id' => $request->member
+                    'user_id' => $user->id
                 ]);
-                
-            }else{
-                return back()->with('error', "Oops, That Staff is already on that team");
             }
             
-            $user = User::find($request->member);
             
             $data = array();
             $data['body'] = auth()->user()->name." added ".$user->name." to Task : ".$task->name." on Project : ".$task->project->id." [".$task->project->name."], starting ".$task->start." and ending ".$task->end;

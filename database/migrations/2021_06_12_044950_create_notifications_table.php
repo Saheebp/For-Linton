@@ -20,6 +20,7 @@ class CreateNotificationsTable extends Migration
             
             $table->string('body')->nullable(false);
             //$table->string('tag')->nullable();
+            $table->string('reply')->default('false');
             
             $table->unsignedBigInteger('project_id')->nullable();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');

@@ -1651,14 +1651,14 @@
                                                                                 <select class="form-control" name="member" required>
                                                                                     <option value="">-- Select Member --</option>
                                                                                     @foreach ($project->members as $member)                                                                                                    
-                                                                                    <option value="{{ $member->user_id }}">{{ $member->user->name }}</option>
+                                                                                    <option value="{{ $member->user->id }}">{{ $member->user->name }}</option>
                                                                                     @endforeach
                                                                                 </select>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
 
-                                                                        <div class="form-group row">
+                                                                        <!-- <div class="form-group row">
                                                                             <div class="col-lg-12">
                                                                                 <label for="subject1" class="col-form-label">
                                                                                     Select Role on Project
@@ -1672,7 +1672,7 @@
                                                                                 </select>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
 
                                                                     <div class="modal-footer">

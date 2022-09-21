@@ -76,7 +76,9 @@
                         <div class="notifications no-bg">
                             <a class="btn btn-default btn-sm messages" data-toggle="dropdown" id="messages_section"> <i
                                     class="fa fa-envelope-o fa-1x"></i>
-                                <span class="badge badge-pill badge-warning notifications_badge_top">{{ ($messages->count() == 0 ? '' : $messages->count()) }}</span>
+                                <!-- <span class="badge badge-pill badge-warning notifications_badge_top">{{ ($messages->count() == 0 ? '' : $messages->count()) }}</span> -->
+                                <span class="badge badge-pill badge-warning notifications_badge_top">{{ ($message_count == 0 ? '' : $message_count) }}</span>
+                            
                             </a>
                             <div class="dropdown-menu drop_box_align" role="menu" id="messages_dropdown">
                                 <div class="popover-header">You have {{ $messages->count() }} Messages</div>
@@ -87,7 +89,7 @@
                                             <div class="col-2">
                                                 <img src="{{ asset('admin/img/mailbox_imgs/5.jpg') }}" class="message-img avatar rounded-circle"
                                                      alt="avatar1"></div>
-                                            <div class="col-10 message-data"><strong>{{ $message->creator->name }}</strong>
+                                            <div class="col-10 message-data"><strong>{{ $message->creator->name ?? '' }}</strong>
                                                 {{ $message->body }}
                                                 <br>
                                                 <small>add to timeline</small>
@@ -103,16 +105,30 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="btn-group">
+                    <div class="btn-group">
                         <div class="notifications messages no-bg">
                             <a class="btn btn-default btn-sm" data-toggle="dropdown" id="notifications_section"> <i
                                     class="fa fa-bell-o"></i>
-                                <span class="badge badge-pill badge-danger notifications_badge_top">9</span>
+                                <span class="badge badge-pill badge-danger notifications_badge_top">{{ ($notifs_count == 0 ? '' : $notifs_count) }}</span>
                             </a>
                             <div class="dropdown-menu drop_box_align" role="menu" id="notifications_dropdown">
-                                <div class="popover-header">You have 9 Notifications</div>
+                                <div class="popover-header">You have {{ $notifs_count ?? 0 }} Notifications</div>
                                 <div id="notifications">
+                                @foreach ( $new_notifs as $notif)
                                     <div class="data">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <img src="{{ asset('admin/img/mailbox_imgs/5.jpg') }}" class="message-img avatar rounded-circle"
+                                                     alt="avatar1"></div>
+                                            <div class="col-10 message-data"><strong>{{ $notif->creator->name ?? '' }}</strong>
+                                                {{ $notif->body }}
+                                                <br>
+                                                <small>{{ $notif->created_at ?? '' }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                    <!-- <div class="data">
                                         <div class="row">
                                             <div class="col-2">
                                                 <img src="{{ asset('admin/img/mailbox_imgs/1.jpg') }}" class="message-img avatar rounded-circle"
@@ -246,14 +262,15 @@
                                                 <br>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="popover-footer">
                                     <a href="#" class="text-white">View All</a>
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
+
                     <!-- <div class="btn-group">
                         <div class="notifications request_section no-bg">
                             <a class="btn btn-default btn-sm messages" id="request_btn"> <i

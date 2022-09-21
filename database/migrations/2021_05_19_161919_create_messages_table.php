@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration
             $table->softDeletes();
 
             $table->string('body')->nullable(false);
+            $table->string('reply')->default('false');
             
             $table->unsignedBigInteger('project_id')->nullable();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('restrict');
