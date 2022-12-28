@@ -107,7 +107,7 @@ class GrandTaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            dd($e);
+            // dd($e);
             return back()->with('error', "Oops, Error Updating a Sub Task");
         }
 

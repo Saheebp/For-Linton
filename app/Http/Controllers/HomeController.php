@@ -34,7 +34,7 @@ class HomeController extends Controller
     {
         $projects = Project::all();
         $all_projects = Project::all();
-        $tasks = Task::all();
+        $tasks = Task::orderBy('end', 'DESC')->get();
         $users = User::where('name','!=','Super User')->get();
         $inventory_history = InventoryActivity::all();
 

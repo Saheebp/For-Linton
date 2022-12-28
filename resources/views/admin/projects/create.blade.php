@@ -187,6 +187,7 @@
                                             </label>
                                             <div class="input-group">
                                                 <input type="file" id="powork" value="{{ old('powork') }}" class="form-control" placeholder="" name="powork" required>
+                                                <small>only excel files</small>
                                             </div>
                                             @error('powork')
                                                 <span class="text-danger">{{ $errors->first('powork') }}</span>

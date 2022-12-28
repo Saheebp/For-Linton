@@ -26,7 +26,10 @@
 </head>
 
 <body class="body fixedNav_position fixedMenu_left">
-
+<?php
+    // $owner_is = $message->creator_id == auth()->user()->id ? $message->receiver_id : $message->creator_id;
+    // dd($owner_is);
+?>
 <!-- <div class="preloader" style=" position: fixed;
     width: 100%;
     height: 100%;
@@ -81,26 +84,79 @@
                             
                             </a>
                             <div class="dropdown-menu drop_box_align" role="menu" id="messages_dropdown">
-                                <div class="popover-header">You have {{ $messages->count() }} Messages</div>
+                                <div class="popover-header">You have {{ $messages->where('read', false)->count() }} Messages</div>
                                 <div id="messages">
                                 @foreach ( $messages as $message)
                                     <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="{{ asset('admin/img/mailbox_imgs/5.jpg') }}" class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data"><strong>{{ $message->creator->name ?? '' }}</strong>
-                                                {{ $message->body }}
-                                                <br>
-                                                <small>add to timeline</small>
+                                        <a href=" {{ route('messages.show', $message->id) }} ">
+
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <img src="{{ asset('admin/img/mailbox_imgs/5.jpg') }}" class="message-img avatar rounded-circle"
+                                                        alt="avatar1">
+                                                </div>
+                                                <div class="col-10 message-data">
+                                                    <strong>{{ $message->creator->name ?? '' }}</strong>
+                                                        {{ substr($message->body, 0, 12) . '...'; }}
+                                                        <br>
+                                                    <small>Reply</small>
+                                                </div>
+                                                <div class="modal fade" id="ReplyTheMessage{{ $message->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modalLabel">Reply {{ $message->creator_id == auth()->user()->id ? $message->receiver->name : $message->creator->name }}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <form class="form-horizontal" action="{{ route('messages.store') }}" method="POST">
+                                                            @csrf
+                                                                
+                                                                <input name="project_id" value="{{ $message->project_id }}" hidden readonly>
+                                                                <input name="receiver" value="{{ $message->creator_id == auth()->user()->id ? $message->receiver_id : $message->creator_id }}" hidden readonly> 
+
+                                                                <fieldset>
+                                                                    <div class="modal-body">
+                                                                        
+                                                                        <div class="col-12">
+                                                                            <label for="subject1" class="col-form-label">
+                                                                                Message
+                                                                            </label>
+                                                                            <div class="input-group">
+                                                                                <textarea id="body" value="{{ old('body') }}" class="form-control" placeholder="" name="body"></textarea>
+                                                                            </div>
+                                                                            @error('body')
+                                                                                <span class="text-danger">{{ $errors->first('body') }}</span>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-12">
+                                                                                @can('projects.team.message')
+                                                                                <button class="btn btn-sm btn-responsive layout_btn_prevent btn-primary">Yes, Send</button>
+                                                                                @endcan
+                                                                                <button class="btn btn-sm btn-secondary" data-dismiss="modal">Close me!</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
+
                                 @endforeach
                                     
                                 </div>
                                 <div class="popover-footer">
-                                    <a href="mail_inbox.html" class="text-white">Inbox</a>
+                                    <a href="{{ route('messages.index') }}" class="text-white">Inbox</a>
                                 </div>
                             </div>
                         </div>
@@ -310,7 +366,7 @@
                             </li>
                             @endcan
 
-                            @can('batches.menu')
+                            @can('batch.menu')
                             <li class="@if(request()->is('batches')) active @endif">
                                 <a href="{{ route('batches.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>
@@ -319,7 +375,7 @@
                             </li>
                             @endcan
 
-                            @can('inventories.menu')
+                            @can('inventory.menu')
                             <li class="@if(request()->is('inventories')) active @endif">
                                 <a href="{{ route('inventories.index') }}">
                                     <i class="fa fa-spinner fa-spin"></i>

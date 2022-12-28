@@ -11,6 +11,10 @@
 
 @stop
 
+<?php
+    use Carbon\Carbon;
+?>
+
 @section('content')
     <header class="head">
         <div class="main-bar">
@@ -181,13 +185,15 @@
                                         </thead>
                                         <tbody>
                                             @foreach($tasks as $task)
-                                            <tr>
-                                                <td>{{ date('d M Y', strtotime($task->end)) }}</td>
-                                                <td><a href="{{ route('tasks.show', $task->id) }}">{{ $task->name }}</a></td>
-                                                <td>{{ date('d M Y', strtotime($task->end)) }}</td>
-                                                <td>{{ $task->executor->name ?? 'NA' }}</td>
-                                                <td>{{ $task->project->name }}</td>
-                                            </tr>
+                                                @if($task->end < Carbon::now())
+                                                    <tr>
+                                                        <td>{{ date('d M Y', strtotime($task->end)) }}</td>
+                                                        <td><a href="{{ route('tasks.show', $task->id) }}">{{ $task->name }}</a></td>
+                                                        <td>{{ date('d M Y', strtotime($task->end)) }}</td>
+                                                        <td>{{ $task->executor->name ?? 'NA' }}</td>
+                                                        <td>{{ $task->project->name }}</td>
+                                                    </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -216,13 +222,15 @@
                                         </thead>
                                         <tbody>
                                             @foreach($tasks as $task)
-                                            <tr>
-                                                <td>{{ date('d M Y', strtotime($task->end)) }}</td>
-                                                <td><a href="{{ route('tasks.show', $task->id) }}">{{ $task->name }}</a></td>
-                                                <td>{{ date('d M Y', strtotime($task->end)) }}</td>
-                                                <td>{{ $task->executor->name ?? 'NA' }}</td>
-                                                <td>{{ $task->project->name }}</td>
-                                            </tr>
+                                                @if ($task->end >= Carbon::now())
+                                                    <tr>
+                                                        <td>{{ date('d M Y', strtotime($task->end)) }}</td>
+                                                        <td><a href="{{ route('tasks.show', $task->id) }}">{{ $task->name }}</a></td>
+                                                        <td>{{ date('d M Y', strtotime($task->end)) }}</td>
+                                                        <td>{{ $task->executor->name ?? 'NA' }}</td>
+                                                        <td>{{ $task->project->name }}</td>
+                                                    </tr> 
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>

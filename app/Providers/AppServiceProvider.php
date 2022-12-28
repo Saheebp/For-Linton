@@ -77,7 +77,8 @@ class AppServiceProvider extends ServiceProvider
 
             if (Auth::check()) 
             {
-                $messages = Message::where('receiver_id',Auth::user()->id)->get();
+                $messages = Message::where('receiver_id',Auth::user()->id)
+                ->where('read','false')->get();
                 $view->with('messages', $messages);
             }else{
                 $view->with('messages', NULL);

@@ -16,7 +16,7 @@ trait AppConfig
     function newMessageCount()
     {
         if (Auth::check()) {
-            $count = Message::where('reply','false')->where('receiver_id',Auth::user()->id)->get()->count();
+            $count = Message::where('read','false')->where('receiver_id',Auth::user()->id)->get()->count();
             return $count; 
         }else{
             return 0;

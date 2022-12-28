@@ -19,7 +19,7 @@ class Notification extends Model
         'grand_task_id',
         'great_task_id',
         'user_id',
-
+        'read',
         'resource_id',
         'request_fq_id',
         'quote_id',

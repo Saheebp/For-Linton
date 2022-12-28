@@ -30,7 +30,7 @@ class AppMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Notification from Project Manager')
+        return $this->subject('Notification from Project Manager')//->from('dev.lintonstarks@gmail.com')
         ->view('emails.send');
     }
 }

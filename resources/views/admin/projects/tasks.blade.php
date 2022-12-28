@@ -1498,7 +1498,7 @@
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
                                                                 </div>
-                                                                <form class="form-horizontal" action="{{ route('tasks.update', $task)}}" method="POST">
+                                                                <form class="form-horizontal" action="{{ route('tasks.update', $task)}}" method="POST"  enctype="multipart/form-data">
                                                                 @csrf
                                                                     <fieldset>
                                                                         <div class="modal-body">
@@ -1544,6 +1544,8 @@
                                                                             </div>
 
                                                                             <div class="form-group row">
+                                                                            <!-- <input type="hidden" value="{{ $task->description }}" class="form-control" name="description">
+                                                                            <input type="hidden" value="{{ $task->status }}" class="form-control" name="status"> -->
                                                                                 
                                                                                 <!-- <div class="col-lg-12">
                                                                                     <label for="subject1" class="col-form-label">

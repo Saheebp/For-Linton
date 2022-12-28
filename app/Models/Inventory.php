@@ -18,7 +18,7 @@ class Inventory extends Model
         'state',
         'lga',
         'address',
-
+        'status_id',
         'project_id',
     ];
 

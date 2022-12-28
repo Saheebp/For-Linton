@@ -85,6 +85,7 @@ class PermissionController extends Controller
     public function syncUserPermissions(Request $request)
     {
         $user = User::find($request->user_id);
+        // $current_permissions = $user->getDirectPermissions();
         $user->syncPermissions($request->permissions);
         
         activity()

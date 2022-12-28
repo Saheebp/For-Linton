@@ -12,7 +12,7 @@ class Message extends Model
     
     protected $fillable = [
         'body',
-
+        'read',
         'task_id',
         'creator_id',
         'receiver_id',

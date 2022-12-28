@@ -52,6 +52,8 @@ class ProjectController extends Controller
         return view('admin.projects.index', [
             'all_projects' => $all_projects,
             'projects' => $projects,
+            'date' => $all_projects[0]->start,
+            'data' => ''
         ]);
     }
 
@@ -132,7 +134,8 @@ class ProjectController extends Controller
             // $geocoder->setCountry(config('geocoder.country'));
             // $address = $geocoder->getCoordinatesForAddress($request->address);
             }
-            
+
+
             $project = Project::create([
 
                 'name' => $request->name,
@@ -199,12 +202,12 @@ class ProjectController extends Controller
                 $file = $request->file('rpdocuments');
                 $rpdocuments = $this->projectfileUpload($file, $project->id, 'Related Project Documents', 'Document containing Related Project Documents');
             }
-
-            Inventory::create([
+               
+            $inventory = Inventory::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'project_id' => $project->id,
-                'status_id' => config('new')
+                'status_id' => config('new'),
             ]);
 
             $project->update([
@@ -236,7 +239,6 @@ class ProjectController extends Controller
         }
         catch (\Exception $e) 
         {
-            //dd($e);
             return back()->with('error', "Oops, Error Creating a Project");
         }
     }
@@ -1118,6 +1120,48 @@ class ProjectController extends Controller
         catch (\Exception $e) 
         {
             return false;
+        }
+    }
+
+    public function filter(Request $request)
+    {
+        print('===');
+        dd($request);
+        $projects = Project::where('status_id',$status)->orderBy('created_at', 'desc')->paginate(10);
+        $all_projects = Project::all();
+        
+        return view('admin.projects.index', [
+            'all_projects' => $all_projects,
+            'projects' => $projects,
+        ]);
+    }
+
+    public function search(Request $request){
+        $data = $request->data;
+        $from = $request->date;
+        $now = now();
+        
+        try {
+
+            $all_projects = Project::all();
+
+            $project = Project::orderBy('start', 'desc')
+            ->where('name', 'LIKE', '%' . $data . '%')
+            // ->orWhere('description', 'LIKE', '%' . $data . '%')
+            ->When(isset($from), function($q) use($from, $now){
+                $q->whereBetween('start', [$from, $now]);
+            })
+            ->paginate(20);
+                        
+            return view('admin.projects.index', [
+                'all_projects' => $all_projects,
+                'projects' => $project,
+                'date' => $request->date,
+                'data' => $request->data
+            ]);
+        } catch (\Exception $e) 
+        {
+            return back()->with('error', "Oops, Error Occured");
         }
     }
 }

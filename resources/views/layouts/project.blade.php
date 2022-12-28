@@ -21,7 +21,11 @@
 @stop
 
 {{-- Page content --}}
-
+<?php use Carbon\Carbon; 
+    $time = Carbon::now()->format('Y-M-d') >= $project->end ? 0 : Carbon::now()->diffInDays($project->end);
+    //Carbon::parse($project->end)->diffInDays(Carbon::now()->format('Y-M-d')) : 
+    // Carbon::now()->format('Y-M-d')->diffInDays(Carbon::parse($project->end));
+?>
 @section('content')
     <!-- Content Header (Page header) -->
     <header class="head">
@@ -712,7 +716,7 @@
                                                 <td><b>Manager: </b><br>{{ $project->manager->name ?? '' }}</td>
                                             </tr>
                                             <tr>
-                                                <td><b>Remaining Days: </b><br>{{ round(( strtotime($project->end) - strtotime($project->start)) / 3600 / 24 ) }} days</td>
+                                                <td><b>Remaining Days: </b><br>{{ $time }} days</td>
 
                                                 <?php
                                                     $completed_tasks = $project->tasks->where('status_id',$completed)->count();

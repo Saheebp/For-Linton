@@ -74,13 +74,16 @@ class Controller extends BaseController
             
             //\Mail::to($data['emails'])->send(new \App\Mail\AppMail($details));
             //\Mail::to('ibennamdik@gmail.com')->send(new \App\Mail\AppMail($details));
-            //dd($data['emails']);
+            // dd($data['emails']);
 
             if ($data['emails'] != null) {
                 foreach ($data['emails'] as $email) {
                     $statusreport = \Mail::to($email)->send(new \App\Mail\AppMail($details));
                 }
             }
+
+            // $sent = \Mail::failures();
+            // dd($sent);
 
             //send sms with booking status 
             // $receiver = $user->phone;
@@ -95,7 +98,7 @@ class Controller extends BaseController
         }
         catch (\Exception $e) 
         {
-            //dd($e->getMessage()." on line ".$e->getLine());
+            // dd($e->getMessage()." on line ".$e->getLine());
             $this->createErrorReport(auth()->user()->id, 'Emails', $e->getMessage());
             return false;
         }

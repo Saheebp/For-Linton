@@ -140,21 +140,22 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            //'description' => 'required|string|max:255',
             //'budget' => 'required|string',
-            'status' => 'required',
+            //'status' => 'required',
         ]);
+
 
         try 
         {
             $task->update([
                 'name' => $request->name,
-                'description' => $request->description,
+                //'description' => $request->description,
                 //'budget' => $request->budget,
                 'owner' => $request->owner,
-                'status_id' => $request->status,
+                //'status_id' => $request->status,
             ]);
-            $task->save();
+            //$task->save();
 
             $data = array();
             $data['body'] = auth()->user()->name." updated a Task ".$task->name." on Project : ".$task->project->id." [".$task->project->name."], starting ".$task->start." and ending ".$task->end;
@@ -173,7 +174,7 @@ class TaskController extends Controller
         }
         catch (\Exception $e) 
         {
-            return back()->with('error', "Oops, Error Updating a Project");
+            return back()->with('error', "Oops, Error Updating task");
         }
     }
 

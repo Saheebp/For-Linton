@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">Projects</a>
+                            <a href="{{ route('projects.index') }}">Projects</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -200,37 +200,39 @@
                             <i class="fa fa-table"></i> All Projects {{ isset($title) ? $title:'' }}
                         </div>
                         <div class="card-body m-t-35">
+                            <form method="POST" action="{{ route('projects.search') }}">
 
-                            <div class="row">
-                                <div class="col-lg-6 col-sm-12 text-right">
-                                    <form method="POST" action="{{ route('projects.filter') }}">
-                                    @csrf
-                                        <div class="form-group row">
-                                            <div class="col-md-10">
-                                                <div class="input-group mb-3">
-                                                    <input class="form-control col-12" type="date" name="date" placeholder="search by ref no, ">
-                                                    <div class="input-group-append"><button class="btn btn-outline-success" type="submit">Filter by Start Date</button></div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-12 text-right">
+                                        <!-- <form method="POST" action="{{ route('projects.search') }}"> -->
+                                        @csrf
+                                            <div class="form-group row">
+                                                <div class="col-md-10">
+                                                    <div class="input-group mb-3">
+                                                        <input class="form-control col-12" type="date" name="date" value="{{ $date }}" placeholder="search by ref no, ">
+                                                        <div class="input-group-append"><button class="btn btn-outline-success" type="submit">Filter by Start Date</button></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                
-                                <div class="col-lg-6 col-sm-12 text-right">
-                                    <form method="POST" action="{{ route('projects.search') }}">
-                                    @csrf
-                                        <div class="form-group row">
-                                            <div class="col-md-10">
-                                                <div class="input-group mb-3">
-                                                    <input class="form-control col-12" type="text" name="data">
-                                                    <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
-                                                    <div class="input-group-append"><a class="btn btn-outline-dark" href="{{ route('projects.index') }}">Reset</a></div>
+                                        <!-- </form> -->
+                                    </div>
+                                    
+                                    <div class="col-lg-6 col-sm-12 text-right">
+                                        <!-- <form method="POST" action="{{ route('projects.search') }}"> -->
+                                        @csrf
+                                            <div class="form-group row">
+                                                <div class="col-md-10">
+                                                    <div class="input-group mb-3">
+                                                        <input class="form-control col-12" type="text" name="data" value="{{ $data }}" >
+                                                        <div class="input-group-append"><button class="btn btn-outline-success" type="submit">search Records</button></div>
+                                                        <div class="input-group-append"><a class="btn btn-outline-dark" href="{{ route('projects.index') }}">Reset</a></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        <!-- </form> -->
+                                    </div>
                                 </div>
-                            </div>
+                                </form>
 
                             <div class="table-responsive">
                                 <table id="example1" class="table table-striped table-bordered bordered">

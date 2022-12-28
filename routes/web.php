@@ -255,6 +255,7 @@ Route::middleware('auth')->group(function() {
             Route::post('reminder/send', 'TaskController@sendReminderMember')->name('reminder');
             
             Route::post('status/update/{task}', 'TaskController@updateStatus')->name('updateStatus');
+            Route::post('update/{task}', 'TaskController@update')->name('update');
             Route::post('cost/update/{task}', 'TaskController@updateCost')->name('updateCost');
             Route::post('time/update/{task}', 'TaskController@updateTime')->name('updateTime');
 
@@ -398,6 +399,7 @@ Route::middleware('auth')->group(function() {
             Route::get('/', 'MessageController@index')->name('index');
             Route::post('filter', 'MessageController@filter')->name('filter');
             Route::post('search', 'MessageController@search')->name('search');
+            Route::get('show/{message_id}', 'MessageController@showMessage')->name('show');
         });
     });
 
